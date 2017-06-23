@@ -19,6 +19,30 @@ public class OrderInvoice {
         String order_total="";
         String invoice_date="";
         String invoice_file="";
+
+        public String getId() {
+            return id;
+        }
+
+        public String getOrder_id() {
+            return order_id;
+        }
+
+        public String getInvoice_no() {
+            return invoice_no;
+        }
+
+        public String getOrder_total() {
+            return order_total;
+        }
+
+        public String getInvoice_date() {
+            return invoice_date;
+        }
+
+        public String getInvoice_file() {
+            return invoice_file;
+        }
     }
 
     public class InvoiceLR{

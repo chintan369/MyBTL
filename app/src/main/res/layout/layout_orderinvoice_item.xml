@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_invoiceNo"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="2dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_date"
+            android:textColor="#000"
+            android:padding="2dp"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_total"
+            android:textColor="#000"
+            android:padding="2dp"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="2dp"
+            android:id="@+id/img_options"
+            android:src="@drawable/option"/>
+
+</LinearLayout>
