@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.Globals;
+import com.agraeta.user.btl.LRDetailActivity;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.OrderInvoice;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +96,10 @@ public class OrderInvoiceAdapter extends BaseAdapter {
     }
 
     private void goToLRDetailActivity(int position) {
-        Intent intent=new Intent();
+        Intent intent=new Intent(activity, LRDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("jsonLR",new Gson().toJson(orderInvoiceList.get(position).getInvoiceLr().get(0)));
+        activity.startActivity(intent);
     }
 
     private void showInvoiceItemPDF(int position) {
