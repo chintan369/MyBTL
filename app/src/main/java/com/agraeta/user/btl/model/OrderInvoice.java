@@ -52,6 +52,26 @@ public class OrderInvoice {
         String created="";
 
         LRDetail LrDetail=new LRDetail();
+
+        public String getId() {
+            return id;
+        }
+
+        public String getInvoice_id() {
+            return invoice_id;
+        }
+
+        public String getLr_id() {
+            return lr_id;
+        }
+
+        public String getCreated() {
+            return created;
+        }
+
+        public LRDetail getLrDetail() {
+            return LrDetail;
+        }
     }
 
     public class LRDetail{
