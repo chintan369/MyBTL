@@ -4,20 +4,16 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_send_button_icon.xml"
     },
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_cancel_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_cancel_background.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_blue_bg_selector.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_blue_bg_selector.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_background.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_background.xml"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_header_background.xml",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_header_background.xml"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_like_background.xml",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_like_background.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_cancel_background.xml",
@@ -28,16 +24,16 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_send_background.xml"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_round.xml",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_round.xml"
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_send_button_icon.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_send_button_icon.xml"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_login_silver_background.xml",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_login_silver_background.xml"
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_blue_bg_round.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_blue_bg_round.xml"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_selector.xml",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_selector.xml"
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_background.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_blue_bg_round.xml",
@@ -50,5 +46,61 @@
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_background.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_like_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_like_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_send_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_send_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_header_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_header_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_icon.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_icon.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_login_silver_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_login_silver_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_blue_bg_selector.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_blue_bg_selector.xml"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_header_background.xml",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_header_background.xml"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_like_background.xml",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_like_background.xml"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_round.xml",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_round.xml"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_button_login_silver_background.xml",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_button_login_silver_background.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_selector.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_selector.xml"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_selector.xml",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_selector.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\messenger_button_white_bg_round.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\messenger_button_white_bg_round.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\com_facebook_auth_dialog_background.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable\\com_facebook_auth_dialog_background.xml"
     }
 ]

@@ -282,10 +282,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             role_id = user_data.get(i).getUser_type().toString();
 
-            tv_user_name_billing.setText(user_data.get(0).getF_name());
+           /* tv_user_name_billing.setText(user_data.get(0).getF_name());
             tv_user_name_delivery.setText(user_data.get(0).getF_name());
             tv_number_billing.setText(user_data.get(0).getPhone_no());
-            tv_number_delivery.setText(user_data.get(0).getPhone_no());
+            tv_number_delivery.setText(user_data.get(0).getPhone_no());*/
 
             if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
                 appPrefs = new AppPrefs(CheckoutPage_Product.this);
@@ -555,7 +555,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
         //Log.e("", "User Id before web services " + user_data.get(0).getUser_id());
 
-        for (int i = 0; i < user_data.size(); i++) {
+      /*  for (int i = 0; i < user_data.size(); i++) {
 
             user_id = user_data.get(i).getUser_id().toString();
 
@@ -578,7 +578,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 //                tv_number_delivery.setText(array_address.get(0).getMobile());
             }
 
-        }
+        }*/
 
         //Log.e("USERIDDD", "" + user_id);
 
@@ -616,11 +616,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
                     longt = gps.getLongitude(); // returns longitude
                     //Log.e("11111", "111111111111");
                     if (tv_address_billing.getText().toString().trim().equalsIgnoreCase("") || tv_address_billing.getText().toString().trim().equalsIgnoreCase("null")) {
-                        Globals.CustomToast(CheckoutPage_Product.this, "Please select billing address", getLayoutInflater());
+                        Globals.CustomToast(CheckoutPage_Product.this, "Please select shipping address", getLayoutInflater());
                     } else if (tv_address_delivery.getText().toString().trim().equalsIgnoreCase("") || tv_address_delivery.getText().toString().trim().equalsIgnoreCase("null")) {
                         Globals.CustomToast(CheckoutPage_Product.this, "Please select shipping address", getLayoutInflater());
                     } else if (selected_billing_address_id.toString().trim().equalsIgnoreCase("")) {
-                        Globals.CustomToast(CheckoutPage_Product.this, "Please select billing address", getLayoutInflater());
+                        Globals.CustomToast(CheckoutPage_Product.this, "Please select shipping address", getLayoutInflater());
                     } else if (selected_shipping_address_id.toString().trim().equalsIgnoreCase("")) {
                         Globals.CustomToast(CheckoutPage_Product.this, "Please select shipping address", getLayoutInflater());
                     } else {

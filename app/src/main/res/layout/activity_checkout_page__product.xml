@@ -593,8 +593,7 @@
                 android:layout_weight="1"
                 android:background="#01035a"
                 android:text="Confirm Order"
-                android:textColor="#FFFFFF"
-                />
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/btn_discount"

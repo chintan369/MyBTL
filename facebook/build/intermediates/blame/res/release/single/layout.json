@@ -1,7 +1,23 @@
 [
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_round.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_round.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_large.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_large.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_small.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_small.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_small.xml",
@@ -10,6 +26,14 @@
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_large.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_small.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\activity_maps.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\activity_maps.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_device_auth_dialog_fragment.xml",
@@ -28,6 +52,14 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\com_facebook_tooltip_bubble.xml"
     },
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_activity_layout.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_activity_layout.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_tooltip_bubble.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_tooltip_bubble.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_small.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_small.xml"
     },
@@ -36,8 +68,20 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\activity_maps.xml"
     },
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_large.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_login_fragment.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_login_fragment.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_device_auth_dialog_fragment.xml",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_device_auth_dialog_fragment.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_round.xml",
