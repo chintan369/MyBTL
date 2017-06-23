@@ -1,0 +1,110 @@
+package com.agraeta.user.btl;
+
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+
+/**
+ * Created by Nivida new on 17-Sep-16.
+ */
+public class BossFirebaseMessagingService extends FirebaseMessagingService {
+
+    private static final String TAG = "MyFirebaseMsgService";
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        //Displaying data in log
+        //It is optional
+        //Log.e(TAG, "From: " + remoteMessage.getFrom());
+        Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+        Log.e(TAG, "DATA Message Body: " + remoteMessage.getData().toString());
+
+        SimpleDateFormat sdf=new SimpleDateFormat("hh:mm dd/MMM", Locale.getDefault());
+
+        AppPrefs prefs=new AppPrefs(getApplicationContext());
+        DatabaseHandler db=new DatabaseHandler(getApplicationContext());
+        Bean_Notification notification=new Bean_Notification();
+        notification.setTitle(remoteMessage.getData().get("title"));
+        notification.setMessage(remoteMessage.getData().get("message"));
+        notification.setTime(sdf.format(new Date()));
+        //Log.e("time of notification", notification.getTime());
+        db.AddNotification(notification,remoteMessage.getData().get("user_id"));
+
+        Log.e("Data Msg",remoteMessage.getData().toString()+" \n"+remoteMessage.toString());
+
+        boolean isForLogout=false;
+
+        if(remoteMessage.getData().toString().contains("status=") && remoteMessage.getData().get("status").equals("false")){
+            isForLogout=true;
+            String user_id=remoteMessage.getData().get("user_id");
+
+            if(prefs.getUserId().equalsIgnoreCase(user_id)){
+                prefs.setUserId("");
+                prefs.setUser_LoginInfo("");
+                prefs.setUser_PersonalInfo("");
+                prefs.setUser_SocialIdInfo("");
+                prefs.setUser_SocialFirst("");
+                prefs.setUser_Sociallast("");
+                prefs.setUser_Socialemail("");
+                prefs.setUser_SocialReInfo("");
+                prefs.setUserRoleId("");
+                db.Delete_user_table();
+                db.Clear_ALL_table();
+            }
+        }
+
+        String user_id=remoteMessage.getData().get("user_id");
+
+        if(prefs.getUserId().equalsIgnoreCase(user_id) && !isForLogout)
+            notifyUser(remoteMessage.getData().get("title"),remoteMessage.getData().get("message"));
+
+    }
+
+
+
+    //This method is only generating push notification
+    //It is same as we did in earlier posts
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void notifyUser(String title, String message){
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Intent intent = new Intent(this, Notification.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                R.drawable.btl_action);
+        Notification mNotification = new Notification.Builder(this)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText(message))
+                .setContentTitle(title)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setContentText(message)
+                .setLargeIcon(icon)
+                .setSmallIcon(R.drawable.btl_noti_1)
+                .setContentIntent(pIntent)
+                .setSound(soundUri)
+                .setAutoCancel(true)
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, mNotification);
+    }
+}

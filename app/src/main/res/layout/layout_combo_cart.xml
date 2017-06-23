@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="40dp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/txt_comboName"
+            tools:text="Combo Offer 1"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:id="@+id/img_editCombo"
+            android:src="@drawable/edit_list"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:id="@+id/img_deleteCombo"
+            android:src="@drawable/btl_remove"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/layout_price"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:id="@+id/txt_mrpLabel"
+                android:text="MRP"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="@color/red"
+                android:text="745.00"
+                android:id="@+id/txt_mrpPrice" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="#000000"
+                android:id="@+id/txt_sellingLabel"
+                android:text="SELLING PRICE"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:textColor="@color/green"
+                android:text="745.00"
+                android:id="@+id/txt_sellingPrice" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:text="Total Qty : "
+            android:textColor="@color/black_000"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:id="@+id/txt_totalQty"
+            android:textColor="@color/black_000"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:background="#000000"/>
+
+
+</LinearLayout>

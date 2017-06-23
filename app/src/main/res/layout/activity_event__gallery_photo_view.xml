@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    >
+
+    <Gallery
+        android:id="@+id/gallery"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#fff"
+        />
+
+    <com.agraeta.user.btl.ExtendedViewPager
+        android:id="@+id/pager_gallery"
+        android:layout_above="@id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:layout_marginBottom="10dp"
+        >
+    </com.agraeta.user.btl.ExtendedViewPager>
+
+    <ImageView
+        android:id="@+id/img_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_share"
+        android:padding="5dp"
+        android:layout_margin="3dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+
+ 
+</RelativeLayout>

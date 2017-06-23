@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:layout_gravity="center|center"
+
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="Add New Group Name"
+        android:textColor="@color/colorPrimaryDark"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Group Name"
+            android:visibility="gone"
+android:singleLine="true"
+            android:maxLength="10"
+            android:id="@+id/tv_groupname_edit">
+
+        </TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="10dp"
+            android:background="@drawable/background_gradiant"
+android:hint="Group Name"
+
+            android:id="@+id/et_add_groupname">
+
+        </EditText>
+        <Button
+            android:layout_width="wrap_content"
+
+            android:text="Add"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+
+            android:layout_height="match_parent"
+            android:id="@+id/btn_add_groupname" />
+
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

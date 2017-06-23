@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.agraeta.user.btl">
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.STORAGE"/>
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:fullBackupOnly="false"
+        android:icon="@drawable/app_icon_trip"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/myAgreta"
+        tools:replace="android:icon,android:theme,android:allowBackup, android:fullBackupContent, android:fullBackupOnly">
+        <service
+            android:name=".BossFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".BossFirebaseInstanceIDService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/com_facebook_app_id"/>
+
+        <activity
+            android:name=".MainPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUp_Page"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FileChooser"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".career_activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homepage"
+            android:label="@string/title_activity_homepage"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".User_Profile"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTLProduct_Detail"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainPage_drawer"
+            android:label="@string/title_activity_main_page_drawer"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Cart"
+            android:label="Cart"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Description_Class"
+            android:label="Description"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Search"
+            android:label="Search"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ProductRegistration"
+            android:label="ProductRegistration"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ProductPage"
+            android:label="Products"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Product_DetailPage"
+            android:label="Product Detail Page"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTL_Professional"
+            android:label="BTL_Professional"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Demo"
+            android:label="@string/title_activity_demo"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Cardview"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Order_history"
+            android:label="@string/title_activity_order_history"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Contact_Us"
+            android:label="@string/title_activity_contact__us"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Notification"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Drawer_CategoryPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainCategory"
+            android:label="@string/title_activity_main_category"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Main_CategoryPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Product_List"
+            android:label="hello"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Business_Registration"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Forgot_password"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LogInPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributer"
+            android:label="@string/title_activity_distributer"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Dealer"
+            android:label="@string/title_activity_dealer"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Direct_customer"
+            android:label="@string/title_activity_direct_customer"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".sales_person"
+            android:label="@string/title_activity_sales_person"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Product_detail_page"
+            android:label="@string/title_activity_product_detail_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".BTL_Distributor"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTL_Dealer"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTL_Salesperson"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTL_DirectCustomer"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTLProdcut_Detailpage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".No_ConnectionPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".BTL_Cart"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Reset_Password"/>
+        <activity
+            android:name=".BTL_Contact"
+            android:label="@string/title_activity_btl__contact"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Contact"
+            android:label="@string/title_activity_contact"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Enquiry"
+            android:label="@string/title_activity_contact"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <!--
+        <activity android:name=".CorporateOffice" >
+        </activity>
+        <activity android:name=".ServiceCenter" >
+        </activity>
+        -->
+        <activity
+            android:name=".Inquiry_Tab"
+            android:label="@string/title_activity_inquiry__tab"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity android:name=".Btl_Profile"/>
+        <activity
+            android:name=".Change_password"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Btl_Edit_profile"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MyDocument"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Taxservices"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Establish"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Btl_Payment"
+            android:label="@string/title_activity_btl__payment"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Facebook_Activity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1570667769910368"
+            android:exported="true"/>
+
+        <activity android:name=".KeyHash_Activity"/>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+        <activity
+            android:name=".AboutUs_Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Product_Filter"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Btl_WishList"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Add_Newuser_Address"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Saved_Address"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Edit_Address"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Add_Address"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Map_Address"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Shooping_List"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Shopping_Product_view"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Add_to_shoppinglist"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CheckoutPage_Product"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Thankyou_Page"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Where_To_Buy"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Order_History_Filter"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Order_History_Details"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Event_Gallery_photo_view_Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisSalesFormActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DistributorActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisSalesListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.EditDisRetailerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.EditDisSalesActivity"
+            android:parentActivityName=".Distributor.DisSalesListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".InvoiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.UserTypeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.UserListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisResetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisProfListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisOrderListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.DisRetailerListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Technical_Gallery"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Event_Gallery"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Distributor.DisMyOrders"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.SalesSkipOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.SalesTypeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.SalesUserListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.DisSalesSkipActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"/>
+        <activity
+            android:name=".Distributor.LegderListActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Distributor.OutstandingListActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/myAgreta.NoActionBar"/>
+        <activity
+            android:name=".Distributor.D_OrderHistory"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.D_OrderHistoryFilter"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.D_OrderHistoryDetails"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.S_R_P_OrderList"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.SalesOrderHistory"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.Sales_Order_History_Filter"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.Sales_Order_History_Details"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.Dist_SalesOrderHistory"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.Dist_Sales_Order_History_Details"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DisSalesPerson.Dist_Sales_Order_History_Filter"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.S_SkipListIconActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.SkipOrderInformation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".My_Quotation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".My_Quatation_Info"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CompanySalesPerson.TargetAchieveList"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Distributor.Dis_TargetAchieveList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BecomeSellerActivity">
+        </activity>
+        <activity android:name=".FullZoomImageViewActivity">
+        </activity>
+        <activity android:name=".BulkEnquiryActivity">
+        </activity>
+        <activity
+            android:name=".ReOrderActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".admin.AdminDashboard"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".admin.UserListSelectionActivity">
+        </activity>
+        <activity android:name=".admin.UsersListActivity">
+        </activity>
+        <activity android:name=".admin.UserOrderListActivity">
+        </activity>
+        <activity android:name=".admin.UserOrderDetailActivity">
+        </activity>
+        <activity android:name=".admin.OrderTrackingHistoryActivity">
+        </activity>
+        <activity android:name=".admin.UserOrderEnquiryHistoryActivity">
+        </activity>
+        <activity android:name=".admin.SubuserListActivity">
+        </activity>
+        <activity android:name=".admin.UserEnquiryTypeActivity">
+        </activity>
+        <activity android:name=".admin.UserProductEnquiryActivity">
+        </activity>
+        <activity android:name=".admin.UserBusinessEnquiryActivity">
+        </activity>
+        <activity android:name=".admin.CustomerComplaintActivity">
+        </activity>
+        <activity android:name=".admin.CareerListActivity">
+        </activity>
+        <activity android:name=".admin.CorpOfficeListActivity">
+        </activity>
+        <activity android:name=".admin.ProductRegistrationListActivity">
+        </activity>
+        <activity android:name=".admin.CouponListActivity">
+        </activity>
+        <activity android:name=".admin.SchemeListActivity">
+        </activity>
+        <activity android:name=".PayUMentActivity">
+        </activity>
+        <activity
+            android:name=".ComboOfferActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".NonMRPProductEnquiry">
+        </activity>
+        <activity android:name=".admin.AdminTallyActivity">
+        </activity>
+        <activity android:name=".ComboOfferListActivity">
+        </activity>
+        <activity android:name=".SkipOrderUnregisterUserActivity">
+        </activity>
+        <activity android:name=".UnRegisteredUserListActivity">
+        </activity>
+        <activity android:name=".UnregisteredUserDetailActivity">
+        </activity>
+        <activity android:name=".CompanySalesPerson.RegisteredUserSkipOrderActivity">
+        </activity>
+        <activity android:name=".admin.RegisteredDealerListActivity">
+        </activity>
+        <activity android:name=".admin.RegisteredDealerDetailActivity">
+        </activity>
+        <activity android:name=".CompanySalesPerson.RegisteredUserSkipOrderListActivity">
+        </activity>
+        <activity android:name=".CompanySalesPerson.RegisteredUserDSRDetailActivity">
+        </activity>
+        <activity android:name=".ProductSearchForQuotationActivity">
+        </activity>
+        <activity android:name=".AddOtherProductForQuotation">
+        </activity>
+        <activity android:name=".SendQuotationActivity">
+        </activity>
+        <activity android:name=".VideoGalleryActivity">
+        </activity>
+        <activity android:name=".VideoGalleryDetailActivity">
+        </activity>
+        <activity android:name=".DownloadsActivity">
+        </activity>
+        <activity android:name=".ReorderQuotationActivity">
+        </activity>
+    </application>
+
+</manifest>

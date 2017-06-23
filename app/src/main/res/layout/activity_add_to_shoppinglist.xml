@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/black_underline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text="Add To Shopping List"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/black_underline" />
+
+        <Button
+            android:id="@+id/btn_addnewgroup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Add New Group"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spn_grouplist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_slider"
+
+                android:layout_weight="1"
+                android:spinnerMode="dialog" />
+
+            <Button
+                android:id="@+id/btn_addtoshopping"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               android:layout_marginLeft="2dp"
+android:layout_weight="2"
+                android:background="@color/colorPrimaryDark"
+                android:text="Add To Shopping List"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

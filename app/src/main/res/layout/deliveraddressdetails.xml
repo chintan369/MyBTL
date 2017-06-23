@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="40dp"
+            android:gravity="start|center"
+            android:id="@+id/Ckbx_del_address"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Siddharth Shah"
+                android:textSize="18sp"
+                android:gravity="start|center"
+                android:id="@+id/d_pname"
+                android:textColor="#000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:id="@+id/d_padd1"
+                android:gravity="start|center"
+                android:text="opp. Vadodara Central Mall,"
+
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:gravity="start|center"
+                android:text="Nr. Genda circle,"
+                android:id="@+id/d_padd2"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:gravity="start|center"
+                android:id="@+id/d_pcity"
+                android:text="Vadodara 390 023"
+
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:gravity="start|center"
+                android:text="Gujarat ,INDIA"
+                android:id="@+id/d_pstatecountry"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_weight="1">
+    <Button
+        android:layout_width="330dp"
+        android:layout_height="30dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:id="@+id/btn_usethis"
+
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
+        android:text="Deliver To This Address"
+        android:textAllCaps="false"/>
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:text="Edit"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:id="@+id/Btn_edit_address"
+
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
+            android:text="Delete"
+            android:id="@+id/btn_delete_address"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:gravity="center"
+          />
+
+    </LinearLayout>
+</LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black_underline"/>
+</LinearLayout>

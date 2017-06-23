@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.agraeta.user.btl.CompanySalesPerson.SalesSkipOrderActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Reason Type "
+            android:drawableRight="@drawable/star"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spn_reason"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinner_border"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edt_other_reason"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="If Other Then Specify it here"
+            android:background="@drawable/border_slider"
+            android:inputType="text"
+            android:singleLine="true"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Comment "
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_comment"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Enter Comment"
+            android:gravity="top"
+            android:background="@drawable/border_slider"
+            android:inputType="textMultiLine"
+            android:padding="5dp"
+            android:minLines="4"
+            android:textSize="14sp" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/edt_attachment1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@drawable/border_slider"-->
+
+        <!--android:inputType="text"-->
+        <!--android:singleLine="true"-->
+        <!--android:editable="false"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:focusableInTouchMode="false"-->
+        <!--android:textSize="14sp" />-->
+        <!--android:drawableRight="@drawable/upload_img"-->
+
+
+        <!--<EditText-->
+        <!--android:id="@+id/edt_attachment2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="@drawable/border_slider"-->
+        <!---->
+        <!--android:inputType="text"-->
+        <!--android:singleLine="true"-->
+        <!--android:editable="false"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:focusableInTouchMode="false"-->
+        <!--android:textSize="14sp" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:textSize="10sp"
+                android:padding="2dp"
+                android:id="@+id/txt_photo"
+                android:background="@drawable/border_slider"
+                android:hint="Select product image"/>
+            <Button
+                android:id="@+id/btn_upload_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/colorPrimaryDark"
+                android:text="Browse.."
+                android:textColor="#ffffff"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:textSize="10sp"
+                android:padding="2dp"
+                android:id="@+id/txt_photo2"
+                android:background="@drawable/border_slider"
+                android:hint="Select product image"/>
+            <Button
+                android:id="@+id/btn_upload_photo2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/colorPrimaryDark"
+                android:text="Browse.."
+                android:textColor="#ffffff"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:text="Save"
+                android:layout_marginBottom="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <Button
+                android:visibility="visible"
+                android:id="@+id/btn_cancel"
+                android:layout_marginTop="10dp"
+                android:background="#808080"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:text="Cancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical" android:layout_height="match_parent">
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textColor="#FFFFFF"
+    android:text="Camera"
+    android:layout_margin="10dp"
+    android:background="@color/colorPrimaryDark"
+    android:layout_weight="1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:text="Gallery"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+        android:text="Cancel"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="1"/>
+</LinearLayout>

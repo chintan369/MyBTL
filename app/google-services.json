@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "778348192223",
+    "firebase_url": "https://btlsalesapp-1255.firebaseio.com",
+    "project_id": "btlsalesapp-1255",
+    "storage_bucket": "btlsalesapp-1255.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778348192223:android:97d19116dc7545f0",
+        "android_client_info": {
+          "package_name": "com.agraeta.user.btl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778348192223-c5ntl55ct7k70hp6a0q87u09ac2pesee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agraeta.user.btl",
+            "certificate_hash": "4BAFFA9B84B61C3FDDFA09F41579E7F569B29851"
+          }
+        },
+        {
+          "client_id": "778348192223-7db84oqlts7hk31a5sqg61bahgfulm65.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "778348192223-qe1pbu7hrm4jplmlicf56uer565uaqa3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASA-D_GHWIJchl0x-EzERvsb1_EyG5zbE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778348192223-qt3f18peelltbp7i5crqa01mbrhab2lp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nivida.BTL-APP"
+              }
+            },
+            {
+              "client_id": "778348192223-7db84oqlts7hk31a5sqg61bahgfulm65.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

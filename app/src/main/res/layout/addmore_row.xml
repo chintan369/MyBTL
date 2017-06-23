@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="#fff"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/info"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD MORE PRODUCT"
+            android:textSize="18sp"
+            android:textColor="#000"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/red_delete"
+                android:id="@+id/btn_cancel"
+                android:clickable="true"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#F58735"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Name :"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/star"
+            />
+        <EditText
+            android:id="@+id/p_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+           android:background="@drawable/border_slider"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Code :"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/star"
+            />
+        <EditText
+            android:id="@+id/p_code"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:background="@drawable/border_slider"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unit Price :"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/star"
+            />
+        <EditText
+            android:id="@+id/p_uprice"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:background="@drawable/border_slider"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QTY :"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/star"
+            />
+        <EditText
+            android:id="@+id/p_qty"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:maxLength="4"
+            android:background="@drawable/border_slider"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total :"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/star"
+            />
+        <TextView
+            android:id="@+id/p_total"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:background="@drawable/border_slider"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="horizontal">
+        <Button
+
+            android:id="@+id/btn_Reset"
+            android:layout_marginTop="10dp"
+            android:background="#808080"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:textColor="#FFFFFF"
+            android:text="Reset"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <Button
+            android:id="@+id/btn_sub"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:padding="5dp"
+
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:text="Submit"
+            android:layout_marginBottom="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+</LinearLayout>

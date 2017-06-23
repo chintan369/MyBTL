@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.agraeta.user.btl.Business_Registration">
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:text="User Registration"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="@drawable/black_underline"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/star"
+                android:text="First Name "/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etfirst_name"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:hint="Your First Name"
+                android:singleLine="true"
+                android:inputType="text"
+
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <TextView
+
+
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+
+                android:text="Middle Name "/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/etmiddle_name"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:singleLine="true"
+                android:inputType="text"
+                android:hint="Enter Middle Name"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/person"/>
+            <TextView
+
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/star"
+                android:text="Last Name "/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etlast_name"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:hint="Your Last Name"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <TextView
+
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+android:visibility="gone"
+                android:text="Gender "/>
+            <RadioGroup
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:background="@drawable/border_slider">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Male"
+                    android:id="@+id/radio_male"
+                    android:layout_weight="0.5" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Female"
+                    android:id="@+id/radio_female"
+                    android:layout_weight="0.5" />
+            </RadioGroup>
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/star"
+                android:text="Email Address"
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_email"
+                android:textSize="14sp"
+                android:hint="Your Email Address"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"
+                android:id="@+id/Et_Emailid"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Mobile No."
+                android:drawableRight="@drawable/star"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etmobile"
+                android:textSize="14sp"
+                android:maxLength="14"
+                android:singleLine="true"
+                android:inputType="number"
+
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@drawable/ic_flag"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="5dp"
+                android:text="Create Password"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_key"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:fontFamily="sans-serif"
+
+                android:inputType="textPassword"
+                android:id="@+id/Et_pass"
+
+                android:hint="Your Password"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+android:visibility="gone"
+                android:text="Confirm Password"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif"
+
+                android:drawableLeft="@mipmap/ic_key"
+
+                android:id="@+id/Et_conf_pass"
+android:visibility="gone"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
+                android:visibility="gone"
+                android:text="Which type of User Are You"
+                android:textSize="16sp"/>
+            <RadioGroup
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:background="@drawable/border_slider"
+                android:id="@+id/R_grp_cust_type">
+
+              <!--  <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Distributer"
+                    android:id="@+id/radio_typ1"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Dealer"
+                    android:id="@+id/radio_typ2"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Sales Person"
+                    android:id="@+id/radio_typ3"
+                    android:checked="false" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Professional"
+                    android:id="@+id/radio_typ4"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Direct Customer"
+                    android:id="@+id/radio_typ5"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Other"
+                    android:id="@+id/radio_typ6"
+                    android:layout_weight="0.5" />-->
+            </RadioGroup>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Would you like periodic update for offers and new products ?"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_Reg1"
+
+                    android:background="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#FFFFFF"
+                    android:text="Submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/btn_Reset"
+
+                    android:background="#808080"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:text="Reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

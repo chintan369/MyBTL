@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_weight="4"
+            android:padding="8dp"
+            android:background="@drawable/black_underline"
+            android:src="@drawable/search"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#D4D4D4"
+            android:layout_height="match_parent" />
+        <EditText
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:id="@+id/et_search"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/black_underline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="False"
+            android:hint="Search"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="start"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+
+
+            android:background="@drawable/sline">
+            <ImageView
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cart"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\u20B90 CR"
+                android:textSize="16sp"
+
+                android:gravity="center_horizontal|center"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#FFFFFF">
+            <ImageView
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cart"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\u20B9100.00"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left|center"
+                android:layout_gravity="center"
+                android:textColor="#000000"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black_underline"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:text="AGE Of Business"/>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_gradiant"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="0-1 YEAR"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="1-5 YEAR"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_height="match_parent"
+                    android:text="5+ YEAR"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text=" PLEASE UPLOAD ANY ONE  DOCUMENT TO"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18sp"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:id="@+id/ACtiveACC"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="ACTIVE YOUR ACCOUNT"/>
+
+
+            <Button
+                android:id="@+id/BTn_vat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:background="#d4d4d4"
+                android:text="VAT/TIN #"
+                android:textColor="#000000"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="OR"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="10dp"
+                android:gravity="center"/>
+
+
+            <Button
+                android:id="@+id/btn_serv_tax"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:background="#d4d4d4"
+                android:text="Service tax regn.#"
+                android:textColor="#000000"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="OR"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="10dp"
+                android:gravity="center"/>
+            <Button
+                android:id="@+id/esta_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:background="#d4d4d4"
+                android:text="shop / ESTABLISHMENT #"
+                android:textColor="#000000"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    tools:context="com.agraeta.user.btl.DisSalesPerson.SalesUserListActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:hint="Search By Name"
+            android:padding="5dp"
+            android:id="@+id/search_name"
+            android:textColor="#000"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_slider"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/spinner_border"
+            android:layout_margin="1dp"
+            android:id="@+id/search_area" />
+    </LinearLayout>
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/refreshView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector_ripple"
+            android:fastScrollAlwaysVisible="false"
+            android:fastScrollEnabled="true"
+            android:id="@+id/lsView_user"
+            android:scrollbarStyle="outsideOverlay"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:dividerHeight="0dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:id="@+id/txt_nodata"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Sorry, No Data Found"/>
+
+    </FrameLayout>
+
+
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+</LinearLayout>

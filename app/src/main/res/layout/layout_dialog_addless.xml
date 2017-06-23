@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:drawableRight="@drawable/star"
+        android:text="Title"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edt_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/border_slider"
+        android:inputType="text"
+        android:textColor="#000"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:drawableRight="@drawable/star"
+        android:text="Add / Less"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/spinner_border"
+        android:layout_margin="5dp"
+        android:entries="@array/addless_array"
+        android:id="@+id/spn_addless"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:drawableRight="@drawable/star"
+        android:text="Amount"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edt_amount"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/border_slider"
+        android:inputType="numberDecimal"
+        android:textColor="#000"
+        android:singleLine="true"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+</LinearLayout>

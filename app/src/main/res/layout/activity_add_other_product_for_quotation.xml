@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.AddOtherProductForQuotation">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Non - BTL Product"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_margin="5dp"
+        android:background="@color/strip_bg"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_productName"
+                android:text="Product Name"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_productName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/black_000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_productCode"
+                android:text="Product Code"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_productCode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/black_000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_packOfType"
+                android:text="Pack Of Type"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_packOfType"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/black_000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_productMRP"
+                android:text="Product MRP"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_productMRP"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black_000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_productSP"
+                android:text="Product Selling Price"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_productSP"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black_000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Quantity"
+                android:id="@+id/txt_productQty"
+                android:textColor="@color/black_000"/>
+
+            <EditText
+                android:id="@+id/edt_productQty"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:padding="5dp"
+                android:inputType="number"
+                android:textColor="@color/black_000"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#eeeeee"
+            android:text="Cancel"
+            android:textColor="@color/black_000"
+            />
+
+        <Button
+            android:id="@+id/btn_addProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#eeeeee"
+            android:text="Add Product"
+            android:textColor="@color/black_000"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

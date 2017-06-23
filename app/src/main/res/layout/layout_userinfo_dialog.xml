@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email ID"
+            android:textColor="@color/grey_700"
+            android:layout_weight="1.5"
+            android:textSize="14sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/txt_emailID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:textColor="#009fff"
+            android:textSize="14sp"
+            tools:text="abcd.xyz@pqrstu.in"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mobile No."
+            android:textColor="@color/grey_700"
+            android:layout_weight="1.5"
+            android:textSize="14sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#009fff"
+            tools:text="9157463257"
+            android:id="@+id/txt_mobileNo"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registered On"
+            android:layout_weight="1.5"
+            android:textColor="@color/grey_700"
+            android:textSize="14sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="@color/grey_700"
+            tools:text="abcd.xyz@pqrstu.in"
+            android:id="@+id/txt_registeredOn"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#b9E46D26"
+        android:textColor="#FFFFFF"
+        android:text="CLOSE"
+        android:id="@+id/btn_ok"
+        android:textSize="16sp"/>
+
+</LinearLayout>

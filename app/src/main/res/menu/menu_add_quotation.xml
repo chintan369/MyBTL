@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_addBTLProduct"
+          android:title="BTL Product" />
+    <item android:id="@+id/menu_addOtherProduct"
+          android:title="Other Product" />
+</menu>

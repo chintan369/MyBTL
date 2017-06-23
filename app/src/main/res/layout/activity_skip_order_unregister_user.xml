@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.SkipOrderUnregisterUserActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Un-Registered User"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:padding="5dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/strip_bg"
+        android:layout_margin="5dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_scroll"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_firmName"
+                android:textSize="15sp"
+                android:text="Firm Name"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_firmName"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_addrLine1"
+                android:textSize="15sp"
+                android:text="Address Line 1"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_addrLine1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_addrLine2"
+                android:textSize="15sp"
+                android:text="Address Line 2"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_addrLine2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_addrLine3"
+                android:textSize="15sp"
+                android:text="Address Line 3"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_addrLine3"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_country"
+                android:textSize="15sp"
+                android:text="Country"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/spinner_border"
+                android:id="@+id/spn_country"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_state"
+                android:textSize="15sp"
+                android:text="State"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/spinner_border"
+                android:id="@+id/spn_state"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_city"
+                android:textSize="15sp"
+                android:text="City"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/spinner_border"
+                android:id="@+id/spn_city"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_area"
+                android:textSize="15sp"
+                android:text="Area"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/spinner_border"
+                android:id="@+id/spn_area"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_pincode"
+                android:textSize="15sp"
+                android:text="Pincode"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:maxLength="6"
+                android:inputType="number"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_pincode"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_contactPerson"
+                android:textSize="15sp"
+                android:text="Contact Person Name"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_contactPerson"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_emailID"
+                android:textSize="15sp"
+                android:text="Email ID"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_emailID"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_mobile"
+                android:textSize="15sp"
+                android:text="Mobile No"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="number"
+                android:maxLength="10"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_mobile"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_partyReport"
+                android:textSize="15sp"
+                android:text="Party Report / Market Ref."/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_partyReport"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/strip_bg"
+                android:textColor="@color/white"
+                android:id="@+id/btn_addVisitingFront"
+                android:layout_margin="5dp"
+                android:text="Visiting Card (Front Side)"/>
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:id="@+id/layout_visitngFront">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/img_visitingFront"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:id="@+id/img_removeVisitingFront"
+                    android:src="@drawable/com_facebook_close"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/txt_visitingFrontPath"/>
+
+            </FrameLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/strip_bg"
+                android:textColor="@color/white"
+                android:id="@+id/btn_addVisitingBack"
+                android:layout_margin="5dp"
+                android:text="Visiting Card (Back Side)"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:id="@+id/layout_visitngBack">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/img_visitingBack"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:id="@+id/img_removeVisitingBack"
+                    android:src="@drawable/com_facebook_close"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/txt_visitingBackPath"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_dealingBrand"
+                android:textSize="15sp"
+                android:text="Dealing In Brand"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_dealingBrand"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_customerType"
+                android:textSize="15sp"
+                android:text="Type of Customer"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/spinner_border"
+                android:id="@+id/spn_customerType"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_comment"
+                android:textSize="15sp"
+                android:text="Comment"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_comment"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/txt_jointVisitWith"
+                android:textSize="15sp"
+                android:text="Joint Visit With"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/background_gradiant"
+                android:id="@+id/edt_jointVisitWith"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_attachment"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/txt_add_attachment"
+                android:textColor="@color/strip_bg"
+                android:text="Add Attachment"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="5dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

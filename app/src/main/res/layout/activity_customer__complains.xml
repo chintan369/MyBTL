@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.Boss.Customer_Complains">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:text="Customer Complain"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="@drawable/black_underline"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:textSize="16sp"
+
+                android:drawableRight="@drawable/star"
+                android:text="First Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etfirst_name_Cust_com"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:inputType="textPersonName"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <TextView
+
+
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+
+                android:text="Middle Name "/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/etmiddle_name"
+                android:layout_weight="1"
+                android:visibility="gone"
+
+                android:hint="Enter Middle Name"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/person"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/star"
+
+                    android:text="Last Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etlast_name_Cust_com"
+                android:inputType="textPersonName"
+                android:layout_weight="1"
+                android:textSize="14sp"
+
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+                    android:drawableRight="@drawable/star"
+                    android:text="Email"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_email"
+                android:textSize="14sp"
+                android:inputType="textEmailAddress"
+                android:id="@+id/Et_Emailid"
+                android:background="@drawable/border_slider"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Mobile No."/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etmobile"
+                android:inputType="number"
+                android:textSize="14sp"
+                android:maxLength="14"
+
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@drawable/ic_flag"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+                    android:drawableRight="@drawable/star"
+                    android:text="Purchase State"/>
+
+
+            </LinearLayout>
+            <Spinner
+                android:id="@+id/spn_select_state"
+                android:layout_width="match_parent"
+                android:background="@drawable/spinner_border"
+                android:layout_marginTop="5dp"
+                android:spinnerMode="dialog"
+                android:layout_height="40dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/star"
+
+                    android:text="Purchase City"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <Spinner
+                android:id="@+id/spn_select_city"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_border"
+                android:padding="5dp"
+                android:spinnerMode="dialog" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Upload Photo"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Upload Photo"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textSize="10sp"
+                    android:padding="2dp"
+                    android:id="@+id/txt_photo"
+                    android:background="@drawable/border_slider"
+                    android:hint="Select product image"/>
+                <Button
+                    android:id="@+id/btn_upload_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Browse.."
+                    android:textColor="#ffffff"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/star"
+
+                    android:text="Product Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:background="@drawable/border_slider"
+                android:ems="10" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Purchase Bill Number"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+            <EditText
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/e_cust_pbillno"
+                android:inputType="number"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+
+                android:drawableLeft="@mipmap/ic_3"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Purchase Date"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textSize="12sp"
+                    android:padding="2dp"
+                    android:textColor="#000"
+                    android:layout_gravity="right"
+                    android:background="@drawable/border_slider"
+                    android:hint="Select Purchase Date"/>
+                <Button
+                    android:id="@+id/btn_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Date"
+                    android:textColor="#ffffff"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Dealer Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+            <EditText
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/e_dealername"
+                android:inputType="text"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Dealer Address"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+
+                    android:text=" *"/>
+            </LinearLayout>
+
+
+            <EditText
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/e_dadd"
+                android:inputType="text"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/place1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Dealer State"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spn_select_Dstate"
+                android:layout_width="match_parent"
+                android:background="@drawable/spinner_border"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:layout_height="40dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+
+                    android:text="Dealer City"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spn_select_Dcity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_border"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:spinnerMode="dialog" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Upload Invoice Copy"
+                android:textSize="16sp"
+
+                android:layout_marginTop="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:textSize="10sp"
+                    android:padding="2dp"
+                    android:id="@+id/txt_invoice"
+                    android:background="@drawable/border_slider"
+                    android:hint="Select File"/>
+                <Button
+                    android:id="@+id/btn_upload_invoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="Browse.."
+                    android:textColor="#ffffff"/>
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Warranty"
+                android:textSize="16sp"
+
+                android:layout_marginTop="5dp"/>
+            <RadioGroup
+                android:id="@+id/rd_warrenty"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+
+                android:orientation="horizontal"
+                android:background="@drawable/border_slider">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="In Warranty"
+                    android:id="@+id/radio_inw"
+                    android:layout_weight="0.5" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Out Of Warranty"
+                    android:id="@+id/radio_outw"
+                    android:layout_weight="0.5" />
+            </RadioGroup>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+android:drawableRight="@drawable/star"
+                    android:text="Reason"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+
+
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_reson_for_complaint"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/icc_coomm"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_Cust_com_sub"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:text="Submit"
+                    android:layout_marginBottom="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/btn_Reset"
+                    android:layout_marginTop="10dp"
+                    android:background="#808080"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:text="Reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

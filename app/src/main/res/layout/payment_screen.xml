@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d4d4d4" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_weight="4"
+            android:padding="8dp"
+            android:background="@drawable/black_underline"
+            android:src="@drawable/search"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#D4D4D4"
+            android:layout_height="match_parent" />
+        <EditText
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:id="@+id/et_search"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/black_underline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="False"
+            android:hint="Search"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingTop="5dp"
+
+        android:layout_gravity="bottom"
+        android:background="@color/yellow"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Free Shipping on order above Rs. 10000. Boss India is founded by the makers of BOSS – the leading brand in Kitchen Appliences.  "
+            android:id="@+id/MarqueeText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textSize="14sp"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:textColor="#FFFFFF"
+            android:focusableInTouchMode="true"
+            android:freezesText="false">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="start"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+
+
+            android:background="@drawable/sline">
+            <ImageView
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cart"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\u20B90 CR"
+                android:textSize="16sp"
+
+                android:gravity="center_horizontal|center"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#FFFFFF">
+            <ImageView
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cart"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\u20B9100.00"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left|center"
+                android:layout_gravity="center"
+                android:textColor="#000000"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black_underline"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_underline"
+        android:padding="5dp"
+        android:text="Payment"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/black_underline"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:padding="8dp"
+        android:layout_weight="1"
+        android:text="Balance Amount :-"
+        android:textColor="#000"
+        android:textSize="16sp"
+         />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:text="\u20B923205.00"
+            android:textColor="#06A54B"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:text="Payment Options"
+            android:textColor="#000"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:text="Amount"
+            android:textColor="#000"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_pay1"
+            android:textColor="#FFFFFF"
+            android:text="CONFIRM"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+</LinearLayout>
+

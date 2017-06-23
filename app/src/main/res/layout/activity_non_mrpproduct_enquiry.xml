@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.NonMRPProductEnquiry">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Product Enquiry"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/strip_bg"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Full Name "
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edt_firstName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"
+                android:inputType="textPersonName"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Firm Name "
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edt_lastName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"
+                android:inputType="textPersonName"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Email"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edt_emailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_email"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Mobile No."
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@drawable/ic_flag"
+                android:inputType="number"
+                android:maxLength="14"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Your Comment"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/edt_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/icc_coomm"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:minLines="4"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_attachment"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/txt_add_attachment"
+                android:textColor="@color/strip_bg"
+                android:text="Add Attachment"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="5dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/silver"
+    tools:context="com.agraeta.user.btl.admin.UserEnquiryTypeActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/strip_bg"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:text="Enquiries"
+        android:gravity="center"
+        android:textAllCaps="true"/>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_productEnquiry"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Product Enquiry"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countProductEnquiry"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_productRegistration"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Product Registration"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countProductRegistration"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_businessEnquiry"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Business Enquiry"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countbusinessEnquiry"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_customerComplaint"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Customer Complaints"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countcustomerComplaint"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_carrer"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Career"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countCareer"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_corpOfficeEnquiry"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Corp. Office Enquiry"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countcorpOfficeEnquiry"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_quotation"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Quotation"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countQuotation"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+           <android.support.v7.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:id="@+id/layout_registeredDealer"
+               app:cardElevation="5dp"
+               android:layout_margin="5dp"
+               app:cardCornerRadius="0dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="10dp"
+                   android:orientation="horizontal">
+
+                   <TextView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:padding="5dp"
+                       android:textSize="18sp"
+                       android:layout_weight="1"
+                       android:textColor="@color/black_000"
+                       android:text="Registered Dealer"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="5dp"
+                       android:textSize="16sp"
+                       android:text="0"
+                       android:textColor="@color/grey_700"
+                       android:id="@+id/txt_countRegisteredDealer"/>
+
+               </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+
+       </LinearLayout>
+
+   </ScrollView>
+
+</LinearLayout>

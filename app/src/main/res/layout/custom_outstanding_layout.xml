@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+
+        >
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Date"
+            android:gravity="center"
+            android:singleLine="true"
+            android:id="@+id/lst_date"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Ref. No."
+            android:id="@+id/lst_refno"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:text="Opening Amount"
+            android:id="@+id/lst_openingamt"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Pending Amount"
+            android:singleLine="true"
+            android:id="@+id/lst_pendingamt"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Due on"
+            android:singleLine="true"
+            android:id="@+id/lst_dueon"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Overdues"
+            android:id="@+id/lst_overdues"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+</LinearLayout>

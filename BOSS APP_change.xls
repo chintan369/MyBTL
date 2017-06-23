@@ -1,0 +1,27 @@
+1) in website search door keyword, here there are total 116 product found & in app  just 5 product found. So, please check it.
+
+2)select any product->add to cart->click on quntity->add many numbers->here the total->remove->here the total price place is not stable. So, please set it.
+
+3) after instal first time open app->it take more time -------NOT POSSIBLE
+
+4)without login->ad product in cart->add to cart->it asked for login->we login with any account->but in cart the product is not added. And also we again start this procedure. So, please fix it.-------NOT POSSIBLE
+
+5) search product-> not full list show.
+
+6) single image is still not open.
+
+7) Reorder is not working,it add in cart but still not update the quntity.(In scheme)
+
+8) Same product are added but it show twice in cart when we first order product from detail page and then from product list 
+
+9)If we order from detail page , and if there is offer still it is not applied 
+
+10)In order summary in some products "()" brackets are not shown
+
+11) If product is free set "FREE" text beside that in cart list.
+
+
+
+
+
+

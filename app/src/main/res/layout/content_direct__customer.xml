@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.agraeta.user.Boss.Direct_Customer"
+    tools:showIn="@layout/activity_direct__customer">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:text="Customer Details"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@drawable/black_underline"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+               android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:text="Permanent Address"
+                />
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@drawable/black_underline"/>-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:layout_marginTop="5dp"
+                android:text="Address Line1"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_Addressline_no1_direct"
+                android:hint="Flat No , Building No"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+
+                android:layout_marginTop="5dp"
+                android:text="Address Line 2"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_Addressline_no2_direct"
+                android:hint=" Street No , Locality"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="Address Line3"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+
+                android:id="@+id/Et_Addressline_no3_direct"
+                android:hint=" Landmark , Area"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:layout_marginTop="5dp"
+                android:text="Pin Code"
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_Pincode_direct"
+                android:maxLength="6"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="State"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_glob"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_State_direct"
+
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="City"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_city_direct"
+
+                android:background="@drawable/border_slider"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Same as above"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:id="@+id/checkBox_direct" />
+            <!-- <View
+                 android:layout_width="match_parent"
+                 android:layout_height="2dp"
+                 android:layout_marginTop="5dp"
+
+                 android:background="@drawable/black_underline"/>
+  -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:textStyle="bold"
+
+                android:text="Delivery Address"
+                />
+            <!--      <View
+                      android:layout_width="match_parent"
+                      android:layout_height="2dp"
+                      android:background="@drawable/black_underline"/>
+               -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:text="Address Line1"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:visibility="gone"
+                android:id="@+id/Et_Deliv_Addressline_no1_direct"
+                android:hint="Flat No , Building No"
+
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:text="Address Line 2"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_Deliv_Addressline_no2_direct"
+                android:hint=" Street No , Locality"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="Address Line3"
+                android:visibility="gone"
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/Et_Deliv_Addressline_no3_direct"
+                android:hint=" Landmark , Area"
+                android:visibility="gone"
+                android:background="@drawable/border_slider"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:text="Pin Code"
+                android:textSize="16sp"/>
+            <EditText
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+
+                android:id="@+id/Et_Deliv_Pincode_direct"
+
+                android:background="@drawable/border_slider"/>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="State"
+
+                android:textSize="16sp"/>
+            <EditText
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_glob"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+
+                android:id="@+id/Et_Deliv_State_direct"
+
+                android:background="@drawable/border_slider"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="City"
+                android:visibility="gone"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:visibility="gone"
+                android:id="@+id/Et_Deliv_city"
+                android:hint=" Enter City Name"
+                android:background="@drawable/border_slider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_save_direct"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <Button
+                    android:id="@+id/btn_Reset_direct"
+                    android:layout_marginTop="10dp"
+                    android:background="#808080"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:text="Reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

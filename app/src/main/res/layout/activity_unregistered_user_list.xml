@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.UnRegisteredUserListActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:contentPadding="5dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_slider"
+            android:hint="Search Un-Registered User"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/black_000"
+            android:id="@+id/edt_search"/>
+
+    </android.support.v7.widget.CardView>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:id="@+id/list_unregisterUser"/>
+
+</LinearLayout>

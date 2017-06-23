@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Enquiry Information"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_close"
+            android:src="@drawable/com_facebook_close"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/strip_bg"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Full Name"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_userName"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Email ID"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_emailID"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Contact No"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_contactNo"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_city"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="City"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_city"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_state"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="State"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_state"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_productName"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Product"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_productName"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:id="@+id/layout_vacancy"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Vacancy"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_vacancyName"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:id="@+id/layout_document"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Document"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:text="View Document"
+            android:textColor="@color/colorLink"
+            android:id="@+id/txt_documentLink"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_companyName"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Company"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_companyName"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_comment"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:id="@+id/txt_labelEnquiry"
+            android:textColor="@color/black_000"
+            android:text="Comment"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_comment"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:id="@+id/layout_purchaseDate"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Purchase Date"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_purchaseDate"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Date"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:id="@+id/txt_onDate"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:id="@+id/layout_invoice"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Invoice"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:text="View Invoice"
+            android:textColor="@color/colorLink"
+            android:id="@+id/txt_invoiceLink"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:id="@+id/layout_image"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textSize="14sp"
+            android:padding="5dp"
+            android:textColor="@color/black_000"
+            android:text="Image"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black_000"
+                android:id="@+id/img_image"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

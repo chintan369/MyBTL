@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.agraeta.user.Boss.Direct_Customer"
+    tools:showIn="@layout/activity_direct__customer">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:text="Customer Details"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@drawable/black_underline"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:text="Permanent Address"
+                />
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@drawable/black_underline"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+                    android:drawableRight="@drawable/star"
+                    android:text="First Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etfirst_name_Cust_com"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:inputType="textPersonName"
+                android:visibility="gone"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <TextView
+
+
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="16sp"
+
+                android:text="Middle Name "/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/etmiddle_name"
+                android:layout_weight="1"
+                android:visibility="gone"
+
+                android:hint="Enter Middle Name"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/person"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/star"
+
+                    android:text="Last Name"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etlast_name_Cust_com"
+                android:inputType="textPersonName"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@mipmap/ic_parson"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+
+                    android:drawableRight="@drawable/star"
+                    android:text="Email"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_email"
+                android:textSize="14sp"
+                android:inputType="textEmailAddress"
+                android:id="@+id/Et_Emailid"
+                android:background="@drawable/border_slider"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/star"
+
+                    android:text="Mobile No."/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="16sp"
+                    android:textColor="#ff0000"
+                    android:visibility="gone"
+                    android:text=" *"/>
+            </LinearLayout>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/etmobile"
+                android:inputType="phone"
+                android:textSize="14sp"
+                android:maxLength="14"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:background="@drawable/border_slider"
+                android:drawableLeft="@drawable/ic_flag"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="5dp"
+                android:text="Address Line1"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/et_addline1"
+                android:hint="Flat No , Building No"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+
+                android:layout_marginTop="5dp"
+                android:text="Address Line 2"
+                android:textSize="16sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/et_addline2"
+                android:hint=" Street No , Locality"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="Address Line3"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+
+                android:id="@+id/et_addline3"
+                android:hint=" Landmark , Area"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:text="Landmark"
+
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:visibility="gone"
+                android:id="@+id/et_landmark"
+                android:hint=" Landmark , Area"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="5dp"
+                android:text="Pin Code"
+                android:textSize="16sp"/>
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_place"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/et_pincode"
+                android:inputType="number"
+android:maxLength="6"
+                android:background="@drawable/border_slider"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="Country"
+                android:drawableRight="@drawable/star"
+                android:textSize="16sp"/>
+            <Spinner
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_glob"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/spn_country"
+
+                android:background="@drawable/spinner_border"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="State"
+                android:drawableRight="@drawable/star"
+                android:textSize="16sp"/>
+            <Spinner
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_glob"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/spn_state"
+
+                android:background="@drawable/spinner_border"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:text="City"
+                android:drawableRight="@drawable/star"
+                android:textSize="16sp"/>
+            <Spinner
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@mipmap/ic_building"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:id="@+id/spn_city"
+
+                android:background="@drawable/spinner_border"/>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <Button
+                    android:id="@+id/btn_reset"
+                    android:layout_marginTop="10dp"
+                    android:background="#808080"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:text="Reset"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

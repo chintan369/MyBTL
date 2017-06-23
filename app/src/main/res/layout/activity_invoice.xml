@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.agraeta.user.btl.InvoiceActivity"
+    android:layout_marginTop="5dp"
+    >
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/refreshView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector_ripple"
+            android:fastScrollAlwaysVisible="false"
+            android:fastScrollEnabled="true"
+            android:id="@+id/lsView_invoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:dividerHeight="0dp"
+            />
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="From Date"
+        android:id="@+id/edt_fromDate"
+        android:background="@drawable/cart_editborder"
+        android:textColor="@color/black_000"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:focusableInTouchMode="false"
+        android:editable="false"
+        android:padding="5dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="To Date"
+        android:focusableInTouchMode="false"
+        android:editable="false"
+        android:id="@+id/edt_toDate"
+        android:background="@drawable/cart_editborder"
+        android:textColor="@color/black_000"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:padding="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_cancel"
+            android:background="@color/grey_700"
+            android:textColor="@color/white"
+            android:text="Cancel"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_submit"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:text="SUBMIT"/>
+
+    </LinearLayout>
+
+</LinearLayout>

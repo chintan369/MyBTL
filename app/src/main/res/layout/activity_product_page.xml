@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+android:background="#FFFFFF"
+    tools:context="com.agraeta.user.btl.ProductPage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="1dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#E9E9E9"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="2dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center|end"
+                android:padding="5dp"
+                android:src="@drawable/ic_action_content_sort"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#E9E9E9"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:layout_margin="2dp"
+                android:text="Sort"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/tv_sort" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#E9E9E9"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="2dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center|right"
+
+                android:padding="5dp"
+                android:src="@drawable/ic_action_content_filter_list"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#E9E9E9"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:layout_margin="2dp"
+                android:text="Filter"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/tv_filter" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridView_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:listSelector="#FFFFFF"
+        android:numColumns="1"
+        android:scrollbars="none"></GridView>
+</LinearLayout>

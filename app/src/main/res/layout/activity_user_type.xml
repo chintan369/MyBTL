@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity"
+    android:orientation="vertical"
+    >
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/txt_select"-->
+        <!--android:text="Select the User Type :"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textColor="#696969"-->
+        <!--/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_select"
+            android:text="Select the User Type :"
+            android:textSize="16sp"
+            android:textColor="#696969"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+
+           android:layout_marginTop="10dp"
+            >
+
+         <!--   <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                ></RadioGroup>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="center"
+                >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radio_distributor"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_distributor"
+                android:text="Distributor"
+                android:textColor="#000000"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:background="@drawable/border_dis_user"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_weight="0.15"
+                android:gravity="center"/>
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_DealerOEM"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_DealerOEM"
+                    android:text="Comp. Dealer"
+                    android:textColor="#000000"
+                    android:layout_margin="5dp"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:background="@drawable/border_dis_user"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="0.15"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_compprof"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_compprof"
+                    android:text="Comp. Professional"
+                    android:textColor="#000000"
+                    android:layout_margin="5dp"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:background="@drawable/border_dis_user"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="0.15"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            android:weightSum="1">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radio_retailer"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_manuf_description"
+                android:text="Dist. Retailer"
+                android:textColor="#000000"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:background="@drawable/border_dis_user"
+                android:padding="10dp"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_weight="0.14" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+
+                android:weightSum="1">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_professional"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_professional"
+                    android:text="Dist. Professional"
+                    android:textColor="#000000"
+                    android:layout_margin="5dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/border_dis_user"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="0.13" />
+            </LinearLayout>
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Next"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/btn_next"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:background="@color/colorPrimaryDark"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Today DSR"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/btn_todayDSR"
+                android:textAllCaps="false"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:background="@color/colorPrimaryDark"
+                />
+
+    </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

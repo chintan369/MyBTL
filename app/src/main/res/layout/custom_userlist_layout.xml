@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="#fbe9e7"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/l_salesdata"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:textColor="#000"
+                android:text="Sales Name"
+                android:fontFamily="sans-serif"
+                android:id="@+id/txt_userListName"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:id="@+id/frm_options"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="4">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/menu_2_96"
+                android:id="@+id/option_icon"
+                />
+
+        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="3dp"-->
+            <!--android:id="@+id/frm_arrow"-->
+            <!--android:clickable="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="3">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:padding="3dp"-->
+                <!--android:src="@drawable/orange_right"-->
+                <!--android:id="@+id/arrow_icon"-->
+                <!--/>-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="Remove"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="#000000"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_horizontal"/>&ndash;&gt;-->
+
+        <!--</LinearLayout>-->
+
+    </LinearLayout>
+
+
+</LinearLayout>

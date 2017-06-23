@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="0dp"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_schemeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/black_000"
+                    android:padding="3dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="Offer Rates for qty 50 and more"/>
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/info"
+                    android:id="@+id/img_info"
+                    android:padding="3dp"
+                    android:tint="@color/white"
+                    android:background="@color/black_000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="Type "
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"
+                    android:id="@+id/txt_schemeType"
+                    tools:text="Buy X Get X Free"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="Buy "
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"
+                    android:id="@+id/txt_buyProduct"
+                    tools:text="Aluminium Edge Profile, 40 Quantity"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="Get "
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"
+                    android:id="@+id/txt_freeProduct"
+                    tools:text="Aluminium Edge Profile, 10 Quantity"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="Valid From "
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txt_startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="01 Feb 2017"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text=" To "
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txt_expiryDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:text="24 Mar 2017"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

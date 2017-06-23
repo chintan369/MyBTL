@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.Distributor.LegderListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:hint="Search By Starting Date"
+            android:padding="5dp"
+            android:id="@+id/startdate"
+            android:textColor="#000"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/cal_40"
+            android:background="@drawable/border_slider"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:hint="Search By Ending Date"
+            android:padding="5dp"
+            android:id="@+id/enddate"
+            android:textColor="#000"
+            android:layout_margin="1dp"
+            android:drawableRight="@drawable/cal_40"
+            android:layout_weight="1"
+            android:background="@drawable/border_slider"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ledger : "
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ledger Name"
+            android:textStyle="bold"
+            android:id="@+id/txt_ledgername"
+            />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S_Date"
+            android:textStyle="bold"
+            android:id="@+id/txt_sdate"
+           android:layout_gravity="end"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" to "
+                android:textStyle="bold"
+                android:id="@+id/txt_to"
+                />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E_Date"
+            android:textStyle="bold"
+            android:id="@+id/txt_edate"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+
+            >
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Particulars"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vch Type"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vch No."
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Debit"
+                android:id="@+id/debit"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Credit"
+                android:id="@+id/credit"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        />
+    <!---Listviewwwwwwwwwwwwwwwwwwwwwwwwwwwww-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        >
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/list_selector_ripple"
+            android:fastScrollAlwaysVisible="false"
+            android:fastScrollEnabled="true"
+            android:id="@+id/lsView_ledger"
+            android:scrollbarStyle="outsideOverlay"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:dividerHeight="0dp"
+            />
+    </LinearLayout>
+    <!---Listviewwwwwwwwwwwwwwwwwwwwwwwwwwwww-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Opening Balance :"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Debit"
+                    android:id="@+id/txt_opening"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Credit"
+                    android:id="@+id/opening_credit"
+                    android:visibility="visible"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Current Balance :"
+                    android:singleLine="true"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="2.5"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Debit"
+                    android:singleLine="true"
+                    android:id="@+id/txt_currentDebit"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Credit"
+                    android:singleLine="true"
+                    android:id="@+id/txt_currentCredit"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Closing Balance :"
+                    android:layout_gravity="center_vertical" />
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Debit"
+                    android:id="@+id/txt_closing"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Credit"
+                    android:id="@+id/closing_credit"
+                    android:visibility="visible"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>

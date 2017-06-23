@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layout_weight="1"
+    >
+    <!-- <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:fillViewport="true">-->
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/info"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEND ORDER ENQUIRY"
+                android:textSize="18sp"
+                android:textColor="#000"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                >
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/red_delete"
+                    android:id="@+id/btn_cancel"
+                    android:clickable="true"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#F58735"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/lcomment"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Mention your query here regarding order: "
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        android:layout_weight="2"
+                        android:layout_margin="3dp"
+                        />
+                   <!-- <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:padding="3dp"
+                        android:textColor="#000"
+                        android:inputType="textMultiLine"
+                        android:minHeight="100dp"
+                        android:id="@+id/txt_comt"
+                        android:background="@drawable/border_slider"
+                        android:layout_margin="3dp"
+                        />-->
+                    <EditText
+                        android:id="@+id/txt_comt"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:gravity="top"
+                        android:background="@drawable/border_slider"
+
+                        android:padding="10dp"
+                       android:layout_margin="3dp"
+                        android:textSize="16sp"
+                        android:inputType="textMultiLine"
+
+                        android:textColor="#000"
+                        android:singleLine="false"
+                        android:textColorHint="#000"
+                        android:imeOptions="actionNext"
+                        android:minLines="3"
+                        android:lines="3"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="3dp"
+                    >
+                    <Button
+                        android:id="@+id/btn_clear_i"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textAllCaps="false"
+                        android:padding="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:text="Clear"
+                        android:layout_marginBottom="60dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+                    <Button
+                        android:id="@+id/btn_send"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textAllCaps="false"
+                        android:padding="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:text="Send"
+                        android:layout_marginBottom="60dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    <!--</ScrollView>-->
+</LinearLayout>
+</LinearLayout>

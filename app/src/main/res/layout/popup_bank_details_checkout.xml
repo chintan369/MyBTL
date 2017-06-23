@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@android:color/transparent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@android:color/transparent"
+
+        >
+        <!--<ImageView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:src="@drawable/info"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="INFORMATION"-->
+            <!--android:textSize="18sp"-->
+            <!--/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:background="@android:color/transparent"
+
+
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/red_delete"
+                android:id="@+id/btn_cancel"
+                android:clickable="true"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E57B11"
+                />
+
+            <TextView
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Something to show"
+                android:gravity="center"
+                android:id="@+id/txt_title"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E57B11"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:gravity="center"
+
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BANK DETAILS"
+               android:padding="5dp"
+                android:background="@drawable/border_dis_user"
+                android:id="@+id/textView3" />
+
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Bank : "
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="bank"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txt_bank"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="A/c No : "
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="account"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txt_account"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="IFS Code : "
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="code"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txt_code"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Branch : "
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+                <!--<ScrollView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="vertical">-->
+                <!--<ScrollView-->
+                    <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="center_vertical">-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="branch"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txt_branch"
+                    android:layout_weight="1"
+
+
+                    />
+                <!--</ScrollView>-->
+
+
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:visibility="visible"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Branch Code : "
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:id="@+id/textView2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="branchcode"
+                android:gravity="center_vertical"
+                android:id="@+id/txt_branchcode"
+                android:layout_weight="1"
+                />
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:visibility="gone"
+
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Branch Code : "
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:id="@+id/textView21" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="branchcode"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txt_branchcode1"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:padding="10dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="15dp"
+            android:text="Custome Date Filter "
+            android:textSize="18sp"
+            android:textColor="#000000"
+
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="From: "
+                android:textSize="16sp"
+                android:textColor="#000000"
+
+                android:layout_weight="3"
+                android:id="@+id/textView5" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+android:inputType="text"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:id="@+id/ed_from_date"
+android:textColor="#000000"
+android:hint="Enter from Date"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="To: "
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_weight="3"
+                 />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ed_to_date"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:hint="Enter to Date"
+                android:inputType="text"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center|center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="16sp"
+        android:layout_margin="2dp"
+            android:id="@+id/btn_submit"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+
+            android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_margin="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="16sp"
+
+                android:id="@+id/btn_cancel"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#ffffff"
+                android:layout_marginTop="10dp"
+
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
