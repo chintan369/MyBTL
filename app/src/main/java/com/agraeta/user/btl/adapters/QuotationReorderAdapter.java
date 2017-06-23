@@ -46,7 +46,7 @@ public class QuotationReorderAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view=inflater.inflate(R.layout.order_history_row,parent,false);
+        View view=inflater.inflate(R.layout.checkout_product_list,parent,false);
 
 
 
