@@ -1,0 +1,68 @@
+package com.agraeta.user.btl.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Nivida new on 23-Jun-17.
+ */
+
+public class OrderInvoice {
+
+    OrderInvoiceItem OrderInvoice=new OrderInvoiceItem();
+    List<InvoiceLR> InvoiceLr=new ArrayList<>();
+
+    public class OrderInvoiceItem{
+        String id="";
+        String order_id="";
+        String invoice_no="";
+        String order_total="";
+        String invoice_date="";
+        String invoice_file="";
+    }
+
+    public class InvoiceLR{
+        String id="";
+        String invoice_id="";
+        String lr_id="";
+        String created="";
+
+        LRDetail LrDetail=new LRDetail();
+    }
+
+    public class LRDetail{
+        String lr_no="";
+        String lr_date="";
+        String courier_receipt_file="";
+        String transporter_name="";
+        String destination="";
+
+        public String getLr_no() {
+            return lr_no;
+        }
+
+        public String getLr_date() {
+            return lr_date;
+        }
+
+        public String getCourier_receipt_file() {
+            return courier_receipt_file;
+        }
+
+        public String getTransporter_name() {
+            return transporter_name;
+        }
+
+        public String getDestination() {
+            return destination;
+        }
+    }
+
+    public OrderInvoiceItem getOrderInvoice() {
+        return OrderInvoice;
+    }
+
+    public List<InvoiceLR> getInvoiceLr() {
+        return InvoiceLr;
+    }
+}

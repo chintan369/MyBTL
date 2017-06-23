@@ -544,6 +544,8 @@
         </activity>
         <activity android:name=".ReorderQuotationActivity">
         </activity>
+        <activity android:name=".OrderInvoiceActivity">
+        </activity>
     </application>
 
 </manifest>
