@@ -4,11 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,8 +36,6 @@ import com.agraeta.user.btl.model.UnregisteredUserData;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.area.AreaItem;
 import com.agraeta.user.btl.utils.FilePath;
-import com.google.android.gms.vision.text.Line;
-import com.google.gson.Gson;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.squareup.picasso.Picasso;
 
@@ -104,11 +102,10 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
     boolean isInEditMode=false;
     UnregisteredUserData.UnregisteredUser unregisteredUser;
-    private boolean isFirstTime=true;
-
     String skipPersonID="";
     String firmName="";
     String customerTypeID= "";
+    private boolean isFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -414,6 +411,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
         builder.setCancelable(false);
         final EditText edt_skipReason=(EditText) view.findViewById(R.id.edt_cityName);
+        edt_skipReason.setHint("Other City Name");
 
         builder.setView(view);
 
@@ -816,10 +814,10 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 Call<AppModel> addRegisteredUser;
 
                 if(files.size()>0){
-                    addRegisteredUser=adminAPI.addRegisteredUser(skipPersonID,prefs.getUserId(),skipReason,otherSkipReason,latitude,longitude,firmName,addressLine1,addressLine2,addressLine3,countryID,stateID,cityID,areaID,pincode,contactPersonName,emailID,mobileNo,partyReferenceNo,dealingInBrand,customerTypeID,comment,jointVisitWith,isPastOrder,orderID,files);
+                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, files);
                 }
                 else {
-                    addRegisteredUser=adminAPI.addRegisteredUser(skipPersonID,prefs.getUserId(),skipReason,otherSkipReason,latitude,longitude,firmName,addressLine1,addressLine2,addressLine3,countryID,stateID,cityID,areaID,pincode,contactPersonName,emailID,mobileNo,partyReferenceNo,dealingInBrand,customerTypeID,comment,jointVisitWith,isPastOrder,orderID,null);
+                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, null);
                 }
 
                 addRegisteredUser.enqueue(new Callback<AppModel>() {
@@ -845,52 +843,6 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private class GetReasonList extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String jsonData = new ServiceHandler().makeServiceCall(Globals.server_link +"OrderSkipReason/App_GetOrderSkipReason", ServiceHandler.POST);
-
-            return jsonData;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            reasonList.clear();
-            reasonList.add("Select Reason");
-
-            if(s!=null && !s.isEmpty()){
-                try{
-                    JSONObject object=new JSONObject(s);
-                    if(object.getBoolean("status")){
-                        JSONArray data=object.getJSONArray("data");
-
-                        predefinedReasons=data.length();
-
-                        for(int i=0; i<data.length(); i++){
-                            JSONObject main=data.getJSONObject(i);
-                            reasonList.add(main.getString("name"));
-                        }
-                    }
-
-                }catch (Exception e){
-                    Log.e("Exception",e.getMessage());
-                }
-            }
-
-            reasonList.add("Other Reason");
-            reasonAdapter.notifyDataSetChanged();
-        }
     }
 
     private boolean isValidated(EditText editText, String emptyMessage, String errorMessage, int minLenth, @Nullable boolean isEmail){
@@ -1066,5 +1018,51 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    private class GetReasonList extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            String jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "OrderSkipReason/App_GetOrderSkipReason", ServiceHandler.POST);
+
+            return jsonData;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            reasonList.clear();
+            reasonList.add("Select Reason");
+
+            if (s != null && !s.isEmpty()) {
+                try {
+                    JSONObject object = new JSONObject(s);
+                    if (object.getBoolean("status")) {
+                        JSONArray data = object.getJSONArray("data");
+
+                        predefinedReasons = data.length();
+
+                        for (int i = 0; i < data.length(); i++) {
+                            JSONObject main = data.getJSONObject(i);
+                            reasonList.add(main.getString("name"));
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Exception", e.getMessage());
+                }
+            }
+
+            reasonList.add("Other Reason");
+            reasonAdapter.notifyDataSetChanged();
+        }
     }
 }

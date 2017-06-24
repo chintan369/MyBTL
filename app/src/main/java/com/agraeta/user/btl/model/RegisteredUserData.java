@@ -87,6 +87,7 @@ public class RegisteredUserData extends AppModel {
         String is_past_order="";
         String order_id="";
         String created="";
+        String tour_id = "";
 
         public String getReason_title() {
             return reason_title;
@@ -186,6 +187,10 @@ public class RegisteredUserData extends AppModel {
 
         public String getCreated() {
             return created;
+        }
+
+        public String getTour_id() {
+            return tour_id;
         }
     }
 }

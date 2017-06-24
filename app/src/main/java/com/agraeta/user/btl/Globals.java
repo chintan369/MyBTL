@@ -28,24 +28,16 @@ public class Globals {
 
     //public static String server_link ="";
 
-    public static String share ="https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
+    public static final String SEARCH_BY_KEYWORD = "Product/App_Get_Product_Name";
   //  public static String server_link ="http://app.nivida.in/agraeta/";
-
-    //public static String server_link ="http://www.btlkart.com/";
-    public static String server_link ="http://demo.btlindia.com/";
-    public static String IMAGE_LINK = server_link+"files/";
-    public static String server_link1 ="http://demo.btlindia.com";
+  public static final String REORDER_PRODUCTS = "Product/App_Get_Reoder_Product_List";
+    public static final String USER_LIST = "User/APP_Admin_User_List";
+    public static final String USER_LIST_UNDER_SALESPERSON = "User/APP_Admin_User_List_For_Sales_Person";
 
    //public static String server_link ="http://192.168.1.104/agraeta/";
   //  public static String server_link ="http://192.168.1.121/agraeta/";
 
    //public static String server_link1 ="http://192.168.1.114/agraeta/";
-
-    public static final String SEARCH_BY_KEYWORD="Product/App_Get_Product_Name";
-    public static final String REORDER_PRODUCTS="Product/App_Get_Reoder_Product_List";
-
-    public static final String USER_LIST="User/APP_Admin_User_List";
-    public static final String USER_LIST_UNDER_SALESPERSON="User/APP_Admin_User_List_For_Sales_Person";
     public static final String ORDER_LIST_FOR_ADMIN="Order/App_Get_Orders_For_Admin";
     public static final String ORDER_DETAIL_FOR_ADMIN="Order/App_Get_Order_Details";
     public static final String ADMIN_DASHBOARD="Order/App_Get_Admin_Dashboard";
@@ -69,21 +61,17 @@ public class Globals {
     public static final String GET_UNREGISTERED_USER="UnRegisteredUser/App_GetUnRegisteredUser";
     public static final String GET_REGISTERED_USER_DSR="OrderSkipReason/App_GetRegisteredUserDSR";
     public static final String GET_REGISTERED_SELLER="Seller/App_GetSeller";
-
     public static final String COMBO_LIST="ComboPack/App_Get_ComboPacks";
     public static final String COMBO_DETAIL="ComboPack/App_Get_ComboPacks_Details";
     public static final String ADD_COMBO="ComboCart/App_AddComboCart";
-
     public static final String DELETE_COMBO="ComboCart/App_Delete_ComboCart";
     public static final String EDIT_COMBO_DETAIL="ComboCart/App_Get_ComboCart";
-
     public static final String COUNTRY_LIST = "Country/App_GetCountry";
     public static final String STATE_LIST = "State/App_GetState";
     public static final String CITY_LIST = "City/App_GetCity";
     public static final String AREA_LIST = "Area/App_GetArea";
     public static final String USER_ROLES = "Role/App_Get_User_Type";
     public static final String ADD_OTHER_CITY = "City/App_Add_City";
-
     public static final String CREATE_QUOTATION="Quotation/App_Create_Quotation";
     public static final String DELETE_QUOTATION="QuotationCart/App_Delete_Quotation";
     public static final String DELETE_QUOTATION_PRODUCT="QuotationCart/App_Delete_Quotation_Product";
@@ -91,21 +79,22 @@ public class Globals {
     public static final String ADD_QUOTATION="QuotationCart/App_Add_Quotation_Data";
     public static final String GET_QUOTATION_DATA="QuotationCart/App_Get_Quotation_Data";
     public static final String SEND_QUOTATION="Quotation/App_Add_Quotation";
-
     public static final String SUPPORT_INFO="User/App_Get_Call_info";
     public static final String VIDEO_GALLERY="VideoGallery/App_Get_Video_Gallery";
-
     public static final String PAGE_DOWNLOAD="InformationPage/App_GetInformationPageContent";
-
     public static final String GET_NOTIFICATION_LIST="inbox/App_Get_Inbox";
     public static final String CLEAR_NOTIFICATIONS="inbox/App_Remove_Inbox";
     public static final String SET_READ_NOTIFICATIONS="inbox/App_Set_Read_Inbox";
     public static final String SET_READ_MESSAGE="inbox/App_Set_Read_Message";
     public static final String GET_UNREAD_NOTIFICATION_COUNT="inbox/App_Get_UnRead_Inbox_Count";
-
     public static final String GET_TOUR="Tour/App_Get_Tour";
     public static final String USER_SALES_STATEWISE="User/APP_Sales_Person_StateWise";
-
+    public static final String PRODUCT_STOCK_REPORT = "Product/App_Tally_Product_Stock";
+    public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
+    //public static String server_link ="http://www.btlkart.com/";
+    public static String server_link = "http://demo.btlindia.com/";
+    public static String IMAGE_LINK = server_link + "files/";
+    public static String server_link1 = "http://demo.btlindia.com";
     static boolean connect = true;
     public static boolean isConnectingToInternet1(Context con){
 
@@ -126,7 +115,7 @@ public class Globals {
 
 
                 @SuppressWarnings("deprecation")
-                NetworkInfo currentNetworkInfo = (NetworkInfo) intent
+                NetworkInfo currentNetworkInfo = intent
                         .getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
                 // NetworkInfo otherNetworkInfo = (NetworkInfo)
                 // intent.getParcelableExtra(ConnectivityManager.EXTRA_OTHER_NETWORK_INFO);
@@ -139,11 +128,7 @@ public class Globals {
                     connect = true;
 
 
-                } else if (isFailover) {
-                    connect = false;
-                }  else {
-                    connect = true;
-                }
+                } else connect = !isFailover;
             }
         };
         return connect;
