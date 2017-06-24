@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.RegisteredUserTourResponse;
@@ -47,6 +48,13 @@ public class RegisteredUserTourAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.layout_user_item, parent, false);
 
-        return null;
+        TextView txt_firmName = (TextView) view.findViewById(R.id.txt_firmName);
+        TextView txt_fullname = (TextView) view.findViewById(R.id.txt_fullname);
+        TextView txt_date = (TextView) view.findViewById(R.id.txt_date);
+
+        txt_firmName.setText(userTourList.get(position).getDistributor().getFirm_name());
+        txt_fullname.setText(userTourList.get(position).getUser().getFirst_name() + " " + userTourList.get(position).getUser().getLast_name());
+
+        return view;
     }
 }
