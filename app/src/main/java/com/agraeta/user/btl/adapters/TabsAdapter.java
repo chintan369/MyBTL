@@ -22,11 +22,21 @@ public class TabsAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return fragmentList.size();
+    }
+
+    public void addFragment(Fragment fragment, String title) {
+        this.fragmentList.add(fragment);
+        this.titles.add(title);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles.get(position);
     }
 }
