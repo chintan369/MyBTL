@@ -104,6 +104,9 @@ public class SchemeListAdapter extends BaseAdapter {
         TextView txt_status=(TextView) view.findViewById(R.id.txt_status);
         TextView txt_validFromDate=(TextView) view.findViewById(R.id.txt_validFromDate);
         ImageView img_close=(ImageView) view.findViewById(R.id.img_close);
+        TextView txt_roleGroup = (TextView) view.findViewById(R.id.txt_roleGroup);
+        TextView txt_stateGroup = (TextView) view.findViewById(R.id.txt_stateGroup);
+        TextView txt_userGroup = (TextView) view.findViewById(R.id.txt_userGroup);
 
         txt_schemeTitle.setText(schemeDetailList.get(position).getScheme().getSchemeTitle());
         txt_schemeName.setText(schemeDetailList.get(position).getScheme().getSchemeName());
@@ -115,6 +118,45 @@ public class SchemeListAdapter extends BaseAdapter {
         txt_maxFreeQuantity.setText(schemeDetailList.get(position).getScheme().getMaxGetQuantity());
         txt_status.setText(schemeDetailList.get(position).getScheme().getStatus());
         txt_validFromDate.setText(schemeDetailList.get(position).getScheme().getStartDate()+" To "+schemeDetailList.get(position).getScheme().getExpiryDate());
+
+        if (schemeDetailList.get(position).getGroupCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < schemeDetailList.get(position).getGroupCoupon().size(); i++) {
+                text += schemeDetailList.get(position).getGroupCoupon().get(i).getRole().getName();
+                if (i != schemeDetailList.get(position).getGroupCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_roleGroup.setText(text);
+        } else {
+            txt_roleGroup.setText("All");
+        }
+
+        if (schemeDetailList.get(position).getStateCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < schemeDetailList.get(position).getStateCoupon().size(); i++) {
+                text += schemeDetailList.get(position).getStateCoupon().get(i).getState().getName();
+                if (i != schemeDetailList.get(position).getStateCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_stateGroup.setText(text);
+        } else {
+            txt_stateGroup.setText("All");
+        }
+
+        if (schemeDetailList.get(position).getUserCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < schemeDetailList.get(position).getUserCoupon().size(); i++) {
+                text += schemeDetailList.get(position).getUserCoupon().get(i).getUser().getName();
+                if (i != schemeDetailList.get(position).getUserCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_userGroup.setText(text);
+        } else {
+            txt_userGroup.setText("All");
+        }
 
         builder.setView(view);
 

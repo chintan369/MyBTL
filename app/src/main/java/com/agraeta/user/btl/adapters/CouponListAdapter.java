@@ -73,11 +73,11 @@ public class CouponListAdapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
 
-        holder.txt_couponName.setText(couponDetailList.get(position).getCouponName());
-        holder.txt_couponCode.setText("Code : "+couponDetailList.get(position).getCouponCode());
-        holder.txt_couponType.setText(couponDetailList.get(position).getCouponType());
-        holder.txt_startDate.setText(couponDetailList.get(position).getStartDate());
-        holder.txt_expiryDate.setText(couponDetailList.get(position).getExpiryDate());
+        holder.txt_couponName.setText(couponDetailList.get(position).getCoupon().getCouponName());
+        holder.txt_couponCode.setText("Code : " + couponDetailList.get(position).getCoupon().getCouponCode());
+        holder.txt_couponType.setText(couponDetailList.get(position).getCoupon().getCouponType());
+        holder.txt_startDate.setText(couponDetailList.get(position).getCoupon().getStartDate());
+        holder.txt_expiryDate.setText(couponDetailList.get(position).getCoupon().getExpiryDate());
 
         holder.img_info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +87,6 @@ public class CouponListAdapter extends BaseAdapter {
         });
 
         return convertView;
-    }
-
-    class ViewHolder{
-        TextView txt_couponName,txt_couponCode,txt_couponType,txt_startDate,txt_expiryDate;
-        ImageView img_info;
     }
 
     private void showInfoDialog(int position){
@@ -108,17 +103,59 @@ public class CouponListAdapter extends BaseAdapter {
         TextView txt_multipleUseTime=(TextView) dialogView.findViewById(R.id.txt_multipleUseTime);
         TextView txt_status=(TextView) dialogView.findViewById(R.id.txt_status);
         TextView txt_validFromDate=(TextView) dialogView.findViewById(R.id.txt_validFromDate);
+        TextView txt_roleGroup = (TextView) dialogView.findViewById(R.id.txt_roleGroup);
+        TextView txt_stateGroup = (TextView) dialogView.findViewById(R.id.txt_stateGroup);
+        TextView txt_userGroup = (TextView) dialogView.findViewById(R.id.txt_userGroup);
 
-        txt_couponTitle.setText(couponDetailList.get(position).getCouponName());
-        txt_couponCode.setText(couponDetailList.get(position).getCouponCode());
-        txt_couponType.setText(couponDetailList.get(position).getCouponType());
-        txt_discount.setText(couponDetailList.get(position).getDiscount());
-        txt_minOrderAmount.setText(couponDetailList.get(position).getMinOrderValue());
-        txt_usedCoupons.setText(couponDetailList.get(position).getTotalUsed());
-        txt_maxDiscountValue.setText(couponDetailList.get(position).getMaxDiscount());
-        txt_multipleUseTime.setText(couponDetailList.get(position).getMultipleTimeUses());
-        txt_status.setText(couponDetailList.get(position).getStatus());
-        txt_validFromDate.setText(couponDetailList.get(position).getStartDate()+" To "+couponDetailList.get(position).getExpiryDate());
+        txt_couponTitle.setText(couponDetailList.get(position).getCoupon().getCouponName());
+        txt_couponCode.setText(couponDetailList.get(position).getCoupon().getCouponCode());
+        txt_couponType.setText(couponDetailList.get(position).getCoupon().getCouponType());
+        txt_discount.setText(couponDetailList.get(position).getCoupon().getDiscount());
+        txt_minOrderAmount.setText(couponDetailList.get(position).getCoupon().getMinOrderValue());
+        txt_usedCoupons.setText(couponDetailList.get(position).getCoupon().getTotalUsed());
+        txt_maxDiscountValue.setText(couponDetailList.get(position).getCoupon().getMaxDiscount());
+        txt_multipleUseTime.setText(couponDetailList.get(position).getCoupon().getMultipleTimeUses());
+        txt_status.setText(couponDetailList.get(position).getCoupon().getStatus());
+        txt_validFromDate.setText(couponDetailList.get(position).getCoupon().getStartDate() + " To " + couponDetailList.get(position).getCoupon().getExpiryDate());
+
+        if (couponDetailList.get(position).getGroupCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < couponDetailList.get(position).getGroupCoupon().size(); i++) {
+                text += couponDetailList.get(position).getGroupCoupon().get(i).getRole().getName();
+                if (i != couponDetailList.get(position).getGroupCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_roleGroup.setText(text);
+        } else {
+            txt_roleGroup.setText("All");
+        }
+
+        if (couponDetailList.get(position).getStateCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < couponDetailList.get(position).getStateCoupon().size(); i++) {
+                text += couponDetailList.get(position).getStateCoupon().get(i).getState().getName();
+                if (i != couponDetailList.get(position).getStateCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_stateGroup.setText(text);
+        } else {
+            txt_stateGroup.setText("All");
+        }
+
+        if (couponDetailList.get(position).getUserCoupon().size() > 0) {
+            String text = "";
+            for (int i = 0; i < couponDetailList.get(position).getUserCoupon().size(); i++) {
+                text += couponDetailList.get(position).getUserCoupon().get(i).getUser().getName();
+                if (i != couponDetailList.get(position).getUserCoupon().size() - 1) {
+                    text += ", ";
+                }
+            }
+            txt_userGroup.setText(text);
+        } else {
+            txt_userGroup.setText("All");
+        }
 
         builder.setView(dialogView);
 
@@ -132,5 +169,10 @@ public class CouponListAdapter extends BaseAdapter {
         });
 
         dialog.show();
+    }
+
+    class ViewHolder {
+        TextView txt_couponName, txt_couponCode, txt_couponType, txt_startDate, txt_expiryDate;
+        ImageView img_info;
     }
 }

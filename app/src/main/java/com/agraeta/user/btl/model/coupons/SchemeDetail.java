@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -22,6 +24,10 @@ public class SchemeDetail {
     @SerializedName("GetProduct")
     Product getFreeProduct;
 
+    List<CouponDetail.StateCoupon> StateCoupon = new ArrayList<>();
+    List<CouponDetail.GroupCoupon> GroupCoupon = new ArrayList<>();
+    List<CouponDetail.UserCoupon> UserCoupon = new ArrayList<>();
+
     public Scheme getScheme() {
         return scheme;
     }
@@ -32,6 +38,18 @@ public class SchemeDetail {
 
     public Product getGetFreeProduct() {
         return getFreeProduct;
+    }
+
+    public List<CouponDetail.StateCoupon> getStateCoupon() {
+        return StateCoupon;
+    }
+
+    public List<CouponDetail.GroupCoupon> getGroupCoupon() {
+        return GroupCoupon;
+    }
+
+    public List<CouponDetail.UserCoupon> getUserCoupon() {
+        return UserCoupon;
     }
 
     public class Scheme{
@@ -150,5 +168,6 @@ public class SchemeDetail {
             return productName;
         }
     }
+
 
 }
