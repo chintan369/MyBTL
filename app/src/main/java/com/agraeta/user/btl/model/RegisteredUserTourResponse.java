@@ -11,6 +11,10 @@ public class RegisteredUserTourResponse extends AppModel {
 
     List<RegisteredUserTour> data = new ArrayList<>();
 
+    public List<RegisteredUserTour> getData() {
+        return data;
+    }
+
     public class RegisteredUserTour {
         User User = new User();
         Distributor Distributor = new Distributor();
