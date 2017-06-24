@@ -302,33 +302,10 @@ public class Order_history extends ActionBarActivity {
                                     startActivity(pdfIntent);
                                     break;
                                 case R.id.menu_invoice:
-                                    appPrefs = new AppPrefs(Order_history.this);
-                                    appPrefs.setOrder_history_id(array_remove_duplicate.get(position).getOrder_id());
-                                    DisplayMetrics metrics = getResources().getDisplayMetrics();
-                                    int width = metrics.widthPixels;
-                                    int height = metrics.heightPixels;
-
-                                    dialog = new Dialog(Order_history.this);
-                                    dialog.getWindow();
-                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                    dialog.setCancelable(false);
-                                    dialog.setContentView(R.layout.invoice_layout);
-                                    dialog.getWindow().setLayout((6 * width) / 7, (2 * height) / 2);
-                                    dialog.setCancelable(true);
-                                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                                    ImageView btn_cancel=(ImageView)dialog.findViewById(R.id.btn_cancel);
-                                    l_tracking=(ListView)dialog.findViewById(R.id.lst_tracking);
-
-                                    btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-
-                                    new set_order_tracking().execute();
-                                    dialog.show();
+                                    Intent invoiceActivity=new Intent(getApplicationContext(),OrderInvoiceActivity.class);
+                                    invoiceActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    invoiceActivity.putExtra("orderID",array_remove_duplicate.get(position).getOrder_id());
+                                    startActivity(invoiceActivity);
                                     break;
                                 case R.id.menu_reorder:
                                     reOrderForOrder(array_remove_duplicate.get(position).getProductList());

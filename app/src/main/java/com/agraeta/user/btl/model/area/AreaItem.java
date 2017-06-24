@@ -10,6 +10,9 @@ public class AreaItem implements Serializable {
     String id="0";
     String name="";
 
+    public AreaItem() {
+    }
+
     public AreaItem(String name) {
         this.name = name;
     }

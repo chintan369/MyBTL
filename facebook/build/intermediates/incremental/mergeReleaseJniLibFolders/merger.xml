@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\Android_Studio_Projects\MyBTL\facebook\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="D:\Android_Studio_Projects\MyBTL\facebook\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\BTL_ChailtaleeMam\Phase 2 Doc\MyApplication2\facebook\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="F:\BTL_ChailtaleeMam\Phase 2 Doc\MyApplication2\facebook\src\release\jniLibs"/></dataSet></merger>

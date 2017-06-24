@@ -18,6 +18,7 @@ import com.agraeta.user.btl.model.enquiries.ProductEnquiryData;
 import com.agraeta.user.btl.model.enquiries.ProductRegistrationData;
 import com.agraeta.user.btl.model.enquiries.RegisteredDealerData;
 import com.agraeta.user.btl.model.notifications.InboxResponse;
+import com.agraeta.user.btl.utils.OrderInvoiceResponse;
 
 import java.io.File;
 import java.util.List;
@@ -193,5 +194,17 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.CLEAR_NOTIFICATIONS)
     Call<AppModel> clearNotificationCall(@Field("owner_id") String ownerID, @Field("user_id") String userID);
+
+    @FormUrlEncoded
+    @POST(Globals.ORDER_TRACKING)
+    Call<OrderInvoiceResponse> orderInvoiceCall(@Field("order_id") String orderID);
+
+    @FormUrlEncoded
+    @POST(Globals.GET_TOUR)
+    Call<TourResponse> getTourData(@Field("user_id") String userID);
+
+    @FormUrlEncoded
+    @POST(Globals.USER_SALES_STATEWISE)
+    Call<RegisteredUserTourResponse> userTourResponseCall(@Field("state_id") String stateID);
 
 }

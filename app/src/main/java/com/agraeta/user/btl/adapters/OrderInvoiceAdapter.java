@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,6 +90,8 @@ public class OrderInvoiceAdapter extends BaseAdapter {
                         return false;
                     }
                 });
+
+                popupMenu.show();
             }
         });
 
@@ -105,8 +108,7 @@ public class OrderInvoiceAdapter extends BaseAdapter {
     private void showInvoiceItemPDF(int position) {
         String pdfFile= Globals.server_link+orderInvoiceList.get(position).getOrderInvoice().getInvoice_file();
         Intent intent=new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(pdfFile));
-        intent.setType("application/*");
+        intent.setDataAndType(Uri.parse(pdfFile),"application/pdf");
         activity.startActivity(intent);
     }
 }

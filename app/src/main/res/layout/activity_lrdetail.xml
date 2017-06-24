@@ -45,8 +45,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#000"
                     android:textSize="14sp"
-                    android:text="Transporter Name:"
-                    android:layout_marginLeft="4dp"
+                    android:text="Transporter Name : "
                     android:padding="5dp"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -72,11 +71,10 @@
                     android:id="@+id/text_cat_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:ellipsize="end"
                     android:padding="5dp"
                     android:singleLine="true"
-                    android:text="Destination:"
+                    android:text="Destination : "
                     android:textColor="#000"
                     android:textSize="14sp" />
                 <TextView
@@ -85,7 +83,6 @@
                     android:textColor="#000"
                     android:textSize="14sp"
                     android:id="@+id/txt_designation"
-                    android:layout_marginLeft="4dp"
                     android:padding="5dp"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -98,10 +95,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:ellipsize="end"
                     android:padding="5dp"
-                    android:text="LR No:"
+                    android:text="LR No : "
                     android:singleLine="true"
                     android:textColor="#000"
                     android:textSize="14sp" />
@@ -111,7 +107,6 @@
                     android:textColor="#000"
                     android:textSize="14sp"
                     android:id="@+id/txt_LRNo"
-                    android:layout_marginLeft="4dp"
                     android:padding="5dp"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -125,10 +120,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:ellipsize="end"
                     android:padding="5dp"
-                    android:text="LR Date"
+                    android:text="LR Date : "
                     android:singleLine="true"
                     android:textColor="#000"
                     android:textSize="12sp" />
@@ -138,7 +132,31 @@
                     android:textColor="#000"
                     android:textSize="14sp"
                     android:id="@+id/txt_LRDate"
-                    android:layout_marginLeft="4dp"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="5dp"
+                    android:text="No of Bundles : "
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:id="@+id/txt_bundels"
                     android:padding="5dp"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -158,6 +176,33 @@
             android:id="@+id/img_info"
             android:src="@drawable/info"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:padding="5dp"
+            android:text="Remarks : "
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:id="@+id/txt_remarks"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
     </LinearLayout>
 
 </LinearLayout>

@@ -548,6 +548,8 @@
         </activity>
         <activity android:name=".LRDetailActivity">
         </activity>
+        <activity android:name=".TourActivity">
+        </activity>
     </application>
 
 </manifest>

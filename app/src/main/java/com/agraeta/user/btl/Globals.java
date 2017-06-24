@@ -103,6 +103,9 @@ public class Globals {
     public static final String SET_READ_MESSAGE="inbox/App_Set_Read_Message";
     public static final String GET_UNREAD_NOTIFICATION_COUNT="inbox/App_Get_UnRead_Inbox_Count";
 
+    public static final String GET_TOUR="Tour/App_Get_Tour";
+    public static final String USER_SALES_STATEWISE="User/APP_Sales_Person_StateWise";
+
     static boolean connect = true;
     public static boolean isConnectingToInternet1(Context con){
 

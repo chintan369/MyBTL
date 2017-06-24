@@ -16,18 +16,31 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
+import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Distributor.DisSalesFormActivity;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.SkipOrderUnregisterUserActivity;
 import com.agraeta.user.btl.UnRegisteredUserListActivity;
+import com.agraeta.user.btl.model.AdminAPI;
+import com.agraeta.user.btl.model.ServiceGenerator;
+import com.agraeta.user.btl.model.TourResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserTypeActivity extends AppCompatActivity {
-    Button btn_next,btn_todayDSR;
+    Button btn_next,btn_todayDSR, btn_tour;
     AppPrefs apps;
     RadioButton rdo_dis,rdo_ret,rdo_pro,rdo_cpro,rdo_cdealer;
     DatabaseHandler db;
+
+    AdminAPI adminAPI;
+    Custom_ProgressDialog dialog;
+
+    String tourID="",stateID="",tourName="",stateName="";
 
     protected void onResume() {
         System.runFinalization();
@@ -41,6 +54,12 @@ public class UserTypeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_type);
+
+        adminAPI= ServiceGenerator.getAPIServiceClass();
+
+        dialog=new Custom_ProgressDialog(this,"");
+        dialog.setCancelable(false);
+
         apps=new AppPrefs(getApplicationContext());
         apps.setCurrentPage("UserType");
         rdo_dis=(RadioButton)findViewById(R.id.radio_distributor);
@@ -122,6 +141,7 @@ public class UserTypeActivity extends AppCompatActivity {
 
         btn_next=(Button)findViewById(R.id.btn_next);
         btn_todayDSR=(Button)findViewById(R.id.btn_todayDSR);
+        btn_tour=(Button)findViewById(R.id.btn_tour);
 
         btn_todayDSR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +188,28 @@ public class UserTypeActivity extends AppCompatActivity {
 
                 startActivity(intent);
 
+            }
+        });
+
+        dialog.show();
+        Call<TourResponse> tourResponseCall=adminAPI.getTourData(apps.getUserId());
+        tourResponseCall.enqueue(new Callback<TourResponse>() {
+            @Override
+            public void onResponse(Call<TourResponse> call, Response<TourResponse> response) {
+                dialog.dismiss();
+                TourResponse tourResponse=response.body();
+
+                if(tourResponse!=null && tourResponse.isStatus()){
+                    tourID=tourResponse.getData().getId();
+                    stateID=tourResponse.getData().getState_id();
+                    btn_tour.setVisibility(View.VISIBLE);
+                    btn_tour.setText(tourResponse.getData().getTour_name());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourResponse> call, Throwable t) {
+                dialog.dismiss();
             }
         });
 

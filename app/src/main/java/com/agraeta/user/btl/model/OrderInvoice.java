@@ -80,6 +80,8 @@ public class OrderInvoice {
         String courier_receipt_file="";
         String transporter_name="";
         String destination="";
+        String no_bundles="";
+        String remarks="";
 
         public String getLr_no() {
             return lr_no;
@@ -99,6 +101,14 @@ public class OrderInvoice {
 
         public String getDestination() {
             return destination;
+        }
+
+        public String getNo_bundles() {
+            return no_bundles;
+        }
+
+        public String getRemarks() {
+            return remarks;
         }
     }
 
