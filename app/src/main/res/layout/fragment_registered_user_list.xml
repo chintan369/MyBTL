@@ -7,35 +7,38 @@
     tools:context="com.agraeta.user.btl.fragment.RegisteredUserListFragment">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/border_slider"
         android:focusableInTouchMode="true"
-        android:padding="5dp"
         android:orientation="horizontal">
         <EditText
+            android:id="@+id/edt_search"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/border_slider"
-            android:hint="Search"
-            android:singleLine="true"
-            android:imeOptions="actionSearch"
-            android:textSize="14sp"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
             android:layout_weight="1"
-            android:paddingLeft="5dp"
-            android:id="@+id/edt_search_product_only"/>
+            android:background="@color/white"
+            android:hint="Search Registered User"
+            android:imeOptions="actionSearch"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="@color/black_000"
+            android:textSize="14sp"/>
         <ImageView
-            android:layout_width="45dp"
-            android:padding="8dp"
-            android:layout_marginTop="5dp"
-            android:layout_margin="5dp"
-            android:layout_height="45dp"
-            android:id="@+id/search_img"
+            android:id="@+id/img_search"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey_700"
+            android:padding="5dp"
+            android:src="@drawable/btl_search"
+            android:tint="@color/white"
             />
 
     </LinearLayout>
 
     <ListView
+        android:id="@+id/listRegisteredUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="3dp"

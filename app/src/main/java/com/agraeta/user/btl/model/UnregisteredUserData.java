@@ -1,7 +1,6 @@
 package com.agraeta.user.btl.model;
 
 import com.agraeta.user.btl.model.area.AreaItem;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,39 +16,6 @@ public class UnregisteredUserData extends AppModel {
 
     public List<UserData> getData() {
         return data;
-    }
-
-    public class UserData implements Serializable{
-        UnregisteredUser UnRegisteredUser;
-        AreaItem Country;
-        AreaItem State;
-        AreaItem City;
-        AreaItem Area;
-        AreaItem Role;
-
-        public UnregisteredUser getUnRegisteredUser() {
-            return UnRegisteredUser;
-        }
-
-        public AreaItem getCountry() {
-            return Country;
-        }
-
-        public AreaItem getState() {
-            return State;
-        }
-
-        public AreaItem getCity() {
-            return City;
-        }
-
-        public AreaItem getArea() {
-            return Area;
-        }
-
-        public AreaItem getRole() {
-            return Role;
-        }
     }
 
     public static class UnregisteredUser implements Serializable{
@@ -173,6 +139,44 @@ public class UnregisteredUserData extends AppModel {
 
         public String getAttachment4() {
             return attachment4==null ? "" : attachment4;
+        }
+    }
+
+    public class UserData implements Serializable {
+        UnregisteredUser UnRegisteredUser;
+        AreaItem Country;
+        AreaItem State;
+        AreaItem City;
+        AreaItem Area;
+        AreaItem Role;
+        User SalesPerson = new User();
+
+        public UnregisteredUser getUnRegisteredUser() {
+            return UnRegisteredUser;
+        }
+
+        public AreaItem getCountry() {
+            return Country;
+        }
+
+        public AreaItem getState() {
+            return State;
+        }
+
+        public AreaItem getCity() {
+            return City;
+        }
+
+        public AreaItem getArea() {
+            return Area;
+        }
+
+        public AreaItem getRole() {
+            return Role;
+        }
+
+        public User getSalesPerson() {
+            return SalesPerson;
         }
     }
 }

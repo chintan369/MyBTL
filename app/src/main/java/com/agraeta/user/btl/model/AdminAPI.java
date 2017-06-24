@@ -200,4 +200,8 @@ public interface AdminAPI {
     @POST(Globals.USER_SALES_STATEWISE)
     Call<RegisteredUserTourResponse> userTourResponseCall(@Field("state_id") String stateID);
 
+    @FormUrlEncoded
+    @POST(Globals.GET_UNREGISTERED_USER)
+    Call<UnregisteredUserData> unregisteredUserTourCall(@Field("state_id") String stateID, @Field("search_term") String searchBy);
+
 }

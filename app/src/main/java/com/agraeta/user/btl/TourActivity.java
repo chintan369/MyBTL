@@ -1,5 +1,6 @@
 package com.agraeta.user.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import com.agraeta.user.btl.fragment.UnRegisteredUserListFragment;
 
 public class TourActivity extends AppCompatActivity {
 
+    public String stateID = "", tourID = "";
     TabLayout tabs;
     ViewPager viewPager;
     TabsAdapter adapter;
@@ -19,6 +21,10 @@ public class TourActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour);
+
+        Intent intent = getIntent();
+        stateID = intent.getStringExtra("stateID");
+        tourID = intent.getStringExtra("tourID");
 
         fetchIDs();
     }
