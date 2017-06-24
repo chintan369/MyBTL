@@ -65,6 +65,7 @@ public class UnRegisteredUserListFragment extends Fragment {
         edt_search = (EditText) view.findViewById(R.id.edt_search);
         img_search = (ImageView) view.findViewById(R.id.img_search);
         listUnRegisteredUser = (ListView) view.findViewById(R.id.listUnRegisteredUser);
+        listUnRegisteredUser.setAdapter(unRegisteredUserTourAdapter);
         adminAPI = ServiceGenerator.getAPIServiceClass();
         dialog.show();
         Call<UnregisteredUserData> tourResponseCall = adminAPI.unregisteredUserTourCall(tourActivity.stateID, null);

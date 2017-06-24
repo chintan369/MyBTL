@@ -1,8 +1,8 @@
 package com.agraeta.user.btl.CompanySalesPerson;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -66,10 +66,10 @@ public class RegisteredUserSkipOrderListActivity extends AppCompatActivity {
 
         final Call<RegisteredUserData> getAllRegisteredUserDSR;
         if(prefs.getUserRoleId().equals(C.ADMIN)){
-            getAllRegisteredUserDSR=adminAPI.getAllRegisteredUserDSR(null);
+            getAllRegisteredUserDSR = adminAPI.getAllRegisteredUserDSR(null, null);
         }
         else {
-            getAllRegisteredUserDSR=adminAPI.getAllRegisteredUserDSR(prefs.getUserId());
+            getAllRegisteredUserDSR = adminAPI.getAllRegisteredUserDSR(prefs.getUserId(), null);
         }
 
         getAllRegisteredUserDSR.enqueue(new Callback<RegisteredUserData>() {

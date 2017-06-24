@@ -550,6 +550,8 @@
         </activity>
         <activity android:name=".TourActivity">
         </activity>
+        <activity android:name=".admin.ProductStockReportActivity">
+        </activity>
     </application>
 
 </manifest>

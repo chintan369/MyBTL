@@ -45,6 +45,11 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
 
     }
 
+    @NonNull
+    public static String getStr(String value) {
+        return value;
+    }
+
     @Override
     public int getCount() {
         return companySalesUserList.size();
@@ -94,7 +99,6 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                                 prefs = new AppPrefs(context);
                                 prefs.setSalesPersonId(txtName.getTag().toString());
                                 prefs.setUserName(companySalesUserList.get(position).getFirstname() + " " + companySalesUserList.get(position).getLastname());
-                                prefs.setUserId(companySalesUserList.get(position).getUserSalesId());
                                 db.Clear_ALL_table();
                                 Globals.generateNoteOnSD(context, "Sales Start");
                                 Intent i = new Intent(context, MainPage_drawer.class);
@@ -104,7 +108,6 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                                 activity.finish();
                                 break;
                             case R.id.skiporder:
-                                prefs.setUserId(companySalesUserList.get(position).getUserSalesId());
                                 Intent intent = new Intent(context, RegisteredUserSkipOrderActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("salesComapnyPerson", getUserID(position));
@@ -115,7 +118,6 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                             case R.id.order:
                                 prefs = new AppPrefs(context);
                                 prefs.setSalesPersonId(companySalesUserList.get(position).getUserSalesId());
-                                prefs.setUserId(companySalesUserList.get(position).getUserSalesId());
                                 Intent ii = new Intent(context, SalesOrderHistory.class);
                                 ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 ii.putExtra("salesComapnyPerson", getUserID(position));
@@ -144,19 +146,8 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
         this.subUserID = subUserID;
     }
 
-    public interface DistCallback {
-        public void onOptionClick(int position, View view);
-
-        public void showInfoDialog(int position);
-    }
-
     public Bean_Company_Sales_User getData(int position) {
         return companySalesUserList.get(position);
-    }
-
-    @NonNull
-    public static String getStr(String value) {
-        return value;
     }
 
     public String getUserID(int position) {
@@ -166,6 +157,12 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
     public void updateData(List<Bean_Company_Sales_User> companySalesUserList) {
         this.companySalesUserList = companySalesUserList;
         notifyDataSetChanged();
+    }
+
+    public interface DistCallback {
+        void onOptionClick(int position, View view);
+
+        void showInfoDialog(int position);
     }
 
 

@@ -167,7 +167,7 @@ public interface AdminAPI {
 
     @FormUrlEncoded
     @POST(Globals.GET_REGISTERED_USER_DSR)
-    Call<RegisteredUserData> getAllRegisteredUserDSR(@Field("skip_person_id") String salesPersonID);
+    Call<RegisteredUserData> getAllRegisteredUserDSR(@Field("user_id") String userID, @Field("skip_person_id") String salesPersonID);
 
     @FormUrlEncoded
     @POST(Globals.SEND_QUOTATION)
@@ -203,4 +203,8 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.GET_UNREGISTERED_USER)
     Call<UnregisteredUserData> unregisteredUserTourCall(@Field("state_id") String stateID, @Field("search_term") String searchBy);
+
+    @FormUrlEncoded
+    @POST(Globals.PRODUCT_STOCK_REPORT)
+    Call<ProductStockResponse> productStockResponseCall(@Field("search_term") String searchKey);
 }

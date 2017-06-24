@@ -12,12 +12,12 @@
         "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\com_facebook_tooltip_black_background.9.png"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\messenger_bubble_small_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\messenger_bubble_small_white.png"
-    },
-    {
         "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\com_facebook_favicon_white.png",
         "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\com_facebook_favicon_white.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\messenger_bubble_small_white.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\messenger_bubble_small_white.png"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\messenger_button_send_round_shadow.png",
