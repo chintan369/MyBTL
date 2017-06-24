@@ -203,5 +203,4 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.GET_UNREGISTERED_USER)
     Call<UnregisteredUserData> unregisteredUserTourCall(@Field("state_id") String stateID, @Field("search_term") String searchBy);
-
 }

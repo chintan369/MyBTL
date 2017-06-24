@@ -3,9 +3,9 @@ package com.agraeta.user.btl.CompanySalesPerson;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +21,7 @@ import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Distributor.DisSalesFormActivity;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.SkipOrderUnregisterUserActivity;
+import com.agraeta.user.btl.TourActivity;
 import com.agraeta.user.btl.UnRegisteredUserListActivity;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.ServiceGenerator;
@@ -210,6 +210,17 @@ public class UserTypeActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TourResponse> call, Throwable t) {
                 dialog.dismiss();
+            }
+        });
+
+        btn_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TourActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("stateID", stateID);
+                intent.putExtra("tourID", tourID);
+                startActivity(intent);
             }
         });
 
