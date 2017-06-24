@@ -1,13 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.agraeta.user.btl.fragment.UnRegisteredUserListFragment">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.fragment.RegisteredUserListFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/border_slider"
+            android:hint="Search"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:id="@+id/edt_search_product_only"/>
+        <ImageView
+            android:layout_width="45dp"
+            android:padding="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="5dp"
+            android:layout_height="45dp"
+            android:id="@+id/search_img"
+            />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    </LinearLayout>
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_marginTop="3dp"
+        android:nestedScrollingEnabled="true">
+    </ListView>
 
-</FrameLayout>
+</LinearLayout>
