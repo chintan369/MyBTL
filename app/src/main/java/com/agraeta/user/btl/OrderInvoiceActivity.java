@@ -1,16 +1,15 @@
 package com.agraeta.user.btl;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.agraeta.user.btl.adapters.OrderInvoiceAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.OrderInvoice;
+import com.agraeta.user.btl.model.OrderInvoiceResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
-import com.agraeta.user.btl.utils.OrderInvoiceResponse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,5 @@
 package com.agraeta.user.btl.model;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.combooffer.ComboCartEdit;
@@ -18,17 +15,13 @@ import com.agraeta.user.btl.model.enquiries.ProductEnquiryData;
 import com.agraeta.user.btl.model.enquiries.ProductRegistrationData;
 import com.agraeta.user.btl.model.enquiries.RegisteredDealerData;
 import com.agraeta.user.btl.model.notifications.InboxResponse;
-import com.agraeta.user.btl.utils.OrderInvoiceResponse;
 
-import java.io.File;
 import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
