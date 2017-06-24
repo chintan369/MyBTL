@@ -36,6 +36,20 @@ public class ProductStockResponse extends AppModel {
         public List<CompanyName> getCompany_name() {
             return company_name;
         }
+
+        public String getTotalQty() {
+            int totalQty = 0;
+
+            for (int i = 0; i < company_name.size(); i++) {
+                try {
+                    totalQty += Integer.parseInt(company_name.get(i).getQty());
+                } catch (Exception e) {
+                    totalQty += 0;
+                }
+            }
+
+            return String.valueOf(totalQty);
+        }
     }
 
     public class CompanyName {

@@ -4,18 +4,12 @@ import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,32 +20,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
-import com.agraeta.user.btl.BTL_Cart;
 import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserSkipOrderListActivity;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
-import com.agraeta.user.btl.Distributor.DisMyOrders;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
-import com.agraeta.user.btl.Main_CategoryPage;
-import com.agraeta.user.btl.Notification;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.Search;
 import com.agraeta.user.btl.UnRegisteredUserListActivity;
 import com.agraeta.user.btl.Where_To_Buy;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.Dashboard;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -68,7 +51,7 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
     LinearLayout layout_mainContent;
     TextView txt_orderCount, txt_orderSales, txt_orderCountDistributor, txt_orderSalesDistributor, txt_customerCount, txt_enquiryCount;
 
-    Button btn_viewOrders, btn_users, btn_coupons, btn_enquiries, btn_schemes,btn_services,btn_registeredDSR,btn_unRegisteredDSR;
+    Button btn_viewOrders, btn_users, btn_coupons, btn_enquiries, btn_schemes, btn_services, btn_registeredDSR, btn_unRegisteredDSR, btn_productStockReport;
 
     ImageView image_drawer;
 
@@ -114,6 +97,7 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
         btn_services = (Button) findViewById(R.id.btn_services);
         btn_registeredDSR = (Button) findViewById(R.id.btn_registeredDSR);
         btn_unRegisteredDSR = (Button) findViewById(R.id.btn_unRegisteredDSR);
+        btn_productStockReport = (Button) findViewById(R.id.btn_productStockReport);
 
         btn_users.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +166,15 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
                 Intent intent=new Intent(getApplicationContext(), UnRegisteredUserListActivity.class);
                 intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("fromAdmin",true);
+                startActivity(intent);
+            }
+        });
+
+        btn_productStockReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProductStockReportActivity.class);
+                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

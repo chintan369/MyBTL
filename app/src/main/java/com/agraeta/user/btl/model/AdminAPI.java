@@ -207,4 +207,8 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.PRODUCT_STOCK_REPORT)
     Call<ProductStockResponse> productStockResponseCall(@Field("search_term") String searchKey);
+
+    @FormUrlEncoded
+    @POST(Globals.SEARCH_BY_KEYWORD)
+    Call<ProductSuggestionResponse> suggestionResponseCall(@Field("product_name") String product_name);
 }
