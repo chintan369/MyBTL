@@ -55,6 +55,13 @@ public class RegisteredUserTourAdapter extends BaseAdapter {
         txt_firmName.setText(userTourList.get(position).getDistributor().getFirm_name());
         txt_fullname.setText(userTourList.get(position).getUser().getFirst_name() + " " + userTourList.get(position).getUser().getLast_name());
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return view;
     }
 }

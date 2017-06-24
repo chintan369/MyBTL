@@ -17,11 +17,9 @@ import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.TourActivity;
 import com.agraeta.user.btl.adapters.RegisteredUserTourAdapter;
-import com.agraeta.user.btl.adapters.UnRegisteredUserTourAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.RegisteredUserTourResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
-import com.agraeta.user.btl.model.UnregisteredUserData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +63,7 @@ public class RegisteredUserListFragment extends Fragment {
         edt_search = (EditText) view.findViewById(R.id.edt_search);
         img_search = (ImageView) view.findViewById(R.id.img_search);
         listRegisteredUser = (ListView) view.findViewById(R.id.listRegisteredUser);
+        listRegisteredUser.setAdapter(unRegisteredUserTourAdapter);
         adminAPI = ServiceGenerator.getAPIServiceClass();
         dialog.show();
         Call<RegisteredUserTourResponse> tourResponseCall = adminAPI.userTourResponseCall(tourActivity.stateID, null);

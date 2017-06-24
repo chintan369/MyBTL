@@ -84,6 +84,7 @@ public class TourActivity extends AppCompatActivity {
 
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
         img_add.setImageResource(R.drawable.add_icon);
+        img_add.setVisibility(View.GONE);
         img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
