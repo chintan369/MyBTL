@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,7 @@ public class UnRegisteredUserListFragment extends Fragment {
     List<UnregisteredUserData.UserData> userDataList = new ArrayList<>();
 
     public UnRegisteredUserListFragment() {
-        tourActivity = (TourActivity) getActivity();
-        dialog = new Custom_ProgressDialog(getActivity(), "");
-        dialog.setCancelable(false);
+
     }
 
 
@@ -55,7 +54,13 @@ public class UnRegisteredUserListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_un_registered_user_list, container, false);
 
+        tourActivity = (TourActivity) getActivity();
+        dialog = new Custom_ProgressDialog(getActivity(), "");
+        dialog.setCancelable(false);
+
         unRegisteredUserTourAdapter = new UnRegisteredUserTourAdapter(userDataList, getActivity());
+
+        Log.e("StateID", tourActivity.stateID);
 
         edt_search = (EditText) view.findViewById(R.id.edt_search);
         img_search = (ImageView) view.findViewById(R.id.img_search);

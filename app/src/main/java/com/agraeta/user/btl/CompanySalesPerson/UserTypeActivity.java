@@ -220,6 +220,7 @@ public class UserTypeActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("stateID", stateID);
                 intent.putExtra("tourID", tourID);
+                startActivity(intent);
             }
         });
 
