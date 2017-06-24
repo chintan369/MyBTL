@@ -594,6 +594,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
             public void onClick(View v) {
 
                 // btn_pay1.setEnabled(false);
+                if (getCartGrandTotal() < minOrderValue) {
+                    Globals.CustomToast(CheckoutPage_Product.this, "Please Make Order of Min " + getString(R.string.ruppe_name) + " " + minOrderValue, getLayoutInflater());
+                    return;
+                }
 
                 final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -4920,8 +4924,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                         JSONArray jsonArray = jObj.optJSONArray("data");
                         JSONArray comboArray = jObj.optJSONArray("combo_cart");
-                        minOrderValue = Integer.parseInt(jObj.getString("minimum_order_value"));
+                        //minOrderValue = Integer.parseInt(jObj.getString("minimum_order_value"));
+                        String minOrderValueGiven = jObj.getString("minimum_order_value");
 
+                        minOrderValue = Integer.parseInt(minOrderValueGiven.equals("null") ? "0" : minOrderValueGiven);
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
