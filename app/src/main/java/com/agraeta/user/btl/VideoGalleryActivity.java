@@ -1,7 +1,11 @@
 package com.agraeta.user.btl;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.agraeta.user.btl.adapters.VideoGalleryAdapter;
@@ -33,9 +37,36 @@ public class VideoGalleryActivity extends AppCompatActivity {
         adminAPI= ServiceGenerator.getAPIServiceClass();
         dialog=new Custom_ProgressDialog(this,"");
         dialog.setCancelable(false);
-
+        setActionBar();
         fetchIDs();
     }
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
+
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        img_notification.setVisibility(View.GONE);
+        unread.setVisibility(View.GONE);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
 
     private void fetchIDs() {
         list_Videos=(ListView) findViewById(R.id.list_Videos);

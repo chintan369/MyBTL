@@ -1,6 +1,9 @@
 package com.agraeta.user.btl.admin;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
+import com.agraeta.user.btl.SkipOrderUnregisterUserActivity;
 import com.agraeta.user.btl.adapters.ProductStockReportAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.ProductStockResponse;
@@ -51,10 +56,37 @@ public class ProductStockReportActivity extends AppCompatActivity {
         dialog.setCancelable(false);
 
         adminAPI = ServiceGenerator.getAPIServiceClass();
-
+        setActionBar();
         fetchIDs();
     }
+    private void setActionBar() {
 
+        // TODO Auto-generated method stub
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
+
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        img_notification.setVisibility(View.GONE);
+        unread.setVisibility(View.GONE);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    @SuppressLint("WrongViewCast")
     private void fetchIDs() {
         edt_search = (AutoCompleteTextView) findViewById(R.id.edt_search);
         img_search = (ImageView) findViewById(R.id.img_search);
