@@ -3,9 +3,9 @@ package com.agraeta.user.btl.DisSalesPerson;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,19 +17,31 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
 import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserSkipOrderListActivity;
-import com.agraeta.user.btl.CompanySalesPerson.S_SkipListIconActivity;
 import com.agraeta.user.btl.CompanySalesPerson.TargetAchieveList;
+import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Distributor.DisSalesFormActivity;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
+import com.agraeta.user.btl.TourActivity;
 import com.agraeta.user.btl.UnRegisteredUserListActivity;
+import com.agraeta.user.btl.model.AdminAPI;
+import com.agraeta.user.btl.model.ServiceGenerator;
+import com.agraeta.user.btl.model.TourResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SalesTypeActivity extends AppCompatActivity {
-    Button btn_next,btn_todayDSR;
+    Button btn_next, btn_todayDSR, btn_tour;
     AppPrefs apps;
     RadioButton rdo_ret,rdo_pro;
     DatabaseHandler db;
+    String tourID = "", stateID = "", tourName = "", stateName = "";
+
+    AdminAPI adminAPI;
+    Custom_ProgressDialog dialog;
 
     protected void onResume() {
         System.runFinalization();
@@ -43,6 +55,11 @@ public class SalesTypeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales_type);
+
+        adminAPI = ServiceGenerator.getAPIServiceClass();
+
+        dialog = new Custom_ProgressDialog(this, "");
+        dialog.setCancelable(false);
 
         apps=new AppPrefs(getApplicationContext());
         apps.setCurrentPage("UserType");
@@ -75,6 +92,28 @@ public class SalesTypeActivity extends AppCompatActivity {
 
         btn_next=(Button)findViewById(R.id.btn_next);
         btn_todayDSR=(Button)findViewById(R.id.btn_todayDSR);
+        btn_tour = (Button) findViewById(R.id.btn_tour);
+
+        Call<TourResponse> tourResponseCall = adminAPI.getTourData(apps.getUserId());
+        tourResponseCall.enqueue(new Callback<TourResponse>() {
+            @Override
+            public void onResponse(Call<TourResponse> call, Response<TourResponse> response) {
+                dialog.dismiss();
+                TourResponse tourResponse = response.body();
+
+                if (tourResponse != null && tourResponse.isStatus()) {
+                    tourID = tourResponse.getData().getId();
+                    stateID = tourResponse.getData().getState_id();
+                    btn_tour.setVisibility(View.VISIBLE);
+                    btn_tour.setText(tourResponse.getData().getTour_name());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourResponse> call, Throwable t) {
+                dialog.dismiss();
+            }
+        });
 
         btn_todayDSR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +144,17 @@ public class SalesTypeActivity extends AppCompatActivity {
 
                 startActivity(intent);
 
+            }
+        });
+
+        btn_tour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TourActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("stateID", stateID);
+                intent.putExtra("tourID", tourID);
+                startActivity(intent);
             }
         });
 
