@@ -1,6 +1,5 @@
 package com.agraeta.user.btl;
 
-import android.*;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -56,11 +55,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class Product_List extends AppCompatActivity {
+    public static final String[] pro_name = {"DOOR CONTROL", "GLASS FITTIN", "GLASS SLIDING"};
+    public static final String[] pro_delar_prize = {" 630.00", "1400.00", "600.00"};
+    public static final String[] prod_no = {"1", "1", "1"};
+    public static final String[] pro_mrp = {"745.00", "1500.00", "660.00"};
+    public static final String[] pro_margin = {"15.45%", "9%", "10%"};
+    public static final String[] pro_prize = {" 630.00", "1400.00", "600.00"};
+    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
+    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
+    public static ArrayList<String> WishList = new ArrayList<String>();
     int flag = 0;
     EditText search_edit;
     ImageView search, grid, list;
@@ -69,7 +76,6 @@ public class Product_List extends AppCompatActivity {
     ListView pro_listed;
     LinearLayout sort;
     AppPrefs app;
-    private ArrayList<Integer> image_product = new ArrayList<Integer>();
     int s = 0;
     int kkk = 0;
     String option_name = "";
@@ -79,26 +85,14 @@ public class Product_List extends AppCompatActivity {
     LinearLayout l_spinner, l_spinner_text, l_linear, l_sort, l_view_spinner;
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-
     boolean whereToBuyVisibility=true;
-
     TextView txt;
-
     boolean isNotDone = true;
     String jsonData = "";
-
     String[] perms = {android.Manifest.permission.SYSTEM_ALERT_WINDOW, android.Manifest.permission.WRITE_SETTINGS, android.Manifest.permission.WRITE_SECURE_SETTINGS, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.INTERNET, android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.GET_ACCOUNTS, android.Manifest.permission.READ_CONTACTS, android.Manifest.permission.ACCESS_NETWORK_STATE,
             android.Manifest.permission.ACCESS_FINE_LOCATION};
-
-
     Dialog dialog, dialogOffer;
-    public static final String[] pro_name = {"DOOR CONTROL", "GLASS FITTIN", "GLASS SLIDING"};
-    public static final String[] pro_delar_prize = {" 630.00", "1400.00", "600.00"};
-    public static final String[] prod_no = {"1", "1", "1"};
-    public static final String[] pro_mrp = {"745.00", "1500.00", "660.00"};
-    public static final String[] pro_margin = {"15.45%", "9%", "10%"};
-    public static final String[] pro_prize = {" 630.00", "1400.00", "600.00"};
     ResultHolder result_holder;
     LinearLayout l_filter;
     ImageView im, img_wish, img_shooping;
@@ -108,7 +102,6 @@ public class Product_List extends AppCompatActivity {
     Button buy_cart, cancel;
     EditText edt_count;
     TextView p_prize1;
-
     int page_id = 1;
     String page_limit = "";
     ArrayList<Bean_Product> bean_product1 = new ArrayList<Bean_Product>();
@@ -129,11 +122,8 @@ public class Product_List extends AppCompatActivity {
     ArrayList<Bean_ProductImage> bean_productImages_db = new ArrayList<Bean_ProductImage>();
     ArrayList<Bean_schemeData> bean_Schme_data = new ArrayList<Bean_schemeData>();
     ArrayList<Bean_schemeData> bean_S_data = new ArrayList<Bean_schemeData>();
-    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
-    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
     String owner_id = "";
     String u_id = "";
-    public static ArrayList<String> WishList = new ArrayList<String>();
     ArrayList<Bean_ProductCart> bean_cart = new ArrayList<Bean_ProductCart>();
     ArrayList<ArrayList<Bean_Attribute>> array_attribute_main = new ArrayList<ArrayList<Bean_Attribute>>();
     double amount1;
@@ -160,8 +150,43 @@ public class Product_List extends AppCompatActivity {
     String qun = "";
     ArrayList<Bean_Value_Selected_Detail> array_value = new ArrayList<Bean_Value_Selected_Detail>();
     String rolee = "";
-
     LinearLayout layout_productList;
+    private ArrayList<Integer> image_product = new ArrayList<Integer>();
+
+    public static boolean isMarshmallowPlusDevice() {
+
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static boolean isPermissionRequestRequired(Activity activity, @NonNull String[] permissions, int requestCode) {
+        if (isMarshmallowPlusDevice() && permissions.length > 0) {
+            List<String> newPermissionList = new ArrayList<>();
+            for (String permission : permissions) {
+                if (PERMISSION_GRANTED != activity.checkSelfPermission(permission)) {
+                    newPermissionList.add(permission);
+
+                }
+            }
+            if (newPermissionList.size() > 0) {
+                activity.requestPermissions(newPermissionList.toArray(new String[newPermissionList.size()]), requestCode);
+                return true;
+            }
+
+
+        }
+
+        return false;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     @Override
     protected void onResume() {
@@ -237,32 +262,6 @@ public class Product_List extends AppCompatActivity {
             }
         });*/
 
-    }
-
-    public static boolean isMarshmallowPlusDevice() {
-
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public static boolean isPermissionRequestRequired(Activity activity, @NonNull String[] permissions, int requestCode) {
-        if (isMarshmallowPlusDevice() && permissions.length > 0) {
-            List<String> newPermissionList = new ArrayList<>();
-            for (String permission : permissions) {
-                if (PERMISSION_GRANTED != activity.checkSelfPermission(permission)) {
-                    newPermissionList.add(permission);
-
-                }
-            }
-            if (newPermissionList.size() > 0) {
-                activity.requestPermissions(newPermissionList.toArray(new String[newPermissionList.size()]), requestCode);
-                return true;
-            }
-
-
-        }
-
-        return false;
     }
 
     private void fetchid() {
@@ -624,9 +623,6 @@ public class Product_List extends AppCompatActivity {
         finish();
     }
 
-    ;
-
-
     public void SetRefershDataProduct() {
         // TODO Auto-generated method stub
         bean_product_db.clear();
@@ -951,6 +947,782 @@ public class Product_List extends AppCompatActivity {
 
         }
         db.close();
+    }
+
+    private void showOfferDialog(final int position, String selectedProductID) {
+
+        Globals.generateNoteOnSD(getApplicationContext(), "12121212121");
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        dialogOffer.setContentView(R.layout.scheme_layout);
+        dialogOffer.getWindow().setLayout((6 * width) / 7, (4 * height) / 8);
+        dialogOffer.setCancelable(true);
+        dialogOffer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+        ImageView btn_cancel = (ImageView) dialogOffer.findViewById(R.id.btn_cancel);
+        bean_S_data.clear();
+
+        Log.e("size", "" + bean_Schme_data.size());
+
+
+        for (int i = 0; i < bean_Schme_data.size(); i++) {
+
+            if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(selectedProductID)) {
+                Bean_schemeData beans = new Bean_schemeData();
+                beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
+                Log.e("ID", "" + bean_product1.get(position).getPro_id());
+                Log.e("name", "" + bean_Schme_data.get(i).getSchme_name());
+                beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
+                beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
+                beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
+                beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
+                beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
+
+                bean_S_data.add(beans);
+
+
+            }
+
+
+        }
+        ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
+
+        final List<String> schemeHeaders = new ArrayList<String>();
+        final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
+
+        List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+        List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+        List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
+
+        for (int i = 0; i < bean_S_data.size(); i++) {
+            if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
+                extraSpecialScheme.add(bean_S_data.get(i));
+            } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
+                specialScheme.add(bean_S_data.get(i));
+            } else {
+                generalScheme.add(bean_S_data.get(i));
+            }
+        }
+
+        if (extraSpecialScheme.size() > 0) {
+            schemeHeaders.add("Extra Special Schemes");
+            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
+        }
+
+        if (specialScheme.size() > 0) {
+            schemeHeaders.add("Special Schemes");
+            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
+        }
+
+        if (generalScheme.size() > 0) {
+            schemeHeaders.add("General Schemes");
+            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
+        }
+
+        final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(schemeHeaders, schemeChildList);
+        listSchemes.setAdapter(schemeAdapter);
+
+        listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                setRefershData();
+                String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                if (user_data.size() != 0) {
+                    for (int i = 0; i < user_data.size(); i++) {
+
+                        owner_id = user_data.get(i).getUser_id();
+
+                        role_id = user_data.get(i).getUser_type();
+
+                        if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                            app = new AppPrefs(Product_List.this);
+                            role_id = app.getSubSalesId();
+                            u_id = app.getSalesPersonId();
+                        } else {
+                            u_id = owner_id;
+                        }
+
+
+                    }
+
+
+                    // product_id = tv_pop_pname.getTag().toString();
+                    List<NameValuePair> para = new ArrayList<NameValuePair>();
+                    para.add(new BasicNameValuePair("product_id", bean_product1.get(position).getPro_id()));
+                    para.add(new BasicNameValuePair("owner_id", owner_id));
+                    para.add(new BasicNameValuePair("user_id", u_id));
+                    Globals.generateNoteOnSD(getApplicationContext(), "12121212121" + para.toString());
+                    Log.e("111111111", "" + bean_product1.get(position).getPro_id());
+                    Log.e("222222222", "" + owner_id);
+                    Log.e("333333333", "" + u_id);
+                    isNotDone = true;
+                    new GetProductDetailQty(para).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    while (isNotDone) {
+                        Globals.generateNoteOnSD(getApplicationContext(), "In while Loop");
+                    }
+                    isNotDone = true;
+
+                    String json = jsonData;
+
+                    Log.e("JSON UP", json);
+                    jsonData = "";
+
+                    try {
+                        Globals.generateNoteOnSD(getApplicationContext(), "JSON Return" + json);
+
+                        //System.out.println(json);
+
+                        if (json.isEmpty()) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                            Globals.CustomToast(Product_List.this, "SERVER ERROR", getLayoutInflater());
+                            // loadingView.dismiss();
+
+                        } else {
+                            JSONObject jObj = new JSONObject(json);
+
+                            boolean date = jObj.getBoolean("status");
+
+                            if (!date) {
+
+                                qun = "1";
+                                kkk = 0;
+                                //Log.e("131313131331","1");
+
+                                // loadingView.dismiss();
+                            } else {
+
+                                JSONObject jobj = new JSONObject(json);
+
+                                JSONArray jsonArray = jObj.getJSONArray("data");
+                                for (int iu = 0; iu < jsonArray.length(); iu++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(iu);
+                                    qun = jsonObject.getString("quantity");
+
+                                }
+
+                                //Log.e("131313131331",""+qun);
+                                kkk = 1;
+
+
+                            }
+
+                        }
+                    } catch (Exception j) {
+                        j.printStackTrace();
+
+                        Globals.generateNoteOnSD(getApplicationContext(), "Exception : " + j.getMessage());
+                        //Log.e("json exce",j.getMessage());
+                    }
+                    Log.e("kkk", "" + kkk);
+                    product_id = bean_product1.get(position).getPro_id();
+                    String qty = schemeChildList.get(schemeHeaders.get(groupPosition)).get(childPosition).getSchme_qty();
+                    Log.e("qty", "" + qty);
+
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair("product_id", product_id));
+                    params.add(new BasicNameValuePair("user_id", user_id_main));
+                    params.add(new BasicNameValuePair("product_buy_qty", qty));
+                    params.add(new BasicNameValuePair("scheme_id", selectedSchemeID));
+                    Log.e("111111111", "" + product_id);
+                    Log.e("222222222", "" + user_id_main);
+                    Log.e("333333333", "" + qty);
+
+                    jsonData = "";
+                    isNotDone = true;
+                    new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    while (isNotDone) {
+
+                    }
+                    isNotDone = true;
+                    String jsons = jsonData; //GetProductDetailByCode(params);
+
+                    Log.e("Return JSON", jsons);
+
+                    //new check_schme().execute();
+                    try {
+
+
+                        //System.out.println(json);
+
+                        if (jsons == null
+                                || (jsons.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                            Globals.CustomToast(Product_List.this, "SERVER ERRER", getLayoutInflater());
+                            // loadingView.dismiss();
+
+                        } else {
+                            JSONObject jObj = new JSONObject(jsons);
+
+                            String date = jObj.getString("status");
+
+                            if (date.equalsIgnoreCase("false")) {
+                                String Message = jObj.getString("message");
+                                bean_product_schme.clear();
+                                bean_schme.clear();
+                                //Log.e("11111111",""+product_id);
+                                //   Globals.CustomToast(Product_List.this, "" + Message, getLayoutInflater());
+                                // loadingView.dismiss();
+                            } else {
+
+                                JSONObject jobj = new JSONObject(jsons);
+
+                                bean_product_schme.clear();
+                                bean_schme.clear();
+
+                                JSONObject jsonArray = jobj.getJSONObject("data");
+                                //Log.e("3333333333",""+product_id);
+                                //   for (int i = 0; i < jsonArray.length(); i++) {
+                                // JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                JSONObject jschme = jsonArray.getJSONObject("Scheme");
+
+                                JSONObject jproduct = jsonArray.getJSONObject("GetProduct");
+
+                                //Log.e("product",jproduct.toString()+"->"+jproduct.getString("id"));
+
+                                JSONObject jlabel = jproduct.getJSONObject("Label");
+
+
+                                Bean_Product bean = new Bean_Product();
+
+
+                                bean.setPro_id(jproduct.getString("id"));
+                                //Log.e("44444444",""+jproduct.getString("id"));
+
+                                bean.setPro_cat_id(jproduct.getString("category_id"));
+                                bean.setPro_code(jproduct.getString("product_code"));
+                                bean.setPro_name(jproduct.getString("product_name"));
+                                // bean.setPro_label(jproduct.getString("label_id"));
+                                bean.setPro_qty(jproduct.getString("qty"));
+                                bean.setPro_mrp(jproduct.getString("mrp"));
+
+                                //Log.e("A1A1",""+jproduct.getString("mrp").toString());
+                                bean.setPro_sellingprice(jproduct.getString("selling_price"));
+                                //Log.e("B1B1",""+jproduct.getString("selling_price").toString());
+                                // bean.setPro_shortdesc(jproduct.getString("short_description"));
+                                bean.setPro_image(jproduct.getString("image"));
+
+
+                                bean.setScheme("");
+
+                                bean.setPro_label(jlabel.getString("name"));
+                                bean_product_schme.add(bean);
+
+
+                                JSONArray jProductOption = jproduct.getJSONArray("ProductOption");
+
+
+                                for (int s = 0; s < jProductOption.length(); s++) {
+                                    JSONObject jProductOptiono = jProductOption.getJSONObject(s);
+                                    JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
+                                    JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
+
+
+                                    Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
+                                    // arrOptionType=new ArrayList<String>();
+
+
+                                    //Option
+                                    beanoption.setPro_Option_id(jPOOption.getString("id"));
+                                    beanoption.setPro_Option_name(jPOOption.getString("name"));
+
+
+                                    //OptionValue
+                                    beanoption.setPro_Option_value_name(jPOOptionValue.getString("name"));
+                                    beanoption.setPro_Option_value_id(jPOOptionValue.getString("id"));
+
+
+                                    bean_Oprtions.add(beanoption);
+                                    //   arrOptionType.add(jPOOption.getString("id"));
+
+
+                                }
+
+
+                                Bean_Schme_value bean_sc = new Bean_Schme_value();
+                                bean_sc.setGet_qty(jschme.getString("get_prod_qty"));
+
+                                //Log.e("555555555",""+jschme.getString("max_qty"));
+                                bean_sc.setBuy_qty(jschme.getString("buy_prod_qty"));
+                                bean_sc.setMax_qty(jschme.getString("max_qty"));
+                                bean_sc.setDisc_per(jschme.getString("discount_percentage"));
+                                bean_sc.setType_id(jschme.getString("type_id"));
+                                bean_sc.setScheme_name(jschme.getString("scheme_name"));
+                                bean_sc.setScheme_id(jschme.getString("id"));
+                                //Log.e("Type ID11111 : ",""+jschme.getString("type_id"));
+                                bean_schme.add(bean_sc);
+                                //   loadingView.dismiss();
+
+                                //        }
+
+
+                                //loadingView.dismiss();
+
+                            }
+
+                        }
+                    } catch (Exception j) {
+                        j.printStackTrace();
+                        Log.e("JSON Exception", j.getMessage());
+                        //Log.e("json exce",j.getMessage());
+                    }
+                    //Log.e("45454545",""+bean_product_schme.size());
+                    if (bean_schme.size() == 0) {
+                        Log.e("1111111111111", "" + qty);
+                    } else {
+                        Log.e("2222222222222222", "" + qty);
+                        //Log.e("Type ID : ",""+bean_schme.get(0).getType_id().toString());
+                        if (bean_schme.get(0).getType_id().equalsIgnoreCase("1")) {
+                            Log.e("Scheme Option", "1 ->Option");
+                            jarray_cart = new JSONArray();
+
+                            String getq = bean_schme.get(0).getGet_qty();
+                            String buyq = bean_schme.get(0).getBuy_qty();
+                            String maxq = bean_schme.get(0).getMax_qty();
+
+                            double getqu = Double.parseDouble(getq);
+                            double buyqu = Double.parseDouble(buyq);
+                            double maxqu = Double.parseDouble(maxq);
+                            int qu = Integer.parseInt(qty);
+
+
+                            String sell = bean_product1.get(position).getPro_sellingprice();
+
+                            double se = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) * buyqu;
+
+                            double se1 = buyqu + getqu;
+
+                            double fse = se / se1;
+                            double w = round(fse, 2);
+                            sell = String.format("%.2f", w);
+                            //sell = String.valueOf(fse);
+
+                            int fqu = qu + (int) getqu;
+
+
+                            for (int i = 0; i < 1; i++) {
+                                try {
+                                    JSONObject jobject = new JSONObject();
+
+                                    jobject.put("user_id", u_id);
+                                    jobject.put("role_id", role_id);
+                                    jobject.put("owner_id", owner_id);
+                                    jobject.put("product_id", bean_product1.get(position).getPro_id());
+                                    jobject.put("category_id", Catid);
+                                    jobject.put("name", bean_product1.get(position).getPro_name());
+
+                                    jobject.put("pro_code", bean_product1.get(position).getPro_code());
+                                    jobject.put("quantity", String.valueOf(fqu));
+                                    jobject.put("mrp", bean_product1.get(position).getPro_mrp());
+                                    jobject.put("selling_price", sell);
+                                    jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
+                                    jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
+                                    jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
+                                    jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
+                                    double f = fqu * Double.parseDouble(sell);
+                                    double w1 = round(f, 2);
+                                    String str = String.format("%.2f", w1);
+                                    jobject.put("item_total", str);
+                                    jobject.put("pro_scheme", " ");
+                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                    if (list_of_images.size() == 0) {
+                                        jobject.put("prod_img", bean_product1.get(position).getPro_image());
+                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                    } else {
+                                        jobject.put("prod_img", list_of_images.get(0));
+                                        //   bean.setPro_Images(list_of_images.get(0).toString());
+                                    }
+
+
+                                    jarray_cart.put(jobject);
+                                } catch (JSONException e) {
+
+                                }
+
+
+                            }
+                            array_value.clear();
+                            dialog.dismiss();
+                            Log.e("Data 3217", jarray_cart.toString());
+                            Log.e("kkkkkkk", "" + kkk);
+                            if (kkk == 1) {
+
+                                new Edit_Product().execute();
+
+                            } else {
+
+                                new Add_Product().execute();
+                            }
+
+
+                        } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
+                            Log.e("Scheme Option", "2 ->Option");
+                            jarray_cart = new JSONArray();
+                            try {
+                                JSONObject jobject = new JSONObject();
+
+                                jobject.put("user_id", u_id);
+                                jobject.put("role_id", role_id);
+                                jobject.put("owner_id", owner_id);
+                                jobject.put("product_id", bean_product1.get(position).getPro_id());
+                                jobject.put("category_id", Catid);
+                                jobject.put("name", bean_product1.get(position).getPro_name());
+
+                                jobject.put("pro_code", bean_product1.get(position).getPro_code());
+                                jobject.put("quantity", qty);
+                                jobject.put("mrp", bean_product1.get(position).getPro_mrp());
+                                jobject.put("selling_price", bean_product1.get(position).getPro_sellingprice());
+                                jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
+                                jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
+                                jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
+                                jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
+                                double f = Integer.parseInt(qty) * Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
+                                double w1 = round(f, 2);
+                                String str = String.format("%.2f", w1);
+                                jobject.put("item_total", str);
+                                jobject.put("pro_scheme", " ");
+                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                jobject.put("scheme_id", " ");
+                                jobject.put("scheme_title", " ");
+                                jobject.put("scheme_pack_id", " ");
+                                if (list_of_images.size() == 0) {
+                                    jobject.put("prod_img", bean_product1.get(position).getPro_image());
+                                    // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                } else {
+                                    jobject.put("prod_img", list_of_images.get(0));
+                                    //   bean.setPro_Images(list_of_images.get(0).toString());
+                                }
+
+
+                                jarray_cart.put(jobject);
+                            } catch (JSONException e) {
+
+                            }
+
+
+                            String getq = bean_schme.get(0).getGet_qty();
+                            String buyq = bean_schme.get(0).getBuy_qty();
+                            String maxq = bean_schme.get(0).getMax_qty();
+
+                            double getqu = Double.parseDouble(getq);
+                            double buyqu = Double.parseDouble(buyq);
+                            //double maxqu = Double.parseDouble(maxq);
+                            int qu = Integer.parseInt(qty);
+
+                            double a = qu / buyqu;
+                            double b = a * getqu;
+                            /*if (b > maxqu) {
+                                b = maxqu;
+                            } else {
+                                b = b;
+                            }*/
+
+
+                            try {
+                                JSONObject jobject = new JSONObject();
+
+                                jobject.put("user_id", u_id);
+                                jobject.put("role_id", role_id);
+                                jobject.put("owner_id", owner_id);
+                                jobject.put("product_id", bean_product_schme.get(0).getPro_id());
+                                jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                jobject.put("name", bean_product_schme.get(0).getPro_name());
+                                jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
+                                jobject.put("quantity", String.valueOf((int) b));
+                                jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
+                                //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
+                                jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
+                                //Log.e("E1E1",""+bean_product_schme.get(0).getPro_sellingprice());
+                                jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id());
+                                jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name());
+                                jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id());
+                                jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name());
+                                jobject.put("item_total", "0");
+                                jobject.put("pro_scheme", bean_product1.get(position).getPro_id());
+                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                //Log.e("C1C1",""+bean_schme.get(0).getScheme_id());
+                                jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
+
+
+                                jarray_cart.put(jobject);
+                            } catch (JSONException e) {
+
+                            }
+
+
+                            // db.Add_Product_cart_scheme(bean_s);
+
+                            array_value.clear();
+                            Log.e("Data 3330", jarray_cart.toString());
+                            //dialogOffer.dismiss();
+                            Log.e("kkkkkkk", "" + kkk);
+                            if (kkk == 1) {
+
+                                new Edit_Product().execute();
+
+                            } else {
+
+                                new Add_Product().execute();
+                            }
+
+                        } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
+                            Log.e("Scheme Option", "3 ->Option");
+
+
+                            String getq = bean_schme.get(0).getGet_qty();
+                            String buyq = bean_schme.get(0).getBuy_qty();
+                            String maxq = bean_schme.get(0).getMax_qty();
+
+                            double getqu = Double.parseDouble(getq);
+                            double buyqu = Double.parseDouble(buyq);
+                            double maxqu = Double.parseDouble(maxq);
+                            int qu = Integer.parseInt(qty);
+
+
+                            String sell = bean_product1.get(position).getPro_sellingprice();
+
+                            String disc = bean_schme.get(0).getDisc_per();
+
+                            double se = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) * Double.parseDouble(bean_schme.get(0).getDisc_per());
+
+                            double se1 = se / 100;
+
+                            double fse = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) - se1;
+                            double w1 = round(fse, 2);
+                            sell = String.format("%.2f", w1);
+                            jarray_cart = new JSONArray();
+
+                            for (int i = 0; i < 1; i++) {
+                                try {
+                                    JSONObject jobject = new JSONObject();
+
+                                    jobject.put("user_id", u_id);
+                                    jobject.put("role_id", role_id);
+                                    jobject.put("owner_id", owner_id);
+                                    jobject.put("product_id", bean_product1.get(position).getPro_id());
+                                    jobject.put("category_id", Catid);
+                                    jobject.put("name", bean_product1.get(position).getPro_name());
+
+                                    jobject.put("pro_code", bean_product1.get(position).getPro_code());
+                                    jobject.put("quantity", qty);
+                                    jobject.put("mrp", bean_product1.get(position).getPro_mrp());
+                                    jobject.put("selling_price", sell);
+                                    jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
+                                    jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
+                                    jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
+                                    jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
+                                    double f = Double.parseDouble(qty) * Double.parseDouble(sell);
+                                    double w = round(f, 2);
+                                    String str = String.format("%.2f", w);
+                                    jobject.put("item_total", str);
+                                    jobject.put("pro_scheme", " ");
+                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                    if (list_of_images.size() == 0) {
+                                        jobject.put("prod_img", bean_product1.get(position).getPro_image());
+                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                    } else {
+                                        jobject.put("prod_img", list_of_images.get(0));
+                                        //   bean.setPro_Images(list_of_images.get(0).toString());
+                                    }
+
+
+                                    jarray_cart.put(jobject);
+                                } catch (JSONException e) {
+
+                                }
+
+
+                            }
+                            array_value.clear();
+                            Log.e("Data 3414", jarray_cart.toString());
+                            Log.e("kkkkkkk", "" + kkk);
+                            if (kkk == 1) {
+
+                                new Edit_Product().execute();
+
+                            } else {
+
+                                new Add_Product().execute();
+                            }
+                        }
+                    }
+
+                } else {
+
+                    Globals.CustomToast(Product_List.this, "Please Login First", getLayoutInflater());
+                    user_id_main = "";
+
+                }
+
+                dialogOffer.dismiss();
+
+                return true;
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogOffer.dismiss();
+            }
+        });
+        dialogOffer.show();
+
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(Product_List.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        Globals.generateNoteOnSD(getApplicationContext(), "9275 -> " + params.toString());
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+            Globals.generateNoteOnSD(getApplicationContext(), "In scheme while Loop");
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+            Globals.generateNoteOnSD(getApplicationContext(), "In Buy Now Loop");
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    static class ResultHolder {
+
+        LinearLayout l, layout_prices;
+        TextView tvproduct_name, tvproduct_code, tv_product_mrp, tv_product_sellingprice, tvproduct_packof, txt_mrp, txt_selling, txt_pack, off_tag;
+        Button btn_buyonline, BTN_wheretobuy_list, btn_enquiry;
+        ImageView img_photo, img_wish, img_shopping, img_offer;
+        TextView nav;
+
     }
 
     public class CustomResultAdapterDoctor extends BaseAdapter {
@@ -2247,7 +3019,7 @@ public class Product_List extends AppCompatActivity {
                                             }
                                         } catch (Exception j) {
                                             j.printStackTrace();
-                                            //Log.e("json exce",j.getMessage());
+                                            Log.e("json exce", j.getMessage());
                                         }
                                         //Log.e("45454545",""+bean_product_schme.size());
                                         if (bean_product_schme.size() == 0) {
@@ -2307,7 +3079,8 @@ public class Product_List extends AppCompatActivity {
                                             bean.setPro_total(tv_total.getText().toString());
                                             bean.setPro_schme("");
 
-                                            if(jarray_cart.length()>0) jarray_cart.remove(0);
+                                            if (jarray_cart.length() > 0)
+                                                jarray_cart = new JSONArray();
                                             for (int i = 0; i < 1; i++) {
                                                 try {
                                                     JSONObject jobject = new JSONObject();
@@ -2446,7 +3219,7 @@ public class Product_List extends AppCompatActivity {
 
                                                 int fqu = qu + (int) getqu;
 
-                                                bean.setPro_qty(String.valueOf((int) fqu));
+                                                bean.setPro_qty(String.valueOf(fqu));
                                                 bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                                 bean.setPro_sellingprice(sell);
                                                 bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
@@ -2485,7 +3258,7 @@ public class Product_List extends AppCompatActivity {
                                                         String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                         String aString = newString.trim().replace(")", "");
                                                         jobject.put("pro_code", aString.trim());
-                                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                                        jobject.put("quantity", String.valueOf(fqu));
                                                         jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                         jobject.put("selling_price", sell);
                                                         jobject.put("option_id", option_id);
@@ -2685,16 +3458,16 @@ public class Product_List extends AppCompatActivity {
 
                                                 double getqu = Double.parseDouble(getq);
                                                 double buyqu = Double.parseDouble(buyq);
-                                                double maxqu = Double.parseDouble(maxq);
+                                                //double maxqu = Double.parseDouble(maxq);
                                                 int qu = Integer.parseInt(edt_count.getText().toString());
 
                                                 double a = qu / buyqu;
                                                 double b = a * getqu;
-                                                if (b > maxqu) {
+                                                /*if (b > maxqu) {
                                                     b = maxqu;
                                                 } else {
                                                     b = b;
-                                                }
+                                                }*/
 
 
                                                 bean_s.setPro_qty(String.valueOf((int) b));
@@ -3344,7 +4117,7 @@ public class Product_List extends AppCompatActivity {
                                                 jobject.put("name", bean_product1.get(position).getPro_name());
 
                                                 jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) fqu));
+                                                jobject.put("quantity", String.valueOf(fqu));
                                                 jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                                 jobject.put("selling_price", sell);
                                                 jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
@@ -3439,16 +4212,16 @@ public class Product_List extends AppCompatActivity {
 
                                         double getqu = Double.parseDouble(getq);
                                         double buyqu = Double.parseDouble(buyq);
-                                        double maxqu = Double.parseDouble(maxq);
+                                        //double maxqu = Double.parseDouble(maxq);
                                         int qu = Integer.parseInt(qty);
 
                                         double a = qu / buyqu;
                                         double b = a * getqu;
-                                        if (b > maxqu) {
+                                        /*if (b > maxqu) {
                                             b = maxqu;
                                         } else {
                                             b = b;
-                                        }
+                                        }*/
 
 
                                         try {
@@ -3700,7 +4473,7 @@ public class Product_List extends AppCompatActivity {
 
                                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                                 params.add(new BasicNameValuePair("product_id", product_id));
-                                params.add(new BasicNameValuePair("user_id", user_id_main));
+                                params.add(new BasicNameValuePair("user_id", u_id));
                                 params.add(new BasicNameValuePair("product_buy_qty", qty));
                                 Log.e("111111111", "" + product_id);
                                 Log.e("222222222", "" + user_id_main);
@@ -3891,7 +4664,7 @@ public class Product_List extends AppCompatActivity {
                                                 jobject.put("name", bean_product1.get(position).getPro_name());
 
                                                 jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) fqu));
+                                                jobject.put("quantity", String.valueOf(fqu));
                                                 jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                                 jobject.put("selling_price", sell);
                                                 jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
@@ -4347,7 +5120,7 @@ public class Product_List extends AppCompatActivity {
 
             TextView lblListHeader=(TextView) convertView.findViewById(R.id.lblListHeader);
 
-            String groupHeader=((String) getGroup(groupPosition))+" ("+getChildrenCount(groupPosition)+")";
+            String groupHeader = getGroup(groupPosition) + " (" + getChildrenCount(groupPosition) + ")";
 
             lblListHeader.setText(groupHeader);
 
@@ -4374,644 +5147,6 @@ public class Product_List extends AppCompatActivity {
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;
         }
-    }
-
-    private void showOfferDialog(final int position,String selectedProductID){
-
-        Globals.generateNoteOnSD(getApplicationContext(), "12121212121");
-
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-
-        dialogOffer.setContentView(R.layout.scheme_layout);
-        dialogOffer.getWindow().setLayout((6 * width) / 7, (4 * height) / 8);
-        dialogOffer.setCancelable(true);
-        dialogOffer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
-        ImageView btn_cancel = (ImageView) dialogOffer.findViewById(R.id.btn_cancel);
-        bean_S_data.clear();
-
-        Log.e("size", "" + bean_Schme_data.size());
-
-
-        for (int i = 0; i < bean_Schme_data.size(); i++) {
-
-            if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(selectedProductID)) {
-                Bean_schemeData beans = new Bean_schemeData();
-                beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
-                Log.e("ID", "" + bean_product1.get(position).getPro_id());
-                Log.e("name", "" + bean_Schme_data.get(i).getSchme_name());
-                beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
-                beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
-                beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
-                beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
-                beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
-
-                bean_S_data.add(beans);
-
-
-            }
-
-
-        }
-        ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
-
-        final List<String> schemeHeaders=new ArrayList<String>();
-        final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
-
-        List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-        List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-        List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
-
-        for(int i=0; i<bean_S_data.size(); i++){
-            if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
-                extraSpecialScheme.add(bean_S_data.get(i));
-            }
-            else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
-                specialScheme.add(bean_S_data.get(i));
-            }
-            else {
-                generalScheme.add(bean_S_data.get(i));
-            }
-        }
-
-        if(extraSpecialScheme.size()>0){
-            schemeHeaders.add("Extra Special Schemes");
-            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
-        }
-
-        if(specialScheme.size()>0){
-            schemeHeaders.add("Special Schemes");
-            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
-        }
-
-        if(generalScheme.size()>0){
-            schemeHeaders.add("General Schemes");
-            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
-        }
-
-        final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(schemeHeaders,schemeChildList);
-        listSchemes.setAdapter(schemeAdapter);
-
-        listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-                setRefershData();
-                String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
-                if (user_data.size() != 0) {
-                    for (int i = 0; i < user_data.size(); i++) {
-
-                        owner_id = user_data.get(i).getUser_id();
-
-                        role_id = user_data.get(i).getUser_type();
-
-                        if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                            app = new AppPrefs(Product_List.this);
-                            role_id = app.getSubSalesId();
-                            u_id = app.getSalesPersonId();
-                        } else {
-                            u_id = owner_id;
-                        }
-
-
-                    }
-
-
-                    // product_id = tv_pop_pname.getTag().toString();
-                    List<NameValuePair> para = new ArrayList<NameValuePair>();
-                    para.add(new BasicNameValuePair("product_id", bean_product1.get(position).getPro_id()));
-                    para.add(new BasicNameValuePair("owner_id", owner_id));
-                    para.add(new BasicNameValuePair("user_id", u_id));
-                    Globals.generateNoteOnSD(getApplicationContext(), "12121212121" + para.toString());
-                    Log.e("111111111", "" + bean_product1.get(position).getPro_id());
-                    Log.e("222222222", "" + owner_id);
-                    Log.e("333333333", "" + u_id);
-                    isNotDone = true;
-                    new GetProductDetailQty(para).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    while (isNotDone) {
-                        Globals.generateNoteOnSD(getApplicationContext(), "In while Loop");
-                    }
-                    isNotDone = true;
-
-                    String json = jsonData;
-
-                    Log.e("JSON UP", json);
-                    jsonData = "";
-
-                    try {
-                        Globals.generateNoteOnSD(getApplicationContext(), "JSON Return" + json);
-
-                        //System.out.println(json);
-
-                        if (json.isEmpty()) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                            Globals.CustomToast(Product_List.this, "SERVER ERROR", getLayoutInflater());
-                            // loadingView.dismiss();
-
-                        } else {
-                            JSONObject jObj = new JSONObject(json);
-
-                            boolean date = jObj.getBoolean("status");
-
-                            if (!date) {
-
-                                qun = "1";
-                                kkk = 0;
-                                //Log.e("131313131331","1");
-
-                                // loadingView.dismiss();
-                            } else {
-
-                                JSONObject jobj = new JSONObject(json);
-
-                                JSONArray jsonArray = jObj.getJSONArray("data");
-                                for (int iu = 0; iu < jsonArray.length(); iu++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(iu);
-                                    qun = jsonObject.getString("quantity");
-
-                                }
-
-                                //Log.e("131313131331",""+qun);
-                                kkk = 1;
-
-
-                            }
-
-                        }
-                    } catch (Exception j) {
-                        j.printStackTrace();
-
-                        Globals.generateNoteOnSD(getApplicationContext(), "Exception : " + j.getMessage());
-                        //Log.e("json exce",j.getMessage());
-                    }
-                    Log.e("kkk", "" + kkk);
-                    product_id = bean_product1.get(position).getPro_id();
-                    String qty = schemeChildList.get(schemeHeaders.get(groupPosition)).get(childPosition).getSchme_qty();
-                    Log.e("qty", "" + qty);
-
-                    List<NameValuePair> params = new ArrayList<NameValuePair>();
-                    params.add(new BasicNameValuePair("product_id", product_id));
-                    params.add(new BasicNameValuePair("user_id", user_id_main));
-                    params.add(new BasicNameValuePair("product_buy_qty", qty));
-                    params.add(new BasicNameValuePair("scheme_id", selectedSchemeID));
-                    Log.e("111111111", "" + product_id);
-                    Log.e("222222222", "" + user_id_main);
-                    Log.e("333333333", "" + qty);
-
-                    jsonData = "";
-                    isNotDone = true;
-                    new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    while (isNotDone) {
-
-                    }
-                    isNotDone = true;
-                    String jsons = jsonData; //GetProductDetailByCode(params);
-
-                    Log.e("Return JSON", jsons);
-
-                    //new check_schme().execute();
-                    try {
-
-
-                        //System.out.println(json);
-
-                        if (jsons == null
-                                || (jsons.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                            Globals.CustomToast(Product_List.this, "SERVER ERRER", getLayoutInflater());
-                            // loadingView.dismiss();
-
-                        } else {
-                            JSONObject jObj = new JSONObject(jsons);
-
-                            String date = jObj.getString("status");
-
-                            if (date.equalsIgnoreCase("false")) {
-                                String Message = jObj.getString("message");
-                                bean_product_schme.clear();
-                                bean_schme.clear();
-                                //Log.e("11111111",""+product_id);
-                                //   Globals.CustomToast(Product_List.this, "" + Message, getLayoutInflater());
-                                // loadingView.dismiss();
-                            } else {
-
-                                JSONObject jobj = new JSONObject(jsons);
-
-                                bean_product_schme.clear();
-                                bean_schme.clear();
-
-                                JSONObject jsonArray = jobj.getJSONObject("data");
-                                //Log.e("3333333333",""+product_id);
-                                //   for (int i = 0; i < jsonArray.length(); i++) {
-                                // JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                JSONObject jschme = jsonArray.getJSONObject("Scheme");
-
-                                JSONObject jproduct = jsonArray.getJSONObject("GetProduct");
-
-                                //Log.e("product",jproduct.toString()+"->"+jproduct.getString("id"));
-
-                                JSONObject jlabel = jproduct.getJSONObject("Label");
-
-
-                                Bean_Product bean = new Bean_Product();
-
-
-                                bean.setPro_id(jproduct.getString("id"));
-                                //Log.e("44444444",""+jproduct.getString("id"));
-
-                                bean.setPro_cat_id(jproduct.getString("category_id"));
-                                bean.setPro_code(jproduct.getString("product_code"));
-                                bean.setPro_name(jproduct.getString("product_name"));
-                                // bean.setPro_label(jproduct.getString("label_id"));
-                                bean.setPro_qty(jproduct.getString("qty"));
-                                bean.setPro_mrp(jproduct.getString("mrp"));
-
-                                //Log.e("A1A1",""+jproduct.getString("mrp").toString());
-                                bean.setPro_sellingprice(jproduct.getString("selling_price"));
-                                //Log.e("B1B1",""+jproduct.getString("selling_price").toString());
-                                // bean.setPro_shortdesc(jproduct.getString("short_description"));
-                                bean.setPro_image(jproduct.getString("image"));
-
-
-                                bean.setScheme("");
-
-                                bean.setPro_label(jlabel.getString("name"));
-                                bean_product_schme.add(bean);
-
-
-                                JSONArray jProductOption = jproduct.getJSONArray("ProductOption");
-
-
-                                for (int s = 0; s < jProductOption.length(); s++) {
-                                    JSONObject jProductOptiono = jProductOption.getJSONObject(s);
-                                    JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
-                                    JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
-
-
-                                    Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
-                                    // arrOptionType=new ArrayList<String>();
-
-
-                                    //Option
-                                    beanoption.setPro_Option_id(jPOOption.getString("id"));
-                                    beanoption.setPro_Option_name(jPOOption.getString("name"));
-
-
-                                    //OptionValue
-                                    beanoption.setPro_Option_value_name(jPOOptionValue.getString("name"));
-                                    beanoption.setPro_Option_value_id(jPOOptionValue.getString("id"));
-
-
-                                    bean_Oprtions.add(beanoption);
-                                    //   arrOptionType.add(jPOOption.getString("id"));
-
-
-                                }
-
-
-                                Bean_Schme_value bean_sc = new Bean_Schme_value();
-                                bean_sc.setGet_qty(jschme.getString("get_prod_qty"));
-
-                                //Log.e("555555555",""+jschme.getString("max_qty"));
-                                bean_sc.setBuy_qty(jschme.getString("buy_prod_qty"));
-                                bean_sc.setMax_qty(jschme.getString("max_qty"));
-                                bean_sc.setDisc_per(jschme.getString("discount_percentage"));
-                                bean_sc.setType_id(jschme.getString("type_id"));
-                                bean_sc.setScheme_name(jschme.getString("scheme_name"));
-                                bean_sc.setScheme_id(jschme.getString("id"));
-                                //Log.e("Type ID11111 : ",""+jschme.getString("type_id"));
-                                bean_schme.add(bean_sc);
-                                //   loadingView.dismiss();
-
-                                //        }
-
-
-                                //loadingView.dismiss();
-
-                            }
-
-                        }
-                    } catch (Exception j) {
-                        j.printStackTrace();
-                        Log.e("JSON Exception", j.getMessage());
-                        //Log.e("json exce",j.getMessage());
-                    }
-                    //Log.e("45454545",""+bean_product_schme.size());
-                    if (bean_schme.size() == 0) {
-                        Log.e("1111111111111", "" + qty);
-                    } else {
-                        Log.e("2222222222222222", "" + qty);
-                        //Log.e("Type ID : ",""+bean_schme.get(0).getType_id().toString());
-                        if (bean_schme.get(0).getType_id().equalsIgnoreCase("1")) {
-                            Log.e("Scheme Option", "1 ->Option");
-                            jarray_cart = new JSONArray();
-
-                            String getq = bean_schme.get(0).getGet_qty();
-                            String buyq = bean_schme.get(0).getBuy_qty();
-                            String maxq = bean_schme.get(0).getMax_qty();
-
-                            double getqu = Double.parseDouble(getq);
-                            double buyqu = Double.parseDouble(buyq);
-                            double maxqu = Double.parseDouble(maxq);
-                            int qu = Integer.parseInt(qty);
-
-
-                            String sell = bean_product1.get(position).getPro_sellingprice();
-
-                            double se = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) * buyqu;
-
-                            double se1 = buyqu + getqu;
-
-                            double fse = se / se1;
-                            double w = round(fse, 2);
-                            sell = String.format("%.2f", w);
-                            //sell = String.valueOf(fse);
-
-                            int fqu = qu + (int) getqu;
-
-
-                            for (int i = 0; i < 1; i++) {
-                                try {
-                                    JSONObject jobject = new JSONObject();
-
-                                    jobject.put("user_id", u_id);
-                                    jobject.put("role_id", role_id);
-                                    jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", bean_product1.get(position).getPro_id());
-                                    jobject.put("category_id", Catid);
-                                    jobject.put("name", bean_product1.get(position).getPro_name());
-
-                                    jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                    jobject.put("quantity", String.valueOf((int) fqu));
-                                    jobject.put("mrp", bean_product1.get(position).getPro_mrp());
-                                    jobject.put("selling_price", sell);
-                                    jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
-                                    jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
-                                    jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
-                                    jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
-                                    double f = fqu * Double.parseDouble(sell);
-                                    double w1 = round(f, 2);
-                                    String str = String.format("%.2f", w1);
-                                    jobject.put("item_total", str);
-                                    jobject.put("pro_scheme", " ");
-                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                    if (list_of_images.size() == 0) {
-                                        jobject.put("prod_img", bean_product1.get(position).getPro_image());
-                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                    } else {
-                                        jobject.put("prod_img", list_of_images.get(0));
-                                        //   bean.setPro_Images(list_of_images.get(0).toString());
-                                    }
-
-
-                                    jarray_cart.put(jobject);
-                                } catch (JSONException e) {
-
-                                }
-
-
-                            }
-                            array_value.clear();
-                            dialog.dismiss();
-                            Log.e("Data 3217",jarray_cart.toString());
-                            Log.e("kkkkkkk", "" + kkk);
-                            if (kkk == 1) {
-
-                                new Edit_Product().execute();
-
-                            } else {
-
-                                new Add_Product().execute();
-                            }
-
-
-                        } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
-                            Log.e("Scheme Option", "2 ->Option");
-                            jarray_cart = new JSONArray();
-                            try {
-                                JSONObject jobject = new JSONObject();
-
-                                jobject.put("user_id", u_id);
-                                jobject.put("role_id", role_id);
-                                jobject.put("owner_id", owner_id);
-                                jobject.put("product_id", bean_product1.get(position).getPro_id());
-                                jobject.put("category_id", Catid);
-                                jobject.put("name", bean_product1.get(position).getPro_name());
-
-                                jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                jobject.put("quantity", qty);
-                                jobject.put("mrp", bean_product1.get(position).getPro_mrp());
-                                jobject.put("selling_price", bean_product1.get(position).getPro_sellingprice());
-                                jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
-                                jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
-                                jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
-                                jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
-                                double f = Integer.parseInt(qty) * Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
-                                double w1 = round(f, 2);
-                                String str = String.format("%.2f", w1);
-                                jobject.put("item_total", str);
-                                jobject.put("pro_scheme", " ");
-                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                jobject.put("scheme_id", " ");
-                                jobject.put("scheme_title", " ");
-                                jobject.put("scheme_pack_id", " ");
-                                if (list_of_images.size() == 0) {
-                                    jobject.put("prod_img", bean_product1.get(position).getPro_image());
-                                    // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                } else {
-                                    jobject.put("prod_img", list_of_images.get(0));
-                                    //   bean.setPro_Images(list_of_images.get(0).toString());
-                                }
-
-
-                                jarray_cart.put(jobject);
-                            } catch (JSONException e) {
-
-                            }
-
-
-                            String getq = bean_schme.get(0).getGet_qty();
-                            String buyq = bean_schme.get(0).getBuy_qty();
-                            String maxq = bean_schme.get(0).getMax_qty();
-
-                            double getqu = Double.parseDouble(getq);
-                            double buyqu = Double.parseDouble(buyq);
-                            double maxqu = Double.parseDouble(maxq);
-                            int qu = Integer.parseInt(qty);
-
-                            double a = qu / buyqu;
-                            double b = a * getqu;
-                            /*if (b > maxqu) {
-                                b = maxqu;
-                            } else {
-                                b = b;
-                            }*/
-
-
-                            try {
-                                JSONObject jobject = new JSONObject();
-
-                                jobject.put("user_id", u_id);
-                                jobject.put("role_id", role_id);
-                                jobject.put("owner_id", owner_id);
-                                jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
-                                jobject.put("name", bean_product_schme.get(0).getPro_name());
-                                jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                jobject.put("quantity", String.valueOf((int) b));
-                                jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
-                                //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
-                                jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
-                                //Log.e("E1E1",""+bean_product_schme.get(0).getPro_sellingprice());
-                                jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id());
-                                jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name());
-                                jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id());
-                                jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name());
-                                jobject.put("item_total", "0");
-                                jobject.put("pro_scheme", bean_product1.get(position).getPro_id());
-                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                //Log.e("C1C1",""+bean_schme.get(0).getScheme_id());
-                                jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
-
-
-                                jarray_cart.put(jobject);
-                            } catch (JSONException e) {
-
-                            }
-
-
-                            // db.Add_Product_cart_scheme(bean_s);
-
-                            array_value.clear();
-                            Log.e("Data 3330",jarray_cart.toString());
-                            //dialogOffer.dismiss();
-                            Log.e("kkkkkkk", "" + kkk);
-                            if (kkk == 1) {
-
-                                new Edit_Product().execute();
-
-                            } else {
-
-                                new Add_Product().execute();
-                            }
-
-                        } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
-                            Log.e("Scheme Option", "3 ->Option");
-
-
-                            String getq = bean_schme.get(0).getGet_qty();
-                            String buyq = bean_schme.get(0).getBuy_qty();
-                            String maxq = bean_schme.get(0).getMax_qty();
-
-                            double getqu = Double.parseDouble(getq);
-                            double buyqu = Double.parseDouble(buyq);
-                            double maxqu = Double.parseDouble(maxq);
-                            int qu = Integer.parseInt(qty);
-
-
-                            String sell = bean_product1.get(position).getPro_sellingprice();
-
-                            String disc = bean_schme.get(0).getDisc_per();
-
-                            double se = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) * Double.parseDouble(bean_schme.get(0).getDisc_per());
-
-                            double se1 = se / 100;
-
-                            double fse = Double.parseDouble(bean_product1.get(position).getPro_sellingprice()) - se1;
-                            double w1 = round(fse, 2);
-                            sell = String.format("%.2f", w1);
-                            jarray_cart = new JSONArray();
-
-                            for (int i = 0; i < 1; i++) {
-                                try {
-                                    JSONObject jobject = new JSONObject();
-
-                                    jobject.put("user_id", u_id);
-                                    jobject.put("role_id", role_id);
-                                    jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", bean_product1.get(position).getPro_id());
-                                    jobject.put("category_id", Catid);
-                                    jobject.put("name", bean_product1.get(position).getPro_name());
-
-                                    jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                    jobject.put("quantity", qty);
-                                    jobject.put("mrp", bean_product1.get(position).getPro_mrp());
-                                    jobject.put("selling_price", sell);
-                                    jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
-                                    jobject.put("option_name", bean_productOprtions.get(position).getPro_Option_name());
-                                    jobject.put("option_value_id", bean_productOprtions.get(position).getPro_Option_value_id());
-                                    jobject.put("option_value_name", bean_productOprtions.get(position).getPro_Option_value_name());
-                                    double f = Double.parseDouble(qty) * Double.parseDouble(sell);
-                                    double w = round(f, 2);
-                                    String str = String.format("%.2f", w);
-                                    jobject.put("item_total", str);
-                                    jobject.put("pro_scheme", " ");
-                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                    if (list_of_images.size() == 0) {
-                                        jobject.put("prod_img", bean_product1.get(position).getPro_image());
-                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                    } else {
-                                        jobject.put("prod_img", list_of_images.get(0));
-                                        //   bean.setPro_Images(list_of_images.get(0).toString());
-                                    }
-
-
-                                    jarray_cart.put(jobject);
-                                } catch (JSONException e) {
-
-                                }
-
-
-                            }
-                            array_value.clear();
-                            Log.e("Data 3414",jarray_cart.toString());
-                            Log.e("kkkkkkk", "" + kkk);
-                            if (kkk == 1) {
-
-                                new Edit_Product().execute();
-
-                            } else {
-
-                                new Add_Product().execute();
-                            }
-                        }
-                    }
-
-                } else {
-
-                    Globals.CustomToast(Product_List.this, "Please Login First", getLayoutInflater());
-                    user_id_main = "";
-
-                }
-
-                dialogOffer.dismiss();
-
-                return true;
-            }
-        });
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogOffer.dismiss();
-            }
-        });
-        dialogOffer.show();
-
     }
 
     public class MyAdapter extends ArrayAdapter<Bean_Attribute> {
@@ -6343,7 +6478,7 @@ public class Product_List extends AppCompatActivity {
                                             }
                                         } catch (Exception j) {
                                             j.printStackTrace();
-                                            //Log.e("json exce",j.getMessage());
+                                            Log.e("json exce", j.getMessage());
                                         }
                                         //Log.e("45454545",""+bean_product_schme.size());
                                         if (bean_product_schme.size() == 0) {
@@ -6536,7 +6671,7 @@ public class Product_List extends AppCompatActivity {
 
                                                 int fqu = qu + (int) getqu;
 
-                                                bean.setPro_qty(String.valueOf((int) fqu));
+                                                bean.setPro_qty(String.valueOf(fqu));
                                                 bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                                 bean.setPro_sellingprice(sell);
                                                 bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
@@ -6575,7 +6710,7 @@ public class Product_List extends AppCompatActivity {
                                                         String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                         String aString = newString.toString().trim().replace(")", "");
                                                         jobject.put("pro_code", aString.toString().trim());
-                                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                                        jobject.put("quantity", String.valueOf(fqu));
                                                         jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                         jobject.put("selling_price", sell);
                                                         jobject.put("option_id", option_id);
@@ -6764,16 +6899,14 @@ public class Product_List extends AppCompatActivity {
 
                                                 double getqu = Double.parseDouble(getq);
                                                 double buyqu = Double.parseDouble(buyq);
-                                                double maxqu = Double.parseDouble(maxq);
+                                                //double maxqu = Double.parseDouble(maxq);
                                                 int qu = Integer.parseInt(edt_count.getText().toString());
 
                                                 double a = qu / buyqu;
                                                 double b = a * getqu;
-                                                if (b > maxqu) {
+                                                /*if (b > maxqu) {
                                                     b = maxqu;
-                                                } else {
-                                                    b = b;
-                                                }
+                                                }*/
 
 
                                                 bean_s.setPro_qty(String.valueOf((int) b));
@@ -7413,7 +7546,7 @@ public class Product_List extends AppCompatActivity {
                                                 jobject.put("name", bean_product1.get(position).getPro_name());
 
                                                 jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) fqu));
+                                                jobject.put("quantity", String.valueOf(fqu));
                                                 jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                                 jobject.put("selling_price", sell);
                                                 jobject.put("option_id", bean_productOprtions.get(position).getPro_Option_id());
@@ -7511,16 +7644,16 @@ public class Product_List extends AppCompatActivity {
 
                                         double getqu = Double.parseDouble(getq);
                                         double buyqu = Double.parseDouble(buyq);
-                                        double maxqu = Double.parseDouble(maxq);
+                                        //double maxqu = Double.parseDouble(maxq);
                                         int qu = Integer.parseInt(qty);
 
                                         double a = qu / buyqu;
                                         double b = a * getqu;
-                                        if (b > maxqu) {
+                                        /*if (b > maxqu) {
                                             b = maxqu;
                                         } else {
                                             b = b;
-                                        }
+                                        }*/
 
 
                                         try {
@@ -7823,20 +7956,10 @@ public class Product_List extends AppCompatActivity {
 
     }
 
-    static class ResultHolder {
-
-        LinearLayout l,layout_prices;
-        TextView tvproduct_name, tvproduct_code, tv_product_mrp, tv_product_sellingprice, tvproduct_packof, txt_mrp, txt_selling, txt_pack, off_tag;
-        Button btn_buyonline, BTN_wheretobuy_list, btn_enquiry;
-        ImageView img_photo, img_wish, img_shopping, img_offer;
-        TextView nav;
-
-    }
-
     public class get_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -8390,9 +8513,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_Product1 extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -8679,9 +8802,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_marquee extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -8814,9 +8937,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_ProductFilter extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -9375,9 +9498,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class set_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -9505,73 +9628,10 @@ public class Product_List extends AppCompatActivity {
 
     }
 
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(Product_List.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
     public class get_Product_Newest extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -9855,9 +9915,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_Product_Popularity extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -10145,9 +10205,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_Product_LowtoHigh extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -10436,9 +10496,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class get_Product_HightoLow extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -10726,9 +10786,9 @@ public class Product_List extends AppCompatActivity {
     }
 
     public class delete_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -10852,41 +10912,6 @@ public class Product_List extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        Globals.generateNoteOnSD(getApplicationContext(), "9275 -> " + params.toString());
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-            Globals.generateNoteOnSD(getApplicationContext(), "In scheme while Loop");
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class GetProductDetailQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> params = new ArrayList<>();
@@ -10918,42 +10943,10 @@ public class Product_List extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-            Globals.generateNoteOnSD(getApplicationContext(), "In Buy Now Loop");
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -11046,11 +11039,40 @@ public class Product_List extends AppCompatActivity {
 
         }
     }
+   /* public String GetCartByQty(final List<NameValuePair> params){
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] =false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0]=false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]){
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }*/
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -11150,35 +11172,6 @@ public class Product_List extends AppCompatActivity {
 
         }
     }
-   /* public String GetCartByQty(final List<NameValuePair> params){
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }*/
 
     public class CustomResultAdapterschme extends BaseAdapter {
 
@@ -11225,15 +11218,6 @@ public class Product_List extends AppCompatActivity {
             return convertView;
         }
 
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
     }
 
     public class GetCartByQty extends AsyncTask<Void, Void, String> {

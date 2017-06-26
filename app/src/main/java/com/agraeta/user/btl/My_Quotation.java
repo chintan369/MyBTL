@@ -3,17 +3,14 @@ package com.agraeta.user.btl;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -104,12 +101,10 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
 
     FloatingActionButton fab_addProduct;
     QuotationListAdapter listAdapter;
+    ImageView img_deleteQuotation;
     private String user_id_main="";
     private boolean isNotDone=false;
     private String jsonData="";
-
-    ImageView img_deleteQuotation;
-
 
     protected void onResume() {
         System.runFinalization();
@@ -526,6 +521,8 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         cancel = (Button) dialog.findViewById(R.id.cancel);
         edt_count = (EditText) dialog.findViewById(R.id.edt_count);
         edt_count.setSelection(edt_count.getText().length());
+
+        buy_cart.setText("Add to Quotation");
 
         final TextView txt_availableScheme = (TextView) dialog.findViewById(R.id.txt_availableScheme);
 
@@ -1099,7 +1096,7 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
 
                                 int fqu = qu + (int) getqu;
 
-                                bean.setPro_qty(String.valueOf((int) fqu));
+                                bean.setPro_qty(String.valueOf(fqu));
                                 bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                 bean.setPro_sellingprice(sell);
                                 bean.setPro_shortdesc(bean_cart_data.get(position).getPack_of());
@@ -1138,7 +1135,7 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
                                         String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                         String aString = newString.toString().trim().replace(")", "");
                                         jobject.put("pro_code", aString.toString().trim());
-                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                        jobject.put("quantity", String.valueOf(fqu));
                                         jobject.put("mrp", tv_pop_mrp.getText().toString());
                                         jobject.put("selling_price", sell);
                                         jobject.put("option_id", bean_cart_data.get(position).getOption_id().toString());
@@ -1557,13 +1554,223 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         new DeleteQuotationProduct(productID,userID,ownerID).execute();
     }
 
-    public class Add_Product extends AsyncTask<Void, Void, String>  {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(My_Quotation.this);
 
-        String data="";
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
+    private boolean validateEmail1(String email) {
+        // TODO Auto-generated method stub
+
+        Pattern pattern;
+        Matcher matcher;
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductSelling(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ADD_BTL_PRODUCT && resultCode == RESULT_OK) {
+            new get_cartdata(true).execute();
+        } else if (requestCode == REQUEST_SEND_QUOTATION && resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
+    public class Add_Product extends AsyncTask<Void, Void, String>  {
+        public StringBuilder sb;
+        boolean status;
+        String data = "";
+        private String result;
+        private InputStream is;
 
         public Add_Product(String data) {
             this.data = data;
@@ -1655,11 +1862,11 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
+        boolean status;
+        String data = "";
+        private String result;
         private InputStream is;
-        String data="";
 
         public Edit_Product(String data) {
             this.data = data;
@@ -1893,90 +2100,10 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         }
     }
 
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(My_Quotation.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
-    public void onBackPressed() {
-        setResult(RESULT_CANCELED);
-        finish();
-    }
-
-    private boolean validateEmail1(String email) {
-        // TODO Auto-generated method stub
-
-        Pattern pattern;
-        Matcher matcher;
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
-
-    }
-
     public class send_quotation extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -2082,11 +2209,11 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
     }
 
     public class get_cartdata extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
+        boolean status;
+        boolean afterEditing = false;
+        private String result;
         private InputStream is;
-        boolean afterEditing=false;
 
         public get_cartdata(){
             afterEditing=false;
@@ -2122,6 +2249,7 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
 
 
                 parameters.add(new BasicNameValuePair("quotation_id", quotationID));
+                Log.e("Quotation ID", quotationID);
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "QuotationCart/App_Get_Quotation_Data", ServiceHandler.POST, parameters);
 
@@ -2239,127 +2367,6 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-
-    public String GetProductSelling(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class GetCartByQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> params = new ArrayList<>();
@@ -2441,7 +2448,6 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         }
     }
 
-
     private class DeleteQuotationProduct extends AsyncTask<Void, Void, String> {
         String productID="", userID="", ownerID="";
         Custom_ProgressDialog dialog;
@@ -2499,7 +2505,6 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         }
     }
 
-
     private class DeleteWholeQuotation extends AsyncTask<Void, Void, String>{
 
         Custom_ProgressDialog dialog;
@@ -2546,18 +2551,6 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_ADD_BTL_PRODUCT && resultCode==RESULT_OK){
-            new get_cartdata(true).execute();
-        }
-        else if(requestCode==REQUEST_SEND_QUOTATION && resultCode==RESULT_OK){
-            setResult(RESULT_OK);
-            finish();
         }
     }
 }

@@ -13,9 +13,9 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
@@ -30,7 +30,6 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,16 +38,12 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.agraeta.user.btl.CompanySalesPerson.GPSTracker;
 import com.agraeta.user.btl.CompanySalesPerson.ImagePath;
-import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.combooffer.ComboCart;
-import com.agraeta.user.btl.model.combooffer.ComboOfferDetail;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
-import com.google.android.gms.vision.text.Line;
 import com.google.gson.Gson;
 
 import org.apache.http.NameValuePair;
@@ -63,11 +58,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class CheckoutPage_Product extends AppCompatActivity {
+    public static final int SELECT_PICTURE = 1;
+    public static final int SELECT_PICTURE_KITKAT = 2;
     private static final int EDIT_COMBO = 12;
     String sales_number;
     Dialog dialog, dialog1;
@@ -103,7 +96,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
     String role, user_type;
     ImageView im_billing, im_delivery;
     TextView txt_photo2;
-
     ArrayList<Bean_Address> array_address = new ArrayList<Bean_Address>();
     ArrayList<String> array_final_address = new ArrayList<String>();
     GPSTracker gps;
@@ -116,7 +108,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
     LinearLayout l_mrp, l_sell, l_totalInDialog;
     TextView txt_selling_price, txt_total_txt;
     String Selling = "";
-
     String selected_billing_address_id = "";
     String selected_shipping_address_id = "";
     String comment = "";
@@ -127,8 +118,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
     String user_id = "";
     TextView txt_subtotal;
     int selectedImageFor = 0;
-    public static final int SELECT_PICTURE = 1;
-    public static final int SELECT_PICTURE_KITKAT = 2;
     double lat, longt;
     String docPath1 = "";
     int kkk = 0;
@@ -303,6 +292,16 @@ public class CheckoutPage_Product extends AppCompatActivity {
             user_id = user_data.get(i).getUser_id().toString();
 
             role_id = user_data.get(i).getUser_type().toString();
+
+            if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                app = new AppPrefs(CheckoutPage_Product.this);
+                role_id = app.getSubSalesId().toString();
+                user_id = app.getSalesPersonId().toString();
+            } else {
+                user_id = owner_id;
+            }
+
         }
         if (role_id.equalsIgnoreCase("2") || role_id.equalsIgnoreCase("10")) {
             im_billing.setVisibility(View.VISIBLE);
@@ -2163,7 +2162,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                                                 int fqu = qu + (int) getqu;
 
-                                                bean.setPro_qty(String.valueOf((int) fqu));
+                                                bean.setPro_qty(String.valueOf(fqu));
                                                 bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                                 bean.setPro_sellingprice(sell);
                                                 bean.setPro_shortdesc(bean_cart_data.get(finalPosition1).getPack_of());
@@ -2202,7 +2201,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                         String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                         String aString = newString.toString().trim().replace(")", "");
                                                         jobject.put("pro_code", aString.toString().trim());
-                                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                                        jobject.put("quantity", String.valueOf(fqu));
                                                         jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                         jobject.put("selling_price", sell);
                                                         jobject.put("option_id", bean_cart_data.get(finalPosition1).getOption_id().toString());
@@ -2239,7 +2238,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                 }
 
 
-                                            } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("2")) {
+                                            } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
 
                                                 //Log.e("66666666666", "" + bean_product_schme.size());
                                                 Bean_ProductCart bean = new Bean_ProductCart();
@@ -2388,16 +2387,16 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                                                 double getqu = Double.parseDouble(getq);
                                                 double buyqu = Double.parseDouble(buyq);
-                                                double maxqu = Double.parseDouble(maxq);
+                                                //double maxqu = Double.parseDouble(maxq);
                                                 int qu = Integer.parseInt(edt_count.getText().toString());
 
                                                 double a = qu / buyqu;
                                                 double b = a * getqu;
-                                                if (b > maxqu) {
+                                                /*if (b > maxqu) {
                                                     b = maxqu;
                                                 } else {
                                                     b = b;
-                                                }
+                                                }*/
 
 
                                                 bean_s.setPro_qty(String.valueOf((int) b));
@@ -2667,10 +2666,415 @@ public class CheckoutPage_Product extends AppCompatActivity {
         tv_order_total.setText(str);
     }
 
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+        ImageView img_category = (ImageView) mCustomView.findViewById(R.id.img_category);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.GONE);
+       /* TextView txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
+        db = new DatabaseHandler(AboutUs_Activity.this);
+        bean_cart_data_data =  db.Get_Product_Cart();
+        db.close();*/
+        /*txt.setText(bean_cart_data_data.size() + "");*/
+        img_notification.setVisibility(View.GONE);
+        img_cart.setVisibility(View.GONE);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        txt.setVisibility(View.GONE);
+        img_notification.setVisibility(View.GONE);
+        app = new AppPrefs(CheckoutPage_Product.this);
+        String qun = app.getCart_QTy();
+
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id().toString();
+
+                role_id = user_data.get(i).getUser_type().toString();
+
+                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                    app = new AppPrefs(CheckoutPage_Product.this);
+                    role_id = app.getSubSalesId().toString();
+                    u_id = app.getSalesPersonId().toString();
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            app = new AppPrefs(CheckoutPage_Product.this);
+            app.setCart_QTy("");
+        }
+
+        app = new AppPrefs(CheckoutPage_Product.this);
+        String qu1 = app.getCart_QTy();
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
+            txt.setVisibility(View.GONE);
+            txt.setText("");
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
+                txt.setText("999+");
+                txt.setVisibility(View.VISIBLE);
+            } else {
+                txt.setText(qu1 + "");
+                txt.setVisibility(View.VISIBLE);
+            }
+        }
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                appPrefs.setCurrentPage("");
+                appPrefs.setaddress_id("");
+
+            }
+        });
+        /*img_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BTL_Cart.this, Main_CategoryPage.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });*/
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                app = new AppPrefs(CheckoutPage_Product.this);
+                app.setUser_notification("CheckoutPage_Product");
+                Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CheckoutPage_Product.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+       /* img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Notification.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+
+            }
+        });*/
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    public void onBackPressed() {
+
+        Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        appPrefs.setCurrentPage("");
+        appPrefs.setaddress_id("");
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(CheckoutPage_Product.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            //Log.e("",""+user_array_from_db.get(i).getUser_id());
+
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            // Toast.makeText(getApplicationContext(),""+user_id,Toast.LENGTH_SHORT).show();
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == EDIT_COMBO) {
+                new get_cartdata(true).execute();
+            } else if (data.getData() != null) {
+                Uri originalUri = null;
+                if (requestCode == SELECT_PICTURE) {
+                    originalUri = data.getData();
+                } else if (requestCode == SELECT_PICTURE_KITKAT) {
+                    originalUri = data.getData();
+                    getContentResolver().takePersistableUriPermission(originalUri, (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
+                }
+
+                if (selectedImageFor == 1)
+                    txt_photo2.setText(ImagePath.getPath(getApplicationContext(), originalUri));
+                /*else if(selectedImageFor==2)
+                    txt_photo2.setText(ImagePath.getPath(getApplicationContext(),originalUri));*/
+            }
+        }
+    }
+
+    public double getMinimumValue(double value1, double value2) {
+        if (value1 < value2)
+            return value1;
+        else if (value2 < value1)
+            return value2;
+
+        return value1;
+    }
+
+    private void showDetailInfoDialog() {
+
+        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.popup_bank_details_checkout, null);
+        dialogBuilder.setView(dialogView);
+        //final Bean_BankDetails bankPerson = new Bean_BankDetails();
+
+
+        titleName = (TextView) dialogView.findViewById(R.id.txt_title);
+        bankName = (TextView) dialogView.findViewById(R.id.txt_bank);
+        acNo = (TextView) dialogView.findViewById(R.id.txt_account);
+        ifsCode = (TextView) dialogView.findViewById(R.id.txt_code);
+        branchName = (TextView) dialogView.findViewById(R.id.txt_branch);
+        branchCode = (TextView) dialogView.findViewById(R.id.txt_branchcode);
+        final ImageView cancel = (ImageView) dialogView.findViewById(R.id.btn_cancel);
+
+        //new GetBankInformation().execute();
+
+
+        titleName.setText("Your order has been received and will be processed once payment has been confirmed. ");
+        bankName.setText(bankDetailsList.get(0).getBankName());
+        acNo.setText(bankDetailsList.get(0).getAccountNo());
+        ifsCode.setText(bankDetailsList.get(0).getIfsCode());
+        branchName.setText(bankDetailsList.get(0).getBranchName());
+        branchCode.setText(bankDetailsList.get(0).getBranchCode());
+     /*   titleName.setText(bankPerson.getTitleLine());
+        bankName.setText(bankPerson.getBankName());
+        acNo.setText(bankPerson.getAccountNo());
+        ifsCode.setText(bankPerson.getIfsCode());
+        branchName.setText(bankPerson.getBranchName());
+        branchCode.setText(bankPerson.getBranchCode());*/
+
+
+        //new GetDisRetInformation(activity,disUserID).execute();
+
+
+        final android.app.AlertDialog b = dialogBuilder.create();
+        b.setCancelable(false);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), CheckoutPage_Product.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                finish();
+                b.dismiss();
+
+
+            }
+        });
+
+        b.show();
+
+
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public String GetCartDelete(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_DeleteCart", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -2761,9 +3165,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -2877,9 +3281,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class send_order_details extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3120,11 +3524,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class send_B2B_details extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
+        boolean status;
         Custom_ProgressDialog loadingView;
+        private String result;
+        private InputStream is;
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -3319,9 +3723,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class send_B2BS_details extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3515,9 +3919,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class get_address_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3754,137 +4158,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
         }
     }
 
-    private void setActionBar() {
-
-        // TODO Auto-generated method stub
-        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        mActionBar.setCustomView(R.layout.actionbar_design);
-        View mCustomView = mActionBar.getCustomView();
-        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
-        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
-        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
-        ImageView img_category = (ImageView) mCustomView.findViewById(R.id.img_category);
-        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
-        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
-        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
-        frame.setVisibility(View.GONE);
-       /* TextView txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
-        db = new DatabaseHandler(AboutUs_Activity.this);
-        bean_cart_data_data =  db.Get_Product_Cart();
-        db.close();*/
-        /*txt.setText(bean_cart_data_data.size() + "");*/
-        img_notification.setVisibility(View.GONE);
-        img_cart.setVisibility(View.GONE);
-        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
-        txt.setVisibility(View.GONE);
-        img_notification.setVisibility(View.GONE);
-        app = new AppPrefs(CheckoutPage_Product.this);
-        String qun = app.getCart_QTy();
-
-        setRefershData();
-
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id().toString();
-
-                role_id = user_data.get(i).getUser_type().toString();
-
-                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                    app = new AppPrefs(CheckoutPage_Product.this);
-                    role_id = app.getSubSalesId().toString();
-                    u_id = app.getSalesPersonId().toString();
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            app = new AppPrefs(CheckoutPage_Product.this);
-            app.setCart_QTy("");
-        }
-
-        app = new AppPrefs(CheckoutPage_Product.this);
-        String qu1 = app.getCart_QTy();
-        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
-            txt.setVisibility(View.GONE);
-            txt.setText("");
-        } else {
-            if (Integer.parseInt(qu1) > 999) {
-                txt.setText("999+");
-                txt.setVisibility(View.VISIBLE);
-            } else {
-                txt.setText(qu1 + "");
-                txt.setVisibility(View.VISIBLE);
-            }
-        }
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-                appPrefs.setCurrentPage("");
-                appPrefs.setaddress_id("");
-
-            }
-        });
-        /*img_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(BTL_Cart.this, Main_CategoryPage.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });*/
-        img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                app = new AppPrefs(CheckoutPage_Product.this);
-                app.setUser_notification("CheckoutPage_Product");
-                Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(CheckoutPage_Product.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-       /* img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(Notification.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-
-            }
-        });*/
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-
     private class GetProductDetailByQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -3904,15 +4177,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             return jsonData;
         }
-    }
-
-    public void onBackPressed() {
-
-        Intent i = new Intent(CheckoutPage_Product.this, BTL_Cart.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-        appPrefs.setCurrentPage("");
-        appPrefs.setaddress_id("");
     }
 
     public class CustomResultAdapter extends BaseAdapter {
@@ -4019,97 +4283,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
 
             return convertView;
-        }
-    }
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(CheckoutPage_Product.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            //Log.e("",""+user_array_from_db.get(i).getUser_id());
-
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            // Toast.makeText(getApplicationContext(),""+user_id,Toast.LENGTH_SHORT).show();
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == EDIT_COMBO) {
-                new get_cartdata(true).execute();
-            } else if (data.getData() != null) {
-                Uri originalUri = null;
-                if (requestCode == SELECT_PICTURE) {
-                    originalUri = data.getData();
-                } else if (requestCode == SELECT_PICTURE_KITKAT) {
-                    originalUri = data.getData();
-                    getContentResolver().takePersistableUriPermission(originalUri, (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
-                }
-
-                if (selectedImageFor == 1)
-                    txt_photo2.setText(ImagePath.getPath(getApplicationContext(), originalUri));
-                /*else if(selectedImageFor==2)
-                    txt_photo2.setText(ImagePath.getPath(getApplicationContext(),originalUri));*/
-            }
         }
     }
 
@@ -4226,88 +4399,20 @@ public class CheckoutPage_Product extends AppCompatActivity {
         }
     }
 
-    public double getMinimumValue(double value1, double value2) {
-        if (value1 < value2)
-            return value1;
-        else if (value2 < value1)
-            return value2;
-
-        return value1;
-    }
-
-    private void showDetailInfoDialog() {
-
-        final android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.popup_bank_details_checkout, null);
-        dialogBuilder.setView(dialogView);
-        //final Bean_BankDetails bankPerson = new Bean_BankDetails();
-
-
-        titleName = (TextView) dialogView.findViewById(R.id.txt_title);
-        bankName = (TextView) dialogView.findViewById(R.id.txt_bank);
-        acNo = (TextView) dialogView.findViewById(R.id.txt_account);
-        ifsCode = (TextView) dialogView.findViewById(R.id.txt_code);
-        branchName = (TextView) dialogView.findViewById(R.id.txt_branch);
-        branchCode = (TextView) dialogView.findViewById(R.id.txt_branchcode);
-        final ImageView cancel = (ImageView) dialogView.findViewById(R.id.btn_cancel);
-
-        //new GetBankInformation().execute();
-
-
-        titleName.setText("Your order has been received and will be processed once payment has been confirmed. ");
-        bankName.setText(bankDetailsList.get(0).getBankName());
-        acNo.setText(bankDetailsList.get(0).getAccountNo());
-        ifsCode.setText(bankDetailsList.get(0).getIfsCode());
-        branchName.setText(bankDetailsList.get(0).getBranchName());
-        branchCode.setText(bankDetailsList.get(0).getBranchCode());
-     /*   titleName.setText(bankPerson.getTitleLine());
-        bankName.setText(bankPerson.getBankName());
-        acNo.setText(bankPerson.getAccountNo());
-        ifsCode.setText(bankPerson.getIfsCode());
-        branchName.setText(bankPerson.getBranchName());
-        branchCode.setText(bankPerson.getBranchCode());*/
-
-
-        //new GetDisRetInformation(activity,disUserID).execute();
-
-
-        final android.app.AlertDialog b = dialogBuilder.create();
-        b.setCancelable(false);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), CheckoutPage_Product.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//                finish();
-                b.dismiss();
-
-
-            }
-        });
-
-        b.show();
-
-
-    }
-
     public class GetBankInformation extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
-
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         //String user_id;
         String jsonData = "";
+        private String result;
+        private InputStream is;
 
 //        public GetBankInformation(Activity activity,String user_id){
 //            this.activity=activity;
 //            this.user_id=user_id;;
 //        }
-
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -4403,47 +4508,16 @@ public class CheckoutPage_Product extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Generate_OTP extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
-
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         String subSales_id;
         String user_ID;
         String jsonData = "";
+        private String result;
+        private InputStream is;
         //int position;
 
         public Generate_OTP(Activity activity, String user_ID, String subSales_id) {
@@ -4600,16 +4674,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
     }
 
     public class check_otp extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
-
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         String ref_no;
         String otp_no;
         String jsonData = "";
+        private String result;
+        private InputStream is;
         //int position;
 
         public check_otp(Activity activity, String ref_no, String otp_no) {
@@ -4809,31 +4882,12 @@ public class CheckoutPage_Product extends AppCompatActivity {
         }
     }
 
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     public class get_cartdata extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
+        boolean status;
         boolean afterEditing = false;
+        private String result;
+        private InputStream is;
 
         public get_cartdata() {
         }
@@ -5063,66 +5117,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             dialog.dismiss();
         }
-    }
-
-    public String GetCartDelete(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_DeleteCart", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 
     public class GetCartByQty extends AsyncTask<Void, Void, String> {

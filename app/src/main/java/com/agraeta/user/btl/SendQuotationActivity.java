@@ -2,15 +2,18 @@ package com.agraeta.user.btl;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +27,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -56,6 +58,7 @@ public class SendQuotationActivity extends AppCompatActivity {
         subTotalValue=intent.getStringExtra("subTotal");
         quotationID=intent.getStringExtra("quotationID");
 
+        setActionBar();
         fetchIDs();
     }
 
@@ -147,8 +150,7 @@ public class SendQuotationActivity extends AppCompatActivity {
                 }
                 else if(!emailCC.isEmpty() && !C.validEmail(emailCC)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid CC Email");
-                }
-                else if(vat.isEmpty() || vatF<=1){
+                } else if (vat.isEmpty() || vatF < 1) {
                     Globals.Toast2(getApplicationContext(),"Please Enter at Least vat 1%");
                 }
                 else {
@@ -380,5 +382,35 @@ public class SendQuotationActivity extends AppCompatActivity {
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
+
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+
+        img_home.setVisibility(View.GONE);
+        img_notification.setVisibility(View.GONE);
+        unread.setVisibility(View.GONE);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
     }
 }

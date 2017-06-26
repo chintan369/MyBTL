@@ -1,9 +1,9 @@
 package com.agraeta.user.btl;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -85,7 +85,7 @@ public class UnregisteredUserDetailActivity extends AppCompatActivity {
         txt_mobileNo.setText(user.getMobile_no().isEmpty() ? "N/A" : user.getMobile_no());
         txt_dealingBrand.setText(user.getDealing_in_brand().isEmpty() ? "N/A" : user.getDealing_in_brand());
         txt_customerType.setText(userData.getRole().getName().isEmpty() ? "N/A" : userData.getRole().getName());
-        txt_comment.setText(user.getComments().isEmpty() ? "N/A" : user.getComments());
+        txt_comment.setText(user.getComments() == null || user.getComments().isEmpty() ? "N/A" : user.getComments());
         txt_jointVisitWith.setText(user.getJoint_visit_with().isEmpty() ? "N/A" : user.getJoint_visit_with());
 
         if(!user.getVisiting_card1().isEmpty()){

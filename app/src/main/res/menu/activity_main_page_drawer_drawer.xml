@@ -43,8 +43,9 @@
 
         <item
             android:id="@+id/menu_comboOffer"
+            android:icon="@drawable/combo_offer"
             android:theme="@style/textfont_theme"
-            android:title="Combo Offers" />
+            android:title="Combo Offers"/>
 
         <item
             android:id="@+id/menu_videoGallery"
@@ -72,15 +73,15 @@
             android:title="Enquiry" />
 
         <item android:id="@+id/bulkEnquiry"
-              android:title="Bulk Enquiry"
               android:icon="@drawable/ic_bulkenquiry"
               android:theme="@style/textfont_theme"
+              android:title="Bulk Enquiry"
               />
 
         <item android:id="@+id/becomeDealer"
-              android:title="Become A Dealer"
+              android:icon="@drawable/becomedealer"
               android:theme="@style/textfont_theme"
-              android:icon="@drawable/becomedealer" />
+              android:title="Become A Dealer"/>
        <!-- <item
             android:id="@+id/career"
             android:icon="@drawable/ic_action_inquiry"
@@ -94,9 +95,9 @@
         <item
             android:id="@+id/logout"
             android:icon="@drawable/log_out"
-            android:visible="false"
             android:theme="@style/textfont_theme"
-            android:title="Log Out" />
+            android:title="Log Out"
+            android:visible="false"/>
     </group>
 
 

@@ -1,7 +1,6 @@
 package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +67,12 @@ public class QuotationListAdapter extends BaseAdapter {
         LinearLayout l_cal = (LinearLayout) view.findViewById(R.id.l_cal);
         LinearLayout l_cal_qty = (LinearLayout) view.findViewById(R.id.l_call_qty);
         TextView txt_qty = (TextView) view.findViewById(R.id.tv_qty);
+
+        float totalPrice = Float.parseFloat(quotationList.get(position).getItem_total());
+
+        if (totalPrice == 0) {
+            l_cal.setVisibility(View.GONE);
+        }
 
         if(quotationList.get(position).getPro_scheme().trim().isEmpty()){
             img_delete.setVisibility(View.GONE);

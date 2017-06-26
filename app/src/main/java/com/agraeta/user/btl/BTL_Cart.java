@@ -8,8 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -44,9 +44,7 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.combooffer.ComboCart;
-import com.agraeta.user.btl.model.combooffer.ComboOfferData;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
-import com.estimote.sdk.repackaged.retrofit_v1_9_0.retrofit.converter.GsonConverter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +57,6 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +65,7 @@ import retrofit2.Response;
 public class BTL_Cart extends AppCompatActivity {
     private static final int EDIT_COMBO = 12;
     private static final int REQUEST_QUOTATION = 15;
+    static double grand_total = 0;
     LinearLayout l_list;
     Button btl_checkout, bt_connshooping;
     TextView textview, tv_grand_total;
@@ -81,7 +79,6 @@ public class BTL_Cart extends AppCompatActivity {
     String owner_id = new String();
     String u_id = new String();
     EditText edt_count;
-    static double grand_total = 0;
     ListView list_cart_product;
     LinearLayout l_spinner, l_spinner_text, l_linear, l_sort, l_view_spinner;
     CustomResultAdapter adapter;
@@ -430,69 +427,6 @@ public class BTL_Cart extends AppCompatActivity {
             adapter = new CustomResultAdapter();
             //   adapter.notifyDataSetChanged();
             list_cart_product.setAdapter(adapter);
-        }
-    }
-
-    private class GetCartDelete extends AsyncTask<Void, Void, String> {
-
-        List<NameValuePair> pairList = new ArrayList<>();
-        Custom_ProgressDialog dialog;
-
-        public GetCartDelete(List<NameValuePair> pairList) {
-            this.pairList = pairList;
-            loadingView = new Custom_ProgressDialog(BTL_Cart.this, "");
-            loadingView.setCancelable(false);
-            loadingView.show();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_DeleteCart", ServiceHandler.POST, pairList);
-            return json;
-        }
-
-        @Override
-        protected void onPostExecute(String json) {
-            super.onPostExecute(json);
-            loadingView.dismiss();
-            try {
-
-
-                //System.out.println(json);
-
-                if (json == null
-                        || (json.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(BTL_Cart.this, "SERVER ERROR", getLayoutInflater());
-                    // loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(json);
-
-                    String date1 = jObj.getString("status");
-
-
-                    if (date1.equalsIgnoreCase("false")) {
-                        //String Message1 = jObj.getString("message");
-                        //Globals.CustomToast(CheckoutPage_Product.this, ""+Message1, getLayoutInflater());
-                        // loadingView.dismiss();
-                    } else {
-
-                        Globals.CustomToast(getApplicationContext(),jObj.getString("message"),getLayoutInflater());
-                        bean_cart_data.clear();
-                        Intent i = new Intent(BTL_Cart.this, BTL_Cart.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    }
-
-                }
-            } catch (Exception j) {
-                j.printStackTrace();
-                //Log.e("json exce",j.getMessage());
-            }
-
-
         }
     }
 
@@ -910,6 +844,360 @@ public class BTL_Cart extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EDIT_COMBO && resultCode == RESULT_OK) {
+            new get_cartdata().execute();
+        } else if (requestCode == REQUEST_QUOTATION && resultCode == RESULT_OK) {
+            new get_cartdata().execute();
+        }
+    }
+
+    public void onBackPressed() {
+        app = new AppPrefs(BTL_Cart.this);
+        if (app.getUser_notification().toString().equalsIgnoreCase("mainpage_drawer")) {
+            Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("product")) {
+                   /* db = new DatabaseHandler(BTL_Cart.this);
+                    db.LogoutFilter();
+                    db.Delete_ALL_table();
+            db.close();*/
+            Intent i = new Intent(BTL_Cart.this, Product_List.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("product_detail")) {
+            Intent i = new Intent(BTL_Cart.this, BTLProduct_Detail.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("category")) {
+            Intent i = new Intent(BTL_Cart.this, Main_CategoryPage.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("aboutus")) {
+            Intent i = new Intent(BTL_Cart.this, AboutUs_Activity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Enquiry")) {
+            Intent i = new Intent(BTL_Cart.this, Enquiry.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("userprofile")) {
+            Intent i = new Intent(BTL_Cart.this, User_Profile.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("contact")) {
+            Intent i = new Intent(BTL_Cart.this, Contact.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("wish")) {
+            Intent i = new Intent(BTL_Cart.this, Btl_WishList.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("search")) {
+            Intent i = new Intent(BTL_Cart.this, Search.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("shopping")) {
+            Intent i = new Intent(BTL_Cart.this, Shopping_Product_view.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_Address")) {
+            Intent i = new Intent(BTL_Cart.this, Add_Address.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_Newuser_Address")) {
+            Intent i = new Intent(BTL_Cart.this, Add_Newuser_Address.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_to_shoppinglist")) {
+            Intent i = new Intent(BTL_Cart.this, Add_to_shoppinglist.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Btl_Edit_profile")) {
+            Intent i = new Intent(BTL_Cart.this, Btl_Edit_profile.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Change_password")) {
+            Intent i = new Intent(BTL_Cart.this, Change_password.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("CheckoutPage_Product")) {
+            Intent i = new Intent(BTL_Cart.this, CheckoutPage_Product.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Edit_Address")) {
+            Intent i = new Intent(BTL_Cart.this, Edit_Address.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("My_Quatation_Info")) {
+            Intent i = new Intent(BTL_Cart.this, My_Quatation_Info.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("My_Quotation")) {
+            Intent i = new Intent(BTL_Cart.this, My_Quotation.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Notification")) {
+            Intent i = new Intent(BTL_Cart.this, Notification.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_history")) {
+            Intent i = new Intent(BTL_Cart.this, Order_history.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Details")) {
+            Intent i = new Intent(BTL_Cart.this, Order_History_Details.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Filter")) {
+            Intent i = new Intent(BTL_Cart.this, Order_History_Filter.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Product_Filter")) {
+            Intent i = new Intent(BTL_Cart.this, Product_Filter.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("ProductPage")) {
+            Intent i = new Intent(BTL_Cart.this, ProductPage.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Saved_Address")) {
+            Intent i = new Intent(BTL_Cart.this, Saved_Address.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Shooping_List")) {
+            Intent i = new Intent(BTL_Cart.this, Shooping_List.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Technical_Gallery")) {
+            Intent i = new Intent(BTL_Cart.this, Technical_Gallery.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Where_To_Buy")) {
+            Intent i = new Intent(BTL_Cart.this, Where_To_Buy.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Sales_Order_History_Details")) {
+            Intent i = new Intent(BTL_Cart.this, Sales_Order_History_Details.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Sales_Order_History_Filter")) {
+            Intent i = new Intent(BTL_Cart.this, Sales_Order_History_Filter.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("SalesOrderHistory")) {
+            Intent i = new Intent(BTL_Cart.this, SalesOrderHistory.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_Sales_Order_History_Details")) {
+            Intent i = new Intent(BTL_Cart.this, Dist_Sales_Order_History_Details.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_Sales_Order_History_Filter")) {
+            Intent i = new Intent(BTL_Cart.this, Dist_Sales_Order_History_Filter.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_SalesOrderHistory")) {
+            Intent i = new Intent(BTL_Cart.this, Dist_SalesOrderHistory.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistory")) {
+            Intent i = new Intent(BTL_Cart.this, D_OrderHistory.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistoryDetails")) {
+            Intent i = new Intent(BTL_Cart.this, D_OrderHistoryDetails.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistoryFilter")) {
+            Intent i = new Intent(BTL_Cart.this, D_OrderHistoryFilter.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("DisMyOrders")) {
+            Intent i = new Intent(BTL_Cart.this, DisMyOrders.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("DisOrderListActivity")) {
+            Intent i = new Intent(BTL_Cart.this, DisOrderListActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (app.getUser_notification().toString().equalsIgnoreCase("Map_Address")) {
+            Intent i = new Intent(BTL_Cart.this, Map_Address.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+
+    }
+
+    public String GetProductSelling(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    /*  static class ResultHolder {
+
+
+        TextView product_name,product_code,product_packof,txt_mrp_main,product_mrp, product_sellingprice,p_del_prize,txt_total, tv_option_value;
+        Button btn_buyonline;
+        ImageView imageView2,plus,minus,img_shooping;
+        EditText edt_count;0
+
+    }*/
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    private class GetCartDelete extends AsyncTask<Void, Void, String> {
+
+        List<NameValuePair> pairList = new ArrayList<>();
+        Custom_ProgressDialog dialog;
+
+        public GetCartDelete(List<NameValuePair> pairList) {
+            this.pairList = pairList;
+            loadingView = new Custom_ProgressDialog(BTL_Cart.this, "");
+            loadingView.setCancelable(false);
+            loadingView.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_DeleteCart", ServiceHandler.POST, pairList);
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+            loadingView.dismiss();
+            try {
+
+
+                //System.out.println(json);
+
+                if (json == null
+                        || (json.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(BTL_Cart.this, "SERVER ERROR", getLayoutInflater());
+                    // loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(json);
+
+                    String date1 = jObj.getString("status");
+
+
+                    if (date1.equalsIgnoreCase("false")) {
+                        //String Message1 = jObj.getString("message");
+                        //Globals.CustomToast(CheckoutPage_Product.this, ""+Message1, getLayoutInflater());
+                        // loadingView.dismiss();
+                    } else {
+
+                        Globals.CustomToast(getApplicationContext(), jObj.getString("message"), getLayoutInflater());
+                        bean_cart_data.clear();
+                        Intent i = new Intent(BTL_Cart.this, BTL_Cart.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+
+                }
+            } catch (Exception j) {
+                j.printStackTrace();
+                //Log.e("json exce",j.getMessage());
+            }
+
+
+        }
     }
 
     public class CustomResultAdapter extends BaseAdapter {
@@ -1979,7 +2267,7 @@ public class BTL_Cart extends AppCompatActivity {
 
                                                     int fqu = qu + (int) getqu;
 
-                                                    bean.setPro_qty(String.valueOf((int) fqu));
+                                                    bean.setPro_qty(String.valueOf(fqu));
                                                     bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                                     bean.setPro_sellingprice(sell);
                                                     bean.setPro_shortdesc(bean_cart_data.get(position).getPack_of());
@@ -2018,7 +2306,7 @@ public class BTL_Cart extends AppCompatActivity {
                                                             String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                             String aString = newString.toString().trim().replace(")", "");
                                                             jobject.put("pro_code", aString.toString().trim());
-                                                            jobject.put("quantity", String.valueOf((int) fqu));
+                                                            jobject.put("quantity", String.valueOf(fqu));
                                                             jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                             jobject.put("selling_price", sell);
                                                             jobject.put("option_id", bean_cart_data.get(position).getOption_id().toString());
@@ -2204,16 +2492,16 @@ public class BTL_Cart extends AppCompatActivity {
 
                                                     double getqu = Double.parseDouble(getq);
                                                     double buyqu = Double.parseDouble(buyq);
-                                                    double maxqu = Double.parseDouble(maxq);
+                                                    //double maxqu = Double.parseDouble(maxq);
                                                     int qu = Integer.parseInt(edt_count.getText().toString());
 
                                                     double a = qu / buyqu;
                                                     double b = a * getqu;
-                                                    if (b > maxqu) {
+                                                   /* if (b > maxqu) {
                                                         b = maxqu;
                                                     } else {
                                                         b = b;
-                                                    }
+                                                    }*/
 
 
                                                     bean_s.setPro_qty(String.valueOf((int) b));
@@ -2502,209 +2790,6 @@ public class BTL_Cart extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==EDIT_COMBO && resultCode==RESULT_OK){
-            new get_cartdata().execute();
-        }
-        else if(requestCode==REQUEST_QUOTATION && resultCode==RESULT_OK){
-            new get_cartdata().execute();
-        }
-    }
-
-    /*  static class ResultHolder {
-
-
-        TextView product_name,product_code,product_packof,txt_mrp_main,product_mrp, product_sellingprice,p_del_prize,txt_total, tv_option_value;
-        Button btn_buyonline;
-        ImageView imageView2,plus,minus,img_shooping;
-        EditText edt_count;0
-
-    }*/
-
-
-    public void onBackPressed() {
-        app = new AppPrefs(BTL_Cart.this);
-        if (app.getUser_notification().toString().equalsIgnoreCase("mainpage_drawer")) {
-            Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("product")) {
-                   /* db = new DatabaseHandler(BTL_Cart.this);
-                    db.LogoutFilter();
-                    db.Delete_ALL_table();
-            db.close();*/
-            Intent i = new Intent(BTL_Cart.this, Product_List.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("product_detail")) {
-            Intent i = new Intent(BTL_Cart.this, BTLProduct_Detail.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("category")) {
-            Intent i = new Intent(BTL_Cart.this, Main_CategoryPage.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("aboutus")) {
-            Intent i = new Intent(BTL_Cart.this, AboutUs_Activity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Enquiry")) {
-            Intent i = new Intent(BTL_Cart.this, Enquiry.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("userprofile")) {
-            Intent i = new Intent(BTL_Cart.this, User_Profile.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("contact")) {
-            Intent i = new Intent(BTL_Cart.this, Contact.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("wish")) {
-            Intent i = new Intent(BTL_Cart.this, Btl_WishList.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("search")) {
-            Intent i = new Intent(BTL_Cart.this, Search.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("shopping")) {
-            Intent i = new Intent(BTL_Cart.this, Shopping_Product_view.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_Address")) {
-            Intent i = new Intent(BTL_Cart.this, Add_Address.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_Newuser_Address")) {
-            Intent i = new Intent(BTL_Cart.this, Add_Newuser_Address.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Add_to_shoppinglist")) {
-            Intent i = new Intent(BTL_Cart.this, Add_to_shoppinglist.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Btl_Edit_profile")) {
-            Intent i = new Intent(BTL_Cart.this, Btl_Edit_profile.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Change_password")) {
-            Intent i = new Intent(BTL_Cart.this, Change_password.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("CheckoutPage_Product")) {
-            Intent i = new Intent(BTL_Cart.this, CheckoutPage_Product.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Edit_Address")) {
-            Intent i = new Intent(BTL_Cart.this, Edit_Address.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("My_Quatation_Info")) {
-            Intent i = new Intent(BTL_Cart.this, My_Quatation_Info.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("My_Quotation")) {
-            Intent i = new Intent(BTL_Cart.this, My_Quotation.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Notification")) {
-            Intent i = new Intent(BTL_Cart.this, Notification.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_history")) {
-            Intent i = new Intent(BTL_Cart.this, Order_history.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Details")) {
-            Intent i = new Intent(BTL_Cart.this, Order_History_Details.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Filter")) {
-            Intent i = new Intent(BTL_Cart.this, Order_History_Filter.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Product_Filter")) {
-            Intent i = new Intent(BTL_Cart.this, Product_Filter.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("ProductPage")) {
-            Intent i = new Intent(BTL_Cart.this, ProductPage.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Saved_Address")) {
-            Intent i = new Intent(BTL_Cart.this, Saved_Address.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Shooping_List")) {
-            Intent i = new Intent(BTL_Cart.this, Shooping_List.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Technical_Gallery")) {
-            Intent i = new Intent(BTL_Cart.this, Technical_Gallery.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Where_To_Buy")) {
-            Intent i = new Intent(BTL_Cart.this, Where_To_Buy.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Sales_Order_History_Details")) {
-            Intent i = new Intent(BTL_Cart.this, Sales_Order_History_Details.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Sales_Order_History_Filter")) {
-            Intent i = new Intent(BTL_Cart.this, Sales_Order_History_Filter.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("SalesOrderHistory")) {
-            Intent i = new Intent(BTL_Cart.this, SalesOrderHistory.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_Sales_Order_History_Details")) {
-            Intent i = new Intent(BTL_Cart.this, Dist_Sales_Order_History_Details.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_Sales_Order_History_Filter")) {
-            Intent i = new Intent(BTL_Cart.this, Dist_Sales_Order_History_Filter.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Dist_SalesOrderHistory")) {
-            Intent i = new Intent(BTL_Cart.this, Dist_SalesOrderHistory.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistory")) {
-            Intent i = new Intent(BTL_Cart.this, D_OrderHistory.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistoryDetails")) {
-            Intent i = new Intent(BTL_Cart.this, D_OrderHistoryDetails.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("D_OrderHistoryFilter")) {
-            Intent i = new Intent(BTL_Cart.this, D_OrderHistoryFilter.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("DisMyOrders")) {
-            Intent i = new Intent(BTL_Cart.this, DisMyOrders.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("DisOrderListActivity")) {
-            Intent i = new Intent(BTL_Cart.this, DisOrderListActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (app.getUser_notification().toString().equalsIgnoreCase("Map_Address")) {
-            Intent i = new Intent(BTL_Cart.this, Map_Address.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else {
-            Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
-
-    }
-
     private class GetProductSelling extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -2723,37 +2808,6 @@ public class BTL_Cart extends AppCompatActivity {
 
             return jsonData;
         }
-    }
-
-
-    public String GetProductSelling(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 
     private class GetProductDetailByCode extends AsyncTask<Void, Void, String> {
@@ -2776,41 +2830,10 @@ public class BTL_Cart extends AppCompatActivity {
         }
     }
 
-
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class get_cartdata extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3005,40 +3028,10 @@ public class BTL_Cart extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3130,9 +3123,9 @@ public class BTL_Cart extends AppCompatActivity {
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3224,9 +3217,9 @@ public class BTL_Cart extends AppCompatActivity {
     }
 
     public class delete_product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {

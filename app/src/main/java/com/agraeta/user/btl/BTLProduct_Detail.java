@@ -1,7 +1,5 @@
 package com.agraeta.user.btl;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -13,11 +11,9 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +40,6 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -68,12 +63,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by chaitalee on 7/15/2016.
  */
 public class BTLProduct_Detail extends AppCompatActivity {
+    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
+    // public static ArrayList<String> arrOptionTypeID =new ArrayList<String>();
+    public static ArrayList<String> moreinfo_arry = new ArrayList<String>();
+    // public static ArrayList<String> arrOptionTypeName =new ArrayList<String>();
+    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
+    public static ArrayList<String> WishList = new ArrayList<String>();
+    private static ViewPager mPager, mViewPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    final File myDir = new File("/sdcard/BTL/Gallery");
     TextView txt_high, product_detail_marquee;
     String option_name = "";
     String option_id = "";
@@ -86,14 +90,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
     String CategoryID = "";
     ArrayList<Bean_Value_Selected_Detail> array_value = new ArrayList<Bean_Value_Selected_Detail>();
     LinearLayout.LayoutParams params;
-    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
-    // public static ArrayList<String> arrOptionTypeID =new ArrayList<String>();
-    public static ArrayList<String> moreinfo_arry = new ArrayList<String>();
-    // public static ArrayList<String> arrOptionTypeName =new ArrayList<String>();
-    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
     double amount1;
     TextView off_tag;
-    public static ArrayList<String> WishList = new ArrayList<String>();
     ProgressDialog pDialog;
     Button btn_buyonline_product_detail;
     ArrayList<String> list_of_images = new ArrayList<String>();
@@ -101,8 +99,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
     Grid_ImageAdpter imgadpter;
     LinearLayout l_spinner, l_spinner_text, l_linear, l_sort;
     ArrayList<Bean_ProductImage> bean_data = new ArrayList<Bean_ProductImage>();
-    //private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ArrayList<String> ImagesArray = new ArrayList<String>();
     ArrayList<Bean_Product> bean_product1 = new ArrayList<Bean_Product>();
     ArrayList<Bean_ProductFeature> bean_productFeatures = new ArrayList<Bean_ProductFeature>();
     ArrayList<Bean_ProductTechSpec> bean_productTechSpecs = new ArrayList<Bean_ProductTechSpec>();
@@ -115,25 +111,18 @@ public class BTLProduct_Detail extends AppCompatActivity {
     String role;
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-
     TextView txt;
-
     boolean isNotDone = true;
     String jsonData = "";
-
-
     // ArrayList<Product_Youtube> bean_productyoutube = new ArrayList<Product_Youtube>();
     DatabaseHandler db;
     String json = "";
-    private static ViewPager mPager, mViewPager;
     ImageLoader imageloader;
     String Imgpath, Imgproid, ImgProcode, ImgProPrice, ImgProName;
     Custom_ProgressDialog loadingView;
     ImageView minuss, plus;
     Button buy_cart, cancel, btn_wherebuy;
     EditText edt_count;
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
     TextView p_prize1;
     String url, setthumbnail;
     int s = 0;
@@ -184,7 +173,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
     TextView txt_product;
     int selected_image_position = 0;
     ImageView share_this;
-    final File myDir = new File("/sdcard/BTL/Gallery");
     String filesToSend;
     ArrayList<Bean_Product> bean_product_schme = new ArrayList<Bean_Product>();
     ArrayList<Bean_Schme_value> bean_schme = new ArrayList<Bean_Schme_value>();
@@ -199,10 +187,19 @@ public class BTLProduct_Detail extends AppCompatActivity {
     ArrayList<Bean_ProductOprtion> bean_Oprtions = new ArrayList<Bean_ProductOprtion>();
     JSONArray jarray_cart = new JSONArray();
     ArrayList<Bean_schemeData> bean_Schme_data = new ArrayList<Bean_schemeData>();
-
     boolean whereToBuyVisibility = true;
-
     Button btn_enquiry;
+    //private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ArrayList<String> ImagesArray = new ArrayList<String>();
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1731,7 +1728,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             int fqu = qu + (int) getqu;
 
-                                            bean.setPro_qty(String.valueOf((int) fqu));
+                                            bean.setPro_qty(String.valueOf(fqu));
                                             bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                             bean.setPro_sellingprice(sell);
                                             bean.setPro_shortdesc(bean_product1.get(0).getPro_label());
@@ -1770,7 +1767,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                     String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                     String aString = newString.toString().trim().replace(")", "");
                                                     jobject.put("pro_code", aString.toString().trim());
-                                                    jobject.put("quantity", String.valueOf((int) fqu));
+                                                    jobject.put("quantity", String.valueOf(fqu));
                                                     jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                     jobject.put("selling_price", sell);
                                                     jobject.put("option_id", option_id);
@@ -2619,7 +2616,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                         String aString = newString.toString().trim().replace(")", "");
                                         jobject.put("pro_code", aString.toString().trim());
-                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                        jobject.put("quantity", String.valueOf(fqu));
                                         jobject.put("mrp", tv_product_mrp.getText().toString());
                                         jobject.put("selling_price", sell);
                                         jobject.put("option_id", bean_productOprtions.get(0).getPro_Option_id());
@@ -3227,7 +3224,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         return false;
     }
 
-
     private void set_Image() {
 
         if (bean_product1.size() != 0) {
@@ -3248,7 +3244,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
             }
         }
     }
-
 
     private void setLayout(ArrayList<String> str1) {
         // TODO Auto-generated method stub
@@ -3368,21 +3363,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
     }
 
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
    /* public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -3434,83 +3414,18 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
     }*/
 
-    public class SlidingImage_Adapter_pDetail extends PagerAdapter {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-
-        private ArrayList<String> IMAGES;
-        private LayoutInflater inflater;
-
-        private Context context;
-
-
-        public SlidingImage_Adapter_pDetail(Context context, ArrayList<String> bean_productImages) {
-            this.context = context;
-            this.IMAGES = bean_productImages;
-
-            inflater = LayoutInflater.from(context);
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-        @Override
-        public int getCount() {
-            return ImagesArray.size();
-
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup view, final int position) {
-            View imageLayout = inflater.inflate(R.layout.slidingimages_layout_pdetail, view, false);
-
-            assert imageLayout != null;
-            final ImageView imageView = (ImageView) imageLayout
-                    .findViewById(R.id.image);
-
-            try {
-
-                // imageloader.DisplayImage(ImagesArray.get(position), imageView);
-                Picasso.with(getApplicationContext())
-                        .load(ImagesArray.get(position))
-                        .placeholder(R.drawable.btl_watermark)
-                        .into(imageView);
-
-                //Log.e("", "" + ImagesArray.get(position));
-            } catch (Exception e) {
-                //Log.e("", "" + ImagesArray.get(position));
-            }
-
-           /* imageView.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v) {
-
-                    Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(BTLProduct_Detail.this,Event_Gallery_photo_view_Activity.class);
-                    startActivity(i);
-                }
-            });*/
-
-
-            view.addView(imageLayout, 0);
-            return imageLayout;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view.equals(object);
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-
+        return super.onOptionsItemSelected(item);
     }
 
     public void SetRefershDataProduct() {
@@ -3759,613 +3674,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         db.close();
     }
 
-
-    public class set_marquee extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        BTLProduct_Detail.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-
-                parameters.add(new BasicNameValuePair("id", "1"));
-
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "FlashMessage/App_GetFlashMessage", ServiceHandler.POST, parameters);
-
-                //System.out.println("array: " + json);
-
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-
-                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-
-                        loadingView.dismiss();
-                    } else {
-
-                        String Message = jObj.getString("message");
-
-
-                      /*  JSONObject jO = jObj.getJSONObject("data");
-                        JSONObject jU = jO.getJSONObject("FlashMessage");
-
-
-                        String mrquee= jU.getString("msg");
-                        product_detail_marquee.setText(mrquee.toString());
-                        //Log.e("mrquee",""+mrquee.toString());*/
-
-
-                        JSONArray jmarquee_msg = jObj.getJSONArray("data");
-
-                        for (int i = 0; i < jmarquee_msg.length(); i++) {
-                            JSONObject jsonobject = jmarquee_msg.getJSONObject(i);
-                            JSONObject jobject_marquee_msg = jsonobject.getJSONObject("FlashMessage");
-                            String msg_marquee = jobject_marquee_msg.getString("msg");
-                            product_detail_marquee.setText(msg_marquee.toString());
-
-
-                        }
-
-                        loadingView.dismiss();
-                        new get_Product_detail_data().execute();
-
-                    }
-                }
-            } catch (JSONException j) {
-                j.printStackTrace();
-            }
-
-        }
-    }
-
-    /*  private void imageslider() {
-          for (int i = 0; i < bean_productImages.size(); i++)
-              ImagesArray.add(bean_productImages.get(i).getPro_Images());
-          //Log.e("Imagearray",""+ImagesArray.size());
-
-
-
-          mPager.setAdapter(new SlidingImage_Adapter_pDetail(BTLProduct_Detail.this, ImagesArray));
-
-
-          CirclePageIndicator indicator = (CirclePageIndicator)
-                  findViewById(R.id.indicator);
-
-          indicator.setViewPager(mPager);
-
-
-
-      }
-  */
-    public class CustomPagerAdapter extends PagerAdapter {
-
-        public Object instantiateItem(View collection, final int position) {
-
-            LayoutInflater inflater = (LayoutInflater) collection.getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View view = inflater.inflate(R.layout.viewpager_row, null);
-
-            ((ViewPager) collection).addView(view, 0);
-
-
-            ImageView ia = (ImageView) view.findViewById(R.id.img_flipperimag);
-
-            try {
-//                imageloader.DisplayImage(bean_productImages.get(position)
-//                        .getPro_Images(), ia);
-                Picasso.with(getApplicationContext())
-                        .load(bean_productImages.get(position).getPro_Images())
-                        .placeholder(R.drawable.btl_watermark)
-                        .into(ia);
-            } catch (Exception e) {
-                //Log.e("Error", e.toString());
-            }
-
-           /* ia.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    Intent i = new Intent(getActivity(), Slider_Product.class);
-                    startActivity(i);
-                }
-            });
-
-            if (position == 0) {
-                im_previous.setVisibility(View.GONE);
-                im_next.setVisibility(View.VISIBLE);
-            } else if (position == array_slider.size() - 1) {
-                im_next.setVisibility(View.GONE);
-                im_previous.setVisibility(View.VISIBLE);
-            }else
-            {
-                im_previous.setVisibility(View.VISIBLE);
-                im_next.setVisibility(View.VISIBLE);
-            }
-            im_next.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    if (position == 0 || position < (array_slider.size() - 1)) {
-                        customviewpager.setCurrentItem(position + 1);
-                        //Log.e("", "Size :- " + array_slider.size()
-                                + " position " + (position + 1));
-                    }
-
-                    else if (position == (array_slider.size() - 1)) {
-                        //Log.e("", "Size :- " + array_slider.size()
-                                + " position " + (position + 1));
-                    }
-
-                }
-            });
-            im_previous.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    if (position == 0) {
-
-                    } else if (position == (array_slider.size() - 1)
-                            || position > 0) {
-                        customviewpager.setCurrentItem(position - 1);
-                        //Log.e("", "Size :- " + array_slider.size()
-                                + " position " + (position - 1));
-                    }
-                }
-            });*/
-            /*
-             * title.setText(bean.get(position).getTitle());
-			 *
-			 * if (bean.get(position).getImage().equalsIgnoreCase("") ||
-			 * bean.get(position).getImage().equalsIgnoreCase("null")) {
-			 * //Log.e("", "Inside null===" + bean.get(position).getImage());
-			 * ia.setImageResource(R.drawable.docicon);
-			 *
-			 * } else {
-			 *
-			 * byte [] encodeByte=Base64.decode(bean.get(position).getImage()
-			 * ,Base64.DEFAULT); Bitmap
-			 * bitmap=BitmapFactory.decodeByteArray(encodeByte, 0,
-			 * encodeByte.length); ia.setImageBitmap(bitmap);
-			 *
-			 * //Log.e("", "Inside else===" + bean.get(position).getImage());
-			 * imageloader.DisplayImage(bean.get(position).getImage(),
-			 * R.drawable.docicon, ia); }
-			 */
-            // ia.setImageResource(Integer.parseInt(bean.get(position).getImage()));
-
-            return view;
-        }
-
-        @Override
-        public void destroyItem(View arg0, int arg1, Object arg2) {
-            ((ViewPager) arg0).removeView((View) arg2);
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == ((View) arg1);
-
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-
-            return bean_productImages.size();
-
-        }
-    }
-
-
-    /*private void setLayout_video(final ArrayList<Product_Youtube> str) {
-        // TODO Auto-generated method stub
-
-        l_video_lower.removeAllViews();
-
-        //Log.e("str.size", "" + str.size());
-
-        for (int ij = 0; ij < str.size(); ij++) {
-
-            LinearLayout lmain = new LinearLayout(BTLProduct_Detail.this);
-            //  params.setMargins(7, 7, 7, 7);
-            lmain.setLayoutParams(params);
-            lmain.setOrientation(LinearLayout.HORIZONTAL);
-            lmain.setPadding(2, 2, 2, 2);
-
-            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
-            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
-                    200, 200, 1.0f);
-            LinearLayout l1 = new LinearLayout(BTLProduct_Detail.this);
-
-            l1.setLayoutParams(par1);
-            l1.setPadding(5, 5, 5, 5);
-            l1.setOrientation(LinearLayout.VERTICAL);
-            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
-
-            LinearLayout l3 = new LinearLayout(BTLProduct_Detail.this);
-            l3.setLayoutParams(par3);
-            l3.setOrientation(LinearLayout.VERTICAL);
-            l3.setPadding(5, 5, 5, 5);
-
-            final LinearLayout l2 = new LinearLayout(BTLProduct_Detail.this);
-            l2.setLayoutParams(par2);
-            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
-            l2.setOrientation(LinearLayout.HORIZONTAL);
-            l2.setPadding(5, 5, 5, 5);
-            l2.setVisibility(View.GONE);
-
-            count = ij;
-            final ImageView img_a = new ImageView(BTLProduct_Detail.this);
-            img_a.setTag(ij);
-            // img_a.setImageResource(str.get(count));
-            //Log.e("count", "" + count);
-            //Log.e("img", "" + str.get(count).getPro_youtube_url());
-            try {
-
-                url = str.get(count).getPro_youtube_url();
-                String setthumbnail = "http://img.youtube.com/vi/" + url + "/0.jpg";
-                //Log.e("setthumbnail", url + " : " + setthumbnail);
-                app.setyoutube_api(str.get(count).getPro_youtube_url());
-                imageloader.DisplayImage(setthumbnail, R.drawable.ic_temp_logo, img_a);
-
-            } catch (NullPointerException e) {
-                //Log.e("Error", "" + e);
-            }
-
-
-            par21.setMargins(5, 5, 5, 5);
-
-            img_a.setLayoutParams(par21);
-            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
-            l1.addView(img_a);
-
-            img_a.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    AppPrefs app= new AppPrefs(BTLProduct_Detail.this);
-
-                    //Log.e("url_tonext_page",""+str.get(Integer.parseInt(img_a.getTag().toString())).getPro_youtube_url());
-                    Intent i = new Intent(BTLProduct_Detail.this,Video_View_Activity.class);
-                    app.setyoutube_api(str.get(Integer.parseInt(img_a.getTag().toString())).getPro_youtube_url());
-                    startActivity(i);
-                }
-            });
-            lmain.addView(l1);
-
-            l_video_lower.addView(lmain);
-
-        }
-
-    }*/
-    public class MyAdapter extends ArrayAdapter<Bean_Attribute> {
-
-        ArrayList<Bean_Attribute> array;
-        int k = 0;
-
-        public MyAdapter(Context context, int textViewResourceId, ArrayList<Bean_Attribute> objects) {
-            super(context, textViewResourceId, objects);
-            this.array = objects;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getCustomView(position, convertView, parent);
-        }
-
-        public View getCustomView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = getLayoutInflater();
-            View row = inflater.inflate(R.layout.textview, parent, false);
-
-            TextView label = (TextView) row.findViewById(R.id.tv_row);
-         /*   if(k == 0){
-                label.setText("Select "+array.get(position).getOption_name());
-                k++;
-                position = 0;
-            }else {*/
-            label.setText(array.get(position).getValue_name());
-            /*}*/
-            return row;
-        }
-    }
-
-
-    public class set_wish_list extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        BTLProduct_Detail.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("user_id", user_id_main));
-                parameters.add(new BasicNameValuePair("role_id", role_id));
-                parameters.add(new BasicNameValuePair("product_id", pid));
-
-                //Log.e("4", "" + parameters);
-
-                //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_WishList", ServiceHandler.POST, parameters);
-                //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-
-                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        // Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-                        String Message = jObj.getString("message");
-
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-
-                      /*  page_id =1;
-                        page_limit = "";*/
-
-                        bean_product1.clear();
-                        bean_productTechSpecs.clear();
-                        bean_productOprtions.clear();
-                        bean_productFeatures.clear();
-                        bean_productStdSpecs.clear();
-
-                        Intent i = new Intent(BTLProduct_Detail.this, BTLProduct_Detail.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-
-
-                    }
-                }
-            } catch (Exception ja) {
-                ja.printStackTrace();
-
-
-            }
-
-        }
-
-    }
-
-    public class delete_wish_list extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        BTLProduct_Detail.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("user_id", user_id_main));
-                parameters.add(new BasicNameValuePair("product_id", pid));
-                parameters.add(new BasicNameValuePair("role_id", role_id));
-
-                //Log.e("4", "" + parameters);
-
-                //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_DeleteWishList", ServiceHandler.POST, parameters);
-                //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-
-                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        // Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-                        String Message = jObj.getString("message");
-
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-
-                      /*  page_id =1;
-                        page_limit = "";*/
-
-                        bean_product1.clear();
-                        bean_productTechSpecs.clear();
-                        bean_productOprtions.clear();
-                        bean_productFeatures.clear();
-                        bean_productStdSpecs.clear();
-
-                        Intent i = new Intent(BTLProduct_Detail.this, BTLProduct_Detail.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-
-
-                    }
-                }
-            } catch (Exception ja) {
-                ja.printStackTrace();
-
-
-            }
-
-        }
-
-    }
-
     private void setRefershData() {
         // TODO Auto-generated method stub
         user_data.clear();
@@ -4428,7 +3736,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
         db.close();
     }
-
 
     private void setActionBar() {
 
@@ -4604,8 +3911,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
     }
 
-    ;
-
     public void webview_popup(String html_code) {
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -4713,366 +4018,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
             startActivity(i);
         } else {
             finish();
-        }
-    }
-
-    public class get_Product_detail_data extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                detail_price.setVisibility(View.GONE);
-                l_mmain.setVisibility(View.GONE);
-                loadingView = new Custom_ProgressDialog(
-                        BTLProduct_Detail.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-
-                parameters.add(new BasicNameValuePair("product_id", "" + pid));
-
-                parameters.add(new BasicNameValuePair("user_id", user_id_main));
-
-                parameters.add(new BasicNameValuePair("role_id", role_id));
-
-                //Log.e("user_id_main", "" + user_id_main);
-
-                //Log.e("product_id", "" + pid);
-                //Log.e("role_id", "" + role_id);
-                Log.e("", "" + parameters);
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, parameters);
-
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERROR", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-
-                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-
-
-                        // page_limit = jObj.getString("total_page_count");
-
-                        JSONArray jsonwish = jObj.optJSONArray("wish_list");
-
-                        whereToBuyVisibility = jObj.getString("where_to_buy").equals("1");
-
-                        WishList = new ArrayList<String>();
-
-                        for (int i = 0; i < jsonwish.length(); i++) {
-                            WishList.add(jsonwish.get(i).toString());
-                        }
-
-                        //Log.e("Wish List Size", "" + WishList.size());
-
-
-                        JSONObject jobj = new JSONObject(result_1);
-
-
-                        JSONObject jObjj = jObj.getJSONObject("data");
-                        JSONObject jproduct = jObjj.getJSONObject("Product");
-
-
-                        //JSONArray jsonArray = jObj.optJSONArray("data");
-
-                        Bean_Product bean = new Bean_Product();
-
-
-                        bean.setPro_id(jproduct.getString("id"));
-
-
-                        bean.setPro_cat_id(jproduct.getString("category_id"));
-                        bean.setPro_code(jproduct.getString("product_code"));
-                        bean.setPro_name(jproduct.getString("product_name"));
-                        // bean.setPro_label(jproduct.getString("label_id"));
-                        bean.setPro_qty(jproduct.getString("qty"));
-                        bean.setPro_mrp(jproduct.getString("mrp"));
-                        bean.setPro_sellingprice(jproduct.getString("selling_price"));
-                        // bean.setPro_shortdesc(jproduct.getString("short_description"));
-                        bean.setPro_image(jproduct.getString("image"));
-                        String packQty = jproduct.getString("pack_of_qty");
-                        bean.setPackQty(Integer.parseInt(packQty.isEmpty() ? "1" : packQty));
-
-                        Log.e("Pack Of Qty", "+->" + packQty);
-                        //   bean.setPro_moreinfo(jproduct.getString("more_info"));
-                        JSONArray jschme = jObjj.getJSONArray("Scheme");
-                        //Log.e("A1111111",""+jschme.length());
-
-                        String sa = "";
-
-                        for (int s1 = 0; s1 < jschme.length(); s1++) {
-                            JSONObject jProductScheme = jschme.getJSONObject(s1);
-
-
-                            ArrayList<String> a = new ArrayList<String>();
-                            a.add(jProductScheme.getString("scheme_name"));
-                            //Log.e("A2222222",""+jProductScheme.getString("scheme_name"));
-                            sa += jProductScheme.getString("scheme_name").toString() + "\n";
-                            bean.setSchemea(a);
-                        }
-
-
-                        //Log.e("A3333333",""+sa);
-                        bean.setScheme(sa);
-                        JSONObject jlabel = jObjj.getJSONObject("Label");
-                        bean.setPro_label(jlabel.getString("name"));
-
-                        bean_product1.add(bean);
-
-
-                        Bean_Desc bean1 = new Bean_Desc();
-                        bean1.setPro_id(jproduct.getString("id"));
-                        //   Toast.makeText(BTLProduct_Detail.this, ""+bean1.getPro_id()+"-"+jproduct.getString("id"), Toast.LENGTH_SHORT).show();
-                        bean1.setDescription(jproduct.getString("description"));
-                        bean1.setSpecification(jproduct.getString("specification"));
-                        bean1.setTechnical(jproduct.getString("technical"));
-                        bean1.setCatalogs(jproduct.getString("catalogs"));
-                        bean1.setGuarantee(jproduct.getString("guarantee"));
-                        bean1.setVideos(jproduct.getString("videos"));
-                        bean1.setGeneral(jproduct.getString("general"));
-                        bean_desc1.add(bean1);
-
-                        JSONArray jProducttechnical = jObjj.getJSONArray("ProductTechnicalSpecification");
-                        //Log.e("BBBB", "" + jProducttechnical.length());
-                        for (int s = 0; s < jProducttechnical.length(); s++) {
-                            JSONObject jProducttechni = jProducttechnical.getJSONObject(s);
-
-                            Bean_texhnicalImages beantechnical = new Bean_texhnicalImages();
-                            beantechnical.setId(jProducttechni.getString("id"));
-                            beantechnical.setImg(jProducttechni.getString("image_path"));
-                            beantechnical.setProduct_id(jProducttechni.getString("product_id"));
-                            //Log.e("BaBa", "" + jProducttechni.getString("id"));
-                            bean_technical.add(beantechnical);
-
-                        }
-                        Log.e("AbAb", "" + bean_technical.size());
-                        JSONArray jProductOption = jObjj.getJSONArray("ProductOption");
-
-
-                        for (int s = 0; s < jProductOption.length(); s++) {
-                            JSONObject jProductOptiono = jProductOption.getJSONObject(s);
-                            JSONObject productObject= jProductOptiono.getJSONObject("Product");
-                            JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
-                            JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
-                            JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
-                            JSONArray SchemeArray=jProductOptiono.getJSONArray("Scheme");
-
-
-                            for (int m = 0; m < SchemeArray.length(); m++) {
-
-                                JSONObject schemeObj=SchemeArray.getJSONObject(m);
-
-                                Bean_schemeData beans = new Bean_schemeData();
-                                beans.setSchme_id(schemeObj.getString("id"));
-                                beans.setSchme_name(schemeObj.getString("scheme_name"));
-                                beans.setSchme_qty(schemeObj.getString("buy_prod_qty"));
-                                beans.setCategory_id(schemeObj.getString("category_id"));
-                                beans.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
-                                beans.setSchme_prod_id(jProductOptiono.getString("product_id"));
-
-                                bean_Schme_data.add(beans);
-                            }
-
-                            Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
-                            // arrOptionType=new ArrayList<String>();
-
-
-                            //Option
-                            beanoption.setPro_Option_id(jPOOption.getString("id"));
-                            beanoption.setPro_Option_name(jPOOption.getString("name"));
-
-                            beanoption.setMinPackOfQty(Integer.parseInt(productObject.getString("pack_of_qty")));
-
-                            //OptionValue
-                            beanoption.setPro_Option_value_name(jPOOptionValue.getString("name"));
-                            beanoption.setPro_Option_value_id(jPOOptionValue.getString("id"));
-
-                            //ProductOptionImage
-
-
-                            //beanoption.setPro_id(jProductOptiono.getString("product_id"));
-                            beanoption.setPro_id(jProductOptiono.getString("parent_product_id"));
-                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("parent_product_id"));
-                            beanoption.setOption_pro_id(jProductOptiono.getString("product_id"));
-                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("product_id"));
-                            beanoption.setPro_Option_mrp(jProductOptiono.getString("mrp"));
-                            beanoption.setPro_Option_selling_price(jProductOptiono.getString("selling_price"));
-                            beanoption.setPro_Option_procode(jProductOptiono.getString("product_code"));
-                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("product_code"));
-
-
-                            if (jPOProductOptionImage.length() == 0) {
-                                beanoption.setPro_Option_proimage("");
-                            } else {
-
-                                for (int t = 0; t < jPOProductOptionImage.length(); t++) {
-                                    JSONObject jProductOptio = jPOProductOptionImage.getJSONObject(t);
-                                    beanoption.setPro_Option_proimage(jProductOptio.getString("image"));
-                                }
-                            }
-                            bean_productOprtions.add(beanoption);
-                            //   arrOptionType.add(jPOOption.getString("id"));
-
-
-                        }
-
-
-                        //Log.e("Option Size1212", "" + bean_productOprtions.size());
-
-
-                        JSONArray jpProductImage = jObjj.getJSONArray("ProductImage");
-
-                        //Log.e("siz from array",jpProductImage.length()+"");
-
-                        Bean_ProductImage beanproductimg = new Bean_ProductImage();
-
-                        beanproductimg.setPro_id(jproduct.getString("id"));
-                        beanproductimg.setPro_Images(jproduct.getString("image"));
-
-                        bean_productImages.add(beanproductimg);
-
-                        if (jpProductImage.length() > 0) {
-
-                            for (int s = 0; s < jpProductImage.length(); s++) {
-                                JSONObject jpimg = jpProductImage.getJSONObject(s);
-
-
-                                Bean_ProductImage beanproductimg1 = new Bean_ProductImage();
-
-                                beanproductimg1.setPro_id(jpimg.getString("product_id"));
-                                beanproductimg1.setPro_Images(jpimg.getString("image"));
-
-                                bean_productImages.add(beanproductimg1);
-
-                            }
-                        }
-
-
-                        try {
-                            if (bean_productImages_db.size() == 0) {
-                                for (int a = 0; a < bean_productImages.size(); a++) {
-
-                                    db = new DatabaseHandler(BTLProduct_Detail.this);
-                                    db.Add_ProductImage(new Bean_ProductImage(bean_productImages.get(a).getPro_id(),
-                                            bean_productImages.get(a).getPro_cat_id(),
-                                            bean_productImages.get(a).getPro_Images())
-                                    );
-                                    db.close();
-                                }
-                                //Log.e("bean_pro_image_after", "" + bean_productImages_db.size());
-                            } else {
-
-                                //Log.e("Datbase....22", "" + bean_productImages.size());
-                                for (int a = 0; a < bean_productImages.size(); a++) {
-                                    //Log.e("List....22", "" + bean_productImages.size());
-                                    int k = 0;
-                                    for (int b = 0; b < bean_productImages_db.size(); b++) {
-                                        if (k != 1) {
-                                            if (bean_productImages_db.get(b).getPro_id().equalsIgnoreCase(bean_productImages.get(a).getPro_id())) {
-
-                                            } else {
-                                                db = new DatabaseHandler(BTLProduct_Detail.this);
-                                                db.Add_ProductImage(new Bean_ProductImage(bean_productImages.get(a).getPro_id(),
-                                                        bean_productImages.get(a).getPro_cat_id(),
-                                                        bean_productImages.get(a).getPro_Images())
-                                                );
-                                                db.close();
-
-                                                k = 1;
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }
-                        } catch (Exception e) {
-                            Log.e("Exception JSON", e.getMessage());
-                        }
-
-                        setRefershDataImage();
-
-                        //Log.e("Image Size", "" + bean_productImages_db.size());
-
-                        //Log.e("Size:Product ::", "" + bean_product1.size());
-
-                        //Log.e("Size:Desc ::", "" + bean_desc1.size());
-
-                        //Log.e("Size:ProductOptions ::", "" + bean_productOprtions.size());
-
-                        //Log.e("Size:ProductIamge ::", "" + bean_productImages.size());
-
-
-                        //Log.e("bean_desc_db Size", "" + bean_desc_db.size());
-
-                        //Log.e("bean_technical size", "" + bean_technical.size());
-
-
-                        loadingView.dismiss();
-                        l_mmain.setVisibility(View.VISIBLE);
-                        detail_price.setVisibility(View.VISIBLE);
-                        Setdata();
-
-                    }
-
-                }
-            } catch (Exception j) {
-                Log.e("Exception JSON1", j.getMessage());
-                j.printStackTrace();
-            }
-
         }
     }
 
@@ -5674,7 +4619,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                     String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                                     String aString = newString.trim().replace(")", "");
                                                     jobject.put("pro_code", aString.trim());
-                                                    jobject.put("quantity", String.valueOf((int) fqu));
+                                                    jobject.put("quantity", String.valueOf(fqu));
                                                     jobject.put("mrp", tv_product_mrp.getText().toString());
                                                     jobject.put("selling_price", sell);
                                                     jobject.put("option_id", bean_productOprtions.get(0).getPro_Option_id());
@@ -5778,16 +4723,16 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             double getqu = Double.parseDouble(getq);
                                             double buyqu = Double.parseDouble(buyq);
-                                            double maxqu = Double.parseDouble(maxq);
+                                            //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(qty);
 
                                             double a = qu / buyqu;
                                             double b = a * getqu;
-                                            if (b > maxqu) {
+                                            /*if (b > maxqu) {
                                                 b = maxqu;
                                             } else {
                                                 b = b;
-                                            }
+                                            }*/
 
 
                                             try {
@@ -6366,7 +5311,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                             String aString = newString.toString().trim().replace(")", "");
                                             jobject.put("pro_code", aString.toString().trim());
-                                            jobject.put("quantity", String.valueOf((int) fqu));
+                                            jobject.put("quantity", String.valueOf(fqu));
                                             jobject.put("mrp", tv_product_mrp.getText().toString());
                                             jobject.put("selling_price", sell);
                                             jobject.put("option_id", bean_productOprtions.get(0).getPro_Option_id());
@@ -6471,16 +5416,16 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                     double getqu = Double.parseDouble(getq);
                                     double buyqu = Double.parseDouble(buyq);
-                                    double maxqu = Double.parseDouble(maxq);
+                                    //double maxqu = Double.parseDouble(maxq);
                                     int qu = Integer.parseInt(qty);
 
                                     double a = qu / buyqu;
                                     double b = a * getqu;
-                                    if (b > maxqu) {
+                                    /*if (b > maxqu) {
                                         b = maxqu;
                                     } else {
                                         b = b;
-                                    }
+                                    }*/
 
 
                                     try {
@@ -7032,6 +5977,1174 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
     }
 
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+            Globals.generateNoteOnSD(getApplicationContext(), "In GetItemQty While");
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    private void GetCartQtyCall() {
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id();
+
+                role_id = user_data.get(i).getUser_type();
+
+                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                    app = new AppPrefs(BTLProduct_Detail.this);
+                    role_id = app.getSubSalesId();
+                    u_id = app.getSalesPersonId();
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            app = new AppPrefs(BTLProduct_Detail.this);
+            app.setCart_QTy("");
+        }
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public class SlidingImage_Adapter_pDetail extends PagerAdapter {
+
+
+        private ArrayList<String> IMAGES;
+        private LayoutInflater inflater;
+
+        private Context context;
+
+
+        public SlidingImage_Adapter_pDetail(Context context, ArrayList<String> bean_productImages) {
+            this.context = context;
+            this.IMAGES = bean_productImages;
+
+            inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public int getCount() {
+            return ImagesArray.size();
+
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup view, final int position) {
+            View imageLayout = inflater.inflate(R.layout.slidingimages_layout_pdetail, view, false);
+
+            assert imageLayout != null;
+            final ImageView imageView = (ImageView) imageLayout
+                    .findViewById(R.id.image);
+
+            try {
+
+                // imageloader.DisplayImage(ImagesArray.get(position), imageView);
+                Picasso.with(getApplicationContext())
+                        .load(ImagesArray.get(position))
+                        .placeholder(R.drawable.btl_watermark)
+                        .into(imageView);
+
+                //Log.e("", "" + ImagesArray.get(position));
+            } catch (Exception e) {
+                //Log.e("", "" + ImagesArray.get(position));
+            }
+
+           /* imageView.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v) {
+
+                    Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(BTLProduct_Detail.this,Event_Gallery_photo_view_Activity.class);
+                    startActivity(i);
+                }
+            });*/
+
+
+            view.addView(imageLayout, 0);
+            return imageLayout;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view.equals(object);
+        }
+
+        @Override
+        public void restoreState(Parcelable state, ClassLoader loader) {
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+
+    }
+
+    public class set_marquee extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        BTLProduct_Detail.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+
+                parameters.add(new BasicNameValuePair("id", "1"));
+
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "FlashMessage/App_GetFlashMessage", ServiceHandler.POST, parameters);
+
+                //System.out.println("array: " + json);
+
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+
+                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+
+                        loadingView.dismiss();
+                    } else {
+
+                        String Message = jObj.getString("message");
+
+
+                      /*  JSONObject jO = jObj.getJSONObject("data");
+                        JSONObject jU = jO.getJSONObject("FlashMessage");
+
+
+                        String mrquee= jU.getString("msg");
+                        product_detail_marquee.setText(mrquee.toString());
+                        //Log.e("mrquee",""+mrquee.toString());*/
+
+
+                        JSONArray jmarquee_msg = jObj.getJSONArray("data");
+
+                        for (int i = 0; i < jmarquee_msg.length(); i++) {
+                            JSONObject jsonobject = jmarquee_msg.getJSONObject(i);
+                            JSONObject jobject_marquee_msg = jsonobject.getJSONObject("FlashMessage");
+                            String msg_marquee = jobject_marquee_msg.getString("msg");
+                            product_detail_marquee.setText(msg_marquee.toString());
+
+
+                        }
+
+                        loadingView.dismiss();
+                        new get_Product_detail_data().execute();
+
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
+    }
+
+    /*  private void imageslider() {
+          for (int i = 0; i < bean_productImages.size(); i++)
+              ImagesArray.add(bean_productImages.get(i).getPro_Images());
+          //Log.e("Imagearray",""+ImagesArray.size());
+
+
+
+          mPager.setAdapter(new SlidingImage_Adapter_pDetail(BTLProduct_Detail.this, ImagesArray));
+
+
+          CirclePageIndicator indicator = (CirclePageIndicator)
+                  findViewById(R.id.indicator);
+
+          indicator.setViewPager(mPager);
+
+
+
+      }
+  */
+    public class CustomPagerAdapter extends PagerAdapter {
+
+        public Object instantiateItem(View collection, final int position) {
+
+            LayoutInflater inflater = (LayoutInflater) collection.getContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = inflater.inflate(R.layout.viewpager_row, null);
+
+            ((ViewPager) collection).addView(view, 0);
+
+
+            ImageView ia = (ImageView) view.findViewById(R.id.img_flipperimag);
+
+            try {
+//                imageloader.DisplayImage(bean_productImages.get(position)
+//                        .getPro_Images(), ia);
+                Picasso.with(getApplicationContext())
+                        .load(bean_productImages.get(position).getPro_Images())
+                        .placeholder(R.drawable.btl_watermark)
+                        .into(ia);
+            } catch (Exception e) {
+                //Log.e("Error", e.toString());
+            }
+
+           /* ia.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Intent i = new Intent(getActivity(), Slider_Product.class);
+                    startActivity(i);
+                }
+            });
+
+            if (position == 0) {
+                im_previous.setVisibility(View.GONE);
+                im_next.setVisibility(View.VISIBLE);
+            } else if (position == array_slider.size() - 1) {
+                im_next.setVisibility(View.GONE);
+                im_previous.setVisibility(View.VISIBLE);
+            }else
+            {
+                im_previous.setVisibility(View.VISIBLE);
+                im_next.setVisibility(View.VISIBLE);
+            }
+            im_next.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    if (position == 0 || position < (array_slider.size() - 1)) {
+                        customviewpager.setCurrentItem(position + 1);
+                        //Log.e("", "Size :- " + array_slider.size()
+                                + " position " + (position + 1));
+                    }
+
+                    else if (position == (array_slider.size() - 1)) {
+                        //Log.e("", "Size :- " + array_slider.size()
+                                + " position " + (position + 1));
+                    }
+
+                }
+            });
+            im_previous.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    if (position == 0) {
+
+                    } else if (position == (array_slider.size() - 1)
+                            || position > 0) {
+                        customviewpager.setCurrentItem(position - 1);
+                        //Log.e("", "Size :- " + array_slider.size()
+                                + " position " + (position - 1));
+                    }
+                }
+            });*/
+            /*
+             * title.setText(bean.get(position).getTitle());
+			 *
+			 * if (bean.get(position).getImage().equalsIgnoreCase("") ||
+			 * bean.get(position).getImage().equalsIgnoreCase("null")) {
+			 * //Log.e("", "Inside null===" + bean.get(position).getImage());
+			 * ia.setImageResource(R.drawable.docicon);
+			 *
+			 * } else {
+			 *
+			 * byte [] encodeByte=Base64.decode(bean.get(position).getImage()
+			 * ,Base64.DEFAULT); Bitmap
+			 * bitmap=BitmapFactory.decodeByteArray(encodeByte, 0,
+			 * encodeByte.length); ia.setImageBitmap(bitmap);
+			 *
+			 * //Log.e("", "Inside else===" + bean.get(position).getImage());
+			 * imageloader.DisplayImage(bean.get(position).getImage(),
+			 * R.drawable.docicon, ia); }
+			 */
+            // ia.setImageResource(Integer.parseInt(bean.get(position).getImage()));
+
+            return view;
+        }
+
+        @Override
+        public void destroyItem(View arg0, int arg1, Object arg2) {
+            ((ViewPager) arg0).removeView((View) arg2);
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
+
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+
+            return bean_productImages.size();
+
+        }
+    }
+
+    /*private void setLayout_video(final ArrayList<Product_Youtube> str) {
+        // TODO Auto-generated method stub
+
+        l_video_lower.removeAllViews();
+
+        //Log.e("str.size", "" + str.size());
+
+        for (int ij = 0; ij < str.size(); ij++) {
+
+            LinearLayout lmain = new LinearLayout(BTLProduct_Detail.this);
+            //  params.setMargins(7, 7, 7, 7);
+            lmain.setLayoutParams(params);
+            lmain.setOrientation(LinearLayout.HORIZONTAL);
+            lmain.setPadding(2, 2, 2, 2);
+
+            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                    200, 200, 1.0f);
+            LinearLayout l1 = new LinearLayout(BTLProduct_Detail.this);
+
+            l1.setLayoutParams(par1);
+            l1.setPadding(5, 5, 5, 5);
+            l1.setOrientation(LinearLayout.VERTICAL);
+            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+            LinearLayout l3 = new LinearLayout(BTLProduct_Detail.this);
+            l3.setLayoutParams(par3);
+            l3.setOrientation(LinearLayout.VERTICAL);
+            l3.setPadding(5, 5, 5, 5);
+
+            final LinearLayout l2 = new LinearLayout(BTLProduct_Detail.this);
+            l2.setLayoutParams(par2);
+            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+            l2.setOrientation(LinearLayout.HORIZONTAL);
+            l2.setPadding(5, 5, 5, 5);
+            l2.setVisibility(View.GONE);
+
+            count = ij;
+            final ImageView img_a = new ImageView(BTLProduct_Detail.this);
+            img_a.setTag(ij);
+            // img_a.setImageResource(str.get(count));
+            //Log.e("count", "" + count);
+            //Log.e("img", "" + str.get(count).getPro_youtube_url());
+            try {
+
+                url = str.get(count).getPro_youtube_url();
+                String setthumbnail = "http://img.youtube.com/vi/" + url + "/0.jpg";
+                //Log.e("setthumbnail", url + " : " + setthumbnail);
+                app.setyoutube_api(str.get(count).getPro_youtube_url());
+                imageloader.DisplayImage(setthumbnail, R.drawable.ic_temp_logo, img_a);
+
+            } catch (NullPointerException e) {
+                //Log.e("Error", "" + e);
+            }
+
+
+            par21.setMargins(5, 5, 5, 5);
+
+            img_a.setLayoutParams(par21);
+            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
+            l1.addView(img_a);
+
+            img_a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AppPrefs app= new AppPrefs(BTLProduct_Detail.this);
+
+                    //Log.e("url_tonext_page",""+str.get(Integer.parseInt(img_a.getTag().toString())).getPro_youtube_url());
+                    Intent i = new Intent(BTLProduct_Detail.this,Video_View_Activity.class);
+                    app.setyoutube_api(str.get(Integer.parseInt(img_a.getTag().toString())).getPro_youtube_url());
+                    startActivity(i);
+                }
+            });
+            lmain.addView(l1);
+
+            l_video_lower.addView(lmain);
+
+        }
+
+    }*/
+    public class MyAdapter extends ArrayAdapter<Bean_Attribute> {
+
+        ArrayList<Bean_Attribute> array;
+        int k = 0;
+
+        public MyAdapter(Context context, int textViewResourceId, ArrayList<Bean_Attribute> objects) {
+            super(context, textViewResourceId, objects);
+            this.array = objects;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View row = inflater.inflate(R.layout.textview, parent, false);
+
+            TextView label = (TextView) row.findViewById(R.id.tv_row);
+         /*   if(k == 0){
+                label.setText("Select "+array.get(position).getOption_name());
+                k++;
+                position = 0;
+            }else {*/
+            label.setText(array.get(position).getValue_name());
+            /*}*/
+            return row;
+        }
+    }
+
+    public class set_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        BTLProduct_Detail.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+                parameters.add(new BasicNameValuePair("user_id", user_id_main));
+                parameters.add(new BasicNameValuePair("role_id", role_id));
+                parameters.add(new BasicNameValuePair("product_id", pid));
+
+                //Log.e("4", "" + parameters);
+
+                //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_WishList", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+
+                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        // Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+                        String Message = jObj.getString("message");
+
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+
+                      /*  page_id =1;
+                        page_limit = "";*/
+
+                        bean_product1.clear();
+                        bean_productTechSpecs.clear();
+                        bean_productOprtions.clear();
+                        bean_productFeatures.clear();
+                        bean_productStdSpecs.clear();
+
+                        Intent i = new Intent(BTLProduct_Detail.this, BTLProduct_Detail.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+
+
+                    }
+                }
+            } catch (Exception ja) {
+                ja.printStackTrace();
+
+
+            }
+
+        }
+
+    }
+
+    public class delete_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        BTLProduct_Detail.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+                parameters.add(new BasicNameValuePair("user_id", user_id_main));
+                parameters.add(new BasicNameValuePair("product_id", pid));
+                parameters.add(new BasicNameValuePair("role_id", role_id));
+
+                //Log.e("4", "" + parameters);
+
+                //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_DeleteWishList", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+
+                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        // Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+                        String Message = jObj.getString("message");
+
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+
+                      /*  page_id =1;
+                        page_limit = "";*/
+
+                        bean_product1.clear();
+                        bean_productTechSpecs.clear();
+                        bean_productOprtions.clear();
+                        bean_productFeatures.clear();
+                        bean_productStdSpecs.clear();
+
+                        Intent i = new Intent(BTLProduct_Detail.this, BTLProduct_Detail.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+
+
+                    }
+                }
+            } catch (Exception ja) {
+                ja.printStackTrace();
+
+
+            }
+
+        }
+
+    }
+
+    public class get_Product_detail_data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                detail_price.setVisibility(View.GONE);
+                l_mmain.setVisibility(View.GONE);
+                loadingView = new Custom_ProgressDialog(
+                        BTLProduct_Detail.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+
+                parameters.add(new BasicNameValuePair("product_id", "" + pid));
+
+                parameters.add(new BasicNameValuePair("user_id", user_id_main));
+
+                parameters.add(new BasicNameValuePair("role_id", role_id));
+
+                //Log.e("user_id_main", "" + user_id_main);
+
+                //Log.e("product_id", "" + pid);
+                //Log.e("role_id", "" + role_id);
+                Log.e("", "" + parameters);
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, parameters);
+
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(BTLProduct_Detail.this, "SERVER ERROR", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+
+                        Globals.CustomToast(BTLProduct_Detail.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+
+
+                        // page_limit = jObj.getString("total_page_count");
+
+                        JSONArray jsonwish = jObj.optJSONArray("wish_list");
+
+                        whereToBuyVisibility = jObj.getString("where_to_buy").equals("1");
+
+                        WishList = new ArrayList<String>();
+
+                        for (int i = 0; i < jsonwish.length(); i++) {
+                            WishList.add(jsonwish.get(i).toString());
+                        }
+
+                        //Log.e("Wish List Size", "" + WishList.size());
+
+
+                        JSONObject jobj = new JSONObject(result_1);
+
+
+                        JSONObject jObjj = jObj.getJSONObject("data");
+                        JSONObject jproduct = jObjj.getJSONObject("Product");
+
+
+                        //JSONArray jsonArray = jObj.optJSONArray("data");
+
+                        Bean_Product bean = new Bean_Product();
+
+
+                        bean.setPro_id(jproduct.getString("id"));
+
+
+                        bean.setPro_cat_id(jproduct.getString("category_id"));
+                        bean.setPro_code(jproduct.getString("product_code"));
+                        bean.setPro_name(jproduct.getString("product_name"));
+                        // bean.setPro_label(jproduct.getString("label_id"));
+                        bean.setPro_qty(jproduct.getString("qty"));
+                        bean.setPro_mrp(jproduct.getString("mrp"));
+                        bean.setPro_sellingprice(jproduct.getString("selling_price"));
+                        // bean.setPro_shortdesc(jproduct.getString("short_description"));
+                        bean.setPro_image(jproduct.getString("image"));
+                        String packQty = jproduct.getString("pack_of_qty");
+                        bean.setPackQty(Integer.parseInt(packQty.isEmpty() ? "1" : packQty));
+
+                        Log.e("Pack Of Qty", "+->" + packQty);
+                        //   bean.setPro_moreinfo(jproduct.getString("more_info"));
+                        JSONArray jschme = jObjj.getJSONArray("Scheme");
+                        //Log.e("A1111111",""+jschme.length());
+
+                        String sa = "";
+
+                        for (int s1 = 0; s1 < jschme.length(); s1++) {
+                            JSONObject jProductScheme = jschme.getJSONObject(s1);
+
+
+                            ArrayList<String> a = new ArrayList<String>();
+                            a.add(jProductScheme.getString("scheme_name"));
+                            //Log.e("A2222222",""+jProductScheme.getString("scheme_name"));
+                            sa += jProductScheme.getString("scheme_name").toString() + "\n";
+                            bean.setSchemea(a);
+                        }
+
+
+                        //Log.e("A3333333",""+sa);
+                        bean.setScheme(sa);
+                        JSONObject jlabel = jObjj.getJSONObject("Label");
+                        bean.setPro_label(jlabel.getString("name"));
+
+                        bean_product1.add(bean);
+
+
+                        Bean_Desc bean1 = new Bean_Desc();
+                        bean1.setPro_id(jproduct.getString("id"));
+                        //   Toast.makeText(BTLProduct_Detail.this, ""+bean1.getPro_id()+"-"+jproduct.getString("id"), Toast.LENGTH_SHORT).show();
+                        bean1.setDescription(jproduct.getString("description"));
+                        bean1.setSpecification(jproduct.getString("specification"));
+                        bean1.setTechnical(jproduct.getString("technical"));
+                        bean1.setCatalogs(jproduct.getString("catalogs"));
+                        bean1.setGuarantee(jproduct.getString("guarantee"));
+                        bean1.setVideos(jproduct.getString("videos"));
+                        bean1.setGeneral(jproduct.getString("general"));
+                        bean_desc1.add(bean1);
+
+                        JSONArray jProducttechnical = jObjj.getJSONArray("ProductTechnicalSpecification");
+                        //Log.e("BBBB", "" + jProducttechnical.length());
+                        for (int s = 0; s < jProducttechnical.length(); s++) {
+                            JSONObject jProducttechni = jProducttechnical.getJSONObject(s);
+
+                            Bean_texhnicalImages beantechnical = new Bean_texhnicalImages();
+                            beantechnical.setId(jProducttechni.getString("id"));
+                            beantechnical.setImg(jProducttechni.getString("image_path"));
+                            beantechnical.setProduct_id(jProducttechni.getString("product_id"));
+                            //Log.e("BaBa", "" + jProducttechni.getString("id"));
+                            bean_technical.add(beantechnical);
+
+                        }
+                        Log.e("AbAb", "" + bean_technical.size());
+                        JSONArray jProductOption = jObjj.getJSONArray("ProductOption");
+
+
+                        for (int s = 0; s < jProductOption.length(); s++) {
+                            JSONObject jProductOptiono = jProductOption.getJSONObject(s);
+                            JSONObject productObject = jProductOptiono.getJSONObject("Product");
+                            JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
+                            JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
+                            JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
+                            JSONArray SchemeArray = jProductOptiono.getJSONArray("Scheme");
+
+
+                            for (int m = 0; m < SchemeArray.length(); m++) {
+
+                                JSONObject schemeObj = SchemeArray.getJSONObject(m);
+
+                                Bean_schemeData beans = new Bean_schemeData();
+                                beans.setSchme_id(schemeObj.getString("id"));
+                                beans.setSchme_name(schemeObj.getString("scheme_name"));
+                                beans.setSchme_qty(schemeObj.getString("buy_prod_qty"));
+                                beans.setCategory_id(schemeObj.getString("category_id"));
+                                beans.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
+                                beans.setSchme_prod_id(jProductOptiono.getString("product_id"));
+
+                                bean_Schme_data.add(beans);
+                            }
+
+                            Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
+                            // arrOptionType=new ArrayList<String>();
+
+
+                            //Option
+                            beanoption.setPro_Option_id(jPOOption.getString("id"));
+                            beanoption.setPro_Option_name(jPOOption.getString("name"));
+
+                            beanoption.setMinPackOfQty(Integer.parseInt(productObject.getString("pack_of_qty")));
+
+                            //OptionValue
+                            beanoption.setPro_Option_value_name(jPOOptionValue.getString("name"));
+                            beanoption.setPro_Option_value_id(jPOOptionValue.getString("id"));
+
+                            //ProductOptionImage
+
+
+                            //beanoption.setPro_id(jProductOptiono.getString("product_id"));
+                            beanoption.setPro_id(jProductOptiono.getString("parent_product_id"));
+                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("parent_product_id"));
+                            beanoption.setOption_pro_id(jProductOptiono.getString("product_id"));
+                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("product_id"));
+                            beanoption.setPro_Option_mrp(jProductOptiono.getString("mrp"));
+                            beanoption.setPro_Option_selling_price(jProductOptiono.getString("selling_price"));
+                            beanoption.setPro_Option_procode(jProductOptiono.getString("product_code"));
+                            //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("product_code"));
+
+
+                            if (jPOProductOptionImage.length() == 0) {
+                                beanoption.setPro_Option_proimage("");
+                            } else {
+
+                                for (int t = 0; t < jPOProductOptionImage.length(); t++) {
+                                    JSONObject jProductOptio = jPOProductOptionImage.getJSONObject(t);
+                                    beanoption.setPro_Option_proimage(jProductOptio.getString("image"));
+                                }
+                            }
+                            bean_productOprtions.add(beanoption);
+                            //   arrOptionType.add(jPOOption.getString("id"));
+
+
+                        }
+
+
+                        //Log.e("Option Size1212", "" + bean_productOprtions.size());
+
+
+                        JSONArray jpProductImage = jObjj.getJSONArray("ProductImage");
+
+                        //Log.e("siz from array",jpProductImage.length()+"");
+
+                        Bean_ProductImage beanproductimg = new Bean_ProductImage();
+
+                        beanproductimg.setPro_id(jproduct.getString("id"));
+                        beanproductimg.setPro_Images(jproduct.getString("image"));
+
+                        bean_productImages.add(beanproductimg);
+
+                        if (jpProductImage.length() > 0) {
+
+                            for (int s = 0; s < jpProductImage.length(); s++) {
+                                JSONObject jpimg = jpProductImage.getJSONObject(s);
+
+
+                                Bean_ProductImage beanproductimg1 = new Bean_ProductImage();
+
+                                beanproductimg1.setPro_id(jpimg.getString("product_id"));
+                                beanproductimg1.setPro_Images(jpimg.getString("image"));
+
+                                bean_productImages.add(beanproductimg1);
+
+                            }
+                        }
+
+
+                        try {
+                            if (bean_productImages_db.size() == 0) {
+                                for (int a = 0; a < bean_productImages.size(); a++) {
+
+                                    db = new DatabaseHandler(BTLProduct_Detail.this);
+                                    db.Add_ProductImage(new Bean_ProductImage(bean_productImages.get(a).getPro_id(),
+                                            bean_productImages.get(a).getPro_cat_id(),
+                                            bean_productImages.get(a).getPro_Images())
+                                    );
+                                    db.close();
+                                }
+                                //Log.e("bean_pro_image_after", "" + bean_productImages_db.size());
+                            } else {
+
+                                //Log.e("Datbase....22", "" + bean_productImages.size());
+                                for (int a = 0; a < bean_productImages.size(); a++) {
+                                    //Log.e("List....22", "" + bean_productImages.size());
+                                    int k = 0;
+                                    for (int b = 0; b < bean_productImages_db.size(); b++) {
+                                        if (k != 1) {
+                                            if (bean_productImages_db.get(b).getPro_id().equalsIgnoreCase(bean_productImages.get(a).getPro_id())) {
+
+                                            } else {
+                                                db = new DatabaseHandler(BTLProduct_Detail.this);
+                                                db.Add_ProductImage(new Bean_ProductImage(bean_productImages.get(a).getPro_id(),
+                                                        bean_productImages.get(a).getPro_cat_id(),
+                                                        bean_productImages.get(a).getPro_Images())
+                                                );
+                                                db.close();
+
+                                                k = 1;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        } catch (Exception e) {
+                            Log.e("Exception JSON", e.getMessage());
+                        }
+
+                        setRefershDataImage();
+
+                        //Log.e("Image Size", "" + bean_productImages_db.size());
+
+                        //Log.e("Size:Product ::", "" + bean_product1.size());
+
+                        //Log.e("Size:Desc ::", "" + bean_desc1.size());
+
+                        //Log.e("Size:ProductOptions ::", "" + bean_productOprtions.size());
+
+                        //Log.e("Size:ProductIamge ::", "" + bean_productImages.size());
+
+
+                        //Log.e("bean_desc_db Size", "" + bean_desc_db.size());
+
+                        //Log.e("bean_technical size", "" + bean_technical.size());
+
+
+                        loadingView.dismiss();
+                        l_mmain.setVisibility(View.VISIBLE);
+                        detail_price.setVisibility(View.VISIBLE);
+                        Setdata();
+
+                    }
+
+                }
+            } catch (Exception j) {
+                Log.e("Exception JSON1", j.getMessage());
+                j.printStackTrace();
+            }
+
+        }
+    }
+
     public class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
         /**
@@ -7193,36 +7306,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     private class GetProductDetailQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList;
@@ -7252,39 +7335,10 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-            Globals.generateNoteOnSD(getApplicationContext(), "In GetItemQty While");
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -7380,46 +7434,10 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
     }
 
-    private void GetCartQtyCall() {
-        setRefershData();
-
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id();
-
-                role_id = user_data.get(i).getUser_type();
-
-                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                    app = new AppPrefs(BTLProduct_Detail.this);
-                    role_id = app.getSubSalesId();
-                    u_id = app.getSalesPersonId();
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            app = new AppPrefs(BTLProduct_Detail.this);
-            app.setCart_QTy("");
-        }
-    }
-
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -7513,37 +7531,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         }
     }
 
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-
     public class CustomResultAdapterschme extends BaseAdapter {
 
         LayoutInflater vi = (LayoutInflater) getSystemService(
@@ -7589,15 +7576,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
             return convertView;
         }
 
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
     }
 
     public class GetCartByQty extends AsyncTask<Void, Void, String> {

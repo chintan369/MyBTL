@@ -411,7 +411,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
         builder.setCancelable(false);
         final EditText edt_skipReason=(EditText) view.findViewById(R.id.edt_cityName);
-        edt_skipReason.setHint("Other City Name");
+        edt_skipReason.setHint("Other Reason");
 
         builder.setView(view);
 
@@ -1052,7 +1052,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject main = data.getJSONObject(i);
-                            reasonList.add(main.getString("name"));
+                            reasonList.add(main.getString("title"));
                         }
                     }
 

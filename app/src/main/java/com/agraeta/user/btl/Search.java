@@ -51,13 +51,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class Search extends AppCompatActivity {
 //MultiAutoCompleteTextView et_multiauto;
 
 
+    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
+    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
+    public static ArrayList<String> WishList = new ArrayList<String>();
     ImageView minuss, plus;
     Button buy_cart, cancel;
     EditText edt_count;
@@ -66,11 +67,8 @@ public class Search extends AppCompatActivity {
     double amount1;
     String pro_id = new String();
     ArrayList<Bean_Value_Selected_Detail> array_value = new ArrayList<Bean_Value_Selected_Detail>();
-
     View footerLoading;
-
     boolean whereToBuyVisibility = false;
-
     String json = new String();
     ArrayList<Bean_Product> bean_product_array = new ArrayList<Bean_Product>();
     ArrayList<Bean_ProductImage> bean_productimage_array = new ArrayList<Bean_ProductImage>();
@@ -83,8 +81,6 @@ public class Search extends AppCompatActivity {
     ArrayList<Bean_Product> bean_product_schme = new ArrayList<Bean_Product>();
     ArrayList<Bean_Schme_value> bean_schme = new ArrayList<Bean_Schme_value>();
     String page_limit = new String();
-    private ArrayList<Integer> image_product = new ArrayList<Integer>();
-
     ImageLoader imageloader;
     int page_id = 1;
     int s = 0;
@@ -105,7 +101,6 @@ public class Search extends AppCompatActivity {
     DatabaseHandler db;
     ArrayList<Bean_ProductCart> bean_cart = new ArrayList<Bean_ProductCart>();
     ArrayList<Bean_Product> bean_product1 = new ArrayList<Bean_Product>();
-
     ArrayList<Bean_Desc> bean_desc1 = new ArrayList<Bean_Desc>();
     ArrayList<Bean_Desc> bean_desc_db = new ArrayList<Bean_Desc>();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
@@ -115,8 +110,6 @@ public class Search extends AppCompatActivity {
     ArrayList<Bean_ProductOprtion> bean_productOprtions = new ArrayList<Bean_ProductOprtion>();
     ArrayList<Bean_ProductCart> bean_productCart = new ArrayList<Bean_ProductCart>();
     ArrayList<Bean_ProductImage> bean_productImages = new ArrayList<Bean_ProductImage>();
-    public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
-    public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
     ArrayList<Bean_Attribute> array_att = new ArrayList<Bean_Attribute>();
     String option_name = "";
     String option_id = "";
@@ -124,7 +117,6 @@ public class Search extends AppCompatActivity {
     String user_id = new String();
     String Catid = new String();
     LinearLayout l_spinner, l_spinner_text, l_linear, l_sort;
-    public static ArrayList<String> WishList = new ArrayList<String>();
     String CategoryID;
     ArrayList<ArrayList<Bean_Attribute>> array_attribute_main = new ArrayList<ArrayList<Bean_Attribute>>();
     Custom_ProgressDialog loadingView;
@@ -138,10 +130,7 @@ public class Search extends AppCompatActivity {
     int last_record = 0;
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-
     TextView txt;
-
-
     String owner_id = new String();
     String u_id = new String();
     String qun = new String();
@@ -151,13 +140,21 @@ public class Search extends AppCompatActivity {
     ArrayList<Bean_schemeData> bean_Schme_data = new ArrayList<Bean_schemeData>();
     ArrayList<Bean_schemeData> bean_S_data = new ArrayList<Bean_schemeData>();
     String rolee = new String();
-    private String jsonData = "";
     boolean isNotDone = true;
-
     ArrayList<String> searchItemIDs = new ArrayList<>();
     ArrayList<String> searchItemNames = new ArrayList<>();
     ArrayAdapter<String> searchItemAdapter;
+    private ArrayList<Integer> image_product = new ArrayList<Integer>();
+    private String jsonData = "";
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,167 +233,6 @@ public class Search extends AppCompatActivity {
         Runtime.getRuntime().gc();
         System.gc();
         //Log.e("System GC", "Called");
-    }
-
-    private void fetchId() {
-        Search_actv = (AutoCompleteTextView) findViewById(R.id.Search_Actv);
-        Search_actv.setThreshold(1);
-        searchItemAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchItemNames);
-        Search_actv.setAdapter(searchItemAdapter);
-
-        Search_actv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.e("after - count", after + "--" + count);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("before - count", before + "--" + count);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String searchName = Search_actv.getText().toString().trim();
-
-                if (searchName.length() >= 3) {
-                    new SearchItemDirect(searchName).execute();
-                } else {
-                    searchItemIDs.clear();
-                    searchItemNames.clear();
-                    searchItemAdapter.setNotifyOnChange(true);
-                    searchItemAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        Search_actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                app.setproduct_id(searchItemIDs.get(position));
-                app.setRef_Detail("Search");
-                Intent intent = new Intent(Search.this, BTLProduct_Detail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        List_search = (ListView) findViewById(R.id.List_search);
-        Search_image = (ImageView) findViewById(R.id.image_search_pro);
-        List_search.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                int totalListItems = List_search.getCount();
-                int lastVisiblePosition = List_search.getLastVisiblePosition();
-
-                if (lastVisiblePosition == (totalListItems - 1)) {
-                    if (page_id < Integer.parseInt(page_limit)) {
-                        page_id++;
-                        List_search.addFooterView(footerLoading);
-                        new get_Product(false).execute();
-                    }
-                }
-
-                /*if (scrollState == SCROLL_STATE_IDLE) {
-
-
-
-                    page_id = page_id + 1;
-
-                    //Log.e("Page Limit", "" + page_limit);
-                    //Log.e("Page ID", "" + page_id);
-                    if (page_id > )
-                    {
-
-                    }
-                    else
-                    {
-                        current_record = List_search.getCount();
-                        last_record=current_record-last_record;
-                        app = new AppPrefs(Search.this);
-                        //Log.e("Page ID", "" + page_id);
-                        String page = app.getPage_Data();
-
-
-                    }
-                }*/
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-
-        app = new AppPrefs(Search.this);
-        if (app.get_search().equalsIgnoreCase("")) {
-            Search_actv.setText(app.get_search().toString());
-        } else {
-            Search_actv.setText(app.get_search().toString());
-            getWindow().setSoftInputMode(
-                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-            searchproduct = app.get_search();
-            page_id = 1;
-            new get_Product().execute();
-            bean_product1.clear();
-        }
-
-        Search_actv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getWindow().setSoftInputMode(
-                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                    if (Search_actv.getText().toString().equalsIgnoreCase("")
-                            ) {
-
-                        app = new AppPrefs(Search.this);
-                        app.set_search("");
-                        Globals.CustomToast(Search.this, "Please Enter Product Name", getLayoutInflater());
-
-                    } else {
-                        getWindow().setSoftInputMode(
-                                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                        searchproduct = Search_actv.getText().toString();
-                        app = new AppPrefs(Search.this);
-                        app.set_search(searchproduct);
-                        page_id = 1;
-                        new get_Product().execute();
-                        bean_product1.clear();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Search_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (Search_actv.getText().toString().equalsIgnoreCase("")
-                        ) {
-                    app = new AppPrefs(Search.this);
-                    app.set_search("");
-                    Globals.CustomToast(Search.this, "Please Enter Product Name", getLayoutInflater());
-
-                } else {
-                    getWindow().setSoftInputMode(
-                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-                    searchproduct = Search_actv.getText().toString();
-                    app = new AppPrefs(Search.this);
-                    app.set_search(searchproduct);
-                    page_id = 1;
-                    new get_Product().execute();
-                    bean_product1.clear();
-                }
-
-            }
-        });
     }
 
 
@@ -1083,64 +919,165 @@ public class Search extends AppCompatActivity {
         }
     }*/
 
-    private class SearchItemDirect extends AsyncTask<Void, Void, String> {
+    private void fetchId() {
+        Search_actv = (AutoCompleteTextView) findViewById(R.id.Search_Actv);
+        Search_actv.setThreshold(1);
+        searchItemAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchItemNames);
+        Search_actv.setAdapter(searchItemAdapter);
 
-        String searchName = "";
-        Custom_ProgressDialog dialog;
+        Search_actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.e("after - count", after + "--" + count);
+            }
 
-        public SearchItemDirect(String searchName) {
-            this.searchName = searchName;
-        }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.e("before - count", before + "--" + count);
+            }
 
-        @Override
-        protected String doInBackground(Void... params) {
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchName = Search_actv.getText().toString().trim();
 
-            List<NameValuePair> pairList = new ArrayList<>();
+                if (searchName.length() >= 3) {
+                    new SearchItemDirect(searchName).execute();
+                } else {
+                    searchItemIDs.clear();
+                    searchItemNames.clear();
+                    searchItemAdapter.setNotifyOnChange(true);
+                    searchItemAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
-            pairList.add(new BasicNameValuePair("product_name", searchName));
+        Search_actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                app.setproduct_id(searchItemIDs.get(position));
+                app.setRef_Detail("Search");
+                Intent intent = new Intent(Search.this, BTLProduct_Detail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
-            String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.SEARCH_BY_KEYWORD, ServiceHandler.POST, pairList);
+        List_search = (ListView) findViewById(R.id.List_search);
+        Search_image = (ImageView) findViewById(R.id.image_search_pro);
+        List_search.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            return json;
-        }
+                int totalListItems = List_search.getCount();
+                int lastVisiblePosition = List_search.getLastVisiblePosition();
 
-        @Override
-        protected void onPostExecute(String json) {
-            super.onPostExecute(json);
-
-            searchItemIDs.clear();
-            searchItemNames.clear();
-            searchItemAdapter.setNotifyOnChange(true);
-            searchItemAdapter.notifyDataSetChanged();
-
-            Log.e("json", json);
-
-            try {
-                JSONObject object = new JSONObject(json);
-
-                if (object.getBoolean("status")) {
-                    JSONArray data = object.getJSONArray("data");
-
-                    Log.e("data", "-->" + data.toString());
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject main = data.getJSONObject(i);
-
-                        searchItemIDs.add(main.getString("id"));
-                        searchItemNames.add(main.getString("product_name")+" - "+searchName);
+                if (lastVisiblePosition == (totalListItems - 1)) {
+                    if (page_id < Integer.parseInt(page_limit)) {
+                        page_id++;
+                        List_search.addFooterView(footerLoading);
+                        new get_Product(false).execute();
                     }
                 }
 
-            } catch (JSONException j) {
-                Log.e("Exception", j.getMessage());
+                /*if (scrollState == SCROLL_STATE_IDLE) {
+
+
+
+                    page_id = page_id + 1;
+
+                    //Log.e("Page Limit", "" + page_limit);
+                    //Log.e("Page ID", "" + page_id);
+                    if (page_id > )
+                    {
+
+                    }
+                    else
+                    {
+                        current_record = List_search.getCount();
+                        last_record=current_record-last_record;
+                        app = new AppPrefs(Search.this);
+                        //Log.e("Page ID", "" + page_id);
+                        String page = app.getPage_Data();
+
+
+                    }
+                }*/
             }
 
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-            searchItemAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchItemNames);
-            searchItemAdapter.notifyDataSetChanged();
-            searchItemAdapter.setNotifyOnChange(true);
-            Search_actv.setAdapter(searchItemAdapter);
-            Search_actv.showDropDown();
+            }
+        });
+
+        app = new AppPrefs(Search.this);
+        if (app.get_search().equalsIgnoreCase("")) {
+            Search_actv.setText(app.get_search().toString());
+        } else {
+            Search_actv.setText(app.get_search().toString());
+            getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            searchproduct = app.get_search();
+            page_id = 1;
+            new get_Product().execute();
+            bean_product1.clear();
         }
+
+        Search_actv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    if (Search_actv.getText().toString().equalsIgnoreCase("")
+                            ) {
+
+                        app = new AppPrefs(Search.this);
+                        app.set_search("");
+                        Globals.CustomToast(Search.this, "Please Enter Product Name", getLayoutInflater());
+
+                    } else {
+                        getWindow().setSoftInputMode(
+                                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                        searchproduct = Search_actv.getText().toString();
+                        app = new AppPrefs(Search.this);
+                        app.set_search(searchproduct);
+                        page_id = 1;
+                        new get_Product().execute();
+                        bean_product1.clear();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        Search_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (Search_actv.getText().toString().equalsIgnoreCase("")
+                        ) {
+                    app = new AppPrefs(Search.this);
+                    app.set_search("");
+                    Globals.CustomToast(Search.this, "Please Enter Product Name", getLayoutInflater());
+
+                } else {
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                    searchproduct = Search_actv.getText().toString();
+                    app = new AppPrefs(Search.this);
+                    app.set_search(searchproduct);
+                    page_id = 1;
+                    new get_Product().execute();
+                    bean_product1.clear();
+                }
+
+            }
+        });
     }
 
     private void showOfferDialog(final int position,String selecetdProductID) {
@@ -1528,7 +1465,7 @@ public class Search extends AppCompatActivity {
                                     jobject.put("name", bean_product1.get(position).getPro_name());
 
                                     jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                    jobject.put("quantity", String.valueOf((int) fqu));
+                                    jobject.put("quantity", String.valueOf(fqu));
                                     jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                     jobject.put("selling_price", sell);
                                     Log.e("111111111", "" + sell);
@@ -1631,16 +1568,16 @@ public class Search extends AppCompatActivity {
 
                             double getqu = Double.parseDouble(getq);
                             double buyqu = Double.parseDouble(buyq);
-                            double maxqu = Double.parseDouble(maxq);
+                            //double maxqu = Double.parseDouble(maxq);
                             int qu = Integer.parseInt(qty);
 
                             double a = qu / buyqu;
                             double b = a * getqu;
-                            if (b > maxqu) {
+                            /*if (b > maxqu) {
                                 b = maxqu;
                             } else {
                                 b = b;
-                            }
+                            }*/
 
 
                             try {
@@ -2082,13 +2019,441 @@ public class Search extends AppCompatActivity {
         db.close();
     }
 
+    public void SetRefershDataProductDesc() {
+        // TODO Auto-generated method stub
+        bean_desc_db.clear();
+        db = new DatabaseHandler(Search.this);
+
+        ArrayList<Bean_Desc> user_array_from_db = db.Get_ProductDesc();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int Pro_id = user_array_from_db.get(i).getId();
+
+            String KEY_PRO_ID = user_array_from_db.get(i).getPro_id();
+            String KEY_VALUE_D_DESCRIPTION = user_array_from_db.get(i).getDescription();
+            String KEY_VALUE_D_SPECIFICATION = user_array_from_db.get(i).getSpecification();
+            String KEY_VALUE_D_TECHNICAL = user_array_from_db.get(i).getTechnical();
+            String KEY_VALUE_D_CATALOGS = user_array_from_db.get(i).getCatalogs();
+            String KEY_VALUE_D_GUARANTEE = user_array_from_db.get(i).getGuarantee();
+            String KEY_VALUE_D_VIDEOS = user_array_from_db.get(i).getVideos();
+            String KEY_VALUE_D_GENERAL = user_array_from_db.get(i).getGeneral();
+
+
+            Bean_Desc contact = new Bean_Desc();
+
+            contact.setId(Pro_id);
+            contact.setPro_id(KEY_PRO_ID);
+            contact.setDescription(KEY_VALUE_D_DESCRIPTION);
+            contact.setSpecification(KEY_VALUE_D_SPECIFICATION);
+            contact.setTechnical(KEY_VALUE_D_TECHNICAL);
+            contact.setCatalogs(KEY_VALUE_D_CATALOGS);
+            contact.setGuarantee(KEY_VALUE_D_GUARANTEE);
+            contact.setVideos(KEY_VALUE_D_VIDEOS);
+            contact.setGeneral(KEY_VALUE_D_GENERAL);
+
+
+            bean_desc_db.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(Search.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+        ImageView img_category = (ImageView) mCustomView.findViewById(R.id.img_category);
+
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        img_notification.setVisibility(View.GONE);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.VISIBLE);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        app = new AppPrefs(Search.this);
+        String qun = app.getCart_QTy();
+
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id().toString();
+
+                role_id = user_data.get(i).getUser_type().toString();
+
+                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                    app = new AppPrefs(Search.this);
+                    role_id = app.getSubSalesId().toString();
+                    u_id = app.getSalesPersonId().toString();
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            app = new AppPrefs(Search.this);
+            app.setCart_QTy("");
+        }
+
+        app = new AppPrefs(Search.this);
+        String qu1 = app.getCart_QTy();
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
+            txt.setVisibility(View.GONE);
+            txt.setText("");
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
+                txt.setText("999+");
+                txt.setVisibility(View.VISIBLE);
+            } else {
+                txt.setText(qu1 + "");
+                txt.setVisibility(View.VISIBLE);
+            }
+        }
+        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
+        // img_cart.setVisibility(View.GONE);
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = new DatabaseHandler(Search.this);
+                db.Delete_ALL_table();
+                db.close();
+                app = new AppPrefs(Search.this);
+                app.set_search("");
+                Intent i = new Intent(Search.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db = new DatabaseHandler(Search.this);
+                db.Delete_ALL_table();
+                db.close();
+                app = new AppPrefs(Search.this);
+                app.set_search("");
+                Intent i = new Intent(Search.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                app = new AppPrefs(Search.this);
+                app.setUser_notification("search");
+                Intent i = new Intent(Search.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    public void onBackPressed() {
+        db = new DatabaseHandler(Search.this);
+        db.Delete_ALL_table();
+        db.close();
+        app = new AppPrefs(Search.this);
+        app.set_search("");
+        Intent i = new Intent(Search.this, MainPage_drawer.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    private void GetCartQtyCall() {
+        setRefershData();
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id();
+
+                role_id = user_data.get(i).getUser_type();
+
+                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                    app = new AppPrefs(getApplicationContext());
+                    role_id = app.getSubSalesId();
+                    u_id = app.getSalesPersonId();
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            app = new AppPrefs(getApplicationContext());
+            app.setCart_QTy("");
+        }
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    static class ResultHolder {
+
+        LinearLayout l, layout_prices;
+        TextView tvproduct_name, tvproduct_code, tv_product_mrp, tv_product_sellingprice, tvproduct_packof, txt_mrp, txt_selling, txt_pack, off_tag;
+        Button btn_buyonline, BTN_wheretobuy_list, btn_enquiry;
+        ImageView img_photo, img_wish, img_shopping, img_offer;
+        TextView nav;
+
+
+    }
+
+    private class SearchItemDirect extends AsyncTask<Void, Void, String> {
+
+        String searchName = "";
+        Custom_ProgressDialog dialog;
+
+        public SearchItemDirect(String searchName) {
+            this.searchName = searchName;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            List<NameValuePair> pairList = new ArrayList<>();
+
+            pairList.add(new BasicNameValuePair("product_name", searchName));
+
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.SEARCH_BY_KEYWORD, ServiceHandler.POST, pairList);
+
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            super.onPostExecute(json);
+
+            searchItemIDs.clear();
+            searchItemNames.clear();
+            searchItemAdapter.setNotifyOnChange(true);
+            searchItemAdapter.notifyDataSetChanged();
+
+            Log.e("json", json);
+
+            try {
+                JSONObject object = new JSONObject(json);
+
+                if (object.getBoolean("status")) {
+                    JSONArray data = object.getJSONArray("data");
+
+                    Log.e("data", "-->" + data.toString());
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject main = data.getJSONObject(i);
+
+                        searchItemIDs.add(main.getString("id"));
+                        searchItemNames.add(main.getString("product_name") + " - " + searchName);
+                    }
+                }
+
+            } catch (JSONException j) {
+                Log.e("Exception", j.getMessage());
+            }
+
+
+            searchItemAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchItemNames);
+            searchItemAdapter.notifyDataSetChanged();
+            searchItemAdapter.setNotifyOnChange(true);
+            Search_actv.setAdapter(searchItemAdapter);
+            Search_actv.showDropDown();
+        }
+    }
 
     public class get_Product extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
+        boolean status;
         boolean isFirstTime = true;
+        private String result;
+        private InputStream is;
 
         public get_Product() {
         }
@@ -2692,49 +3057,6 @@ public class Search extends AppCompatActivity {
             }
 
         }
-    }
-
-    public void SetRefershDataProductDesc() {
-        // TODO Auto-generated method stub
-        bean_desc_db.clear();
-        db = new DatabaseHandler(Search.this);
-
-        ArrayList<Bean_Desc> user_array_from_db = db.Get_ProductDesc();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int Pro_id = user_array_from_db.get(i).getId();
-
-            String KEY_PRO_ID = user_array_from_db.get(i).getPro_id();
-            String KEY_VALUE_D_DESCRIPTION = user_array_from_db.get(i).getDescription();
-            String KEY_VALUE_D_SPECIFICATION = user_array_from_db.get(i).getSpecification();
-            String KEY_VALUE_D_TECHNICAL = user_array_from_db.get(i).getTechnical();
-            String KEY_VALUE_D_CATALOGS = user_array_from_db.get(i).getCatalogs();
-            String KEY_VALUE_D_GUARANTEE = user_array_from_db.get(i).getGuarantee();
-            String KEY_VALUE_D_VIDEOS = user_array_from_db.get(i).getVideos();
-            String KEY_VALUE_D_GENERAL = user_array_from_db.get(i).getGeneral();
-
-
-            Bean_Desc contact = new Bean_Desc();
-
-            contact.setId(Pro_id);
-            contact.setPro_id(KEY_PRO_ID);
-            contact.setDescription(KEY_VALUE_D_DESCRIPTION);
-            contact.setSpecification(KEY_VALUE_D_SPECIFICATION);
-            contact.setTechnical(KEY_VALUE_D_TECHNICAL);
-            contact.setCatalogs(KEY_VALUE_D_CATALOGS);
-            contact.setGuarantee(KEY_VALUE_D_GUARANTEE);
-            contact.setVideos(KEY_VALUE_D_VIDEOS);
-            contact.setGeneral(KEY_VALUE_D_GENERAL);
-
-
-            bean_desc_db.add(contact);
-
-
-        }
-        db.close();
     }
 
     public class CustomResultAdapterDoctor extends BaseAdapter {
@@ -4304,7 +4626,7 @@ public class Search extends AppCompatActivity {
 
                                                 int fqu = qu + (int) getqu;
 
-                                                bean.setPro_qty(String.valueOf((int) fqu));
+                                                bean.setPro_qty(String.valueOf(fqu));
                                                 bean.setPro_mrp(tv_pop_mrp.getText().toString());
                                                 bean.setPro_sellingprice(sell);
                                                 bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
@@ -4344,7 +4666,7 @@ public class Search extends AppCompatActivity {
                                                         String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                         String aString = newString.toString().trim().replace(")", "");
                                                         jobject.put("pro_code", aString.toString().trim());
-                                                        jobject.put("quantity", String.valueOf((int) fqu));
+                                                        jobject.put("quantity", String.valueOf(fqu));
                                                         jobject.put("mrp", tv_pop_mrp.getText().toString());
                                                         jobject.put("selling_price", sell);
                                                         jobject.put("option_id", option_id);
@@ -4387,7 +4709,7 @@ public class Search extends AppCompatActivity {
                                                 }
 
 
-                                            } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("2")) {
+                                            } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
 
                                                 //Log.e("66666666666", "" + bean_product_schme.size());
                                                 Bean_ProductCart bean = new Bean_ProductCart();
@@ -4544,16 +4866,16 @@ public class Search extends AppCompatActivity {
 
                                                 double getqu = Double.parseDouble(getq);
                                                 double buyqu = Double.parseDouble(buyq);
-                                                double maxqu = Double.parseDouble(maxq);
+                                                //double maxqu = Double.parseDouble(maxq);
                                                 int qu = Integer.parseInt(edt_count.getText().toString());
 
                                                 double a = qu / buyqu;
                                                 double b = a * getqu;
-                                                if (b > maxqu) {
+                                                /*if (b > maxqu) {
                                                     b = maxqu;
                                                 } else {
                                                     b = b;
-                                                }
+                                                }*/
 
 
                                                 bean_s.setPro_qty(String.valueOf((int) b));
@@ -5229,7 +5551,7 @@ public class Search extends AppCompatActivity {
                                                 jobject.put("name", bean_product1.get(position).getPro_name());
 
                                                 jobject.put("pro_code", bean_product1.get(position).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) fqu));
+                                                jobject.put("quantity", String.valueOf(fqu));
                                                 jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                                 jobject.put("selling_price", sell);
                                                 Log.e("111111111", "" + sell);
@@ -5332,16 +5654,16 @@ public class Search extends AppCompatActivity {
 
                                         double getqu = Double.parseDouble(getq);
                                         double buyqu = Double.parseDouble(buyq);
-                                        double maxqu = Double.parseDouble(maxq);
+                                        //double maxqu = Double.parseDouble(maxq);
                                         int qu = Integer.parseInt(qty);
 
                                         double a = qu / buyqu;
                                         double b = a * getqu;
-                                        if (b > maxqu) {
+                                        /*if (b > maxqu) {
                                             b = maxqu;
                                         } else {
                                             b = b;
-                                        }
+                                        }*/
 
 
                                         try {
@@ -5712,84 +6034,10 @@ public class Search extends AppCompatActivity {
 
     }
 
-    static class ResultHolder {
-
-        LinearLayout l,layout_prices;
-        TextView tvproduct_name, tvproduct_code, tv_product_mrp, tv_product_sellingprice, tvproduct_packof, txt_mrp, txt_selling, txt_pack, off_tag;
-        Button btn_buyonline, BTN_wheretobuy_list,btn_enquiry;
-        ImageView img_photo, img_wish, img_shopping, img_offer;
-        TextView nav;
-
-
-    }
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(Search.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
     public class set_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -5949,9 +6197,9 @@ public class Search extends AppCompatActivity {
     }
 
     public class delete_wish_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -6072,134 +6320,6 @@ public class Search extends AppCompatActivity {
 
     }
 
-
-    private void setActionBar() {
-
-        // TODO Auto-generated method stub
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        mActionBar.setCustomView(R.layout.actionbar_design);
-
-
-        View mCustomView = mActionBar.getCustomView();
-        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
-        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
-        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
-        ImageView img_category = (ImageView) mCustomView.findViewById(R.id.img_category);
-
-        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
-        img_notification.setVisibility(View.GONE);
-        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
-        frame.setVisibility(View.VISIBLE);
-        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
-        app = new AppPrefs(Search.this);
-        String qun = app.getCart_QTy();
-
-        setRefershData();
-
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id().toString();
-
-                role_id = user_data.get(i).getUser_type().toString();
-
-                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                    app = new AppPrefs(Search.this);
-                    role_id = app.getSubSalesId().toString();
-                    u_id = app.getSalesPersonId().toString();
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            app = new AppPrefs(Search.this);
-            app.setCart_QTy("");
-        }
-
-        app = new AppPrefs(Search.this);
-        String qu1 = app.getCart_QTy();
-        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
-            txt.setVisibility(View.GONE);
-            txt.setText("");
-        } else {
-            if (Integer.parseInt(qu1) > 999) {
-                txt.setText("999+");
-                txt.setVisibility(View.VISIBLE);
-            } else {
-                txt.setText(qu1 + "");
-                txt.setVisibility(View.VISIBLE);
-            }
-        }
-        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
-        // img_cart.setVisibility(View.GONE);
-        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = new DatabaseHandler(Search.this);
-                db.Delete_ALL_table();
-                db.close();
-                app = new AppPrefs(Search.this);
-                app.set_search("");
-                Intent i = new Intent(Search.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = new DatabaseHandler(Search.this);
-                db.Delete_ALL_table();
-                db.close();
-                app = new AppPrefs(Search.this);
-                app.set_search("");
-                Intent i = new Intent(Search.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-        img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                app = new AppPrefs(Search.this);
-                app.setUser_notification("search");
-                Intent i = new Intent(Search.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-
-    public void onBackPressed() {
-        db = new DatabaseHandler(Search.this);
-        db.Delete_ALL_table();
-        db.close();
-        app = new AppPrefs(Search.this);
-        app.set_search("");
-        Intent i = new Intent(Search.this, MainPage_drawer.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-    }
-
     private class GetProductDetailCode extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -6225,36 +6345,6 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     private class GetProductDetailQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -6275,40 +6365,10 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -6409,9 +6469,9 @@ public class Search extends AppCompatActivity {
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -6513,71 +6573,6 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    private void GetCartQtyCall() {
-        setRefershData();
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id();
-
-                role_id = user_data.get(i).getUser_type();
-
-                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                    app = new AppPrefs(getApplicationContext());
-                    role_id = app.getSubSalesId();
-                    u_id = app.getSalesPersonId();
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            app = new AppPrefs(getApplicationContext());
-            app.setCart_QTy("");
-        }
-    }
-
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class CustomResultAdapterschme extends BaseAdapter {
 
         LayoutInflater vi = (LayoutInflater) getSystemService(
@@ -6623,15 +6618,6 @@ public class Search extends AppCompatActivity {
             return convertView;
         }
 
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
     }
 
     public class GetCartByQty extends AsyncTask<Void, Void, String> {
