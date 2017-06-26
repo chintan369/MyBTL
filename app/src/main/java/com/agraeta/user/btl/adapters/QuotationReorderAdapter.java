@@ -22,7 +22,7 @@ public class QuotationReorderAdapter extends BaseAdapter {
     Activity activity;
     LayoutInflater inflater;
 
-    public QuotationReorderAdapter(List<QuotationItem> quotationItemList, Activity activity) {
+    public QuotationReorderAdapter(List<QuotationItem> quotationItemList, Activity activity, String role) {
         this.quotationItemList = quotationItemList;
         this.activity = activity;
         this.inflater=activity.getLayoutInflater();

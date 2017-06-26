@@ -552,6 +552,8 @@
         </activity>
         <activity android:name=".admin.ProductStockReportActivity">
         </activity>
+        <activity android:name=".admin.QuotationListActivity">
+        </activity>
     </application>
 
 </manifest>
