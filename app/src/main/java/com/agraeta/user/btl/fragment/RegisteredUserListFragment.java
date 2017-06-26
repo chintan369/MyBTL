@@ -129,11 +129,8 @@ public class RegisteredUserListFragment extends Fragment {
                         } else {
                             Globals.defaultError(getContext());
                         }
-
                         unRegisteredUserTourAdapter.notifyDataSetChanged();
-
                     }
-
                     @Override
                     public void onFailure(Call<RegisteredUserTourResponse> call, Throwable t) {
                         dialog.dismiss();
