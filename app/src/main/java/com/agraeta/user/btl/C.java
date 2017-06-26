@@ -7,7 +7,6 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
@@ -17,8 +16,6 @@ import java.util.regex.Pattern;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Created by Nivida new on 28-Feb-17.
@@ -44,6 +41,10 @@ public class C {
     public static final String EXTRA_SPECIAL_SCHEME = "3";
     public static final String SPECIAL_SCHEME = "2";
     public static final String GENERAL_SCHEME = "1";
+    private static final Pattern EMAIL_ADDRESS
+            = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,64}" + "(" +
+            "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,5}" + ")+"
+    );
 
     public static int modOf(int value1, int value2) {
         if (value1 > value2)
@@ -55,11 +56,6 @@ public class C {
     public static boolean validEmail(String email) {
         return !TextUtils.isEmpty(email) && C.EMAIL_ADDRESS.matcher(email).matches();
     }
-
-    private static final Pattern EMAIL_ADDRESS
-            = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,64}" + "(" +
-            "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,5}" + ")+"
-    );
 
     public static void showMinPackAlert(Activity activity, int minPackQty) {
         String messageToShow = "Please Enter Quantity in multiple of "+minPackQty+" or tap +/- button\n";
@@ -128,7 +124,7 @@ public class C {
             urlID=urlID.replace("?v=","");
         }
 
-        embedLink="https://www.youtube.com/embed/"+urlID+"?autoplay=1";
+        embedLink = "https://www.youtube.com/embed/" + urlID + "?autoplay=1&rel=0";
 
         return embedLink;
     }
