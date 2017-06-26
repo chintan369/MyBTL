@@ -15,6 +15,7 @@ import com.agraeta.user.btl.model.enquiries.ProductEnquiryData;
 import com.agraeta.user.btl.model.enquiries.ProductRegistrationData;
 import com.agraeta.user.btl.model.enquiries.RegisteredDealerData;
 import com.agraeta.user.btl.model.notifications.InboxResponse;
+import com.agraeta.user.btl.model.quotation.QuotationResponse;
 
 import java.util.List;
 
@@ -211,4 +212,8 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.SEARCH_BY_KEYWORD)
     Call<ProductSuggestionResponse> suggestionResponseCall(@Field("product_name") String product_name);
+
+    @FormUrlEncoded
+    @POST(Globals.GET_QUOTATION_LIST)
+    Call<QuotationResponse> quotationResponseCall(@Field("from_date") String fromDate, @Field("to_date") String toDate, @Field("page") String page);
 }

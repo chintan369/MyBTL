@@ -15,6 +15,19 @@ public class RegisteredUserTourResponse extends AppModel {
         return data;
     }
 
+    public static class Distributor {
+        String user_id = "";
+        String firm_name = "";
+
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public String getFirm_name() {
+            return firm_name;
+        }
+    }
+
     public class RegisteredUserTour {
         User User = new User();
         Distributor Distributor = new Distributor();
@@ -30,19 +43,6 @@ public class RegisteredUserTourResponse extends AppModel {
 
         public List<RegisteredUserTourResponse.Address> getAddress() {
             return Address;
-        }
-    }
-
-    public class Distributor {
-        String user_id = "";
-        String firm_name = "";
-
-        public String getUser_id() {
-            return user_id;
-        }
-
-        public String getFirm_name() {
-            return firm_name;
         }
     }
 
