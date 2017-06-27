@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.agraeta.user.btl.DownloadsActivity">
 
-    <WebView
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Catalog Downloads"
+        android:textColor="@color/black"
+        android:textSize="17sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_margin="5dp"
+        android:background="@color/strip_bg"/>
+
+    <GridView
+        android:id="@+id/list_downloads"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/web_downloads"/>
+        android:numColumns="2"
+        android:padding="5dp"
+        android:stretchMode="columnWidth"/>
 
 </LinearLayout>

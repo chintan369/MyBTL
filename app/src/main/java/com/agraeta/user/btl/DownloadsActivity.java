@@ -1,13 +1,20 @@
 package com.agraeta.user.btl;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
+import com.agraeta.user.btl.adapters.CatalogAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
-import com.agraeta.user.btl.model.PageResponse;
+import com.agraeta.user.btl.model.CatalogResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,8 +22,10 @@ import retrofit2.Response;
 
 public class DownloadsActivity extends AppCompatActivity {
 
-    WebView web_downloads;
+    GridView list_downloads;
     AdminAPI adminAPI;
+    List<CatalogResponse.Catalog> catalogList = new ArrayList<>();
+    CatalogAdapter catalogAdapter;
 
     Custom_ProgressDialog dialog;
 
@@ -35,40 +44,45 @@ public class DownloadsActivity extends AppCompatActivity {
     }
 
     private void fetchIDs() {
-        web_downloads=(WebView) findViewById(R.id.web_downloads);
+        list_downloads = (GridView) findViewById(R.id.list_downloads);
+        catalogAdapter = new CatalogAdapter(catalogList, this);
+        list_downloads.setAdapter(catalogAdapter);
 
-        WebSettings settings = web_downloads.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        settings.setAllowFileAccess(true);
+        list_downloads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(Globals.IMAGE_LINK + catalogList.get(position).getFile_url()), "application/pdf");
+                startActivity(intent);
+            }
+        });
 
         dialog.show();
-
-        Call<PageResponse> pageResponseCall=adminAPI.getInformtionPage("14");
-        pageResponseCall.enqueue(new Callback<PageResponse>() {
+        Call<CatalogResponse> catalogResponseCall = adminAPI.catalogResponseCall();
+        catalogResponseCall.enqueue(new Callback<CatalogResponse>() {
             @Override
-            public void onResponse(Call<PageResponse> call, Response<PageResponse> response) {
+            public void onResponse(Call<CatalogResponse> call, Response<CatalogResponse> response) {
                 dialog.dismiss();
-                PageResponse pageResponse=response.body();
-                if(pageResponse!=null){
-                    if(pageResponse.isStatus()){
-                        web_downloads.loadData(pageResponse.getData().getDescription(),"text/html","UTF-8");
+                CatalogResponse catalogResponse = response.body();
+                if (catalogResponse != null) {
+                    if (catalogResponse.isStatus()) {
+                        catalogList.addAll(catalogResponse.getData());
                     }
                     else {
-                        Globals.Toast2(getApplicationContext(),pageResponse.getMessage());
+                        Globals.Toast2(getApplicationContext(), catalogResponse.getMessage());
                     }
-                }
-                else {
+                } else {
                     Globals.defaultError(getApplicationContext());
                 }
+
+                catalogAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<PageResponse> call, Throwable t) {
+            public void onFailure(Call<CatalogResponse> call, Throwable t) {
                 dialog.dismiss();
                 Globals.showError(t,getApplicationContext());
             }
         });
-
     }
 }

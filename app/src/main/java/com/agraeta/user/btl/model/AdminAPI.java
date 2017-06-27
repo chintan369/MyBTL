@@ -216,4 +216,7 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.GET_QUOTATION_LIST)
     Call<QuotationResponse> quotationResponseCall(@Field("from_date") String fromDate, @Field("to_date") String toDate, @Field("page") String page);
+
+    @POST(Globals.CATALOG_LIST)
+    Call<CatalogResponse> catalogResponseCall();
 }

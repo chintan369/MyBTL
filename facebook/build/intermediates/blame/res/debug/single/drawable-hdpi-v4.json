@@ -1,11 +1,11 @@
 [
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_white.png"
-    },
-    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_xout.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_xout.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_white.png"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_icon_blue.png",

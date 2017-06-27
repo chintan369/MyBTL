@@ -91,6 +91,7 @@ public class Globals {
     public static final String USER_SALES_STATEWISE="User/APP_Sales_Person_StateWise";
     public static final String PRODUCT_STOCK_REPORT = "Product/App_Tally_Product_Stock";
     public static final String GET_QUOTATION_LIST = "Quotation/App_GetQuotation";
+    public static final String CATALOG_LIST = "Catalog/App_Get_Download_Catalog";
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
     //public static String server_link ="http://www.btlkart.com/";
     public static String server_link = "http://demo.btlindia.com/";
