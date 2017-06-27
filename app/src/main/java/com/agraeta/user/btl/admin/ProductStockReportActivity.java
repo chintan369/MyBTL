@@ -1,7 +1,6 @@
 package com.agraeta.user.btl.admin;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.SkipOrderUnregisterUserActivity;
 import com.agraeta.user.btl.adapters.ProductStockReportAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.ProductStockResponse;
@@ -96,6 +94,8 @@ public class ProductStockReportActivity extends AppCompatActivity {
 
         suggestionAdapter = new ArrayAdapter<String>(this, R.layout.auto_textview, searchSuggestions);
         edt_search.setAdapter(suggestionAdapter);
+        edt_search.setThreshold(1);
+        suggestionAdapter.setNotifyOnChange(true);
 
         img_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,20 +119,24 @@ public class ProductStockReportActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchKey = edt_search.getText().toString().trim();
-
+                suggestionAdapter.setNotifyOnChange(true);
                 if (!searchKey.isEmpty()) {
                     Call<ProductSuggestionResponse> productSuggestionResponseCall = adminAPI.suggestionResponseCall(searchKey);
                     productSuggestionResponseCall.enqueue(new Callback<ProductSuggestionResponse>() {
                         @Override
                         public void onResponse(Call<ProductSuggestionResponse> call, Response<ProductSuggestionResponse> response) {
                             searchSuggestions.clear();
+                            suggestionAdapter.notifyDataSetChanged();
                             ProductSuggestionResponse suggestionResponse = response.body();
                             if (suggestionResponse != null) {
                                 if (suggestionResponse.isStatus()) {
                                     for (int i = 0; i < suggestionResponse.getData().size(); i++) {
                                         searchSuggestions.add(suggestionResponse.getData().get(i).getProduct_name());
                                     }
+
                                     suggestionAdapter.notifyDataSetChanged();
+                                    suggestionAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchSuggestions);
+                                    edt_search.setAdapter(suggestionAdapter);
                                     edt_search.showDropDown();
                                 }
                             }

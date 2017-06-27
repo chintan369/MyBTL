@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -119,6 +119,30 @@ public class Where_To_Buy extends AppCompatActivity {
         apps = new AppPrefs(Where_To_Buy.this);
         String qun =apps.getCart_QTy();
 
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*Intent i = new Intent(Where_To_Buy.this,Product_List.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);*/
+                onBackPressed();
+            }
+        });
+
+        if (apps.getUserRoleId().equals(C.ADMIN)) {
+            img_cart.setVisibility(View.GONE);
+            img_home.setVisibility(View.GONE);
+            frame.setVisibility(View.GONE);
+            txt.setVisibility(View.GONE);
+            img_notification.setVisibility(View.GONE);
+            img_category.setVisibility(View.GONE);
+
+            mActionBar.setCustomView(mCustomView);
+            mActionBar.setDisplayShowCustomEnabled(true);
+            return;
+        }
+
         setRefershData();
 
         if(user_data.size() != 0){
@@ -164,16 +188,7 @@ public class Where_To_Buy extends AppCompatActivity {
             }
         }
 
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                /*Intent i = new Intent(Where_To_Buy.this,Product_List.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);*/
-            onBackPressed();
-            }
-        });
         img_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +227,8 @@ public class Where_To_Buy extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);*/
         finish();
-    };
+    }
+
     private void fetchID()
     {
         spnstate=(Spinner)findViewById(R.id.spnstate);
@@ -395,11 +411,234 @@ public class Where_To_Buy extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
     }*/
 
+    private void setLayout(ArrayList<Bean_WhereToBuy> str) {
+        // TODO Auto-generated method stub
+
+        layout_display.removeAllViews();
+
+        //Log.e("str.size", "" + str.size());
+
+        for (int ij = 0; ij < str.size(); ij++) {
+
+            LinearLayout lmain = new LinearLayout(Where_To_Buy.this);
+            //  params.setMargins(7, 7, 7, 7);
+            lmain.setLayoutParams(params);
+            lmain.setOrientation(LinearLayout.HORIZONTAL);
+            lmain.setPadding(2, 2, 2, 2);
+
+            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+            LinearLayout.LayoutParams vi = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                    200, 200, 1.0f);
+            LinearLayout l1 = new LinearLayout(Where_To_Buy.this);
+
+            l1.setLayoutParams(par1);
+            l1.setPadding(5, 5, 5, 5);
+            l1.setOrientation(LinearLayout.VERTICAL);
+            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+            LinearLayout l3 = new LinearLayout(Where_To_Buy.this);
+            l3.setLayoutParams(par3);
+            l3.setOrientation(LinearLayout.VERTICAL);
+            l3.setPadding(5, 5, 5, 5);
+
+            final LinearLayout l2 = new LinearLayout(Where_To_Buy.this);
+            l2.setLayoutParams(par2);
+            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+            l2.setOrientation(LinearLayout.HORIZONTAL);
+            l2.setPadding(5, 5, 5, 5);
+            l2.setVisibility(View.GONE);
+
+            count = ij;
+            final ImageView img_a = new ImageView(Where_To_Buy.this);
+            final TextView tv_brachname = new TextView(Where_To_Buy.this);
+            final TextView tv_address1 = new TextView(Where_To_Buy.this);
+            final TextView tvaddress2 = new TextView(Where_To_Buy.this);
+            final View viewline = new View(Where_To_Buy.this);
+
+            tv_brachname.setPadding(5, 5, 5, 5);
+            tv_address1.setPadding(5, 2, 5, 2);
+            tvaddress2.setPadding(5, 2, 2, 5);
+            tv_brachname.setTextColor(Color.BLACK);
+            tv_address1.setTextColor(Color.BLACK);
+            tvaddress2.setTextColor(Color.BLACK);
+            viewline.setLayoutParams(vi);
+            viewline.setBackgroundColor(Color.BLACK);
+
+            // img_a.setImageResource(str.get(count));
+            //Log.e("count", "" + count);
+            // Log.e("img", "" + str.get(count).getId());
+            try {
+
+
+                String branch_name = str.get(count).getBranch_name();
+                String address_1 = str.get(count).getAddress_1() + "," + str.get(count).getAddress_2();
+                String address_2 = str.get(count).getCity() + "," + str.get(count).getState() + "," + str.get(count).getPincode();
+
+                //Log.e("branchname", "" + branch_name);
+                //Log.e("address_1", "" + address_1);
+                //Log.e("address_2", "" + address_2);
+
+
+                tv_brachname.setText(branch_name);
+                tv_address1.setText(address_1);
+                tvaddress2.setText(address_2);
+            } catch (NullPointerException e) {
+                //Log.e("Error", "" + e);
+            }
+
+
+            par21.setMargins(5, 5, 5, 5);
+
+            img_a.setLayoutParams(par21);
+            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
+            //   l1.addView(img_a);
+            l1.addView(tv_brachname);
+            l1.addView(tv_address1);
+            l1.addView(tvaddress2);
+            l1.addView(viewline);
+
+
+
+
+           /* img_a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AppPrefs app= new AppPrefs(Where_To_Buy.this);
+
+                    Log.e("url_tonext_page",url);
+                    Intent i = new Intent(Where_To_Buy.this,Video_View_Activity.class);
+                    app.setyoutube_api(url);
+                    startActivity(i);
+                }
+            });*/
+            lmain.addView(l1);
+
+            layout_display.addView(lmain);
+
+        }
+
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(Where_To_Buy.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    static class ResultHolder {
+
+
+        TextView tvaddress;
+
+        ImageView img_edit, img_delete, img_on;
+
+
+    }
+
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -506,11 +745,12 @@ public class Where_To_Buy extends AppCompatActivity {
 
         }
     }
+
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -617,9 +857,9 @@ public class Where_To_Buy extends AppCompatActivity {
 
     public class get_wheretobuydetails extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -864,245 +1104,11 @@ public class Where_To_Buy extends AppCompatActivity {
 
             result_holder.tvaddress.setText(final_address);
 
-            result_holder.img_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent i = new Intent(Where_To_Buy.this, Map_Address.class);
-                    i.putExtra("lat",bean_wheretobuy.get(position).getLatitude());
-                    i.putExtra("log",bean_wheretobuy.get(position).getLongitude());
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
-            });
-
-
             return convertView;
         }
 
     }
-    static class ResultHolder {
 
-
-        TextView tvaddress;
-
-        ImageView img_edit, img_delete,img_on;
-
-
-    }
-    private void setLayout(ArrayList<Bean_WhereToBuy> str) {
-        // TODO Auto-generated method stub
-
-        layout_display.removeAllViews();
-
-        //Log.e("str.size", "" + str.size());
-
-        for (int ij = 0; ij < str.size(); ij++) {
-
-            LinearLayout lmain = new LinearLayout(Where_To_Buy.this);
-            //  params.setMargins(7, 7, 7, 7);
-            lmain.setLayoutParams(params);
-            lmain.setOrientation(LinearLayout.HORIZONTAL);
-            lmain.setPadding(2, 2, 2, 2);
-
-            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
-            LinearLayout.LayoutParams vi = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1);
-            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
-                    200, 200, 1.0f);
-            LinearLayout l1 = new LinearLayout(Where_To_Buy.this);
-
-            l1.setLayoutParams(par1);
-            l1.setPadding(5, 5, 5, 5);
-            l1.setOrientation(LinearLayout.VERTICAL);
-            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
-
-            LinearLayout l3 = new LinearLayout(Where_To_Buy.this);
-            l3.setLayoutParams(par3);
-            l3.setOrientation(LinearLayout.VERTICAL);
-            l3.setPadding(5, 5, 5, 5);
-
-            final LinearLayout l2 = new LinearLayout(Where_To_Buy.this);
-            l2.setLayoutParams(par2);
-            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
-            l2.setOrientation(LinearLayout.HORIZONTAL);
-            l2.setPadding(5, 5, 5, 5);
-            l2.setVisibility(View.GONE);
-
-            count = ij;
-            final ImageView img_a = new ImageView(Where_To_Buy.this);
-            final TextView tv_brachname= new TextView(Where_To_Buy.this);
-            final TextView tv_address1= new TextView(Where_To_Buy.this);
-            final TextView tvaddress2= new TextView(Where_To_Buy.this);
-            final View  viewline= new View(Where_To_Buy.this);
-
-            tv_brachname.setPadding(5, 5, 5, 5);
-            tv_address1.setPadding(5, 2, 5, 2);
-            tvaddress2.setPadding(5, 2, 2, 5);
-            tv_brachname.setTextColor(Color.BLACK);
-            tv_address1.setTextColor(Color.BLACK);
-            tvaddress2.setTextColor(Color.BLACK);
-            viewline.setLayoutParams(vi);
-            viewline.setBackgroundColor(Color.BLACK);
-
-            // img_a.setImageResource(str.get(count));
-            //Log.e("count", "" + count);
-           // Log.e("img", "" + str.get(count).getId());
-            try {
-
-
-
-                String branch_name=str.get(count).getBranch_name();
-                String address_1=str.get(count).getAddress_1()+","+str.get(count).getAddress_2();
-                String address_2=str.get(count).getCity()+","+str.get(count).getState()+","+str.get(count).getPincode();
-
-                //Log.e("branchname", "" + branch_name);
-                //Log.e("address_1", "" + address_1);
-                //Log.e("address_2", "" + address_2);
-
-
-                tv_brachname.setText(branch_name);
-                tv_address1.setText(address_1);
-                tvaddress2.setText(address_2);
-            } catch (NullPointerException e) {
-                //Log.e("Error", "" + e);
-            }
-
-
-            par21.setMargins(5, 5, 5, 5);
-
-            img_a.setLayoutParams(par21);
-            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
-            //   l1.addView(img_a);
-            l1.addView(tv_brachname);
-            l1.addView(tv_address1);
-            l1.addView(tvaddress2);
-            l1.addView(viewline);
-
-
-
-
-           /* img_a.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    AppPrefs app= new AppPrefs(Where_To_Buy.this);
-
-                    Log.e("url_tonext_page",url);
-                    Intent i = new Intent(Where_To_Buy.this,Video_View_Activity.class);
-                    app.setyoutube_api(url);
-                    startActivity(i);
-                }
-            });*/
-            lmain.addView(l1);
-
-            layout_display.addView(lmain);
-
-        }
-
-    }
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(Where_To_Buy.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
-
-    public String GetCartByQty(final List<NameValuePair> params){
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
     public class GetCartByQty extends AsyncTask<Void, Void, String>{
 
         List<NameValuePair> params=new ArrayList<>();
