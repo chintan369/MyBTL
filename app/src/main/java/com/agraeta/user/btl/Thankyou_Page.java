@@ -115,7 +115,7 @@ public class Thankyou_Page extends AppCompatActivity {
 
             }
         }
-        if(role_id.equalsIgnoreCase("8") || role_id.equalsIgnoreCase("9")){
+        if(role_id.equalsIgnoreCase(C.CUSTOMER) || role_id.equalsIgnoreCase(C.CARPENTER)){
             bank_detail.setVisibility(View.GONE);
         }else{
             bank_detail.setVisibility(View.VISIBLE);
