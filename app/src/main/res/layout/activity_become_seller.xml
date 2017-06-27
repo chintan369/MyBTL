@@ -73,7 +73,7 @@
                 android:padding="5dp"
                 android:id="@+id/txt_emailID"
                 android:textSize="15sp"
-                android:text="Email ID"/>
+                android:text="Email"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -98,6 +98,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:inputType="number"
                 android:maxLength="10"
                 android:background="@drawable/background_gradiant"
@@ -127,13 +128,14 @@
                 android:padding="5dp"
                 android:id="@+id/txt_tradeType"
                 android:textSize="15sp"
-                android:text="Trade Type"/>
+                android:text="Trade Type:"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:entries="@array/trade_type"
                 android:background="@drawable/spinner_border"
                 android:id="@+id/spn_tradeType"/>
@@ -162,13 +164,14 @@
                 android:padding="5dp"
                 android:id="@+id/txt_alternateContat"
                 android:textSize="15sp"
-                android:text="Alternate Contact No"/>
+                android:text="Alt. Mobile No"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:inputType="number"
                 android:maxLength="10"
                 android:background="@drawable/background_gradiant"
@@ -248,7 +251,7 @@
                 android:padding="5dp"
                 android:id="@+id/txt_pincode"
                 android:textSize="15sp"
-                android:text="Pincode"/>
+                android:text="Pin Code"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -256,6 +259,7 @@
                 android:layout_margin="5dp"
                 android:inputType="number"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:maxLength="6"
                 android:background="@drawable/background_gradiant"
                 android:id="@+id/edt_pincode"/>
@@ -273,6 +277,8 @@
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
+
                 android:maxLength="10"
                 android:background="@drawable/background_gradiant"
                 android:id="@+id/edt_pan"/>
@@ -290,6 +296,8 @@
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
+
                 android:background="@drawable/background_gradiant"
                 android:id="@+id/edt_serviceTax"/>
 
@@ -299,13 +307,14 @@
                 android:padding="5dp"
                 android:id="@+id/txt_vat"
                 android:textSize="15sp"
-                android:text="VAT TIN NO."/>
+                android:text="CST / TIN NO."/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:background="@drawable/background_gradiant"
                 android:id="@+id/edt_vat"/>
 
