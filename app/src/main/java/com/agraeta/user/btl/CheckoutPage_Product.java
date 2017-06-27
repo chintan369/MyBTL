@@ -1366,7 +1366,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 tv_product_code.setText(bean_cart_data.get(position).getPro_code());
                 tv_pack_of.setText(bean_cart_data.get(position).getPack_of());
 
-                if (bean_cart_data.get(position).getScheme_title().toString().equalsIgnoreCase(" ")) {
+                if (bean_cart_data.get(position).getScheme_title().trim().isEmpty()) {
                     txt_scheme.setVisibility(View.GONE);
                 } else {
                     txt_scheme.setVisibility(View.VISIBLE);
@@ -1403,6 +1403,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                 float itemTotal = Float.parseFloat(bean_cart_data.get(position).getItem_total());
                 if (itemTotal <= 0) {
+                    txt_scheme.setText("FREE");
                     layout_productItem.addView(convertView);
                     continue;
                 }

@@ -99,6 +99,10 @@ public class QuotationListAdapter extends BaseAdapter {
             txt_discount.setText("Discount : " + discount + " % OFF");
         }
 
+        if (totalPrice == 0) {
+            txt_discount.setText("FREE");
+        }
+
 
         tv_product_name.setText(quotationList.get(position).getName());
         tv_product_code.setText(quotationList.get(position).getPro_code());
