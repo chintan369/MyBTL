@@ -18,7 +18,7 @@ public class RegisteredUserData extends AppModel {
         return data;
     }
 
-    public class RegisteredUser implements Serializable{
+    public static class RegisteredUser implements Serializable {
         OrderReason OrderReason=new OrderReason();
         User User=new User();
         User OrderUser=new User();
@@ -32,36 +32,68 @@ public class RegisteredUserData extends AppModel {
             return OrderReason;
         }
 
+        public void setOrderReason(RegisteredUserData.OrderReason orderReason) {
+            OrderReason = orderReason;
+        }
+
         public com.agraeta.user.btl.model.User getUser() {
             return User;
+        }
+
+        public void setUser(com.agraeta.user.btl.model.User user) {
+            User = user;
         }
 
         public com.agraeta.user.btl.model.User getOrderUser() {
             return OrderUser;
         }
 
+        public void setOrderUser(com.agraeta.user.btl.model.User orderUser) {
+            OrderUser = orderUser;
+        }
+
         public AreaItem getCountry() {
             return Country;
+        }
+
+        public void setCountry(AreaItem country) {
+            Country = country;
         }
 
         public AreaItem getState() {
             return State;
         }
 
+        public void setState(AreaItem state) {
+            State = state;
+        }
+
         public AreaItem getCity() {
             return City;
+        }
+
+        public void setCity(AreaItem city) {
+            City = city;
         }
 
         public AreaItem getArea() {
             return Area;
         }
 
+        public void setArea(AreaItem area) {
+            Area = area;
+        }
+
         public AreaItem getRole() {
             return Role;
         }
+
+        public void setRole(AreaItem role) {
+            Role = role;
+        }
     }
 
-    public class OrderReason implements Serializable{
+    public static class OrderReason implements Serializable {
         String reason_title="";
         String other_reason_title="";
         String latitude="";
@@ -88,6 +120,8 @@ public class RegisteredUserData extends AppModel {
         String order_id="";
         String created="";
         String tour_id = "";
+
+        User User = new User();
 
         public String getReason_title() {
             return reason_title;
@@ -191,6 +225,10 @@ public class RegisteredUserData extends AppModel {
 
         public String getTour_id() {
             return tour_id;
+        }
+
+        public com.agraeta.user.btl.model.User getUser() {
+            return User;
         }
     }
 }

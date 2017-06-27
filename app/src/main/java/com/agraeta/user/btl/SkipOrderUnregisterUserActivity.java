@@ -660,6 +660,17 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 if(!emailID.isEmpty() && !isValidated(edt_emailID,"Email ID","Please Enter Valid Email ID",0,true)) return;
                 if(!mobileNo.isEmpty() && !isValidated(edt_mobile,"Mobile No","Please Enter Valid Mobile No",10,false)) return;
                 if(!isValidated(edt_partyReport,"Party Report","Please Enter Party Report",3,false)) return;
+
+                if (txt_visitingFrontPath.getText().toString().isEmpty()) {
+                    Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Front Image");
+                    return;
+                }
+
+                if (txt_visitingBackPath.getText().toString().isEmpty()) {
+                    Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Back Image");
+                    return;
+                }
+
                 if(spn_customerType.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select Customer Type");
                     return;
@@ -680,7 +691,6 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
                 List<MultipartBody.Part> files=new ArrayList<MultipartBody.Part>();
 
-                String visitingFrontPath="",visitingBackPath="";
 
                 if(!txt_visitingFrontPath.getText().toString().trim().isEmpty()){
                     files.add(C.prepareFilePart("visiting_card1",txt_visitingFrontPath.getText().toString().trim()));

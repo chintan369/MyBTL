@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
@@ -127,5 +129,19 @@ public class C {
         embedLink = "https://www.youtube.com/embed/" + urlID + "?autoplay=1&rel=0";
 
         return embedLink;
+    }
+
+    public static String getFormattedDate(String date, String currentFormat, String requiredFormat) {
+        String outputDate;
+        try {
+            SimpleDateFormat currentDF = new SimpleDateFormat(currentFormat, Locale.getDefault());
+            SimpleDateFormat requiredDF = new SimpleDateFormat(requiredFormat, Locale.getDefault());
+
+            outputDate = requiredDF.format(currentDF.parse(date));
+        } catch (Exception e) {
+            outputDate = date;
+        }
+
+        return outputDate;
     }
 }

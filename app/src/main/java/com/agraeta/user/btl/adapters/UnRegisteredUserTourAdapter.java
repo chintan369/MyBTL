@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.UnregisteredUserDetailActivity;
 import com.agraeta.user.btl.model.UnregisteredUserData;
@@ -52,7 +53,18 @@ public class UnRegisteredUserTourAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.layout_list_unregister_user, parent, false);
 
         TextView txt_firmName = (TextView) view.findViewById(R.id.txt_firmName);
+        TextView txt_skipBy = (TextView) view.findViewById(R.id.txt_skipBy);
+        TextView txt_skipDate = (TextView) view.findViewById(R.id.txt_skipDate);
         ImageView img_info = (ImageView) view.findViewById(R.id.img_info);
+
+        if (userTourList.get(position).getSalesPerson().getName().replace("null", "").trim().isEmpty()) {
+            txt_skipBy.setText("Skip By : " + "N/A");
+        } else {
+            txt_skipBy.setText("Skip By : " + userTourList.get(position).getSalesPerson().getName());
+        }
+
+        txt_skipDate.setText("Skip Date : " + C.getFormattedDate(userTourList.get(position).getUnRegisteredUser().getCreated(), "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy"));
+
 
         txt_firmName.setText(userTourList.get(position).getUnRegisteredUser().getFirm_name());
         img_info.setOnClickListener(new View.OnClickListener() {

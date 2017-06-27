@@ -1,5 +1,7 @@
 package com.agraeta.user.btl.model;
 
+import com.agraeta.user.btl.model.area.AreaItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +33,16 @@ public class RegisteredUserTourResponse extends AppModel {
     public class RegisteredUserTour {
         User User = new User();
         Distributor Distributor = new Distributor();
+        AreaItem Role = new AreaItem();
         List<Address> Address = new ArrayList<>();
+        List<RegisteredUserData.OrderReason> SkipOrderPerson = new ArrayList<>();
 
         public com.agraeta.user.btl.model.User getUser() {
             return User;
+        }
+
+        public AreaItem getRole() {
+            return Role;
         }
 
         public RegisteredUserTourResponse.Distributor getDistributor() {
@@ -43,6 +51,10 @@ public class RegisteredUserTourResponse extends AppModel {
 
         public List<RegisteredUserTourResponse.Address> getAddress() {
             return Address;
+        }
+
+        public List<RegisteredUserData.OrderReason> getSkipOrderPerson() {
+            return SkipOrderPerson;
         }
     }
 
@@ -63,6 +75,10 @@ public class RegisteredUserTourResponse extends AppModel {
         String other_city = "";
         String area_id = "";
         String default_address = "";
+        AreaItem Country = new AreaItem();
+        AreaItem State = new AreaItem();
+        AreaItem City = new AreaItem();
+        AreaItem Area = new AreaItem();
 
         public String getId() {
             return id;
@@ -126,6 +142,38 @@ public class RegisteredUserTourResponse extends AppModel {
 
         public String getDefault_address() {
             return default_address;
+        }
+
+        public AreaItem getCountry() {
+            return Country;
+        }
+
+        public void setCountry(AreaItem country) {
+            Country = country;
+        }
+
+        public AreaItem getState() {
+            return State;
+        }
+
+        public void setState(AreaItem state) {
+            State = state;
+        }
+
+        public AreaItem getCity() {
+            return City;
+        }
+
+        public void setCity(AreaItem city) {
+            City = city;
+        }
+
+        public AreaItem getArea() {
+            return Area;
+        }
+
+        public void setArea(AreaItem area) {
+            Area = area;
         }
     }
 }
