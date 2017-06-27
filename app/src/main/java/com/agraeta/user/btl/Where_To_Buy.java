@@ -865,8 +865,7 @@ public class Where_To_Buy extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             try {
-                loadingView = new Custom_ProgressDialog(
-                        Where_To_Buy.this, "");
+                loadingView = new Custom_ProgressDialog(Where_To_Buy.this, "");
 
                 loadingView.setCancelable(false);
                 loadingView.show();
@@ -1085,7 +1084,7 @@ public class Where_To_Buy extends AppCompatActivity {
                 final_address = final_address+", "+ bean_wheretobuy.get(position).getState();
             }
 
-            if((bean_wheretobuy.get(position).getLatitude()!=null && bean_wheretobuy.get(position).getLongitude()!=null) ||
+            if ((bean_wheretobuy.get(position).getLatitude() != null && bean_wheretobuy.get(position).getLongitude() != null) &&
                     (!bean_wheretobuy.get(position).getLatitude().equals("null") && !bean_wheretobuy.get(position).getLongitude().equals("null"))){
                 result_holder.img_edit.setVisibility(View.VISIBLE);
                 result_holder.img_edit.setOnClickListener(new View.OnClickListener() {

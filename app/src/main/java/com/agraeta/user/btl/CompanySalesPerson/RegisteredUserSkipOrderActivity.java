@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
+import com.agraeta.user.btl.BTL;
 import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
@@ -739,6 +740,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 if(!mobileNo.isEmpty() && !isValidated(edt_mobile,"Mobile No","Please Enter Valid Mobile No",10,false)) return;
                 if(!isValidated(edt_partyReport,"Party Report","Please Enter Party Report",3,false)) return;
 
+                if (txt_visitingFrontPath.getText().toString().isEmpty()) {
+                    Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Front Image");
+                    return;
+                }
+
+                if (txt_visitingBackPath.getText().toString().isEmpty()) {
+                    Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Back Image");
+                    return;
+                }
+
                 if(switch_isPastOrder.isChecked() && !(orderIDInt>0)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Order ID");
                     edt_orderID.requestFocus();
@@ -814,10 +825,10 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 Call<AppModel> addRegisteredUser;
 
                 if(files.size()>0){
-                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, files);
+                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, BTL.salesPersonTourID, files);
                 }
                 else {
-                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, null);
+                    addRegisteredUser = adminAPI.addRegisteredUser(prefs.getUserId(), skipPersonID, skipReason, otherSkipReason, latitude, longitude, firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, isPastOrder, orderID, BTL.salesPersonTourID, null);
                 }
 
                 addRegisteredUser.enqueue(new Callback<AppModel>() {

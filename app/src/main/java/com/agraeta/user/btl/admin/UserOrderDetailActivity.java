@@ -1,54 +1,29 @@
 package com.agraeta.user.btl.admin;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.agraeta.user.btl.AppPrefs;
-import com.agraeta.user.btl.Bean_Product;
-import com.agraeta.user.btl.Bean_ProductCart;
-import com.agraeta.user.btl.Bean_ProductOprtion;
-import com.agraeta.user.btl.Bean_Schme_value;
-import com.agraeta.user.btl.C;
-import com.agraeta.user.btl.CheckoutPage_Product;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
-import com.agraeta.user.btl.LogInPage;
-import com.agraeta.user.btl.Order_History_Details;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.OrderDetailData;
 import com.agraeta.user.btl.model.OrderListItem;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.net.ConnectException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,20 +34,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserOrderDetailActivity extends AppCompatActivity implements Callback<OrderDetailData> {
 
-    private String orderID = "";
-
     TextView txt_orderID, txt_orderDate, txt_orderStatus;
     TextView txt_name_billing, txt_phone_billing, txt_addr_billing;
     TextView txt_name_delivery, txt_phone_delivery, txt_addr_delivery;
     TextView txt_totalProducts, txt_subTotal, txt_totalAmount, txt_discountAmount;
     LinearLayout layout_products, layout_discount;
-
     ImageView option_icon;
-
     Call<OrderDetailData> orderDetailDataCall;
-
     OrderDetailData detailData;
-
+    private String orderID = "";
     private Custom_ProgressDialog progressDialog;
 
     @Override
@@ -161,6 +131,7 @@ public class UserOrderDetailActivity extends AppCompatActivity implements Callba
     }
 
     private void showOrderPDF() {
+        Log.e("PDF", Globals.server_link + detailData.getOrderDetail().getOrder().getOrderPDF());
         Intent intent=new Intent(Intent.ACTION_VIEW);
         intent.setType("application/pdf");
         intent.setData(Uri.parse(Globals.server_link+detailData.getOrderDetail().getOrder().getOrderPDF()));

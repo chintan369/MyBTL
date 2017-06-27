@@ -3,12 +3,11 @@ package com.agraeta.user.btl;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,15 +34,11 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.StreamHandler;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
-
-import static com.agraeta.user.btl.UnRegisteredUserListActivity.REQUEST_ADD_EDIT;
 
 public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
@@ -716,10 +711,10 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 Call<AppModel> addUnregisteredUser;
 
                 if(files.size()>0){
-                    addUnregisteredUser=adminAPI.addUnRegisteredUser(prefs.getUserId(),firmName,addressLine1,addressLine2,addressLine3,countryID,stateID,cityID,areaID,pincode,contactPersonName,emailID,mobileNo,partyReferenceNo,dealingInBrand,customerTypeID,comment,jointVisitWith,files);
+                    addUnregisteredUser = adminAPI.addUnRegisteredUser(prefs.getUserId(), firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, BTL.salesPersonTourID, files);
                 }
                 else {
-                    addUnregisteredUser=adminAPI.addUnRegisteredUser(prefs.getUserId(),firmName,addressLine1,addressLine2,addressLine3,countryID,stateID,cityID,areaID,pincode,contactPersonName,emailID,mobileNo,partyReferenceNo,dealingInBrand,customerTypeID,comment,jointVisitWith,null);
+                    addUnregisteredUser = adminAPI.addUnRegisteredUser(prefs.getUserId(), firmName, addressLine1, addressLine2, addressLine3, countryID, stateID, cityID, areaID, pincode, contactPersonName, emailID, mobileNo, partyReferenceNo, dealingInBrand, customerTypeID, comment, jointVisitWith, BTL.salesPersonTourID, null);
                 }
 
                 Log.e("DATA2",""+new Gson().toJson(addUnregisteredUser.request()));
