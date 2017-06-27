@@ -140,18 +140,18 @@ public class SendQuotationActivity extends AppCompatActivity {
                     Globals.Toast2(getApplicationContext(),"Please Enter Title");
                 }
                 else if(toName.isEmpty()){
-                    Globals.Toast2(getApplicationContext(),"Please Enter Receiver's Name");
+                    Globals.Toast2(getApplicationContext(),"Please Enter Person Name");
                 }
                 else if(email.isEmpty()){
-                    Globals.Toast2(getApplicationContext(),"Please Enter Receiver's Email");
+                    Globals.Toast2(getApplicationContext(),"Please Enter Email Address");
                 }
                 else if(!C.validEmail(email)){
-                    Globals.Toast2(getApplicationContext(),"Please Enter Valid Receiver's Email");
+                    Globals.Toast2(getApplicationContext(),"Please Enter Valid Email Address");
                 }
                 else if(!emailCC.isEmpty() && !C.validEmail(emailCC)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid CC Email");
-                } else if (vat.isEmpty() || vatF < 1) {
-                    Globals.Toast2(getApplicationContext(),"Please Enter at Least vat 1%");
+                } else if (vat.isEmpty() || vatF <= 1) {
+                    Globals.Toast2(getApplicationContext(),"Please Enter VAT Rate More than 1%");
                 }
                 else {
 
