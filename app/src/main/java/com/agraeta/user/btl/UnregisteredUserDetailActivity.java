@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 public class UnregisteredUserDetailActivity extends AppCompatActivity {
 
-    TextView txt_firmName,txt_addrLine1,txt_addrLine2,txt_addrLine3,txt_country,txt_state,txt_city,txt_area,txt_pincode,txt_contactPerson,txt_emailID,txt_mobileNo,txt_dealingBrand,txt_customerType,txt_comment,txt_jointVisitWith;
+    TextView txt_firmName, txt_addrLine1, txt_addrLine2, txt_addrLine3, txt_country, txt_state, txt_city, txt_area, txt_pincode, txt_contactPerson, txt_emailID, txt_mobileNo, txt_dealingBrand, txt_customerType, txt_comment, txt_jointVisitWith, txt_partyReport;
     LinearLayout layout_visitngFront,layout_visitngBack,layout_attachment;
     ImageView img_visitingFront,img_visitingBack;
 
@@ -53,6 +53,7 @@ public class UnregisteredUserDetailActivity extends AppCompatActivity {
         txt_customerType=(TextView) findViewById(R.id.txt_customerType);
         txt_comment=(TextView) findViewById(R.id.txt_comment);
         txt_jointVisitWith=(TextView) findViewById(R.id.txt_jointVisitWith);
+        txt_partyReport = (TextView) findViewById(R.id.txt_partyReport);
 
         layout_visitngFront=(LinearLayout) findViewById(R.id.layout_visitngFront);
         layout_visitngBack=(LinearLayout) findViewById(R.id.layout_visitngBack);
@@ -83,6 +84,7 @@ public class UnregisteredUserDetailActivity extends AppCompatActivity {
         txt_contactPerson.setText(user.getContact_person().isEmpty() ? "N/A" : user.getContact_person());
         txt_emailID.setText(user.getEmail().isEmpty() ? "N/A" : user.getEmail());
         txt_mobileNo.setText(user.getMobile_no().isEmpty() ? "N/A" : user.getMobile_no());
+        txt_partyReport.setText(user.getParty_report().isEmpty() ? "N/A" : user.getParty_report());
         txt_dealingBrand.setText(user.getDealing_in_brand().isEmpty() ? "N/A" : user.getDealing_in_brand());
         txt_customerType.setText(userData.getRole().getName().isEmpty() ? "N/A" : userData.getRole().getName());
         txt_comment.setText(user.getComments() == null || user.getComments().isEmpty() ? "N/A" : user.getComments());

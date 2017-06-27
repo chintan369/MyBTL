@@ -31,7 +31,7 @@ public class Seller extends User implements Serializable {
     }
 
     public String getAlternate_no() {
-        return alternate_no;
+        return alternate_no == null ? "" : alternate_no;
     }
 
     public String getAddress_1() {
@@ -39,7 +39,7 @@ public class Seller extends User implements Serializable {
     }
 
     public String getAddress_2() {
-        return address_2;
+        return address_2 == null ? "" : address_2;
     }
 
     public String getPincode() {

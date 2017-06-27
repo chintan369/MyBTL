@@ -51,6 +51,8 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
     LinearLayout layout_mainContent;
     TextView txt_orderCount, txt_orderSales, txt_orderCountDistributor, txt_orderSalesDistributor, txt_customerCount, txt_enquiryCount;
 
+    TextView txt_companySalesTodayOrderLabel, txt_distributorSalesTodayOrderLabel;
+
     Button btn_viewOrders, btn_users, btn_coupons, btn_enquiries, btn_schemes, btn_services, btn_registeredDSR, btn_unRegisteredDSR, btn_productStockReport;
 
     ImageView image_drawer;
@@ -81,6 +83,9 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
         progressDialog.show();
 
         layout_mainContent = (LinearLayout) findViewById(R.id.layout_mainContent);
+
+        txt_companySalesTodayOrderLabel = (TextView) findViewById(R.id.txt_companySalesTodayOrderLabel);
+        txt_distributorSalesTodayOrderLabel = (TextView) findViewById(R.id.txt_distributorSalesTodayOrderLabel);
 
         txt_orderCount = (TextView) findViewById(R.id.txt_orderCount);
         txt_orderSales = (TextView) findViewById(R.id.txt_orderSales);
@@ -464,6 +469,14 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
 
             startCountAnimation(Integer.parseInt(dashboard.getData().getCompanyOrder().getOrderCount()), txt_orderCount);
             startCountAnimation(Integer.parseInt(dashboard.getData().getDistributorOrder().getOrderCount()), txt_orderCountDistributor);
+
+            if (!fromDate.isEmpty() && !toDate.isEmpty()) {
+                txt_companySalesTodayOrderLabel.setText("Total Order");
+                txt_distributorSalesTodayOrderLabel.setText("Total Order");
+            } else {
+                txt_companySalesTodayOrderLabel.setText("Today's Order");
+                txt_distributorSalesTodayOrderLabel.setText("Today's Order");
+            }
 
 
         } else {

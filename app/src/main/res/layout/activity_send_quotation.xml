@@ -46,9 +46,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="text"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#000"
                 android:textSize="14sp"/>
@@ -69,9 +69,9 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="text"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#000"
-                android:padding="5dp"
                 android:textSize="14sp"/>
 
             <TextView
@@ -90,9 +90,9 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="textEmailAddress"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#000"
-                android:padding="5dp"
                 android:textSize="14sp"/>
 
             <TextView
@@ -100,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Email CC"
-                android:drawableRight="@drawable/star"
                 android:textColor="#000"
                 android:textSize="16sp"/>
 
@@ -111,9 +110,9 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="textEmailAddress"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#000"
-                android:padding="5dp"
                 android:textSize="14sp"/>
 
             <TextView
@@ -132,9 +131,9 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="numberDecimal"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#000"
-                android:padding="5dp"
                 android:textSize="14sp"/>
 
             <LinearLayout
@@ -251,12 +250,12 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_sendQuotation"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/black"
-                android:textColor="@color/white"
-                android:id="@+id/btn_sendQuotation"
-                android:text="Submit"/>
+                android:text="Submit"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

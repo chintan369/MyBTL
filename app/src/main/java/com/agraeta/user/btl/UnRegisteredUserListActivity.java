@@ -1,9 +1,9 @@
 package com.agraeta.user.btl;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,16 +27,13 @@ import retrofit2.Response;
 
 public class UnRegisteredUserListActivity extends AppCompatActivity {
 
+    public static final int REQUEST_ADD_EDIT = 36;
     AdminAPI adminAPI;
     ListView list_unregisterUser;
     EditText edt_search;
     UnregisteredUserAdapter userAdapter;
     AppPrefs prefs;
-
     Custom_ProgressDialog dialog;
-
-    public static final int REQUEST_ADD_EDIT=36;
-
     List<UnregisteredUserData.UserData> userList=new ArrayList<>();
 
     boolean fromAdmin=false;
@@ -97,6 +94,10 @@ public class UnRegisteredUserListActivity extends AppCompatActivity {
                             searchedUserList.add(userList.get(i));
                         }
                     }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
                 }
 
                 userAdapter.updateData(searchedUserList);
