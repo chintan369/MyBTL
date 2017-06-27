@@ -57,6 +57,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Code"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -83,6 +84,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Type"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -109,6 +111,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Used Coupons"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -135,6 +138,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Discount"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -161,6 +165,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Min Order Amt."
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -188,6 +193,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Max Disc. Value"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -214,6 +220,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Multiple Use"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -240,6 +247,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Status"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -265,6 +273,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:text="Valid From"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
@@ -275,6 +284,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -293,7 +303,9 @@
                     android:padding="5dp"
                     android:text="Group"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:id="@+id/txt_roleGroup"
@@ -318,6 +330,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="State"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
@@ -344,6 +357,7 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="User"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
 
