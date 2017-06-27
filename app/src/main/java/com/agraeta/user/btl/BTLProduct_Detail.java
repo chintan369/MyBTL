@@ -1967,16 +1967,16 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             double getqu = Double.parseDouble(getq);
                                             double buyqu = Double.parseDouble(buyq);
-                                            double maxqu = Double.parseDouble(maxq);
+                                            //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(edt_count.getText().toString());
 
                                             double a = qu / buyqu;
                                             double b = a * getqu;
-                                            if (b > maxqu) {
+                                            /*if (b > maxqu) {
                                                 b = maxqu;
                                             } else {
                                                 b = b;
-                                            }
+                                            }*/
 
 
                                             bean_s.setPro_qty(String.valueOf((int) b));
@@ -2096,7 +2096,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             double getqu = Double.parseDouble(getq);
                                             double buyqu = Double.parseDouble(buyq);
-                                            double maxqu = Double.parseDouble(maxq);
+                                            //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(edt_count.getText().toString());
 
                                            /* float a = qu / buyqu;
@@ -2584,7 +2584,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 double getqu = Double.parseDouble(getq);
                                 double buyqu = Double.parseDouble(buyq);
-                                double maxqu = Double.parseDouble(maxq);
+                                //double maxqu = Double.parseDouble(maxq);
                                 int qu = Integer.parseInt(qty);
 
 
@@ -2721,16 +2721,16 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 double getqu = Double.parseDouble(getq);
                                 double buyqu = Double.parseDouble(buyq);
-                                double maxqu = Double.parseDouble(maxq);
+                                //double maxqu = Double.parseDouble(maxq);
                                 int qu = Integer.parseInt(qty);
 
                                 double a = qu / buyqu;
                                 double b = a * getqu;
-                                if (b > maxqu) {
+                                /*if (b > maxqu) {
                                     b = maxqu;
                                 } else {
                                     b = b;
-                                }
+                                }*/
 
 
                                 try {
@@ -2798,7 +2798,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 double getqu = Double.parseDouble(getq);
                                 double buyqu = Double.parseDouble(buyq);
-                                double maxqu = Double.parseDouble(maxq);
+                                //double maxqu = Double.parseDouble(maxq);
                                 int qu = Integer.parseInt(qty);
 
 
@@ -4587,7 +4587,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             double getqu = Double.parseDouble(getq);
                                             double buyqu = Double.parseDouble(buyq);
-                                            double maxqu = Double.parseDouble(maxq);
+                                            //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(qty);
 
 
@@ -4800,7 +4800,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             double getqu = Double.parseDouble(getq);
                                             double buyqu = Double.parseDouble(buyq);
-                                            double maxqu = Double.parseDouble(maxq);
+                                            //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(qty);
 
 
@@ -5279,7 +5279,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                     double getqu = Double.parseDouble(getq);
                                     double buyqu = Double.parseDouble(buyq);
-                                    double maxqu = Double.parseDouble(maxq);
+                                    //double maxqu = Double.parseDouble(maxq);
                                     int qu = Integer.parseInt(qty);
 
 
@@ -5493,7 +5493,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                     double getqu = Double.parseDouble(getq);
                                     double buyqu = Double.parseDouble(buyq);
-                                    double maxqu = Double.parseDouble(maxq);
+                                    //double maxqu = Double.parseDouble(maxq);
                                     int qu = Integer.parseInt(qty);
 
 

@@ -88,7 +88,7 @@ public class Bean_Schme_value {
     }
 
     public String getMax_qty() {
-        return max_qty==null ? "" : max_qty;
+        return max_qty == null || max_qty.equals("null") ? "0" : max_qty;
     }
 
     public void setMax_qty(String max_qty) {

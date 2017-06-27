@@ -748,9 +748,6 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                                 qun = "1";
                                 kkk = 0;
-                                //Log.e("131313131331","1");
-
-                                // loadingView.dismiss();
                             } else {
 
                                 JSONObject jobj = new JSONObject(json);
