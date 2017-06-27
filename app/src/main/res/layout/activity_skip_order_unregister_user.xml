@@ -171,7 +171,7 @@
                 android:padding="5dp"
                 android:id="@+id/txt_pincode"
                 android:textSize="15sp"
-                android:text="Pincode"/>
+                android:text="Pin Code"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -206,7 +206,7 @@
                 android:padding="5dp"
                 android:id="@+id/txt_emailID"
                 android:textSize="15sp"
-                android:text="Email ID"/>
+                android:text="Email"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -419,7 +419,7 @@
                 android:layout_margin="5dp"
                 android:background="@color/colorPrimaryDark"
                 android:padding="5dp"
-                android:text="Submit"
+                android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"/>
