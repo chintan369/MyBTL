@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
+import com.agraeta.user.btl.BTL;
 import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserSkipOrderListActivity;
 import com.agraeta.user.btl.CompanySalesPerson.TargetAchieveList;
 import com.agraeta.user.btl.Custom_ProgressDialog;
@@ -106,6 +107,8 @@ public class SalesTypeActivity extends AppCompatActivity {
                     stateID = tourResponse.getData().getState_id();
                     btn_tour.setVisibility(View.VISIBLE);
                     btn_tour.setText(tourResponse.getData().getTour_name());
+                    BTL.salesPersonTourID = tourID;
+                    BTL.salesPersonStateID = stateID;
                 }
             }
 

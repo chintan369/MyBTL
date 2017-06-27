@@ -107,6 +107,7 @@ public class SchemeListAdapter extends BaseAdapter {
         TextView txt_roleGroup = (TextView) view.findViewById(R.id.txt_roleGroup);
         TextView txt_stateGroup = (TextView) view.findViewById(R.id.txt_stateGroup);
         TextView txt_userGroup = (TextView) view.findViewById(R.id.txt_userGroup);
+        TextView txt_productCode = (TextView) view.findViewById(R.id.txt_productCode);
 
         txt_schemeTitle.setText(schemeDetailList.get(position).getScheme().getSchemeTitle());
         txt_schemeName.setText(schemeDetailList.get(position).getScheme().getSchemeName());

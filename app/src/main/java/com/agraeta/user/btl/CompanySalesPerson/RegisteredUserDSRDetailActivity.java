@@ -1,9 +1,9 @@
 package com.agraeta.user.btl.CompanySalesPerson;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,12 +13,11 @@ import android.widget.TextView;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.RegisteredUserData;
-import com.agraeta.user.btl.model.UnregisteredUserData;
 import com.squareup.picasso.Picasso;
 
 public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
 
-    TextView txt_firmName,txt_addrLine1,txt_addrLine2,txt_addrLine3,txt_country,txt_state,txt_city,txt_area,txt_pincode,txt_contactPerson,txt_emailID,txt_mobileNo,txt_dealingBrand,txt_customerType,txt_comment,txt_jointVisitWith, txt_isPastOrder, txt_pastOrderID;
+    TextView txt_firmName, txt_addrLine1, txt_addrLine2, txt_addrLine3, txt_country, txt_state, txt_city, txt_area, txt_pincode, txt_contactPerson, txt_emailID, txt_mobileNo, txt_dealingBrand, txt_customerType, txt_comment, txt_jointVisitWith, txt_isPastOrder, txt_pastOrderID, txt_partyReport;
     LinearLayout layout_visitngFront,layout_visitngBack,layout_attachment;
     ImageView img_visitingFront,img_visitingBack;
 
@@ -59,6 +58,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         txt_jointVisitWith=(TextView) findViewById(R.id.txt_jointVisitWith);
         txt_isPastOrder=(TextView) findViewById(R.id.txt_isPastOrder);
         txt_pastOrderID=(TextView) findViewById(R.id.txt_pastOrderID);
+        txt_partyReport = (TextView) findViewById(R.id.txt_partyReport);
 
         layout_visitngFront=(LinearLayout) findViewById(R.id.layout_visitngFront);
         layout_visitngBack=(LinearLayout) findViewById(R.id.layout_visitngBack);
@@ -89,6 +89,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         txt_contactPerson.setText(orderReason.getContact_person().isEmpty() ? "N/A" : orderReason.getContact_person());
         txt_emailID.setText(orderReason.getEmail().isEmpty() ? "N/A" : orderReason.getEmail());
         txt_mobileNo.setText(orderReason.getMobile_no().isEmpty() ? "N/A" : orderReason.getMobile_no());
+        txt_partyReport.setText(orderReason.getParty_report().isEmpty() ? "N/A" : orderReason.getParty_report());
         txt_dealingBrand.setText(orderReason.getDealing_in_brand().isEmpty() ? "N/A" : orderReason.getDealing_in_brand());
         txt_customerType.setText(userData.getRole().getName().isEmpty() ? "N/A" : userData.getRole().getName());
         txt_comment.setText(orderReason.getComment().isEmpty() ? "N/A" : orderReason.getComment());

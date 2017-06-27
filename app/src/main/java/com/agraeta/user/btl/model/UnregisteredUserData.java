@@ -37,6 +37,7 @@ public class UnregisteredUserData extends AppModel {
         String customer_type="";
         String comments="";
         String joint_visit_with="";
+        String created = "";
 
         String visiting_card1="";
         String visiting_card2="";
@@ -139,6 +140,10 @@ public class UnregisteredUserData extends AppModel {
 
         public String getAttachment4() {
             return attachment4==null ? "" : attachment4;
+        }
+
+        public String getCreated() {
+            return created;
         }
     }
 

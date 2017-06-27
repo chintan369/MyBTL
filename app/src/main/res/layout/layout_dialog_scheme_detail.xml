@@ -58,9 +58,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Name"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_schemeName"
@@ -84,10 +84,37 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:padding="5dp"
-                    android:text="Type"
-                    android:textStyle="bold"
+                    android:text="Product Code"
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_productCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="5dp"
                     android:textColor="@color/black_000"
                     android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:padding="5dp"
+                    android:text="Type"
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_schemeType"
@@ -112,9 +139,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Buy Product"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_buyProduct"
@@ -141,9 +168,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Buy Quantity"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_buyQuantity"
@@ -169,9 +196,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Free Product"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_freeProduct"
@@ -198,9 +225,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Free Quantity"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_freeQuantity"
@@ -225,9 +252,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Max Free Quantity"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_maxFreeQuantity"
@@ -252,9 +279,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Status"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_status"
@@ -279,9 +306,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Valid From"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_validFromDate"
@@ -305,19 +332,19 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Group"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_roleGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textStyle="bold"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -333,9 +360,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="State"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_stateGroup"
@@ -360,9 +387,9 @@
                     android:layout_weight="2"
                     android:padding="5dp"
                     android:text="User"
-                    android:textStyle="bold"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_userGroup"
