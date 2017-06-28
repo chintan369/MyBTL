@@ -2,6 +2,7 @@ package com.agraeta.user.btl.model;
 
 import com.agraeta.user.btl.model.area.AreaItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class RegisteredUserTourResponse extends AppModel {
         return data;
     }
 
-    public static class Distributor {
+    public static class Distributor implements Serializable {
         String user_id = "";
         String firm_name = "";
 
@@ -58,7 +59,7 @@ public class RegisteredUserTourResponse extends AppModel {
         }
     }
 
-    public class Address {
+    public class Address implements Serializable {
         String id = "";
         String user_id = "";
         String first_name = "";
@@ -70,6 +71,7 @@ public class RegisteredUserTourResponse extends AppModel {
         String address_3 = "";
         String landmark = "";
         String pincode = "";
+        String country_id = "";
         String state_id = "";
         String city_id = "";
         String other_city = "";
@@ -174,6 +176,10 @@ public class RegisteredUserTourResponse extends AppModel {
 
         public void setArea(AreaItem area) {
             Area = area;
+        }
+
+        public String getCountry_id() {
+            return country_id;
         }
     }
 }

@@ -1,17 +1,21 @@
 package com.agraeta.user.btl.DisSalesPerson;
 
+import com.agraeta.user.btl.model.sales.SalesSubUserData;
+
 /**
  * Created by chaitalee on 9/14/2016.
  */
 public class Bean_Distributor_Sales {
-    int dSalesID;
-    String dsRetId;
-    String dsProId;
-    String userDisSalesId;
-    String firstname;
-    String lastname;
-    String areaId;
-    String areaName;
+    int dSalesID = 0;
+    String dsRetId = "";
+    String dsProId = "";
+    String userDisSalesId = "";
+    String firstname = "";
+    String lastname = "";
+    String areaId = "";
+    String areaName = "";
+
+    SalesSubUserData userData = new SalesSubUserData();
 
     public Bean_Distributor_Sales() {
     }
@@ -97,5 +101,13 @@ public class Bean_Distributor_Sales {
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
+    }
+
+    public SalesSubUserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(SalesSubUserData userData) {
+        this.userData = userData;
     }
 }

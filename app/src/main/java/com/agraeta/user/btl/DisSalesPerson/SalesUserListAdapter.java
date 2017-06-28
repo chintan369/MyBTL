@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
+import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserSkipOrderActivity;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
@@ -39,7 +40,13 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
         this.context=context;
         this.distributorSalesUserList=distributorSalesUserList;
         this.activity=activity;
+        prefs = new AppPrefs(context);
 
+    }
+
+    @NonNull
+    public static String getStr(String value) {
+        return value;
     }
 
     @Override
@@ -88,7 +95,6 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.takeorder:
-                                prefs=new AppPrefs(context);
                                 prefs.setSalesPersonId(txtName.getTag().toString());
                                 prefs.setUserName(distributorSalesUserList.get(position).getFirstname()+" "+distributorSalesUserList.get(position).getLastname());
                                 //Log.e("IDIDD",""+txtName.getTag().toString());
@@ -99,9 +105,12 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
 
                                 break;
                             case R.id.skiporder:
-                                Intent intent=new Intent(context,DisSalesSkipActivity.class);
+                                Intent intent = new Intent(context, RegisteredUserSkipOrderActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("salesDistributorPerson",getUserID1(position));
+                                intent.putExtra("salesComapnyPerson", distributorSalesUserList.get(position).getUserDisSalesId());
+                                intent.putExtra("firmName", distributorSalesUserList.get(position).getFirstname() + " " + distributorSalesUserList.get(position).getLastname());
+                                intent.putExtra("userRoleID", prefs.getSubSalesId());
+                                intent.putExtra("userData", distributorSalesUserList.get(position).getUserData());
                                 context.startActivity(intent);
                                 break;
                             case R.id.order:
@@ -131,18 +140,8 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
         this.distCallback=distCallback;
     }
 
-    public interface DistCallback{
-        public void onOptionClick(int position, View view);
-        public void showInfoDialog(int position);
-    }
-
     public Bean_Distributor_Sales getData(int position){
         return distributorSalesUserList.get(position);
-    }
-
-    @NonNull
-    public static String getStr(String value){
-        return value;
     }
 
     public String getUserID1(int position){
@@ -152,5 +151,11 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
     public void updateData(List<Bean_Distributor_Sales> distributorSalesUserList) {
         this.distributorSalesUserList=distributorSalesUserList;
         notifyDataSetChanged();
+    }
+
+    public interface DistCallback {
+        void onOptionClick(int position, View view);
+
+        void showInfoDialog(int position);
     }
 }

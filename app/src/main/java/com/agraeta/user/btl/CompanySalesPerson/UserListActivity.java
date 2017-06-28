@@ -5,10 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.agraeta.user.btl.AppPrefs;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
@@ -31,6 +30,10 @@ import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.ServiceHandler;
+import com.agraeta.user.btl.model.RegisteredUserTourResponse;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -39,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -455,14 +459,15 @@ public class UserListActivity extends AppCompatActivity {
 
     }
 
-
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), UserTypeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     public class GetComSalesUserData extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
         public StringBuilder sb;
-        private InputStream is;
-
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         String subSalesID;
@@ -470,6 +475,8 @@ public class UserListActivity extends AppCompatActivity {
         String csRole_ID;
         String jsonData = "";
         int position;
+        private String result;
+        private InputStream is;
 
         //        public GetDisSalesData(Activity activity,int distributor_id){
 //            this.activity=activity;
@@ -536,14 +543,30 @@ public class UserListActivity extends AppCompatActivity {
 
                         for (int i = 0; i < dataArray.length(); i++) {
                             JSONObject subObject = dataArray.getJSONObject(i);
+                            JSONObject User = subObject.getJSONObject("User");
+                            JSONObject Distributor = subObject.getJSONObject("Distributor");
+                            JSONArray AddressArray = subObject.getJSONArray("Address");
                             Bean_Company_Sales_User companySales = new Bean_Company_Sales_User();
 
-                            companySales.setUserSalesId(subObject.getString("id"));
-                            companySales.setFirstname(subObject.getString("first_name"));
-                            //Log.e("firstname", "" + subObject.getString("first_name"));
-                            //salesDistributor.setUser_id(subObject.getString("id"));
-                            companySales.setLastname(subObject.getString("last_name"));
-                            companySales.setAreaId(subObject.getString("area_id"));
+                            companySales.setUserSalesId(User.getString("id"));
+                            companySales.setFirstname(User.getString("first_name"));
+                            companySales.setLastname(User.getString("last_name"));
+
+                            if (AddressArray.length() > 0) {
+                                companySales.setAreaId(((JSONObject) AddressArray.get(0)).getString("area_id"));
+                            }
+
+                            Gson gson = new Gson();
+
+                            companySales.getUserData().setUser(gson.fromJson(User.toString(), com.agraeta.user.btl.model.User.class));
+
+                            companySales.getUserData().setDistributor(gson.fromJson(Distributor.toString(), RegisteredUserTourResponse.Distributor.class));
+
+                            Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
+                            }.getType();
+                            List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
+
+                            companySales.getUserData().setAddressList(addressList);
 
                             companySalesUserList.add(companySales);
                         }
@@ -620,11 +643,6 @@ public class UserListActivity extends AppCompatActivity {
             }
 
         }
-    }
-    public void onBackPressed() {
-        Intent intent=new Intent(getApplicationContext(),UserTypeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

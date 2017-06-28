@@ -113,6 +113,7 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                                 intent.putExtra("salesComapnyPerson", getUserID(position));
                                 intent.putExtra("firmName", companySalesUserList.get(position).getFirstname() + " " + companySalesUserList.get(position).getLastname());
                                 intent.putExtra("userRoleID", subUserID);
+                                intent.putExtra("userData", companySalesUserList.get(position).getUserData());
                                 context.startActivity(intent);
                                 break;
                             case R.id.order:

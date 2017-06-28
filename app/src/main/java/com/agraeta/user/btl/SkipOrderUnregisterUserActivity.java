@@ -230,6 +230,10 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     }
                     if(pos==0) isFirstTime=false;
                     spn_country.setSelection(pos);
+                } else if (!isInEditMode && isFirstTime) {
+                    if (countryList.size() > 0) {
+                        spn_country.setSelection(1);
+                    }
                 }
 
             }
@@ -321,6 +325,16 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                                     }
                                 }
                                 if(pos==0) isFirstTime=false;
+                                spn_state.setSelection(pos);
+                            } else if (!isInEditMode && isFirstTime) {
+                                int pos = 0;
+                                for (int i = 0; i < stateList.size(); i++) {
+                                    if (stateList.get(i).getId().equals(BTL.salesPersonStateID)) {
+                                        pos = i;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
                                 spn_state.setSelection(pos);
                             }
 

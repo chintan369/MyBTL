@@ -5,10 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,6 +31,9 @@ import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.ServiceHandler;
+import com.agraeta.user.btl.model.RegisteredUserTourResponse;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -39,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -508,12 +512,16 @@ public class SalesUserListActivity extends AppCompatActivity {
 
 
     }
-    public class GetDisSalesUserData extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
 
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), SalesTypeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public class GetDisSalesUserData extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         String subdissalesID;
@@ -521,6 +529,8 @@ public class SalesUserListActivity extends AppCompatActivity {
         String dsRole_ID;
         String jsonData = "";
         int position;
+        private String result;
+        private InputStream is;
 
         //        public GetDisSalesData(Activity activity,int distributor_id){
 //            this.activity=activity;
@@ -596,14 +606,30 @@ public class SalesUserListActivity extends AppCompatActivity {
 
                         for (int i = 0; i < dataArray.length(); i++) {
                             JSONObject subObject = dataArray.getJSONObject(i);
+                            JSONObject User = subObject.getJSONObject("User");
+                            JSONObject Distributor = subObject.getJSONObject("Distributor");
+                            JSONArray AddressArray = subObject.getJSONArray("Address");
                             Bean_Distributor_Sales distributor_Sales = new Bean_Distributor_Sales();
 
-                            distributor_Sales.setUserDisSalesId(subObject.getString("id"));
-                            distributor_Sales.setFirstname(subObject.getString("first_name"));
-                            //Log.e("firstname", "" + subObject.getString("first_name"));
-                            //salesDistributor.setUser_id(subObject.getString("id"));
-                            distributor_Sales.setLastname(subObject.getString("last_name"));
-                            distributor_Sales.setAreaId(subObject.getString("area_id"));
+                            distributor_Sales.setUserDisSalesId(User.getString("id"));
+                            distributor_Sales.setFirstname(User.getString("first_name"));
+                            distributor_Sales.setLastname(User.getString("last_name"));
+
+                            if (AddressArray.length() > 0) {
+                                distributor_Sales.setAreaId(((JSONObject) AddressArray.get(0)).getString("area_id"));
+                            }
+
+                            Gson gson = new Gson();
+
+                            distributor_Sales.getUserData().setUser(gson.fromJson(User.toString(), com.agraeta.user.btl.model.User.class));
+
+                            distributor_Sales.getUserData().setDistributor(gson.fromJson(Distributor.toString(), RegisteredUserTourResponse.Distributor.class));
+
+                            Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
+                            }.getType();
+                            List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
+
+                            distributor_Sales.getUserData().setAddressList(addressList);
 
                             distributorSalesUserList.add(distributor_Sales);
                         }
@@ -674,10 +700,5 @@ public class SalesUserListActivity extends AppCompatActivity {
             //refreshLayout.setRefreshing(false);
             loadingView.dismiss();
         }
-    }
-    public void onBackPressed() {
-        Intent intent=new Intent(getApplicationContext(),SalesTypeActivity.class);
-        startActivity(intent);
-        finish();
     }
 }

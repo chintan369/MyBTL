@@ -36,6 +36,7 @@ import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.UnregisteredUserData;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.area.AreaItem;
+import com.agraeta.user.btl.model.sales.SalesSubUserData;
 import com.agraeta.user.btl.utils.FilePath;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.squareup.picasso.Picasso;
@@ -103,6 +104,8 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
     boolean isInEditMode=false;
     UnregisteredUserData.UnregisteredUser unregisteredUser;
+    SalesSubUserData subUserData;
+
     String skipPersonID="";
     String firmName="";
     String customerTypeID= "";
@@ -133,6 +136,8 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
         if(isInEditMode){
             unregisteredUser=(UnregisteredUserData.UnregisteredUser) intent.getSerializableExtra("userData");
+        } else {
+            subUserData = (SalesSubUserData) intent.getSerializableExtra("userData");
         }
 
         setActionBar();
@@ -202,6 +207,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
             edt_mobile.setText(unregisteredUser.getMobile_no());
             edt_dealingBrand.setText(unregisteredUser.getDealing_in_brand());
             edt_jointVisitWith.setText(unregisteredUser.getJoint_visit_with());
+        } else {
+            edt_firmName.setText(subUserData.getDistributor().getFirm_name());
+            if (subUserData.getAddressList().size() > 0) {
+                edt_addrLine1.setText(subUserData.getAddressList().get(0).getAddress_1());
+                edt_addrLine2.setText(subUserData.getAddressList().get(0).getAddress_2());
+                edt_addrLine3.setText(subUserData.getAddressList().get(0).getAddress_3());
+                edt_pincode.setText(subUserData.getAddressList().get(0).getPincode());
+            }
+            edt_emailID.setText(subUserData.getUser().getEmail_id());
+            edt_mobile.setText(subUserData.getUser().getPhone_no());
         }
 
         spn_country = (Spinner) findViewById(R.id.spn_country);
@@ -264,6 +279,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                         }
                     }
                     if(pos==0) isFirstTime=false;
+                    spn_country.setSelection(pos);
+                } else if (!isInEditMode && isFirstTime) {
+                    int pos = 0;
+                    for (int i = 0; i < countryList.size(); i++) {
+                        if (countryList.get(i).getId().equals(subUserData.getAddressList().get(0).getCountry_id())) {
+                            pos = i;
+                            break;
+                        }
+                    }
+                    if (pos == 0) isFirstTime = false;
                     spn_country.setSelection(pos);
                 }
 
@@ -329,6 +354,21 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                                     }
                                 }
                                 if(pos==0) isFirstTime=false;
+                                spn_state.setSelection(pos);
+                            } else if (!isInEditMode && isFirstTime) {
+                                int pos = 0;
+                                for (int i = 0; i < stateList.size(); i++) {
+                                    try {
+                                        if (stateList.get(i).getId().equals(subUserData.getAddressList().get(0).getState_id())) {
+                                            pos = i;
+                                            break;
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("Exception", e.getMessage());
+                                    }
+
+                                }
+                                if (pos == 0) isFirstTime = false;
                                 spn_state.setSelection(pos);
                             }
 
@@ -571,6 +611,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                     }
                     if(pos==0) isFirstTime=false;
                     spn_city.setSelection(pos);
+                } else if (!isInEditMode && isFirstTime) {
+                    int pos = 0;
+                    for (int i = 0; i < cityList.size(); i++) {
+                        if (cityList.get(i).getId().equals(subUserData.getAddressList().get(0).getCity_id())) {
+                            pos = i;
+                            break;
+                        }
+                    }
+                    if (pos == 0) isFirstTime = false;
+                    spn_city.setSelection(pos);
                 }
             }
 
@@ -619,6 +669,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                         }
                     }
                     isFirstTime=false;
+                    spn_area.setSelection(pos);
+                } else if (!isInEditMode && isFirstTime) {
+                    int pos = 0;
+                    for (int i = 0; i < areaList.size(); i++) {
+                        if (areaList.get(i).getId().equals(subUserData.getAddressList().get(0).getArea_id())) {
+                            pos = i;
+                            break;
+                        }
+                    }
+                    isFirstTime = false;
                     spn_area.setSelection(pos);
                 }
             }
@@ -738,6 +798,12 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 if(!isValidated(edt_pincode,"Pincode","Please Enter Pincode of 6 Digit",6,false)) return;
                 if(!emailID.isEmpty() && !isValidated(edt_emailID,"Email ID","Please Enter Valid Email ID",0,true)) return;
                 if(!mobileNo.isEmpty() && !isValidated(edt_mobile,"Mobile No","Please Enter Valid Mobile No",10,false)) return;
+
+                if (spn_skipReason.getSelectedItemPosition() == 0) {
+                    Globals.Toast2(getApplicationContext(), "Please Select Skip Reason");
+                    return;
+                }
+
                 if(!isValidated(edt_partyReport,"Party Report","Please Enter Party Report",3,false)) return;
 
                 if (txt_visitingFrontPath.getText().toString().isEmpty()) {
@@ -753,11 +819,6 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 if(switch_isPastOrder.isChecked() && !(orderIDInt>0)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Order ID");
                     edt_orderID.requestFocus();
-                    return;
-                }
-
-                if(spn_skipReason.getSelectedItemPosition()==0){
-                    Globals.Toast2(getApplicationContext(),"Please Select Skip Reason");
                     return;
                 }
 

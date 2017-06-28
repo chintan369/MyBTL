@@ -1,5 +1,7 @@
 package com.agraeta.user.btl.CompanySalesPerson;
 
+import com.agraeta.user.btl.model.sales.SalesSubUserData;
+
 import java.io.Serializable;
 
 /**
@@ -7,18 +9,18 @@ import java.io.Serializable;
  */
 public class Bean_Company_Sales_User implements Serializable {
 
-    int cSalesID;
-    String csDisId;
-    String csRetId;
-    String csProId;
-    String userSalesId;
-    String firstname;
-    String lastname;
-    String areaId;
-    String areaNameId;
-    String areaName;
+    int cSalesID = 0;
+    String csDisId = "";
+    String csRetId = "";
+    String csProId = "";
+    String userSalesId = "";
+    String firstname = "";
+    String lastname = "";
+    String areaId = "";
+    String areaNameId = "";
+    String areaName = "";
 
-
+    SalesSubUserData UserData = new SalesSubUserData();
 
     public Bean_Company_Sales_User() {
     }
@@ -136,5 +138,13 @@ public class Bean_Company_Sales_User implements Serializable {
 
     public void setAreaNameId(String areaNameId) {
         this.areaNameId = areaNameId;
+    }
+
+    public SalesSubUserData getUserData() {
+        return UserData;
+    }
+
+    public void setUserData(SalesSubUserData userData) {
+        UserData = userData;
     }
 }
