@@ -629,7 +629,7 @@ public class SalesUserListActivity extends AppCompatActivity {
                             }.getType();
                             List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
 
-                            distributor_Sales.getUserData().setAddressList(addressList);
+                            distributor_Sales.getUserData().setAddress(addressList);
 
                             distributorSalesUserList.add(distributor_Sales);
                         }

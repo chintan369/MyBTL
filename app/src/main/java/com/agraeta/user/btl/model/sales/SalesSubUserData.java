@@ -12,31 +12,31 @@ import java.util.List;
  */
 
 public class SalesSubUserData implements Serializable {
-    User user = new User();
-    RegisteredUserTourResponse.Distributor distributor = new RegisteredUserTourResponse.Distributor();
-    List<RegisteredUserTourResponse.Address> addressList = new ArrayList<>();
+    User User = new User();
+    RegisteredUserTourResponse.Distributor Distributor = new RegisteredUserTourResponse.Distributor();
+    List<RegisteredUserTourResponse.Address> Address = new ArrayList<>();
 
-    public User getUser() {
-        return user;
+    public com.agraeta.user.btl.model.User getUser() {
+        return User;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(com.agraeta.user.btl.model.User user) {
+        User = user;
     }
 
     public RegisteredUserTourResponse.Distributor getDistributor() {
-        return distributor;
+        return Distributor;
     }
 
     public void setDistributor(RegisteredUserTourResponse.Distributor distributor) {
-        this.distributor = distributor;
+        Distributor = distributor;
     }
 
-    public List<RegisteredUserTourResponse.Address> getAddressList() {
-        return addressList;
+    public List<RegisteredUserTourResponse.Address> getAddress() {
+        return Address;
     }
 
-    public void setAddressList(List<RegisteredUserTourResponse.Address> addressList) {
-        this.addressList = addressList;
+    public void setAddress(List<RegisteredUserTourResponse.Address> address) {
+        Address = address;
     }
 }

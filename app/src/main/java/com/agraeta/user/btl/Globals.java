@@ -72,6 +72,7 @@ public class Globals {
     public static final String AREA_LIST = "Area/App_GetArea";
     public static final String USER_ROLES = "Role/App_Get_User_Type";
     public static final String ADD_OTHER_CITY = "City/App_Add_City";
+    public static final String ADD_OTHER_AREA = "Area/App_Add_Area";
     public static final String CREATE_QUOTATION="Quotation/App_Create_Quotation";
     public static final String DELETE_QUOTATION="QuotationCart/App_Delete_Quotation";
     public static final String DELETE_QUOTATION_PRODUCT="QuotationCart/App_Delete_Quotation_Product";
@@ -92,6 +93,8 @@ public class Globals {
     public static final String PRODUCT_STOCK_REPORT = "Product/App_Tally_Product_Stock";
     public static final String GET_QUOTATION_LIST = "Quotation/App_GetQuotation";
     public static final String CATALOG_LIST = "Catalog/App_Get_Download_Catalog";
+    public static final String USER_INFO = "User/APP_User_Info";
+
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
     //public static String server_link ="http://www.btlkart.com/";
     public static String server_link = "http://demo.btlindia.com/";

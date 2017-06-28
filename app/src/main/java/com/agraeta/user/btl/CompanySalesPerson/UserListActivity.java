@@ -566,7 +566,7 @@ public class UserListActivity extends AppCompatActivity {
                             }.getType();
                             List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
 
-                            companySales.getUserData().setAddressList(addressList);
+                            companySales.getUserData().setAddress(addressList);
 
                             companySalesUserList.add(companySales);
                         }

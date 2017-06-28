@@ -18,12 +18,12 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -45,10 +45,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
+import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
+import com.agraeta.user.btl.Distributor.DisMyOrders;
+import com.agraeta.user.btl.Distributor.DistributorActivity;
 import com.agraeta.user.btl.adapters.SupportCallAdapter;
 import com.agraeta.user.btl.admin.AdminDashboard;
+import com.agraeta.user.btl.model.AdminAPI;
+import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.SupportCallInfo;
-import com.agraeta.user.btl.utils.CircularProgress;
+import com.agraeta.user.btl.model.UserDetailResponse;
 import com.agraeta.user.btl.utils.ParallaxPageTransformer;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -56,14 +62,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
-import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
-import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
-import com.agraeta.user.btl.Distributor.DisMyOrders;
-import com.agraeta.user.btl.Distributor.DistributorActivity;
-//import com.nivida.user.btl.Distributor.DistributorFormActivity;
 import com.squareup.picasso.Picasso;
-
-import static android.content.pm.PackageManager.*;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -76,24 +75,37 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+//import com.nivida.user.btl.Distributor.DistributorFormActivity;
+
 
 public class MainPage_drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<People.LoadPeopleResult> {
-    ActionBarDrawerToggle mDrawerToggle;
     private static final Integer[] IMAGES = {R.drawable.image,
             R.drawable.b1,
             R.drawable.b2,
             R.drawable.image
     };
+    private static final int RC_SIGN_IN = 0;
+    // Logcat tag
+    private static final String TAG = "MainActivity";
+    // Profile pic image size in pixels
+    private static final int PROFILE_PIC_SIZE = 400;
+    public static int display_width = 0;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    private static MainPage_drawer instance;
+    ActionBarDrawerToggle mDrawerToggle;
     TextView notification_unread;
     boolean isMdevice;
     boolean pstatus;
     ArrayList<Bean_ProductCart> bean_cart = new ArrayList<Bean_ProductCart>();
     int code = 1;
-    public static int display_width = 0;
-    private ViewPager mPager;
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
     ImageSwitcher imageSwitcher;
     Handler handler;
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
@@ -107,7 +119,6 @@ public class MainPage_drawer extends AppCompatActivity
     ArrayList<Bean_category> category_arra = new ArrayList<Bean_category>();
     ViewPager customviewpager;
     GridView gridView1, gridView_new;
-
     String[] perms = {Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_SETTINGS, Manifest.permission.WRITE_SECURE_SETTINGS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE, Manifest.permission.GET_ACCOUNTS, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION};
@@ -117,7 +128,6 @@ public class MainPage_drawer extends AppCompatActivity
     DatabaseHandler db;
     LinearLayout l3;
     AppPrefs apps;
-    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     TextView marqueetextview;
     LinearLayout lmain1, lmain2;
     ArrayList<Integer> list_data = new ArrayList<Integer>();
@@ -136,41 +146,72 @@ public class MainPage_drawer extends AppCompatActivity
     String owner_id = new String();
     String u_id = new String();
     String role_id = new String();
-    private static final int RC_SIGN_IN = 0;
     LinearLayout layout_main;
-    // Logcat tag
-    private static final String TAG = "MainActivity";
-
-    // Profile pic image size in pixels
-    private static final int PROFILE_PIC_SIZE = 400;
-
-
-    private boolean mIntentInProgress;
-
-    private boolean mSignInClicked;
-
-    private ConnectionResult mConnectionResult;
-
-    private GoogleApiClient mGoogleApiClient;
-
-    private static MainPage_drawer instance;
-
     AppPrefs app;
-
     LinearLayout l_strickers;
     TextView cate;
-
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-
     LinearLayout layout_support;
-
     TextView txt;
-
     ArrayList<SupportCallInfo> callInfoList = new ArrayList<>();
-    ArrayList<Bean_Product> latestProductList=new ArrayList<>();
+    ArrayList<Bean_Product> latestProductList = new ArrayList<>();
+    LinearLayout layout_latestProducts, layout_latestProductsLabel;
+    AdminAPI adminAPI;
+    private ViewPager mPager;
+    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    private boolean mIntentInProgress;
+    private boolean mSignInClicked;
+    private ConnectionResult mConnectionResult;
+    private GoogleApiClient mGoogleApiClient;
 
-    LinearLayout layout_latestProducts,layout_latestProductsLabel;
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            //Log.e("c","cdef");
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                //Log.e("d","defg");
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    //Log.e("e","efgh");
+                    return false;
+                }
+            }
+            //Log.e("f", "fghi");
+        }
+        //Log.e("g","ghij");
+        return dir.delete();
+    }
+
+    public static MainPage_drawer getInstance() {
+        return instance;
+    }
+
+    public static boolean isMarshmallowPlusDevice() {
+
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static boolean isPermissionRequestRequired(Activity activity, @NonNull String[] permissions, int requestCode) {
+        if (isMarshmallowPlusDevice() && permissions.length > 0) {
+            List<String> newPermissionList = new ArrayList<>();
+            for (String permission : permissions) {
+                if (PERMISSION_GRANTED != activity.checkSelfPermission(permission)) {
+                    newPermissionList.add(permission);
+
+                }
+            }
+            if (newPermissionList.size() > 0) {
+                activity.requestPermissions(newPermissionList.toArray(new String[newPermissionList.size()]), requestCode);
+                return true;
+            }
+
+
+        }
+
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +225,8 @@ public class MainPage_drawer extends AppCompatActivity
         app.setCurrentPage("MAINPAGE");
         app.set_search("");
         //Log.e("isMdevice", "" + isMdevice);
+
+        adminAPI = ServiceGenerator.getAPIServiceClass();
 
         layout_main = (LinearLayout) findViewById(R.id.layout_main);
         layout_support = (LinearLayout) findViewById(R.id.layout_support);
@@ -381,6 +424,26 @@ public class MainPage_drawer extends AppCompatActivity
 
             }
 
+            if (!role_id.equals(C.ADMIN) && !role_id.equals(C.COMP_SALES_PERSON) && !role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+                Call<UserDetailResponse> userDetailResponseCall = adminAPI.getUserDetail(u_id);
+                userDetailResponseCall.enqueue(new Callback<UserDetailResponse>() {
+                    @Override
+                    public void onResponse(Call<UserDetailResponse> call, Response<UserDetailResponse> response) {
+                        UserDetailResponse detailResponse = response.body();
+                        if (detailResponse != null && detailResponse.isStatus()) {
+                            BTL.user = detailResponse.getData().getUser();
+                            BTL.distributor = detailResponse.getData().getDistributor();
+                            BTL.addressList.addAll(detailResponse.getData().getAddress());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserDetailResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+
             List<NameValuePair> para = new ArrayList<NameValuePair>();
 
             para.add(new BasicNameValuePair("owner_id", owner_id));
@@ -543,7 +606,6 @@ public class MainPage_drawer extends AppCompatActivity
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -788,72 +850,6 @@ public class MainPage_drawer extends AppCompatActivity
         return true;
     }
 
-    public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            //Log.e("c","cdef");
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                //Log.e("d","defg");
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    //Log.e("e","efgh");
-                    return false;
-                }
-            }
-            //Log.e("f", "fghi");
-        }
-        //Log.e("g","ghij");
-        return dir.delete();
-    }
-
-//    private void init(ArrayList<Bean_Slider> str) {
-//        //for (int i = 0; i < str.size(); i++)
-//        // ImagesArray.add(IMAGES[i]);
-//
-//        mPager = (ViewPager) findViewById(R.id.pager);
-//
-//        //Log.e("A","A");
-//
-//        mPager.setAdapter(new SlidingImage_Adapter(MainPage_drawer.this, slider_arra));
-//
-//
-//      //  CirclePageIndicator indicator = (CirclePageIndicator) sfindViewById(R.id.indicator);
-//
-//     //   indicator.setViewPager(mPager);
-//
-//        final float density = getResources().getDisplayMetrics().density;
-//
-////Set circle indicator radius
-//        // indicator.setRadius(5* density);
-//
-//        //Log.e("str.size()",""+str.size());
-//
-//        NUM_PAGES = str.size();
-//
-//
-//        // Auto start of viewpager
-//
-//        final Handler handler = new Handler();
-//        final Runnable Update = new Runnable() {
-//            public void run() {
-//                if (currentPage == NUM_PAGES) {
-//                    currentPage = 0;
-//                }
-//                mPager.setCurrentItem(currentPage++, true);
-//            }
-//        };
-//        Timer swipeTimer = new Timer();
-//        swipeTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(Update);
-//            }
-//        }, 4000, 5000);
-//
-//
-//    }
-
-
     @Override
     protected void onResume() {
         System.runFinalization();
@@ -996,84 +992,8 @@ public class MainPage_drawer extends AppCompatActivity
         }
     }
 
-
     public void onResult(People.LoadPeopleResult arg0) {
         // TODO Auto-generated method stub
-
-    }
-
-    public class pImageAdapter extends BaseAdapter {
-
-        ArrayList<Integer> image_url = new ArrayList<Integer>();
-        ArrayList<String> title = new ArrayList<String>();
-        Context context;
-
-
-        LayoutInflater layoutinflater;
-        int position1;
-        ImageView im;
-        TextView tv;
-        Activity activity;
-        int display_width;
-        FrameLayout framelayout_image;
-
-
-        public pImageAdapter(Context context, ArrayList<Integer> categoryimg, LayoutInflater layoutinflater,
-                             Activity activity) {
-
-            // TODO Auto-generated constructor stub
-            this.activity = activity;
-            this.context = context;
-            this.image_url = categoryimg;
-
-            this.layoutinflater = layoutinflater;
-
-        }
-
-
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return image_url.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return position;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            position1 = position;
-            DisplayMetrics metrics = new DisplayMetrics();
-            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            display_width = (metrics.widthPixels / 2);
-            if (convertView == null) {
-
-                convertView = layoutinflater.inflate(R.layout.grid_offer, null);
-
-            }
-
-            framelayout_image = (FrameLayout) convertView
-                    .findViewById(R.id.framelayout_image);
-            im = (ImageView) convertView.findViewById(R.id.imageView1);
-
-
-            framelayout_image.getLayoutParams().height = display_width;
-
-            im.setImageResource(image_url.get(position));
-
-            return convertView;
-
-        }
 
     }
 
@@ -1526,14 +1446,210 @@ public class MainPage_drawer extends AppCompatActivity
 
     }
 
-    public static MainPage_drawer getInstance() {
-        return instance;
+    private void setLatestProducts() {
+        if (latestProductList.size() > 0) {
+            for (int i = 0; i < latestProductList.size(); i++) {
+                View view = getLayoutInflater().inflate(R.layout.layout_latest_product_item, null);
+
+                ImageView img_product = (ImageView) view.findViewById(R.id.img_product);
+                TextView txt_productName = (TextView) view.findViewById(R.id.txt_productName);
+
+                Picasso.with(this).load(Globals.IMAGE_LINK + latestProductList.get(i).getPro_image())
+                        .into(img_product);
+
+                txt_productName.setText(latestProductList.get(i).getPro_name() + " - (" + latestProductList.get(i).getPro_code() + ")");
+
+                final int finalI = i;
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        app.setproduct_id(latestProductList.get(finalI).getPro_id());
+                        app.setRef_Detail("");
+                        Intent i = new Intent(getApplicationContext(), BTLProduct_Detail.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                });
+
+                layout_latestProducts.addView(view);
+            }
+        } else {
+            layout_latestProductsLabel.setVisibility(View.GONE);
+        }
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(MainPage_drawer.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public String GetCartMainByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public class pImageAdapter extends BaseAdapter {
+
+        ArrayList<Integer> image_url = new ArrayList<Integer>();
+        ArrayList<String> title = new ArrayList<String>();
+        Context context;
+
+
+        LayoutInflater layoutinflater;
+        int position1;
+        ImageView im;
+        TextView tv;
+        Activity activity;
+        int display_width;
+        FrameLayout framelayout_image;
+
+
+        public pImageAdapter(Context context, ArrayList<Integer> categoryimg, LayoutInflater layoutinflater,
+                             Activity activity) {
+
+            // TODO Auto-generated constructor stub
+            this.activity = activity;
+            this.context = context;
+            this.image_url = categoryimg;
+
+            this.layoutinflater = layoutinflater;
+
+        }
+
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return image_url.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            position1 = position;
+            DisplayMetrics metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            display_width = (metrics.widthPixels / 2);
+            if (convertView == null) {
+
+                convertView = layoutinflater.inflate(R.layout.grid_offer, null);
+
+            }
+
+            framelayout_image = (FrameLayout) convertView
+                    .findViewById(R.id.framelayout_image);
+            im = (ImageView) convertView.findViewById(R.id.imageView1);
+
+
+            framelayout_image.getLayoutParams().height = display_width;
+
+            im.setImageResource(image_url.get(position));
+
+            return convertView;
+
+        }
+
     }
 
     public class Set_Home_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1731,128 +1847,6 @@ public class MainPage_drawer extends AppCompatActivity
         }
     }
 
-    private void setLatestProducts() {
-        if(latestProductList.size()>0){
-            for(int i=0; i<latestProductList.size(); i++){
-                View view=getLayoutInflater().inflate(R.layout.layout_latest_product_item,null);
-
-                ImageView img_product=(ImageView) view.findViewById(R.id.img_product);
-                TextView txt_productName=(TextView) view.findViewById(R.id.txt_productName);
-
-                Picasso.with(this).load(Globals.IMAGE_LINK+latestProductList.get(i).getPro_image())
-                .into(img_product);
-
-                txt_productName.setText(latestProductList.get(i).getPro_name()+" - ("+latestProductList.get(i).getPro_code()+")");
-
-                final int finalI = i;
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        app.setproduct_id(latestProductList.get(finalI).getPro_id());
-                        app.setRef_Detail("");
-                        Intent i = new Intent(getApplicationContext(), BTLProduct_Detail.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    }
-                });
-
-                layout_latestProducts.addView(view);
-            }
-        }
-        else {
-            layout_latestProductsLabel.setVisibility(View.GONE);
-        }
-    }
-
-    public static boolean isMarshmallowPlusDevice() {
-
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public static boolean isPermissionRequestRequired(Activity activity, @NonNull String[] permissions, int requestCode) {
-        if (isMarshmallowPlusDevice() && permissions.length > 0) {
-            List<String> newPermissionList = new ArrayList<>();
-            for (String permission : permissions) {
-                if (PERMISSION_GRANTED != activity.checkSelfPermission(permission)) {
-                    newPermissionList.add(permission);
-
-                }
-            }
-            if (newPermissionList.size() > 0) {
-                activity.requestPermissions(newPermissionList.toArray(new String[newPermissionList.size()]), requestCode);
-                return true;
-            }
-
-
-        }
-
-        return false;
-    }
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(MainPage_drawer.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
     public class GetCartByQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> params = new ArrayList<>();
@@ -1932,36 +1926,6 @@ public class MainPage_drawer extends AppCompatActivity
                 }
             }
         }
-    }
-
-    public String GetCartMainByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 
     public class GetSupportCallInfo extends AsyncTask<Void, Void, String> {

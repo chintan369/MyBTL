@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -82,20 +82,16 @@ public class Product_Enquiry extends Fragment {
     String position_productname = new String();
     String s_sugpname = new String();
     String smobile = new String();
-
-    private SimpleDateFormat dateFormatter;
-    private DatePickerDialog fromDatePickerDialog;
     String fd = new String();
     AutoCompleteTextView autocompletetextview;
-
     String[] arr = { "Paries,France", "PA,United States","Parana,Brazil", "Padua,Italy", "Pasadena,CA,United States"};
-
-
     Custom_ProgressDialog loadingView;
-
     String json = new String();
-
     DatabaseHandler db;
+    boolean isFirstTime = true;
+    AppPrefs prefs;
+    private SimpleDateFormat dateFormatter;
+    private DatePickerDialog fromDatePickerDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,6 +100,8 @@ public class Product_Enquiry extends Fragment {
         
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        prefs = new AppPrefs(getContext());
 
         l_login=(LinearLayout)rootView.findViewById(R.id.login_layout);
         l_wlogin=(LinearLayout)rootView.findViewById(R.id.without_login);
@@ -432,13 +430,86 @@ public class Product_Enquiry extends Fragment {
 
     }
 
-    
+    private boolean validateEmail1(String email) {
+        // TODO Auto-generated method stub
+
+        Pattern pattern;
+        Matcher matcher;
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(getActivity());
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
 
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -527,10 +598,24 @@ public class Product_Enquiry extends Fragment {
                                 statename.add(sname);
                                 stateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, statename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_state.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, statename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_state.setAdapter(adapter_state);
+
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                Log.e("Entered", "To check " + BTL.addressList.get(0).getState_id());
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                sp_state.setSelection(pos);
 
                             }
                         }
@@ -544,11 +629,12 @@ public class Product_Enquiry extends Fragment {
 
         }
     }
+
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -639,11 +725,22 @@ public class Product_Enquiry extends Fragment {
                                 cityname.add(cname);
                                 cityid.add(cId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, cityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_city.setAdapter(adapter_city);
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_city.setAdapter(adapter_city);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
+                                sp_city.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -659,9 +756,9 @@ public class Product_Enquiry extends Fragment {
 
     public class get_produt_data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -774,85 +871,11 @@ public class Product_Enquiry extends Fragment {
         }
     }
 
-    private boolean validateEmail1(String email) {
-        // TODO Auto-generated method stub
-
-        Pattern pattern;
-        Matcher matcher;
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
-
-    }
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(getActivity());
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
     public class Send_ProductE_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {

@@ -393,6 +393,24 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
             }
         });
+
+        spn_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    if (position == areaNames.size() - 1) {
+                        showAddOtherAreaDialog();
+                    } else {
+                        loadAreaData(cityList.get(position).getId());
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void showAddOtherCityDialog() {
@@ -451,6 +469,83 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                                 public void onFailure(Call<AppModel> call, Throwable t) {
                                     dialog.dismiss();
                                     Globals.showError(t,getApplicationContext());
+                                }
+                            });
+                        }
+                    }
+                });
+
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogB.dismiss();
+                        spn_city.setSelection(0);
+                    }
+                });
+            }
+        });
+
+        dialogB.show();
+    }
+
+    private void showAddOtherAreaDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.layout_dialog_add_other_city, null);
+
+        builder.setCancelable(false);
+        TextView txt_stateName = (TextView) view.findViewById(R.id.txt_stateName);
+        TextView txt_areaLabel = (TextView) view.findViewById(R.id.txt_areaLabel);
+        final EditText edt_cityName = (EditText) view.findViewById(R.id.edt_cityName);
+
+        txt_areaLabel.setText("City : ");
+        edt_cityName.setHint("Other Area Name");
+
+        txt_stateName.setText(cityNames.get(spn_city.getSelectedItemPosition()));
+
+        builder.setView(view);
+
+        builder.setTitle("Add Other Area");
+
+        builder.setPositiveButton("Add", null);
+        builder.setNegativeButton("Cancel", null);
+
+        final AlertDialog dialogB = builder.create();
+
+        dialogB.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogI) {
+                Button btn_save = dialogB.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button btn_cancel = dialogB.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                btn_save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String areaName = edt_cityName.getText().toString().trim();
+                        if (areaName.isEmpty()) {
+                            Globals.Toast2(getApplicationContext(), "Please Enter Area Name");
+                        } else {
+
+                            dialogB.dismiss();
+                            dialog.show();
+                            final String cityID = cityList.get(spn_state.getSelectedItemPosition()).getId();
+                            Call<AppModel> cityCall = adminAPI.addOtherArea(cityID, areaName);
+                            cityCall.enqueue(new Callback<AppModel>() {
+                                @Override
+                                public void onResponse(Call<AppModel> call, Response<AppModel> response) {
+                                    dialog.dismiss();
+                                    if (response.body().isStatus()) {
+                                        Globals.Toast2(getApplicationContext(), response.body().getMessage());
+                                        dialog.show();
+                                        loadAreaData(cityID);
+                                    } else {
+                                        Globals.Toast2(getApplicationContext(), response.body().getMessage());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<AppModel> call, Throwable t) {
+                                    dialog.dismiss();
+                                    Globals.showError(t, getApplicationContext());
                                 }
                             });
                         }
@@ -654,14 +749,14 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
                 if(!isValidated(edt_firmName,"Firm Name","Please Enter Firm name min of 3 letter",3,false)) return;
                 if(!isValidated(edt_addrLine1,"Address Line 1","Please Enter Address Line 1 min of 3 letter",3,false)) return;
-                if(spn_country.getSelectedItemPosition()==0){
+                /*if(spn_country.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select Country");
                     return;
                 }
                 if(spn_state.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select State");
                     return;
-                }
+                }*/
                 if(spn_city.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select City");
                     return;

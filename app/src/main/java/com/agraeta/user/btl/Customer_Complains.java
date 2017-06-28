@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,32 +49,35 @@ import java.util.regex.Pattern;
 
 public class Customer_Complains extends Fragment {
 
+    public static final int RESULT_CANCELED = 0;
+    /**
+     * Standard activity result: operation succeeded.
+     */
+    public static final int RESULT_OK = -1;
+    /**
+     * Start of user-defined activity results.
+     */
+    public static final int RESULT_FIRST_USER = 1;
+    final static int RQS_GET_IMAGE = 1;
+    final static int RQS_GET_INVOICE = 2;
     Spinner sp_city, sp_state, sp_dcity, sp_dstate;
     Button btn_date, btn_submit, btn_photo,btn_invoice;
     EditText e_fname, e_lname, e_email, e_mobile, e_purchasebillno, e_dname, e_dadd, e_compalain;
     TextView txt_date, txt_photo,txt_invoice;
-
-    private SimpleDateFormat dateFormatter;
-    private DatePickerDialog fromDatePickerDialog;
     String fd = new String();
     ArrayList<String> product_array = new ArrayList<String>();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     HttpFileUpload httpupload;
     ArrayList<String> cityid = new ArrayList<String>();
     ArrayList<String> cityname = new ArrayList<String>();
-
     ArrayList<String> stateid = new ArrayList<String>();
     ArrayList<String> statename = new ArrayList<String>();
-
     ArrayList<String> dcityid = new ArrayList<String>();
     ArrayList<String> dcityname = new ArrayList<String>();
-
     ArrayList<String> dstateid = new ArrayList<String>();
     ArrayList<String> dstatename = new ArrayList<String>();
     AutoCompleteTextView autocompletetextview;
-
     int kk = 0;
-
     String s_fname = new String();
     String s_lname = new String();
     String s_email = new String();
@@ -98,42 +102,24 @@ public class Customer_Complains extends Fragment {
     String curFileName_invoice = new String();
     String FilePathsend = new String();
     String FileNamesend = new String();
-
     String FilePathsend1 = new String();
     String FileNamesend1 = new String();
-
     String strTempPath = new String();
     String Image1 = new String();
     String path1 = new String();
     String datauser = new String();
     String wa = new String();
     RadioGroup warrenty;
-
     RadioButton iw,ow;
-
     String smobile = new String();
-    final static int RQS_GET_IMAGE = 1;
-    final static int RQS_GET_INVOICE = 2;
-
-
-    public static final int RESULT_CANCELED = 0;
-    /**
-     * Standard activity result: operation succeeded.
-     */
-    public static final int RESULT_OK = -1;
-    /**
-     * Start of user-defined activity results.
-     */
-    public static final int RESULT_FIRST_USER = 1;
-
     Custom_ProgressDialog loadingView;
-
     String json = new String();
-
     DatabaseHandler db;
-
     View rootView;
-
+    boolean isFirstTime = true;
+    AppPrefs prefs;
+    private SimpleDateFormat dateFormatter;
+    private DatePickerDialog fromDatePickerDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,6 +129,8 @@ public class Customer_Complains extends Fragment {
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+
+        prefs = new AppPrefs(getContext());
 
         fetchId();
 
@@ -611,10 +599,170 @@ public class Customer_Complains extends Fragment {
 
     }
 
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(getActivity());
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    @SuppressWarnings("deprecation")
+    private String getPath(Uri selectedImageUri) {
+
+        String[] projection = {MediaStore.MediaColumns.DATA};
+        Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
+                null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+
+    }
+
+    private boolean validateEmail1(String email) {
+        // TODO Auto-generated method stub
+
+        Pattern pattern;
+        Matcher matcher;
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // See which child activity is calling us back.
+        if (requestCode == RQS_GET_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                curFileName = data.getStringExtra("GetFileName");
+                //Log.e("1", curFileName.toString());
+                String filename = curFileName;
+                String filePath = data.getStringExtra("GetPath");
+                FilePathsend = filePath;
+                FileNamesend = filename;
+                String filenameArray[] = filename.split("\\.");
+                String extension = filenameArray[filenameArray.length - 1];
+
+                if (extension.equalsIgnoreCase("pdf")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("doc")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("docx")) {
+                    txt_photo.setText("File name : " + curFileName);
+                }/*else if(extension.equalsIgnoreCase("txt")){
+                    txt_photo.setText("File name : "+curFileName);
+                }else if(extension.equalsIgnoreCase("rtf")){
+                    txt_photo.setText("File name : "+curFileName);
+                }*/ else if (extension.equalsIgnoreCase("png")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("jpg")) {
+                    txt_photo.setText("File name : " + curFileName);
+                }/*else if(extension.equalsIgnoreCase("jpeg")){
+                    txt_photo.setText("File name : "+curFileName);
+                }*/ else {
+                    txt_photo.setText("");
+                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
+                }
+
+
+            }
+        } else if (requestCode == RQS_GET_INVOICE) {
+            if (resultCode == RESULT_OK) {
+                curFileName_invoice = data.getStringExtra("GetFileName");
+                //Log.e("1", curFileName_invoice.toString());
+                String filename = curFileName_invoice;
+                String filePath = data.getStringExtra("GetPath");
+                FilePathsend1 = filePath;
+                FileNamesend1 = filename;
+                String filenameArray[] = filename.split("\\.");
+                String extension = filenameArray[filenameArray.length - 1];
+
+                if (extension.equalsIgnoreCase("pdf")) {
+                    txt_invoice.setText("File name : " + curFileName_invoice);
+                } else if (extension.equalsIgnoreCase("doc")) {
+                    txt_invoice.setText("File name : " + curFileName_invoice);
+                } else if (extension.equalsIgnoreCase("docx")) {
+                    txt_invoice.setText("File name : " + curFileName_invoice);
+                }/*else if(extension.equalsIgnoreCase("txt")){
+                    txt_photo.setText("File name : "+curFileName);
+                }else if(extension.equalsIgnoreCase("rtf")){
+                    txt_photo.setText("File name : "+curFileName);
+                }*/ else if (extension.equalsIgnoreCase("png")) {
+                    txt_invoice.setText("File name : " + curFileName_invoice);
+                } else if (extension.equalsIgnoreCase("jpg")) {
+                    txt_invoice.setText("File name : " + curFileName_invoice);
+                }/*else if(extension.equalsIgnoreCase("jpeg")){
+                    txt_photo.setText("File name : "+curFileName);
+                }*/ else {
+                    txt_invoice.setText("");
+                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
+                }
+
+
+            }
+        }
+    }
+
     public class send_dstate_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -702,11 +850,24 @@ public class Customer_Complains extends Fragment {
                                 dstatename.add(sname);
                                 dstateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dstatename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_dstate.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dstatename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_dstate.setAdapter(adapter_state);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                Log.e("Entered", "To check " + BTL.addressList.get(0).getState_id());
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                sp_dstate.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -721,9 +882,9 @@ public class Customer_Complains extends Fragment {
     }
 
     public class send_dcity_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -812,12 +973,22 @@ public class Customer_Complains extends Fragment {
 
                                 dcityname.add(cname);
                                 dcityid.add(cId);
+                            }
 
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dcityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_dcity.setAdapter(adapter_city);
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, dcityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_dcity.setAdapter(adapter_city);
-
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
+                                sp_dcity.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -831,10 +1002,105 @@ public class Customer_Complains extends Fragment {
         }
     }
 
+   /* public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+
+        } else {
+
+            if (resultCode == RESULT_OK) {
+
+                switch (requestCode) {
+
+                    case 11:
+
+
+                        final Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        Thread t = new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                try {
+                                    //strTimeinMills = ""+System.currentTimeMillis();
+                                    strTempPath = System.currentTimeMillis() + ".png";
+                                    photo.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + strTempPath));
+                                } catch (Exception e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                        t.start();
+                        try {
+                            t.join();
+                        } catch (Exception e) {
+
+                        }
+
+                        String p = new File(Environment.getExternalStorageDirectory(), strTempPath).getAbsolutePath();
+                        //System.out.println("-------- Image Path is : " + p);
+                        String filename=p.substring(p.lastIndexOf("/")+1);
+                        txt_photo.setText(""+filename);
+                        Bitmap bm = BitmapFactory.decodeFile(new File(p).getAbsolutePath());
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                        byte[] b = baos.toByteArray();
+                        Image1 = Base64.encodeToString(b, Base64.DEFAULT);
+
+                        //System.out.println("Image1 :----------" + Image1);
+
+                        break;
+
+                    case 22:
+                        Uri selectedImageUri = data.getData();
+
+
+                        InputStream in = null;
+
+                        try {
+                            in = getActivity().getContentResolver().openInputStream(selectedImageUri);
+                        } catch (FileNotFoundException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap thumb = BitmapFactory.decodeStream(in, null, options);
+
+
+                        String p2 = getPath(selectedImageUri);
+                        //System.out.println("-------- Image Path is : " + p2);
+                        String filename1=p2.substring(p2.lastIndexOf("/")+1);
+                        txt_photo.setText(""+filename1);
+
+                        //imgPrescription1.setImageBitmap(thumb);
+                        path1 = new File(p2).getAbsolutePath();
+
+                        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
+                        thumb.compress(Bitmap.CompressFormat.PNG, 100, baos1); //bm is the bitmap object
+                        byte[] b1 = baos1.toByteArray();
+                        Image1 = Base64.encodeToString(b1, Base64.DEFAULT);
+                        //System.out.println("Image1 :----------" + Image1);
+
+
+                        break;
+
+                }
+
+
+            }
+        }
+    }*/
+
     public class send_state_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -922,11 +1188,24 @@ public class Customer_Complains extends Fragment {
                                 statename.add(sname);
                                 stateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, statename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_state.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, statename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_state.setAdapter(adapter_state);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                Log.e("Entered", "To check " + BTL.addressList.get(0).getState_id());
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                sp_state.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -943,9 +1222,9 @@ public class Customer_Complains extends Fragment {
     }
 
     public class send_city_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1035,11 +1314,22 @@ public class Customer_Complains extends Fragment {
                                 cityname.add(cname);
                                 cityid.add(cId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_city.setAdapter(adapter_city);
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_city.setAdapter(adapter_city);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
+                                sp_city.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -1054,9 +1344,9 @@ public class Customer_Complains extends Fragment {
     }
 
     public class get_produt_data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1168,193 +1458,11 @@ public class Customer_Complains extends Fragment {
         }
     }
 
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(getActivity());
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-
-   /* public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_CANCELED) {
-
-        } else {
-
-            if (resultCode == RESULT_OK) {
-
-                switch (requestCode) {
-
-                    case 11:
-
-
-                        final Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        Thread t = new Thread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                // TODO Auto-generated method stub
-                                try {
-                                    //strTimeinMills = ""+System.currentTimeMillis();
-                                    strTempPath = System.currentTimeMillis() + ".png";
-                                    photo.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + strTempPath));
-                                } catch (Exception e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                        t.start();
-                        try {
-                            t.join();
-                        } catch (Exception e) {
-
-                        }
-
-                        String p = new File(Environment.getExternalStorageDirectory(), strTempPath).getAbsolutePath();
-                        //System.out.println("-------- Image Path is : " + p);
-                        String filename=p.substring(p.lastIndexOf("/")+1);
-                        txt_photo.setText(""+filename);
-                        Bitmap bm = BitmapFactory.decodeFile(new File(p).getAbsolutePath());
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
-                        byte[] b = baos.toByteArray();
-                        Image1 = Base64.encodeToString(b, Base64.DEFAULT);
-
-                        //System.out.println("Image1 :----------" + Image1);
-
-                        break;
-
-                    case 22:
-                        Uri selectedImageUri = data.getData();
-
-
-                        InputStream in = null;
-
-                        try {
-                            in = getActivity().getContentResolver().openInputStream(selectedImageUri);
-                        } catch (FileNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = 4;
-                        Bitmap thumb = BitmapFactory.decodeStream(in, null, options);
-
-
-                        String p2 = getPath(selectedImageUri);
-                        //System.out.println("-------- Image Path is : " + p2);
-                        String filename1=p2.substring(p2.lastIndexOf("/")+1);
-                        txt_photo.setText(""+filename1);
-
-                        //imgPrescription1.setImageBitmap(thumb);
-                        path1 = new File(p2).getAbsolutePath();
-
-                        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
-                        thumb.compress(Bitmap.CompressFormat.PNG, 100, baos1); //bm is the bitmap object
-                        byte[] b1 = baos1.toByteArray();
-                        Image1 = Base64.encodeToString(b1, Base64.DEFAULT);
-                        //System.out.println("Image1 :----------" + Image1);
-
-
-                        break;
-
-                }
-
-
-            }
-        }
-    }*/
-
-    @SuppressWarnings("deprecation")
-    private String getPath(Uri selectedImageUri) {
-
-        String[] projection = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
-                null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-
-    }
-
-    private boolean validateEmail1(String email) {
-        // TODO Auto-generated method stub
-
-        Pattern pattern;
-        Matcher matcher;
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
-
-    }
-
     public class send_custcomplain_data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1451,83 +1559,6 @@ public class Customer_Complains extends Fragment {
                 j.printStackTrace();
             }
 
-        }
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        // See which child activity is calling us back.
-        if (requestCode == RQS_GET_IMAGE){
-            if (resultCode == RESULT_OK) {
-                curFileName = data.getStringExtra("GetFileName");
-                //Log.e("1", curFileName.toString());
-                String filename = curFileName;
-                String filePath = data.getStringExtra("GetPath");
-                FilePathsend = filePath;
-                FileNamesend = filename;
-                String filenameArray[] = filename.split("\\.");
-                String extension = filenameArray[filenameArray.length-1];
-
-                if(extension.equalsIgnoreCase("pdf")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("doc")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("docx")){
-                    txt_photo.setText("File name : "+curFileName);
-                }/*else if(extension.equalsIgnoreCase("txt")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("rtf")){
-                    txt_photo.setText("File name : "+curFileName);
-                }*/else if(extension.equalsIgnoreCase("png")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("jpg")){
-                    txt_photo.setText("File name : "+curFileName);
-                }/*else if(extension.equalsIgnoreCase("jpeg")){
-                    txt_photo.setText("File name : "+curFileName);
-                }*/
-                else{
-                    txt_photo.setText("");
-                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
-                }
-
-
-
-            }
-        }else if (requestCode == RQS_GET_INVOICE){
-            if (resultCode == RESULT_OK) {
-                curFileName_invoice = data.getStringExtra("GetFileName");
-                //Log.e("1", curFileName_invoice.toString());
-                String filename = curFileName_invoice;
-                String filePath = data.getStringExtra("GetPath");
-                FilePathsend1 = filePath;
-                FileNamesend1 = filename;
-                String filenameArray[] = filename.split("\\.");
-                String extension = filenameArray[filenameArray.length-1];
-
-                if(extension.equalsIgnoreCase("pdf")){
-                    txt_invoice.setText("File name : "+curFileName_invoice);
-                }else if(extension.equalsIgnoreCase("doc")){
-                    txt_invoice.setText("File name : "+curFileName_invoice);
-                }else if(extension.equalsIgnoreCase("docx")){
-                    txt_invoice.setText("File name : "+curFileName_invoice);
-                }/*else if(extension.equalsIgnoreCase("txt")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("rtf")){
-                    txt_photo.setText("File name : "+curFileName);
-                }*/else if(extension.equalsIgnoreCase("png")){
-                    txt_invoice.setText("File name : "+curFileName_invoice);
-                }else if(extension.equalsIgnoreCase("jpg")){
-                    txt_invoice.setText("File name : "+curFileName_invoice);
-                }/*else if(extension.equalsIgnoreCase("jpeg")){
-                    txt_photo.setText("File name : "+curFileName);
-                }*/
-                else{
-                    txt_invoice.setText("");
-                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
-                }
-
-
-
-            }
         }
     }
 }

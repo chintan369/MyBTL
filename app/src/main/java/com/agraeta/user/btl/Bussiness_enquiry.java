@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,9 @@ public class Bussiness_enquiry extends Fragment {
 
     DatabaseHandler db;
     View rootView;
+    boolean isFirstTime = true;
+
+    AppPrefs prefs;
 
 
     @Override
@@ -82,6 +86,8 @@ public class Bussiness_enquiry extends Fragment {
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         business_array = new ArrayList<String>();
+
+        prefs = new AppPrefs(getContext());
 
         business_array.add("Dealer");
         business_array.add("Distributor");
@@ -392,9 +398,9 @@ public class Bussiness_enquiry extends Fragment {
 
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -483,10 +489,26 @@ public class Bussiness_enquiry extends Fragment {
                                 statename.add(sname);
                                 stateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, statename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_state.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, statename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_state.setAdapter(adapter_state);
+
+                            Log.e("Size", stateid.size() + " - " + BTL.addressList.size());
+
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                Log.e("Entered", "To check " + BTL.addressList.get(0).getState_id());
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                sp_state.setSelection(pos);
 
                             }
                         }
@@ -502,9 +524,9 @@ public class Bussiness_enquiry extends Fragment {
     }
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -595,11 +617,22 @@ public class Bussiness_enquiry extends Fragment {
                                 cityname.add(cname);
                                 cityid.add(cId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, cityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                sp_city.setAdapter(adapter_city);
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sp_city.setAdapter(adapter_city);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
+                                sp_city.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -615,9 +648,9 @@ public class Bussiness_enquiry extends Fragment {
 
     public class Set_Bussniess_data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {

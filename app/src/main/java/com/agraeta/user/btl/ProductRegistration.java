@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProductRegistration extends Fragment {
+    public static final int RESULT_CANCELED = 0;
+    /**
+     * Standard activity result: operation succeeded.
+     */
+    public static final int RESULT_OK = -1;
+    /**
+     * Start of user-defined activity results.
+     */
+    public static final int RESULT_FIRST_USER = 1;
+    final static int RQS_GET_IMAGE = 1;
     Custom_ProgressDialog loadingView;
     String json = new String();
     String firstname,lastname,emailid,mobile,retailername,autoproduct;
@@ -49,7 +60,6 @@ public class ProductRegistration extends Fragment {
     String f_name,l_name,email_id,phone_no,city_name;
     Button btn_submit_product_registration;
     Spinner spn_pro_reg_city,spn_pro_reg_state;
-
     ArrayList<String> product_array = new ArrayList<String>();
     ArrayList<String> cityid = new ArrayList<String>();
     ArrayList<String> cityname = new ArrayList<String>();
@@ -63,23 +73,10 @@ public class ProductRegistration extends Fragment {
     String position_statename = new String();
     String position_cityname = new String();
     String str_product_registration = new String();
-    final static int RQS_GET_IMAGE = 1;
     String curFileName = new String();
     String FilePathsend = new String();
     String FileNamesend = new String();
     HttpFileUpload2 httpupload;
-
-    public static final int RESULT_CANCELED = 0;
-    /**
-     * Standard activity result: operation succeeded.
-     */
-    public static final int RESULT_OK = -1;
-    /**
-     * Start of user-defined activity results.
-     */
-    public static final int RESULT_FIRST_USER = 1;
-    private SimpleDateFormat dateFormatter;
-    private DatePickerDialog fromDatePickerDialog;
     String fd = new String();
     String s_date;
     String smobile = new String();
@@ -88,8 +85,12 @@ public class ProductRegistration extends Fragment {
     TextView txt_date,txt_photo;
     Button btn_date,btn_photo,btn_Login;
     LinearLayout l_login,l_wlogin;
-    
+    boolean isFirstTime = true;
+    AppPrefs prefs;
     TextView tvfname,tvlname,tvemail,tvproname,tvstate,tvcity,tvenquiry,tvcname;
+    private SimpleDateFormat dateFormatter;
+    private DatePickerDialog fromDatePickerDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -97,6 +98,8 @@ public class ProductRegistration extends Fragment {
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
        // setRefershData();
+
+        prefs = new AppPrefs(getContext());
 
         l_login=(LinearLayout)rootView.findViewById(R.id.login_layout);
         l_wlogin=(LinearLayout)rootView.findViewById(R.id.without_login);
@@ -129,11 +132,6 @@ public class ProductRegistration extends Fragment {
 
 
         fetchID();
-
-
-
-
-
 
         return  rootView;
     }
@@ -407,11 +405,114 @@ public class ProductRegistration extends Fragment {
         return matcher.matches();
 
     }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(getActivity());
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            email_id = user_array_from_db.get(i).getEmail_id();
+            phone_no = user_array_from_db.get(i).getPhone_no();
+            f_name = user_array_from_db.get(i).getF_name();
+            l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // See which child activity is calling us back.
+        if (requestCode == RQS_GET_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                curFileName = data.getStringExtra("GetFileName");
+                //Log.e("1", curFileName.toString());
+                String filename = curFileName;
+                String filePath = data.getStringExtra("GetPath");
+                FilePathsend = filePath;
+                FileNamesend = filename;
+                String filenameArray[] = filename.split("\\.");
+                String extension = filenameArray[filenameArray.length - 1];
+
+                if (extension.equalsIgnoreCase("pdf")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("doc")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("docx")) {
+                    txt_photo.setText("File name : " + curFileName);
+                }/*else if(extension.equalsIgnoreCase("txt")){
+                    txt_photo.setText("File name : "+curFileName);
+                }else if(extension.equalsIgnoreCase("rtf")){
+                    txt_photo.setText("File name : "+curFileName);
+                }*/ else if (extension.equalsIgnoreCase("png")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("jpg")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else if (extension.equalsIgnoreCase("jpeg")) {
+                    txt_photo.setText("File name : " + curFileName);
+                } else {
+                    txt_photo.setText("");
+                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
+                }
+
+
+            }
+        }
+    }
+
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -501,10 +602,24 @@ public class ProductRegistration extends Fragment {
                                 statename.add(sname);
                                 stateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, statename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spn_pro_reg_state.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, statename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spn_pro_reg_state.setAdapter(adapter_state);
+
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                Log.e("Entered", "To check " + BTL.addressList.get(0).getState_id());
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                spn_pro_reg_state.setSelection(pos);
 
                             }
                         }
@@ -518,11 +633,12 @@ public class ProductRegistration extends Fragment {
 
         }
     }
+
     public class get_produt_data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -633,11 +749,12 @@ public class ProductRegistration extends Fragment {
 
         }
     }
+
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -728,11 +845,22 @@ public class ProductRegistration extends Fragment {
                                 cityname.add(cname);
                                 cityid.add(cId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, cityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spn_pro_reg_city.setAdapter(adapter_city);
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spn_pro_reg_city.setAdapter(adapter_city);
 
+                            if (isFirstTime && BTL.addressList.size() > 0 && (!prefs.getUserRoleId().equals(C.ADMIN) && !prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && !prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                isFirstTime = false;
+                                spn_pro_reg_city.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();
@@ -745,11 +873,12 @@ public class ProductRegistration extends Fragment {
 
         }
     }
+
     public class submit_Product extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -863,108 +992,6 @@ public class ProductRegistration extends Fragment {
                 j.printStackTrace();
             }
 
-        }
-    }
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(getActivity());
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-             email_id = user_array_from_db.get(i).getEmail_id();
-             phone_no =user_array_from_db.get(i).getPhone_no();
-             f_name = user_array_from_db.get(i).getF_name();
-             l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-             city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        // See which child activity is calling us back.
-        if (requestCode == RQS_GET_IMAGE){
-            if (resultCode == RESULT_OK) {
-                curFileName = data.getStringExtra("GetFileName");
-                //Log.e("1", curFileName.toString());
-                String filename = curFileName;
-                String filePath = data.getStringExtra("GetPath");
-                FilePathsend = filePath;
-                FileNamesend = filename;
-                String filenameArray[] = filename.split("\\.");
-                String extension = filenameArray[filenameArray.length-1];
-
-                if(extension.equalsIgnoreCase("pdf")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("doc")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("docx")){
-                    txt_photo.setText("File name : "+curFileName);
-                }/*else if(extension.equalsIgnoreCase("txt")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("rtf")){
-                    txt_photo.setText("File name : "+curFileName);
-                }*/else if(extension.equalsIgnoreCase("png")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("jpg")){
-                    txt_photo.setText("File name : "+curFileName);
-                }else if(extension.equalsIgnoreCase("jpeg")){
-                    txt_photo.setText("File name : "+curFileName);
-                }
-                else{
-                    txt_photo.setText("");
-                    //Globals.CustomToast(getActivity(), "Please Select Pdf File", getActivity().getLayoutInflater());
-                }
-
-
-
-            }
         }
     }
 }

@@ -209,11 +209,11 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
             edt_jointVisitWith.setText(unregisteredUser.getJoint_visit_with());
         } else {
             edt_firmName.setText(subUserData.getDistributor().getFirm_name());
-            if (subUserData.getAddressList().size() > 0) {
-                edt_addrLine1.setText(subUserData.getAddressList().get(0).getAddress_1());
-                edt_addrLine2.setText(subUserData.getAddressList().get(0).getAddress_2());
-                edt_addrLine3.setText(subUserData.getAddressList().get(0).getAddress_3());
-                edt_pincode.setText(subUserData.getAddressList().get(0).getPincode());
+            if (subUserData.getAddress().size() > 0) {
+                edt_addrLine1.setText(subUserData.getAddress().get(0).getAddress_1());
+                edt_addrLine2.setText(subUserData.getAddress().get(0).getAddress_2());
+                edt_addrLine3.setText(subUserData.getAddress().get(0).getAddress_3());
+                edt_pincode.setText(subUserData.getAddress().get(0).getPincode());
             }
             edt_emailID.setText(subUserData.getUser().getEmail_id());
             edt_mobile.setText(subUserData.getUser().getPhone_no());
@@ -283,7 +283,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 } else if (!isInEditMode && isFirstTime) {
                     int pos = 0;
                     for (int i = 0; i < countryList.size(); i++) {
-                        if (countryList.get(i).getId().equals(subUserData.getAddressList().get(0).getCountry_id())) {
+                        if (countryList.get(i).getId().equals(subUserData.getAddress().get(0).getCountry_id())) {
                             pos = i;
                             break;
                         }
@@ -359,7 +359,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                                 int pos = 0;
                                 for (int i = 0; i < stateList.size(); i++) {
                                     try {
-                                        if (stateList.get(i).getId().equals(subUserData.getAddressList().get(0).getState_id())) {
+                                        if (stateList.get(i).getId().equals(subUserData.getAddress().get(0).getState_id())) {
                                             pos = i;
                                             break;
                                         }
@@ -614,7 +614,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 } else if (!isInEditMode && isFirstTime) {
                     int pos = 0;
                     for (int i = 0; i < cityList.size(); i++) {
-                        if (cityList.get(i).getId().equals(subUserData.getAddressList().get(0).getCity_id())) {
+                        if (cityList.get(i).getId().equals(subUserData.getAddress().get(0).getCity_id())) {
                             pos = i;
                             break;
                         }
@@ -673,7 +673,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 } else if (!isInEditMode && isFirstTime) {
                     int pos = 0;
                     for (int i = 0; i < areaList.size(); i++) {
-                        if (areaList.get(i).getId().equals(subUserData.getAddressList().get(0).getArea_id())) {
+                        if (areaList.get(i).getId().equals(subUserData.getAddress().get(0).getArea_id())) {
                             pos = i;
                             break;
                         }

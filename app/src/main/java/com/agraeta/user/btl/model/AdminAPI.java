@@ -151,6 +151,10 @@ public interface AdminAPI {
     @POST(Globals.ADD_OTHER_CITY)
     Call<AppModel> addOtherCity(@Field("state_id") String stateID, @Field("city_name") String cityName);
 
+    @FormUrlEncoded
+    @POST(Globals.ADD_OTHER_AREA)
+    Call<AppModel> addOtherArea(@Field("city_id") String cityID, @Field("area_name") String areaName);
+
     @Multipart
     @POST(Globals.ADD_UNREGISTERED_USER)
     Call<AppModel> addUnRegisteredUser(@Part("sales_person_id") String salesPersonID, @Part("firm_name") String firmName, @Part("address_1") String addr1, @Part("address_2") String addr2, @Part("address_3") String addr3, @Part("country") String country, @Part("state") String state, @Part("city") String city, @Part("area") String area, @Part("pincode") String pincode, @Part("contact_person") String contact_person, @Part("email") String email, @Part("mobile_no") String mobile_no, @Part("party_report") String party_report, @Part("dealing_in_brand") String dealing_in_brand, @Part("customer_type") String customer_type, @Part("comments") String comments, @Part("joint_visit_with") String joint_visit_with, @Part("tour_id") String tourID, @Part List<MultipartBody.Part> files);
@@ -219,4 +223,8 @@ public interface AdminAPI {
 
     @POST(Globals.CATALOG_LIST)
     Call<CatalogResponse> catalogResponseCall();
+
+    @FormUrlEncoded
+    @POST(Globals.USER_INFO)
+    Call<UserDetailResponse> getUserDetail(@Field("user_id") String userID);
 }

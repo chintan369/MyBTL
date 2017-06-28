@@ -2,7 +2,6 @@ package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.model.OrderListItem;
 import com.agraeta.user.btl.model.enquiries.ProductEnquiryDetail;
 
 import java.util.ArrayList;
@@ -89,11 +87,6 @@ public class ProductEnquiryListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class OrderHolder{
-        TextView txt_userName,txt_mobileNo,txt_onDate;
-        ImageView img_info;
-    }
-
     private void showInformationDialog(int position){
         View dialogView=inflater.inflate(R.layout.layout_dialog_enquiry_info,null);
 
@@ -103,9 +96,12 @@ public class ProductEnquiryListAdapter extends BaseAdapter {
         TextView txt_city=(TextView) dialogView.findViewById(R.id.txt_city);
         TextView txt_state=(TextView) dialogView.findViewById(R.id.txt_state);
         TextView txt_productName=(TextView) dialogView.findViewById(R.id.txt_productName);
+        TextView txt_labelEnquiry = (TextView) dialogView.findViewById(R.id.txt_labelEnquiry);
         TextView txt_comment=(TextView) dialogView.findViewById(R.id.txt_comment);
         TextView txt_onDate=(TextView) dialogView.findViewById(R.id.txt_onDate);
         LinearLayout layout_companyName=(LinearLayout) dialogView.findViewById(R.id.layout_companyName);
+
+        txt_labelEnquiry.setText("Query");
 
         layout_companyName.setVisibility(View.GONE);
 
@@ -132,5 +128,10 @@ public class ProductEnquiryListAdapter extends BaseAdapter {
         });
 
         dialog.show();
+    }
+
+    private class OrderHolder {
+        TextView txt_userName, txt_mobileNo, txt_onDate;
+        ImageView img_info;
     }
 }
