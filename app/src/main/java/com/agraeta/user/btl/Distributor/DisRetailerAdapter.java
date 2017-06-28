@@ -3,7 +3,6 @@ package com.agraeta.user.btl.Distributor;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -181,125 +180,6 @@ public class DisRetailerAdapter extends BaseAdapter {
         Log.d("Size in Adapter",disRetList.size()+"");
     }
 
-    public class GetDisRetStatus extends AsyncTask<Void,Void,String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-        Custom_ProgressDialog loadingView;
-
-
-
-        //        public GetDisSalesData(Activity activity,int distributor_id){
-//            this.activity=activity;
-//            this.distributor_id=distributor_id;
-//        }
-       /* public GetDisProfStatus(Context context,String disUserID, String statusd){
-            activity=activity;
-            this.context=context;
-            this.disUserID=disUserID;
-            this.statusd=statusd;
-        }*/
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(activity, "");
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-                // parameters.add(new BasicNameValuePair("distributor_id", String.valueOf(distributor_id)));
-                parameters.add(new BasicNameValuePair("user_id",disUserID));
-                parameters.add(new BasicNameValuePair("status",statusD));
-
-                //Log.e("urvi",""+disUserID);
-                //Log.e("urvi",""+statusD);
-
-                ////Log.e("distributor id", "" + distributor_id+"");
-               /* //Log.e("user id", "11");
-                //Log.e("status ", "" + statusd+"");*/
-
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"User/App_Update_User_Status",ServiceHandler.POST,parameters);
-
-                //System.out.println("Data From Server " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-               // System.out.println("Exception " + e.toString());
-
-                return json;
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(String jsonData) {
-            jsonPerson=jsonData;
-
-            //Log.e("json",jsonData);
-
-            if(!jsonData.equalsIgnoreCase("")){
-                try {
-
-
-                    //System.out.println(jsonData);
-
-                    if (jsonData.equalsIgnoreCase("")
-                            || (jsonData.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                        Globals.CustomToast(activity, "SERVER ERRER", activity.getLayoutInflater());
-                        loadingView.dismiss();
-
-                    } else {
-                        JSONObject jObj = new JSONObject(jsonData);
-
-                        boolean date = jObj.getBoolean("status");
-
-                        if (date == false) {
-                            String Message = jObj.getString("message");
-
-                            Globals.CustomToast(activity, "" + Message, activity.getLayoutInflater());
-                            loadingView.dismiss();
-                           /* Intent i = new Intent(activity, DisRetailerListActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            activity.startActivity(i);*/
-                        } else {
-                            String Message = jObj.getString("message");
-                            Globals.CustomToast(activity, "" + Message, activity.getLayoutInflater());
-                            loadingView.dismiss();
-                          /*  Intent i = new Intent(activity, DisRetailerListActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            activity.startActivity(i);*/
-                        }
-
-                    }
-                }
-                catch (Exception j)
-                {
-                    j.printStackTrace();
-                }
-            }
-            loadingView.dismiss();
-            //refreshLayout.setRefreshing(false);
-
-        }
-    }
-
     private void showDetailInfoDialog(int position) {
 
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -436,18 +316,138 @@ public class DisRetailerAdapter extends BaseAdapter {
 
     }
 
-    public class GetDisRetInformation extends AsyncTask<Void,Void,String> {
-        boolean status;
-        private String result;
+    public void updateData(List<Bean_Dis_Retailer> disRetList) {
+        this.disRetList = disRetList;
+        notifyDataSetChanged();
+    }
+
+    public class GetDisRetStatus extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
+        boolean status;
+        Custom_ProgressDialog loadingView;
+        private String result;
         private InputStream is;
 
+
+        //        public GetDisSalesData(Activity activity,int distributor_id){
+//            this.activity=activity;
+//            this.distributor_id=distributor_id;
+//        }
+       /* public GetDisProfStatus(Context context,String disUserID, String statusd){
+            activity=activity;
+            this.context=context;
+            this.disUserID=disUserID;
+            this.statusd=statusd;
+        }*/
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(activity, "");
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                // parameters.add(new BasicNameValuePair("distributor_id", String.valueOf(distributor_id)));
+                parameters.add(new BasicNameValuePair("user_id", disUserID));
+                parameters.add(new BasicNameValuePair("status", statusD));
+
+                //Log.e("urvi",""+disUserID);
+                //Log.e("urvi",""+statusD);
+
+                ////Log.e("distributor id", "" + distributor_id+"");
+               /* //Log.e("user id", "11");
+                //Log.e("status ", "" + statusd+"");*/
+
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_Update_User_Status", ServiceHandler.POST, parameters);
+
+                //System.out.println("Data From Server " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                // System.out.println("Exception " + e.toString());
+
+                return json;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String jsonData) {
+            jsonPerson = jsonData;
+
+            //Log.e("json",jsonData);
+
+            if (!jsonData.equalsIgnoreCase("")) {
+                try {
+
+
+                    //System.out.println(jsonData);
+
+                    if (jsonData.equalsIgnoreCase("")
+                            || (jsonData.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                        Globals.CustomToast(activity, "SERVER ERROR", activity.getLayoutInflater());
+                        loadingView.dismiss();
+
+                    } else {
+                        JSONObject jObj = new JSONObject(jsonData);
+
+                        boolean date = jObj.getBoolean("status");
+
+                        if (!date) {
+                            String Message = jObj.getString("message");
+
+                            Globals.CustomToast(activity, "" + Message, activity.getLayoutInflater());
+                            loadingView.dismiss();
+                           /* Intent i = new Intent(activity, DisRetailerListActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            activity.startActivity(i);*/
+                        } else {
+                            String Message = jObj.getString("message");
+                            Globals.CustomToast(activity, "" + Message, activity.getLayoutInflater());
+                            loadingView.dismiss();
+                          /*  Intent i = new Intent(activity, DisRetailerListActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            activity.startActivity(i);*/
+                        }
+
+                    }
+                } catch (Exception j) {
+                    j.printStackTrace();
+                }
+            }
+            loadingView.dismiss();
+            //refreshLayout.setRefreshing(false);
+
+        }
+    }
+
+    public class GetDisRetInformation extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         //int distributor_id;
         String user_id;
         //String role_id;
         String jsonData="";
+        private String result;
+        private InputStream is;
 
         //        public GetDisSalesData(Activity activity,int distributor_id){
 //            this.activity=activity;
@@ -603,11 +603,6 @@ public class DisRetailerAdapter extends BaseAdapter {
             loadingView.dismiss();
             showDetailInfoDialog(position);
         }
-    }
-
-    public void updateData(List<Bean_Dis_Retailer> disRetList) {
-        this.disRetList=disRetList;
-        notifyDataSetChanged();
     }
 
 

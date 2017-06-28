@@ -47,26 +47,26 @@ public class Seller extends User implements Serializable {
     }
 
     public String getPan_no() {
-        return pan_no;
+        return pan_no == null ? "" : pan_no;
     }
 
     public String getService_tax_no() {
-        return service_tax_no;
+        return service_tax_no == null ? "" : service_tax_no;
     }
 
     public String getVat_tin_no() {
-        return vat_tin_no;
+        return vat_tin_no == null ? "" : vat_tin_no;
     }
 
     public String getUpload_pan() {
-        return upload_pan;
+        return upload_pan == null ? "" : upload_pan;
     }
 
     public String getUpload_service_tax() {
-        return upload_service_tax;
+        return upload_service_tax == null ? "" : upload_service_tax;
     }
 
     public String getUpload_vat_tin() {
-        return upload_vat_tin;
+        return upload_vat_tin == null ? "" : upload_vat_tin;
     }
 }

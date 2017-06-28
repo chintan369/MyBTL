@@ -61,6 +61,7 @@ public class QuotationHistoryAdapter extends BaseAdapter {
         TextView txt_takenBy = (TextView) view.findViewById(R.id.txt_takenBy);
         TextView t_emailto = (TextView) view.findViewById(R.id.t_emailto);
         TextView t_emailcc = (TextView) view.findViewById(R.id.t_emailcc);
+        TextView t_date = (TextView) view.findViewById(R.id.t_date);
 
         img_reOrderAll.setVisibility(View.GONE);
         im_pdf.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,7 @@ public class QuotationHistoryAdapter extends BaseAdapter {
 
         t_emailto.setText(quotationDataList.get(position).getQuotation().getEmail_id());
         t_emailcc.setText(quotationDataList.get(position).getQuotation().getEmail_cc());
+        t_date.setText(quotationDataList.get(position).getQuotation().getCreated());
 
 
         return view;

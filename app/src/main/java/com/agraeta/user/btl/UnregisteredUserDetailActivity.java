@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.admin.SingleImageViewerActivity;
 import com.agraeta.user.btl.model.UnregisteredUserData;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +71,7 @@ public class UnregisteredUserDetailActivity extends AppCompatActivity {
         img_attachment3=(ImageView) findViewById(R.id.img_attachment3);
         img_attachment4=(ImageView) findViewById(R.id.img_attachment4);
 
-        UnregisteredUserData.UnregisteredUser user=userData.getUnRegisteredUser();
+        final UnregisteredUserData.UnregisteredUser user = userData.getUnRegisteredUser();
 
         txt_firmName.setText(user.getFirm_name().isEmpty() ? "N/A" : user.getFirm_name());
         txt_addrLine1.setText(user.getAddress_1().isEmpty() ? "N/A" : user.getAddress_1());
@@ -136,6 +137,55 @@ public class UnregisteredUserDetailActivity extends AppCompatActivity {
                 }
             }
         }
+
+        img_attachment1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getAttachment1());
+            }
+        });
+
+        img_attachment2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getAttachment2());
+            }
+        });
+
+        img_attachment3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getAttachment3());
+            }
+        });
+
+        img_attachment4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getAttachment4());
+            }
+        });
+
+        img_visitingFront.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getVisiting_card1());
+            }
+        });
+
+        img_visitingBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + user.getVisiting_card2());
+            }
+        });
+    }
+
+    public void showFullImageView(String path) {
+        Intent intent = new Intent(this, SingleImageViewerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("path", path);
+        startActivity(intent);
     }
 
     private void setActionBar() {

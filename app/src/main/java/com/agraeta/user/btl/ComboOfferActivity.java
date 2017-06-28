@@ -139,7 +139,7 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
                 int requiredMinQty = Integer.parseInt(offerDetail.getComboData().getOfferItem().getMinQty());
 
                 if (totalQty < requiredMinQty) {
-                    Globals.Toast2(getApplicationContext(), "Total Quantity should be Min " + requiredMinQty);
+                    Globals.Toast2(getApplicationContext(), "Total Quantity should be Min. " + requiredMinQty);
                     return;
                 }
 

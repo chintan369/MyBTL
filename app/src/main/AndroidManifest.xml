@@ -554,6 +554,8 @@
         </activity>
         <activity android:name=".admin.QuotationListActivity">
         </activity>
+        <activity android:name=".admin.SingleImageViewerActivity">
+        </activity>
     </application>
 
 </manifest>

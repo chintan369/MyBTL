@@ -100,7 +100,7 @@
                 android:background="@drawable/border_slider"
                 android:drawableLeft="@drawable/ic_flag"
                 android:inputType="number"
-                android:maxLength="14"
+                android:maxLength="10"
                 android:textSize="14sp"/>
 
             <TextView

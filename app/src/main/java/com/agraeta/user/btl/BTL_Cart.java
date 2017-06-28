@@ -2905,6 +2905,8 @@ public class BTL_Cart extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(result_1);
 
                     String date = jObj.getString("status");
+                    quotationID = jObj.getString("quotation_id");
+
 
                     if (date.equalsIgnoreCase("false")) {
                         String Message = jObj.getString("message");
@@ -2913,6 +2915,11 @@ public class BTL_Cart extends AppCompatActivity {
                         loadingView.dismiss();
                         btn_deleteAll.setVisibility(View.GONE);
                         setdata();
+
+                        if (quotationID.isEmpty()) {
+                            my_quotation.setVisibility(View.GONE);
+                        }
+
                     } else {
 
 
@@ -2921,7 +2928,6 @@ public class BTL_Cart extends AppCompatActivity {
 
                         JSONArray jsonArray = jObj.optJSONArray("data");
                         JSONArray comboArray = jObj.optJSONArray("combo_cart");
-                        quotationID=jObj.getString("quotation_id");
 
                         String minOrderValueGiven = jObj.getString("minimum_order_value");
 

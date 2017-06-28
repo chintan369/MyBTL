@@ -2,11 +2,14 @@ package com.agraeta.user.btl;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
@@ -38,6 +41,7 @@ public class AddOtherProductForQuotation extends AppCompatActivity {
         Intent intent=getIntent();
         quotationID=intent.getStringExtra("quotationID");
 
+        setActionBar();
         fetchIDs();
     }
 
@@ -253,14 +257,49 @@ public class AddOtherProductForQuotation extends AppCompatActivity {
         db.close();
     }
 
-    public class Add_Product extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
+    private void setActionBar() {
 
-        String data="";
+        // TODO Auto-generated method stub
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        img_notification.setVisibility(View.GONE);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.GONE);
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+        img_home.setVisibility(View.GONE);
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        String data = "";
         Custom_ProgressDialog loadingView;
+        private String result;
+        private InputStream is;
 
         public Add_Product(String data) {
             this.data = data;
@@ -341,11 +380,5 @@ public class AddOtherProductForQuotation extends AppCompatActivity {
             }
 
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        setResult(RESULT_OK);
-        finish();
     }
 }

@@ -529,6 +529,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
                     final RadioButton rb = new RadioButton(CheckoutPage_Product.this);
                     rg.addView(rb);
 
+                    if (array_address.get(i).getAddress_id().equals(selected_shipping_address_id)) {
+                        rb.setChecked(true);
+                    }
+
                     rb.setText(array_final_address.get(i));
                     rb.setTag(array_address.get(i).getAddress_id());
                     rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -551,35 +555,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-        //Log.e("", "User Id before web services " + user_data.get(0).getUser_id());
-
-      /*  for (int i = 0; i < user_data.size(); i++) {
-
-            user_id = user_data.get(i).getUser_id().toString();
-
-            role_id = user_data.get(i).getUser_type().toString();
-
-            tv_user_name_billing.setText(user_data.get(0).getF_name());
-            tv_user_name_delivery.setText(user_data.get(0).getF_name());
-            tv_number_billing.setText(user_data.get(0).getPhone_no());
-            tv_number_delivery.setText(user_data.get(0).getPhone_no());
-
-            if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                appPrefs = new AppPrefs(CheckoutPage_Product.this);
-                role_id = appPrefs.getSubSalesId().toString();
-                user_id = appPrefs.getSalesPersonId().toString();
-
-//                tv_user_name_billing.setText(array_address.get(0).getFirstName());
-//                tv_user_name_delivery.setText(array_address.get(0).getFirstName());
-//                tv_number_billing.setText(array_address.get(0).getMobile());
-//                tv_number_delivery.setText(array_address.get(0).getMobile());
-            }
-
-        }*/
-
-        //Log.e("USERIDDD", "" + user_id);
 
         new get_address_list().execute();
 
@@ -1403,7 +1378,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                 float itemTotal = Float.parseFloat(bean_cart_data.get(position).getItem_total());
                 if (itemTotal <= 0) {
-                    txt_scheme.setText("FREE");
+                    txt_discount.setText("FREE");
+                    l_cal.setVisibility(View.GONE);
+                    l_cal_qty.setVisibility(View.VISIBLE);
                     layout_productItem.addView(convertView);
                     continue;
                 }

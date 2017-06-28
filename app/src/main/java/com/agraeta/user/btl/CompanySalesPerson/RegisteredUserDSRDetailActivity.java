@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
+import com.agraeta.user.btl.admin.SingleImageViewerActivity;
 import com.agraeta.user.btl.model.RegisteredUserData;
 import com.squareup.picasso.Picasso;
 
@@ -75,7 +76,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         img_attachment3=(ImageView) findViewById(R.id.img_attachment3);
         img_attachment4=(ImageView) findViewById(R.id.img_attachment4);
 
-        RegisteredUserData.OrderReason orderReason=userData.getOrderReason();
+        final RegisteredUserData.OrderReason orderReason = userData.getOrderReason();
 
         txt_firmName.setText(orderReason.getFirm_name().isEmpty() ? "N/A" : orderReason.getFirm_name());
         txt_addrLine1.setText(orderReason.getAddress_1().isEmpty() ? "N/A" : orderReason.getAddress_1());
@@ -146,6 +147,55 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
                 }
             }
         }
+
+        img_attachment1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getAttachment1());
+            }
+        });
+
+        img_attachment2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getAttachment2());
+            }
+        });
+
+        img_attachment3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getAttachment3());
+            }
+        });
+
+        img_attachment4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getAttachment4());
+            }
+        });
+
+        img_visitingFront.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getVisiting_card1());
+            }
+        });
+
+        img_visitingBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFullImageView(Globals.server_link + orderReason.getVisiting_card2());
+            }
+        });
+    }
+
+    public void showFullImageView(String path) {
+        Intent intent = new Intent(this, SingleImageViewerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("path", path);
+        startActivity(intent);
     }
 
     private void setActionBar() {

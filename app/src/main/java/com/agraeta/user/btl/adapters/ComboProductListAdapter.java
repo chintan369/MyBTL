@@ -1,6 +1,7 @@
 package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,13 +67,6 @@ public class ComboProductListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private class ViewHolder {
-        CheckBox chk_product;
-        TextView txt_product,txt_productCode, txt_packOf, txt_sellingPrice,txt_mrpPrice;
-        ImageView img_minus, img_plus;
-        EditText edt_qty;
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -98,6 +91,8 @@ public class ComboProductListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.txt_mrpPrice.setPaintFlags(holder.txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         holder.txt_product.setText(comboProductList.get(position).getProduct().getProductName());
         holder.txt_productCode.setText(comboProductList.get(position).getProduct().getProductCode());
@@ -238,11 +233,6 @@ public class ComboProductListAdapter extends BaseAdapter {
         productChangeListener.onQunatityChanged(totalQuantity);
     }
 
-    public void setBreakPoint(int breakPoint){
-        this.breakPoint=breakPoint;
-        notifyDataSetChanged();
-    }
-
     public int getBreakPoint(){
         int breakPoint=-1;
 
@@ -270,6 +260,11 @@ public class ComboProductListAdapter extends BaseAdapter {
 
 
         return breakPoint;
+    }
+
+    public void setBreakPoint(int breakPoint) {
+        this.breakPoint = breakPoint;
+        notifyDataSetChanged();
     }
 
     public int getTotalQuantity(){
@@ -308,5 +303,12 @@ public class ComboProductListAdapter extends BaseAdapter {
         }
 
         return productList;
+    }
+
+    private class ViewHolder {
+        CheckBox chk_product;
+        TextView txt_product, txt_productCode, txt_packOf, txt_sellingPrice, txt_mrpPrice;
+        ImageView img_minus, img_plus;
+        EditText edt_qty;
     }
 }
