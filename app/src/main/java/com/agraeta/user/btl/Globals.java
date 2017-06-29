@@ -64,6 +64,7 @@ public class Globals {
     public static final String COMBO_LIST="ComboPack/App_Get_ComboPacks";
     public static final String COMBO_DETAIL="ComboPack/App_Get_ComboPacks_Details";
     public static final String ADD_COMBO="ComboCart/App_AddComboCart";
+    public static final String GET_COMBO_CART_ID = "ComboCart/App_Get_Combo_Cart_ID";
     public static final String DELETE_COMBO="ComboCart/App_Delete_ComboCart";
     public static final String EDIT_COMBO_DETAIL="ComboCart/App_Get_ComboCart";
     public static final String COUNTRY_LIST = "Country/App_GetCountry";

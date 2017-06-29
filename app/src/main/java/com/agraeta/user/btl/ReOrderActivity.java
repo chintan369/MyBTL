@@ -2,15 +2,14 @@ package com.agraeta.user.btl;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -31,9 +30,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-
-import static com.google.android.gms.analytics.internal.zzy.i;
 
 public class ReOrderActivity extends AppCompatActivity implements Callback<AppModel> {
 
@@ -55,11 +51,10 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
     AppPrefs prefs;
 
     Call<AppModel> reOrderDataCall;
+    Custom_ProgressDialog dialog;
     private String user_id_main = "";
     private String role_id = "";
     private String ownerID = "";
-
-    Custom_ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,149 +165,6 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
         Globals.showError(t, this);
     }
 
-    private class GetProductDetails extends AsyncTask<Void, Void, String> {
-
-        Custom_ProgressDialog dialog;
-        String productIDs = "";
-
-        GetProductDetails(String productIDs) {
-            this.productIDs = productIDs;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dialog = new Custom_ProgressDialog(ReOrderActivity.this, "Please wait...");
-            dialog.setCancelable(false);
-            dialog.show();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            List<NameValuePair> pairList = new ArrayList<>();
-            pairList.add(new BasicNameValuePair("user_id", user_id_main));
-            pairList.add(new BasicNameValuePair("role_id", role_id));
-            pairList.add(new BasicNameValuePair("product_ids", productIDs));
-
-            Log.e("Params", pairList.toString());
-
-            String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.REORDER_PRODUCTS, ServiceHandler.POST, pairList);
-
-            return json;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            dialog.dismiss();
-            productList.clear();
-            reOrderGridAdapter.notifyDataSetChanged();
-
-            int nonMRPProductCount=0;
-            int totalProductCount=0;
-
-            try {
-
-                JSONObject object = new JSONObject(s);
-
-                if (object.getBoolean("status")) {
-                    JSONArray data = object.getJSONArray("data");
-
-                    totalProductCount=data.length();
-
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject main = data.getJSONObject(i);
-
-                        JSONObject Product = main.getJSONObject("Product");
-                        JSONObject Label = main.getJSONObject("Label");
-                        JSONArray Scheme = main.getJSONArray("Scheme");
-
-                        float mrpPrice=Float.parseFloat(Product.getString("mrp"));
-
-                        if(mrpPrice>0) {
-
-
-                            Bean_Product product = new Bean_Product();
-                            product.setPro_id(Product.getString("id"));
-                            product.setPro_cat_id(Product.getString("category_id"));
-                            product.setPro_code(Product.getString("product_code"));
-                            product.setPro_name(Product.getString("product_name"));
-                            product.setPro_mrp(Product.getString("mrp"));
-
-
-                            product.setPro_sellingprice(Product.getString("selling_price"));
-                            product.setPackQty(Integer.parseInt(Product.getString("pack_of_qty")));
-                            product.setPro_image(Product.getString("image"));
-
-                            for (int k = 0; k < productIDArray.size(); k++) {
-                                if (productIDArray.get(k).equals(product.getPro_id())) {
-                                    product.setPro_qty(productQtyArray.get(k));
-                                    product.setOptionID(productOptionIDArray.get(k));
-                                    product.setOptionName(productOptionNameArray.get(k));
-                                    product.setOptionValueID(productOptionValueIDArray.get(k));
-                                    product.setOptionValueName(productOptionValueNameArray.get(k));
-                                    break;
-                                }
-                            }
-
-                            product.setPro_label(Label.getString("name"));
-
-                            ArrayList<Bean_schemeData> schemeList = new ArrayList<>();
-
-                            for (int j = 0; j < Scheme.length(); j++) {
-
-                                JSONObject schemeObj = Scheme.getJSONObject(j);
-
-                                Bean_schemeData scheme = new Bean_schemeData();
-                                scheme.setSchme_id(schemeObj.getString("id"));
-                                scheme.setSchme_name(schemeObj.getString("scheme_name"));
-                                scheme.setCategory_id(schemeObj.getString("category_id"));
-                                scheme.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
-                                scheme.setSchme_qty(schemeObj.getString("buy_prod_qty"));
-
-                                schemeList.add(scheme);
-                            }
-
-                            product.setSchemeList(schemeList);
-
-                            productList.add(product);
-
-                        }
-                        else {
-                            nonMRPProductCount++;
-                        }
-
-                    }
-                } else {
-                    Globals.CustomToast(getApplicationContext(), object.getString("message"), getLayoutInflater());
-                }
-
-            } catch (JSONException j) {
-                Log.e("Exception", j.getMessage());
-            }
-
-            reOrderGridAdapter.notifyDataSetChanged();
-
-            if(totalProductCount>0 && nonMRPProductCount>0){
-                String message="";
-                if(totalProductCount<=1){
-                    message = "Sorry, It might Product is not available at BTL Store!";
-                }
-                else {
-                    message = "Few products are not available at BTL Store!";
-                }
-
-                Globals.Toast2(getApplicationContext(),message);
-
-                if(totalProductCount<=1 || totalProductCount==nonMRPProductCount){
-                    onBackPressed();
-                }
-            }
-        }
-    }
-
     private void setActionBar() {
 
         // TODO Auto-generated method stub
@@ -409,5 +261,150 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
 
         }
         db.close();
+    }
+
+    private class GetProductDetails extends AsyncTask<Void, Void, String> {
+
+        Custom_ProgressDialog dialog;
+        String productIDs = "";
+
+        GetProductDetails(String productIDs) {
+            this.productIDs = productIDs;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new Custom_ProgressDialog(ReOrderActivity.this, "Please wait...");
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            List<NameValuePair> pairList = new ArrayList<>();
+            pairList.add(new BasicNameValuePair("user_id", user_id_main));
+            pairList.add(new BasicNameValuePair("role_id", role_id));
+            pairList.add(new BasicNameValuePair("product_ids", productIDs));
+
+            Log.e("Params", pairList.toString());
+
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.REORDER_PRODUCTS, ServiceHandler.POST, pairList);
+
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            dialog.dismiss();
+            productList.clear();
+            reOrderGridAdapter.notifyDataSetChanged();
+
+            int nonMRPProductCount=0;
+            int totalProductCount=0;
+
+            try {
+
+                JSONObject object = new JSONObject(s);
+
+                if (object.getBoolean("status")) {
+                    JSONArray data = object.getJSONArray("data");
+
+                    totalProductCount=data.length();
+
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject main = data.getJSONObject(i);
+
+                        JSONObject Product = main.getJSONObject("Product");
+                        JSONObject Label = main.getJSONObject("Label");
+                        JSONArray Scheme = main.getJSONArray("Scheme");
+
+                        float mrpPrice=Float.parseFloat(Product.getString("mrp"));
+
+                        if(mrpPrice>0) {
+
+
+                            Bean_Product product = new Bean_Product();
+                            product.setPro_id(Product.getString("id"));
+                            product.setPro_cat_id(Product.getString("category_id"));
+                            product.setPro_code(Product.getString("product_code"));
+                            product.setPro_name(Product.getString("product_name"));
+                            product.setPro_mrp(Product.getString("mrp"));
+
+
+                            product.setPro_sellingprice(Product.getString("selling_price"));
+                            product.setPackQty(Integer.parseInt(Product.getString("pack_of_qty")));
+                            product.setPro_image(Product.getString("image"));
+
+                            int productQty = 0;
+                            for (int k = 0; k < productIDArray.size(); k++) {
+                                if (productIDArray.get(k).equals(product.getPro_id())) {
+                                    productQty += Integer.parseInt(productQtyArray.get(k));
+                                    product.setOptionID(productOptionIDArray.get(k));
+                                    product.setOptionName(productOptionNameArray.get(k));
+                                    product.setOptionValueID(productOptionValueIDArray.get(k));
+                                    product.setOptionValueName(productOptionValueNameArray.get(k));
+                                }
+                            }
+
+                            product.setPro_qty(String.valueOf(productQty));
+
+                            product.setPro_label(Label.getString("name"));
+
+                            ArrayList<Bean_schemeData> schemeList = new ArrayList<>();
+
+                            for (int j = 0; j < Scheme.length(); j++) {
+
+                                JSONObject schemeObj = Scheme.getJSONObject(j);
+
+                                Bean_schemeData scheme = new Bean_schemeData();
+                                scheme.setSchme_id(schemeObj.getString("id"));
+                                scheme.setSchme_name(schemeObj.getString("scheme_name"));
+                                scheme.setCategory_id(schemeObj.getString("category_id"));
+                                scheme.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
+                                scheme.setSchme_qty(schemeObj.getString("buy_prod_qty"));
+
+                                schemeList.add(scheme);
+                            }
+
+                            product.setSchemeList(schemeList);
+
+                            productList.add(product);
+
+                        }
+                        else {
+                            nonMRPProductCount++;
+                        }
+
+                    }
+                } else {
+                    Globals.CustomToast(getApplicationContext(), object.getString("message"), getLayoutInflater());
+                }
+
+            } catch (JSONException j) {
+                Log.e("Exception", j.getMessage());
+            }
+
+            reOrderGridAdapter.notifyDataSetChanged();
+
+            if(totalProductCount>0 && nonMRPProductCount>0){
+                String message="";
+                if(totalProductCount<=1){
+                    message = "Sorry, It might Product is not available at BTL Store!";
+                }
+                else {
+                    message = "Few products are not available at BTL Store!";
+                }
+
+                Globals.Toast2(getApplicationContext(),message);
+
+                if(totalProductCount<=1 || totalProductCount==nonMRPProductCount){
+                    onBackPressed();
+                }
+            }
+        }
     }
 }

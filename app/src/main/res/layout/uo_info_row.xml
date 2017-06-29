@@ -204,7 +204,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="2dp"
-            android:src="@drawable/reoderall"/>
+            android:src="@drawable/reoderall"
+            android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
     <View

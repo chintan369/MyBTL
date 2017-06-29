@@ -82,7 +82,7 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
         final ImageView img_option;
         img_option = (ImageView) view.findViewById(R.id.option_icon);
 
-        txtName.setText(salesComapnyPerson.getFirstname() + " " + salesComapnyPerson.getLastname());
+        txtName.setText(salesComapnyPerson.getUserData().getDistributor().getFirm_name());
         db = new DatabaseHandler(context);
 
         img_option.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                             case R.id.takeorder:
                                 prefs = new AppPrefs(context);
                                 prefs.setSalesPersonId(txtName.getTag().toString());
-                                prefs.setUserName(companySalesUserList.get(position).getFirstname() + " " + companySalesUserList.get(position).getLastname());
+                                prefs.setUserName(companySalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 db.Clear_ALL_table();
                                 Globals.generateNoteOnSD(context, "Sales Start");
                                 Intent i = new Intent(context, MainPage_drawer.class);
@@ -111,7 +111,7 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                                 Intent intent = new Intent(context, RegisteredUserSkipOrderActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("salesComapnyPerson", getUserID(position));
-                                intent.putExtra("firmName", companySalesUserList.get(position).getFirstname() + " " + companySalesUserList.get(position).getLastname());
+                                intent.putExtra("firmName", companySalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 intent.putExtra("userRoleID", subUserID);
                                 intent.putExtra("userData", companySalesUserList.get(position).getUserData());
                                 context.startActivity(intent);

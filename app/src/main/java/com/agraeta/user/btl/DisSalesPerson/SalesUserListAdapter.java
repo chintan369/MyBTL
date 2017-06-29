@@ -81,7 +81,7 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
         final ImageView img_option;
         img_option=(ImageView) view.findViewById(R.id.option_icon);
 
-        txtName.setText(salesDistributorPerson.getFirstname()+" "+salesDistributorPerson.getLastname());
+        txtName.setText(salesDistributorPerson.getUserData().getDistributor().getFirm_name());
         db=new DatabaseHandler(context);
 
         img_option.setOnClickListener(new View.OnClickListener() {
@@ -96,19 +96,18 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
                         switch (item.getItemId()){
                             case R.id.takeorder:
                                 prefs.setSalesPersonId(txtName.getTag().toString());
-                                prefs.setUserName(distributorSalesUserList.get(position).getFirstname()+" "+distributorSalesUserList.get(position).getLastname());
+                                prefs.setUserName(distributorSalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 //Log.e("IDIDD",""+txtName.getTag().toString());
                                 Intent i = new Intent(context, MainPage_drawer.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(i);
                                 db.Clear_ALL_table();
-
                                 break;
                             case R.id.skiporder:
                                 Intent intent = new Intent(context, RegisteredUserSkipOrderActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.putExtra("salesComapnyPerson", distributorSalesUserList.get(position).getUserDisSalesId());
-                                intent.putExtra("firmName", distributorSalesUserList.get(position).getFirstname() + " " + distributorSalesUserList.get(position).getLastname());
+                                intent.putExtra("firmName", distributorSalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 intent.putExtra("userRoleID", prefs.getSubSalesId());
                                 intent.putExtra("userData", distributorSalesUserList.get(position).getUserData());
                                 context.startActivity(intent);

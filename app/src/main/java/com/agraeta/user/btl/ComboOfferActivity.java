@@ -19,6 +19,7 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.combooffer.ComboCartEdit;
+import com.agraeta.user.btl.model.combooffer.ComboCartID;
 import com.agraeta.user.btl.model.combooffer.ComboOfferDetail;
 
 import org.json.JSONArray;
@@ -81,8 +82,32 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
             userID = prefs.getSalesPersonId();
         }
 
-        fetchIDs();
         setActionBar();
+        if (!isEditMode) {
+            progressDialog.show();
+            Call<ComboCartID> comboCartIDCall = adminAPI.getComboCartIdCall(comboID, userID, ownerID);
+            comboCartIDCall.enqueue(new Callback<ComboCartID>() {
+                @Override
+                public void onResponse(Call<ComboCartID> call, Response<ComboCartID> response) {
+                    progressDialog.dismiss();
+                    ComboCartID comboCartIDObj = response.body();
+                    if (comboCartIDObj != null && comboCartIDObj.isStatus()) {
+                        isEditMode = true;
+                        comboCartID = comboCartIDObj.getData();
+                    }
+
+                    fetchIDs();
+                }
+
+                @Override
+                public void onFailure(Call<ComboCartID> call, Throwable t) {
+                    progressDialog.dismiss();
+                    fetchIDs();
+                }
+            });
+        } else {
+            fetchIDs();
+        }
     }
 
     private void setActionBar() {
@@ -229,6 +254,7 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
         progressDialog.show();
 
         if (isEditMode) {
+            btn_addToCart.setText("UPDATE COMBO PACK");
             Call<ComboCartEdit> cartEditCall = adminAPI.editComboCartDetailCall(comboCartID, comboID, roleID);
             cartEditCall.enqueue(new Callback<ComboCartEdit>() {
                 @Override

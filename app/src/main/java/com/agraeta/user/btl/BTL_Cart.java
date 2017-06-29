@@ -1239,6 +1239,8 @@ public class BTL_Cart extends AppCompatActivity {
                 ImageView img_editCombo=(ImageView) convertView.findViewById(R.id.img_editCombo);
                 ImageView img_deleteCombo=(ImageView) convertView.findViewById(R.id.img_deleteCombo);
 
+                txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
                 txt_comboName.setText(bean_cart_data.get(position).getComboData().getOfferTitle());
                 txt_mrpPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_mrp());
                 txt_sellingPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_selling_price());

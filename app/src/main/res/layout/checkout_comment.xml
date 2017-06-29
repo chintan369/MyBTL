@@ -42,21 +42,21 @@
             android:id="@+id/edt_other_reason"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:hint="If Other Then Specify it here"
+            android:layout_marginTop="5dp"
             android:background="@drawable/border_slider"
+            android:hint="If Other Then Specify it here"
             android:inputType="text"
-            android:singleLine="true"
             android:padding="5dp"
-            android:visibility="gone"
-            android:textSize="14sp" />
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:text="Comment "
             android:textSize="16sp" />
 
@@ -64,14 +64,14 @@
             android:id="@+id/edt_comment"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:hint="Enter Comment"
-            android:gravity="top"
+            android:layout_marginTop="5dp"
             android:background="@drawable/border_slider"
+            android:gravity="top"
+            android:hint="Enter Comment"
             android:inputType="textMultiLine"
-            android:padding="5dp"
             android:minLines="4"
+            android:padding="5dp"
             android:textSize="14sp" />
 
         <!--<EditText-->
@@ -136,20 +136,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Transporation"
+            android:layout_marginTop="5dp"
             android:drawableRight="@drawable/star"
+            android:text="Transportation"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edt_transportation"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:gravity="top"
+            android:layout_marginTop="5dp"
             android:background="@drawable/border_slider"
+            android:gravity="top"
             android:inputType="textMultiLine"
             android:padding="5dp"
             android:textSize="14sp" />
@@ -157,20 +157,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
             >
             <TextView
+                android:id="@+id/txt_photo2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:textSize="10sp"
-                android:padding="2dp"
-                android:id="@+id/txt_photo2"
                 android:background="@drawable/border_slider"
-                android:hint="Select product image"/>
+                android:gravity="right|center_vertical"
+                android:hint="Select product image"
+                android:padding="2dp"
+                android:textSize="10sp"/>
             <Button
                 android:id="@+id/btn_upload_photo2"
                 android:layout_width="match_parent"
@@ -191,34 +191,34 @@
             android:orientation="horizontal">
 
             <Button
-                android:visibility="visible"
                 android:id="@+id/btn_cancel"
-                android:layout_marginTop="10dp"
-                android:background="#808080"
-                android:textSize="16sp"
-                android:textAllCaps="false"
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:layout_marginRight="5dp"
-                android:text="Cancel"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="#808080"
+                android:padding="5dp"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:visibility="visible"/>
             <Button
                 android:id="@+id/btn_send"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                android:textAllCaps="false"
-                android:padding="5dp"
-
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:text="Continue"
-                android:layout_marginBottom="60dp"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+
+                android:background="@color/colorPrimaryDark"
+                android:padding="5dp"
+                android:text="Continue"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
         </LinearLayout>
 
 

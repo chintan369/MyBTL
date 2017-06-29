@@ -55,7 +55,7 @@ public class RegisteredUserDSRAdapter extends BaseAdapter {
         TextView txt_skipby=(TextView) view.findViewById(R.id.txt_skipby);
         ImageView img_info=(ImageView) view.findViewById(R.id.img_info);
 
-        txt_skipfor.setText("Skipped For : "+userList.get(position).getOrderUser().getFirst_name()+" "+userList.get(position).getOrderUser().getLast_name());
+        txt_skipfor.setText(userList.get(position).getOrderUser().getFirst_name() + " " + userList.get(position).getOrderUser().getLast_name());
         txt_skipby.setText("Skipped By : "+userList.get(position).getUser().getFirst_name()+" "+userList.get(position).getUser().getLast_name());
 
         img_info.setOnClickListener(new View.OnClickListener() {

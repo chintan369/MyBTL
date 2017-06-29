@@ -1,12 +1,10 @@
 package com.agraeta.user.btl;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -64,15 +62,6 @@ public class ComboOfferListActivity extends AppCompatActivity implements Callbac
         offerListAdapter=new ComboOfferListAdapter(offerItemList,this);
         list_comboOffers.setAdapter(offerListAdapter);
 
-        list_comboOffers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getApplicationContext(),ComboOfferActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("combo_id",offerItemList.get(position).getOfferID());
-                startActivity(intent);
-            }
-        });
 
         dialog.show();
 

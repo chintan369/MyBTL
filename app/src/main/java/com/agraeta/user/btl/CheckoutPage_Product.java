@@ -567,6 +567,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                jarray_OrderProductData = new JSONArray();
+                jarray_OrderTotalData = new JSONArray();
+                jarray_OrderUserData = new JSONArray();
+
                 // btn_pay1.setEnabled(false);
                 if (getCartGrandTotal() < minOrderValue) {
                     Globals.CustomToast(CheckoutPage_Product.this, "Please Make Order of Min " + getString(R.string.ruppe_name) + " " + minOrderValue, getLayoutInflater());
@@ -612,7 +616,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             //Log.e("user_type", "" + user_type);
                         }
 
-                        if (user_type.equalsIgnoreCase("2") || user_type.equalsIgnoreCase("10")) {
+                        if (user_type.equalsIgnoreCase(C.CUSTOMER) || user_type.equalsIgnoreCase(C.CARPENTER)) {
 
                             try {
                                 JSONObject jobject_OrderUserData = new JSONObject();
@@ -728,12 +732,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             btn_continue.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    btn_continue.setEnabled(false);
+
                                     transportationText = edt_transportation.getText().toString().trim();
                                     if (transportationText.isEmpty()) {
                                         Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
                                         return;
                                     }
+
+                                    btn_continue.setEnabled(false);
                                     try {
                                         JSONObject jobject_OrderUserData = new JSONObject();
                                         //jobject_OrderUserData.put("user_id", user_array_from_db.get(0).getUser_id());
@@ -1225,16 +1231,20 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
     }
 
-    private float getCartGrandTotal() {
-        float grandTotal = 0;
+    private double getCartGrandTotal() {
+        double grandTotal = 0;
 
         for (int i = 0; i < bean_cart_data.size(); i++) {
 
             if (bean_cart_data.get(i).isComboPack()) {
+                Log.e("Price ", "-->" + Float.parseFloat(bean_cart_data.get(i).getComboCart().getTotal_selling_price()));
                 grandTotal += Float.parseFloat(bean_cart_data.get(i).getComboCart().getTotal_selling_price());
             } else {
+                Log.e("Price ", "-->" + Float.parseFloat(bean_cart_data.get(i).getItem_total()));
                 grandTotal += Float.parseFloat(bean_cart_data.get(i).getItem_total());
             }
+
+            Log.e("C grandTotal", String.format("%.2f", grandTotal));
         }
 
         return grandTotal;
@@ -1258,6 +1268,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 TextView txt_totalQty = (TextView) convertView.findViewById(R.id.txt_totalQty);
                 ImageView img_editCombo = (ImageView) convertView.findViewById(R.id.img_editCombo);
                 ImageView img_deleteCombo = (ImageView) convertView.findViewById(R.id.img_deleteCombo);
+
+                txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                 txt_comboName.setText(bean_cart_data.get(position).getComboData().getOfferTitle());
                 txt_mrpPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_mrp());
@@ -3883,7 +3895,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
         }
 
-        float productGrandTotal = getCartGrandTotal();
+        double productGrandTotal = getCartGrandTotal();
+
         hasCouponApplied = false;
         discount_amount = "";
         layout_discount.setVisibility(View.GONE);
@@ -3893,7 +3906,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
 
         //double t = Double.parseDouble(appPrefs.getCart_Grand_total());
-        String str = String.format("%.2f", productGrandTotal);
+        String str = String.format(Locale.getDefault(), "%.2f", productGrandTotal);
+        Log.e("Product GT", productGrandTotal + " ---- " + str);
         tv_subtotal.setText(str);
         tv_order_total.setText(str);
     }
@@ -4604,6 +4618,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                         JSONArray payUArray = jObj.getJSONArray("payu_parameters");
 
+                        Log.e("PayuArray", payUArray.toString());
+
                         PayuData payuData = new PayuData();
 
                         for (int i = 0; i < payUArray.length(); i++) {
@@ -4670,6 +4686,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             }
                         }
+
+                        Log.e("PayUData", new Gson().toJson(payuData));
 
                         Intent i = new Intent(CheckoutPage_Product.this, PayUMentActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

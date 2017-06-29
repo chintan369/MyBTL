@@ -1,6 +1,7 @@
 package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.ComboOfferActivity;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.model.combooffer.ComboOfferData;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
 import com.squareup.picasso.Picasso;
 
@@ -49,13 +50,8 @@ public class ComboOfferListAdapter extends BaseAdapter {
         return position;
     }
 
-    private class ViewHolder{
-        ImageView img_offerThumb;
-        TextView txt_offerTitle;
-    }
-
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView==null){
 
@@ -76,6 +72,16 @@ public class ComboOfferListAdapter extends BaseAdapter {
 
         holder.txt_offerTitle.setText(offerItemList.get(position).getOfferTitle());
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ComboOfferActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("combo_id", offerItemList.get(position).getOfferID());
+                activity.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
@@ -84,5 +90,10 @@ public class ComboOfferListAdapter extends BaseAdapter {
         super.notifyDataSetChanged();
 
         Log.e("Called","-->"+offerItemList.size());
+    }
+
+    private class ViewHolder {
+        ImageView img_offerThumb;
+        TextView txt_offerTitle;
     }
 }

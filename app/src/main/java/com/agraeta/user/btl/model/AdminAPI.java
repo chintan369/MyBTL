@@ -3,6 +3,7 @@ package com.agraeta.user.btl.model;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.combooffer.ComboCartEdit;
+import com.agraeta.user.btl.model.combooffer.ComboCartID;
 import com.agraeta.user.btl.model.combooffer.ComboOfferData;
 import com.agraeta.user.btl.model.combooffer.ComboOfferDetail;
 import com.agraeta.user.btl.model.coupons.CouponData;
@@ -227,4 +228,8 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.USER_INFO)
     Call<UserDetailResponse> getUserDetail(@Field("user_id") String userID);
+
+    @FormUrlEncoded
+    @POST(Globals.GET_COMBO_CART_ID)
+    Call<ComboCartID> getComboCartIdCall(@Field("combo_id") String comboID, @Field("user_id") String userID, @Field("owner_id") String ownerID);
 }
