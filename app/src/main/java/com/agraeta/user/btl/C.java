@@ -13,6 +13,7 @@ import java.io.File;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
@@ -143,5 +144,13 @@ public class C {
         }
 
         return outputDate;
+    }
+
+    public static boolean isValidPAN(String panNo) {
+        Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+
+        Matcher matcher = pattern.matcher(panNo);
+
+        return matcher.matches();
     }
 }
