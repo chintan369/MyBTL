@@ -4793,9 +4793,9 @@ public class Search extends AppCompatActivity {
                                                     jobject.put("item_total", tv_total.getText().toString());
                                                     jobject.put("pro_scheme", " ");
                                                     jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                                    jobject.put("scheme_id", " ");
+                                                    jobject.put("scheme_title", " ");
+                                                    jobject.put("scheme_pack_id", " ");
                                                     if (list_of_images.size() == 0) {
                                                         jobject.put("prod_img", bean_product1.get(position).getPro_image().toString());
                                                         // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
@@ -5640,7 +5640,6 @@ public class Search extends AppCompatActivity {
                                                 jobject.put("prod_img", list_of_images.get(0));
                                                 //   bean.setPro_Images(list_of_images.get(0).toString());
                                             }
-
 
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
