@@ -8,8 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.util.DisplayMetrics;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -30,13 +31,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
-import com.agraeta.user.btl.BTLProdcut_Detailpage;
 import com.agraeta.user.btl.BTL_Cart;
 import com.agraeta.user.btl.Bean_Filter_Status;
 import com.agraeta.user.btl.Bean_Order_history;
 import com.agraeta.user.btl.Bean_User_data;
 import com.agraeta.user.btl.Bean_inv;
-import com.agraeta.user.btl.Btl_WishList;
 import com.agraeta.user.btl.CompanySalesPerson.Bean_invoice;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
@@ -45,7 +44,6 @@ import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.Notification;
 import com.agraeta.user.btl.OrderInvoiceActivity;
 import com.agraeta.user.btl.Order_History_Details;
-import com.agraeta.user.btl.Order_history;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.ReOrderActivity;
 import com.agraeta.user.btl.ServiceHandler;
@@ -64,17 +62,15 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class D_OrderHistory extends AppCompatActivity {
 
+    final File myDir = new File("/sdcard/BTL/Order/");
     ListView lst_orderhistory;
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     ArrayList<Bean_Order_history> array_order = new ArrayList<Bean_Order_history>();
-
     ArrayList<Bean_Order_history> array_remove_duplicate = new ArrayList<Bean_Order_history>();
-
     int current_position1 =-1;
     Custom_ProgressDialog loadingView;
     String json;
@@ -91,8 +87,6 @@ public class D_OrderHistory extends AppCompatActivity {
     ListView l_tracking;
     ArrayList<Bean_inv> bean_inv = new ArrayList<Bean_inv>();
     ArrayList<Bean_Filter_Status> array_status = new ArrayList<Bean_Filter_Status>();
-
-    final File myDir = new File("/sdcard/BTL/Order/");
     CustomAdapterOrderHistory_invoice adapter1;
     String filesToSend = "";
     String owner_id = new String();
@@ -103,6 +97,8 @@ public class D_OrderHistory extends AppCompatActivity {
 
     TextView txt;
 
+    int currentPage = 1;
+    int totalPages = 1;
 
 
     protected void onResume() {
@@ -155,6 +151,24 @@ public class D_OrderHistory extends AppCompatActivity {
         lin_filter = (LinearLayout) findViewById(R.id.lin_filter);
 
 
+        lst_orderhistory.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                int currentLastVisiblePos = lst_orderhistory.getLastVisiblePosition();
+                int totalItems = array_remove_duplicate.size() - 1;
+
+                if (currentLastVisiblePos == totalItems && currentPage < totalPages) {
+                    currentPage++;
+                    new get_order_history().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
         btn_back= (Button) findViewById(R.id.btn_back);
         appPrefs = new AppPrefs(D_OrderHistory.this);
         if(!appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_predefine().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_to_date().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_from_date().equalsIgnoreCase("")){
@@ -196,6 +210,311 @@ public class D_OrderHistory extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void reOrderForOrder(List<Bean_Order_history> productList) {
+        ArrayList<String> productIDs = new ArrayList<String>();
+        ArrayList<String> productQtys = new ArrayList<String>();
+        ArrayList<String> productOptionID = new ArrayList<String>();
+        ArrayList<String> productOptionName = new ArrayList<String>();
+        ArrayList<String> productOptionValueID = new ArrayList<String>();
+        ArrayList<String> productOptionValueName = new ArrayList<String>();
+
+        for (int ii = 0; ii < productList.size(); ii++) {
+
+            if (!productList.get(ii).getScheme_type().equalsIgnoreCase("2")) {
+                productIDs.add(productList.get(ii).getProduct_id());
+                productQtys.add(productList.get(ii).getProduct_qty());
+                productOptionID.add(productList.get(ii).getPro_Option_id());
+                productOptionValueID.add(productList.get(ii).getPro_Option_value_id());
+                productOptionName.add(productList.get(ii).getProduct_option_name());
+                productOptionValueName.add(productList.get(ii).getProduct_value_name());
+            }
+        }
+
+        Intent intent = new Intent(getApplicationContext(), ReOrderActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putStringArrayListExtra("productIDs", productIDs);
+        intent.putStringArrayListExtra("productQtys", productQtys);
+        intent.putStringArrayListExtra("productOptionIDs", productOptionID);
+        intent.putStringArrayListExtra("productOptionNames", productOptionName);
+        intent.putStringArrayListExtra("productOptionValueIDs", productOptionValueID);
+        intent.putStringArrayListExtra("productOptionValueNames", productOptionValueName);
+        startActivity(intent);
+    }
+
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.VISIBLE);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        img_notification.setVisibility(View.GONE);
+        appPrefs = new AppPrefs(D_OrderHistory.this);
+        String qun = appPrefs.getCart_QTy();
+
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id().toString();
+
+                role_id = user_data.get(i).getUser_type().toString();
+
+                if (role_id.equalsIgnoreCase("6")) {
+
+                    appPrefs = new AppPrefs(D_OrderHistory.this);
+                    role_id = appPrefs.getSubSalesId().toString();
+                    u_id = appPrefs.getSalesPersonId().toString();
+                } else if (role_id.equalsIgnoreCase("7")) {
+                    appPrefs = new AppPrefs(D_OrderHistory.this);
+                    role_id = appPrefs.getSubSalesId().toString();
+                    u_id = appPrefs.getSalesPersonId().toString();
+                    //Log.e("IDIDD",""+app.getSalesPersonId().toString());
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            appPrefs = new AppPrefs(D_OrderHistory.this);
+            appPrefs.setCart_QTy("");
+        }
+
+        appPrefs = new AppPrefs(D_OrderHistory.this);
+        String qu1 = appPrefs.getCart_QTy();
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
+            txt.setVisibility(View.GONE);
+            txt.setText("");
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
+                txt.setText("999+");
+                txt.setVisibility(View.VISIBLE);
+            } else {
+                txt.setText(qu1 + "");
+                txt.setVisibility(View.VISIBLE);
+            }
+        }
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appPrefs = new AppPrefs(D_OrderHistory.this);
+                appPrefs.setUser_notification("D_OrderHistory");
+                Intent i = new Intent(D_OrderHistory.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+
+            }
+        });
+      /*  img_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
+                startActivity(i);
+            }
+        });*/
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(D_OrderHistory.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(D_OrderHistory.this, Notification.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(D_OrderHistory.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+        }
+        db.close();
+    }
+
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+//        appPrefs.setOrder_history_filter_order_status("");
+//        appPrefs.setOrder_history_filter_predefine("");
+//        appPrefs.setOrder_history_filter_to_date("");
+//        appPrefs.setOrder_history_filter_from_date("");
+//        appPrefs.setSRP_Id("");
+//        appPrefs.setCurrentPage("");
+//
+//        db.Delete_Order_histroy();
+//        Intent i = new Intent(D_OrderHistory.this,DisOrderListActivity.class);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(i);
+
+        Log.e("onBackPress", "-->" + appPrefs.getCurrentPage());
+
+        if (appPrefs.getCurrentPage().equalsIgnoreCase("OrderList1")) {
+            appPrefs.setOrder_history_filter_order_status("");
+            appPrefs.setOrder_history_filter_predefine("");
+            appPrefs.setOrder_history_filter_to_date("");
+            appPrefs.setOrder_history_filter_from_date("");
+            appPrefs.setSRP_Id("");
+            appPrefs.setCurrentPage("");
+
+            db.Delete_Order_histroy();
+            Intent i = new Intent(D_OrderHistory.this, S_R_P_OrderList.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        } else if (appPrefs.getCurrentPage().equalsIgnoreCase("OrderList2")) {
+            appPrefs.setOrder_history_filter_order_status("");
+            appPrefs.setOrder_history_filter_predefine("");
+            appPrefs.setOrder_history_filter_to_date("");
+            appPrefs.setOrder_history_filter_from_date("");
+            appPrefs.setSRP_Id("");
+            appPrefs.setCurrentPage("");
+
+            db.Delete_Order_histroy();
+            Intent i = new Intent(D_OrderHistory.this, DisMyOrders.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        } else {
+            appPrefs.setOrder_history_filter_order_status("");
+            appPrefs.setOrder_history_filter_predefine("");
+            appPrefs.setOrder_history_filter_to_date("");
+            appPrefs.setOrder_history_filter_from_date("");
+            appPrefs.setSRP_Id("");
+            appPrefs.setCurrentPage("");
+
+            db.Delete_Order_histroy();
+            Intent i = new Intent(D_OrderHistory.this, DisMyOrders.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
+
+
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
     }
 
     public class CustomAdapterOrderHistory extends BaseAdapter
@@ -531,42 +850,11 @@ public class D_OrderHistory extends AppCompatActivity {
         }
     }
 
-    private void reOrderForOrder(List<Bean_Order_history> productList) {
-        ArrayList<String> productIDs = new ArrayList<String>();
-        ArrayList<String> productQtys = new ArrayList<String>();
-        ArrayList<String> productOptionID = new ArrayList<String>();
-        ArrayList<String> productOptionName = new ArrayList<String>();
-        ArrayList<String> productOptionValueID = new ArrayList<String>();
-        ArrayList<String> productOptionValueName = new ArrayList<String>();
-
-        for (int ii = 0; ii < productList.size(); ii++) {
-
-            if(!productList.get(ii).getScheme_type().equalsIgnoreCase("2")){
-                productIDs.add(productList.get(ii).getProduct_id());
-                productQtys.add(productList.get(ii).getProduct_qty());
-                productOptionID.add(productList.get(ii).getPro_Option_id());
-                productOptionValueID.add(productList.get(ii).getPro_Option_value_id());
-                productOptionName.add(productList.get(ii).getProduct_option_name());
-                productOptionValueName.add(productList.get(ii).getProduct_value_name());
-            }
-        }
-
-        Intent intent = new Intent(getApplicationContext(), ReOrderActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putStringArrayListExtra("productIDs", productIDs);
-        intent.putStringArrayListExtra("productQtys", productQtys);
-        intent.putStringArrayListExtra("productOptionIDs", productOptionID);
-        intent.putStringArrayListExtra("productOptionNames", productOptionName);
-        intent.putStringArrayListExtra("productOptionValueIDs", productOptionValueID);
-        intent.putStringArrayListExtra("productOptionValueNames", productOptionValueName);
-        startActivity(intent);
-    }
-
     public class get_order_history extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -630,7 +918,7 @@ public class D_OrderHistory extends AppCompatActivity {
                 }
 
 
-
+                parameters.add(new BasicNameValuePair("page", String.valueOf(currentPage)));
 
                 Log.e("4", "" + parameters);
 
@@ -655,7 +943,8 @@ public class D_OrderHistory extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-
+            loadingView.dismiss();
+            Log.e("JSON", "-->" + result_1);
             try {
 
                 //db = new DatabaseHandler(());
@@ -680,6 +969,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
                         JSONArray jsonobjcet_order_status = jObj.getJSONArray("order_status");
 
+
                         for(int j = 0 ; j <jsonobjcet_order_status.length() ; j++)
                         {
                             JSONObject jobject_main = jsonobjcet_order_status.getJSONObject(j);
@@ -700,17 +990,22 @@ public class D_OrderHistory extends AppCompatActivity {
 
                         JSONArray jsonobjcet_order_status = jObj.getJSONArray("order_status");
 
-                        for(int j = 0 ; j <jsonobjcet_order_status.length() ; j++)
-                        {
-                            JSONObject jobject_main = jsonobjcet_order_status.getJSONObject(j);
-                            JSONObject jobject_status = jobject_main.getJSONObject("OrderStatus");
-                            Bean_Filter_Status bean = new Bean_Filter_Status();
-                            bean.setId(jobject_status.getString("id"));
-                            bean.setFilter_name(jobject_status.getString("order_status_name"));
-                            array_status.add(bean);
+                        int listFirstPosition = lst_orderhistory.getFirstVisiblePosition();
 
+                        totalPages = jObj.getInt("total_pages");
+
+                        if (currentPage == 1) {
+                            for (int j = 0; j < jsonobjcet_order_status.length(); j++) {
+                                JSONObject jobject_main = jsonobjcet_order_status.getJSONObject(j);
+                                JSONObject jobject_status = jobject_main.getJSONObject("OrderStatus");
+                                Bean_Filter_Status bean = new Bean_Filter_Status();
+                                bean.setId(jobject_status.getString("id"));
+                                bean.setFilter_name(jobject_status.getString("order_status_name"));
+                                array_status.add(bean);
+
+                            }
+                            db.Add_Filter_Status(array_status);
                         }
-                        db.Add_Filter_Status(array_status);
 
                         for(int i = 0 ; i < jarray_data.length() ; i ++)
                         {
@@ -999,272 +1294,23 @@ public class D_OrderHistory extends AppCompatActivity {
                         adapter = new CustomAdapterOrderHistory();
                         adapter.notifyDataSetChanged();
                         lst_orderhistory.setAdapter(adapter);
-
+                        lst_orderhistory.setSelection(listFirstPosition);
                         loadingView.dismiss();
 
                     }
                 }}catch(JSONException j){
                 j.printStackTrace();
+                Log.e("Exception", j.getMessage());
             }
 
         }
     }
 
-
-
-    private void setActionBar() {
-
-        // TODO Auto-generated method stub
-        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        mActionBar.setCustomView(R.layout.actionbar_design);
-
-
-        View mCustomView = mActionBar.getCustomView();
-        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
-        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
-        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
-
-        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
-        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
-        FrameLayout frame = (FrameLayout)mCustomView.findViewById(R.id.unread);
-        frame.setVisibility(View.VISIBLE);
-         txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
-        img_notification.setVisibility(View.GONE);
-        appPrefs = new AppPrefs(D_OrderHistory.this);
-        String qun =appPrefs.getCart_QTy();
-
-        setRefershData();
-
-        if(user_data.size() != 0){
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id =user_data.get(i).getUser_id().toString();
-
-                role_id=user_data.get(i).getUser_type().toString();
-
-                if (role_id.equalsIgnoreCase("6") ) {
-
-                    appPrefs = new AppPrefs(D_OrderHistory.this);
-                    role_id = appPrefs.getSubSalesId().toString();
-                    u_id = appPrefs.getSalesPersonId().toString();
-                }else if(role_id.equalsIgnoreCase("7")){
-                    appPrefs = new AppPrefs(D_OrderHistory.this);
-                    role_id = appPrefs.getSubSalesId().toString();
-                    u_id = appPrefs.getSalesPersonId().toString();
-                    //Log.e("IDIDD",""+app.getSalesPersonId().toString());
-                }else{
-                    u_id=owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para=new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id",u_id));
-
-            new GetCartByQty(para).execute();
-
-
-
-        }else{
-            appPrefs = new AppPrefs(D_OrderHistory.this);
-            appPrefs.setCart_QTy("");
-        }
-
-        appPrefs = new AppPrefs(D_OrderHistory.this);
-        String qu1 = appPrefs.getCart_QTy();
-        if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
-            txt.setVisibility(View.GONE);
-            txt.setText("");
-        }else{
-            if(Integer.parseInt(qu1) > 999){
-                txt.setText("999+");
-                txt.setVisibility(View.VISIBLE);
-            }else {
-                txt.setText(qu1 + "");
-                txt.setVisibility(View.VISIBLE);
-            }
-        }
-        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-        img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appPrefs = new AppPrefs(D_OrderHistory.this);
-                appPrefs.setUser_notification("D_OrderHistory");
-                Intent i = new Intent(D_OrderHistory.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               onBackPressed();
-
-            }
-        });
-      /*  img_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
-                startActivity(i);
-            }
-        });*/
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(D_OrderHistory.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        img_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(D_OrderHistory.this, Notification.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(D_OrderHistory.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-        }
-        db.close();
-    }
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-//        appPrefs.setOrder_history_filter_order_status("");
-//        appPrefs.setOrder_history_filter_predefine("");
-//        appPrefs.setOrder_history_filter_to_date("");
-//        appPrefs.setOrder_history_filter_from_date("");
-//        appPrefs.setSRP_Id("");
-//        appPrefs.setCurrentPage("");
-//
-//        db.Delete_Order_histroy();
-//        Intent i = new Intent(D_OrderHistory.this,DisOrderListActivity.class);
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(i);
-
-        Log.e("onBackPress","-->"+appPrefs.getCurrentPage());
-
-        if(appPrefs.getCurrentPage().equalsIgnoreCase("OrderList1"))
-        {
-            appPrefs.setOrder_history_filter_order_status("");
-            appPrefs.setOrder_history_filter_predefine("");
-            appPrefs.setOrder_history_filter_to_date("");
-            appPrefs.setOrder_history_filter_from_date("");
-            appPrefs.setSRP_Id("");
-            appPrefs.setCurrentPage("");
-
-            db.Delete_Order_histroy();
-            Intent i = new Intent(D_OrderHistory.this, S_R_P_OrderList.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            finish();
-        }
-        else if(appPrefs.getCurrentPage().equalsIgnoreCase("OrderList2"))
-        {
-            appPrefs.setOrder_history_filter_order_status("");
-            appPrefs.setOrder_history_filter_predefine("");
-            appPrefs.setOrder_history_filter_to_date("");
-            appPrefs.setOrder_history_filter_from_date("");
-            appPrefs.setSRP_Id("");
-            appPrefs.setCurrentPage("");
-
-            db.Delete_Order_histroy();
-            Intent i = new Intent(D_OrderHistory.this, DisMyOrders.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            finish();
-        }
-        else {
-            appPrefs.setOrder_history_filter_order_status("");
-            appPrefs.setOrder_history_filter_predefine("");
-            appPrefs.setOrder_history_filter_to_date("");
-            appPrefs.setOrder_history_filter_from_date("");
-            appPrefs.setSRP_Id("");
-            appPrefs.setCurrentPage("");
-
-            db.Delete_Order_histroy();
-            Intent i = new Intent(D_OrderHistory.this, DisMyOrders.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            finish();
-        }
-
-
-    };
     public class set_order_tracking extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1421,6 +1467,7 @@ public class D_OrderHistory extends AppCompatActivity {
             return convertView;
         }
     }
+
     class DownloadFileFromURL_a extends AsyncTask<String, String, String> {
 
         /**
@@ -1541,35 +1588,7 @@ public class D_OrderHistory extends AppCompatActivity {
         }
 
     }
-    public String GetCartByQty(final List<NameValuePair> params){
 
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
     public class GetCartByQty extends AsyncTask<Void, Void, String>{
 
         List<NameValuePair> params=new ArrayList<>();
