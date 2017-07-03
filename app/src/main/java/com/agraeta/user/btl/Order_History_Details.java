@@ -27,7 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.CompanySalesPerson.Bean_Otracking;
-import com.agraeta.user.btl.Distributor.D_OrderHistory;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -41,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order_History_Details extends AppCompatActivity {
+    public static ArrayList<String> WishList = new ArrayList<String>();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     String user_id_main = new String();
     String role_id = new String();
@@ -48,7 +48,6 @@ public class Order_History_Details extends AppCompatActivity {
     TextView tv_total_product, tv_order_total, tv_subtotal;
     ListView lv_checkout_product_list;
     ArrayList<Bean_Order_history> bean_cart = new ArrayList<Bean_Order_history>();
-
     CustomResultAdapter adapter;
     Custom_ProgressDialog loadingView;
     JSONArray jarray_OrderProductData = new JSONArray();
@@ -61,12 +60,9 @@ public class Order_History_Details extends AppCompatActivity {
     TextView tv_user_name_billing, tv_number_billing, tv_address_billing, tv_user_name_delivery, tv_number_delivery, tv_address_delivery;
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-
     TextView txt;
-
     boolean isNotDone = true;
     String jsonData = "";
-
     ImageView im_billing, im_delivery;
     ArrayList<Bean_ProductImage> bean_productImages = new ArrayList<Bean_ProductImage>();
     ArrayList<Bean_Address> array_address = new ArrayList<Bean_Address>();
@@ -76,10 +72,8 @@ public class Order_History_Details extends AppCompatActivity {
     String selected_shipping_address = "";
     ArrayList<Bean_ProductOprtion> bean_Oprtions = new ArrayList<Bean_ProductOprtion>();
     ArrayList<Bean_Otracking> order_track = new ArrayList<Bean_Otracking>();
-
     ArrayList<Bean_Order_E_History> order_e_history = new ArrayList<Bean_Order_E_History>();
     String selected_billing_address_id = "";
-    public static ArrayList<String> WishList = new ArrayList<String>();
     String selected_shipping_address_id = "";
     CustomAdapterOrderHistory_tracking adapter1;
     String comment = "";
@@ -114,6 +108,15 @@ public class Order_History_Details extends AppCompatActivity {
     ArrayList<Bean_texhnicalImages> bean_technical = new ArrayList<Bean_texhnicalImages>();
     TextView txt_couponname, txt_couponamount, sub_t;
     ListView lst_en;
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     protected void onResume() {
         System.runFinalization();
@@ -1739,11 +1742,323 @@ public class Order_History_Details extends AppCompatActivity {
         db.close();
     }
 
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
+        img_notification.setVisibility(View.GONE);
+        img_cart.setVisibility(View.VISIBLE);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.VISIBLE);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        img_notification.setVisibility(View.GONE);
+        appPrefs = new AppPrefs(Order_History_Details.this);
+        String qun = appPrefs.getCart_QTy();
+
+        setRefershData();
+
+        appPrefs = new AppPrefs(Order_History_Details.this);
+        String qu1 = appPrefs.getCart_QTy();
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
+            txt.setVisibility(View.GONE);
+            txt.setText("");
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
+                txt.setText("999+");
+                txt.setVisibility(View.VISIBLE);
+            } else {
+                txt.setText(qu1 + "");
+                txt.setVisibility(View.VISIBLE);
+            }
+        }
+
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appPrefs = new AppPrefs(Order_History_Details.this);
+                appPrefs.setUser_notification("Order_History_Details");
+                Intent i = new Intent(Order_History_Details.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*Intent i = new Intent(Order_History_Details.this, D_OrderHistory.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();*/
+
+                onBackPressed();
+            }
+        });
+      /*  img_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
+                startActivity(i);
+            }
+        });*/
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Order_History_Details.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Order_History_Details.this, Notification.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+        /*Intent i = new Intent(Order_History_Details.this, Order_history.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();*/
+
+        finish();
+
+
+    }
+
+    public String GetProductDetailByCode1(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByProductDetail(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        return json[0];
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        return json[0];
+    }
+
+    public String GetProductDetailByCode_schme(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetOrderEnquiry(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Order_Enquiry", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
 
     public class send_order_details extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1837,9 +2152,9 @@ public class Order_History_Details extends AppCompatActivity {
     }
 
     public class get_address_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -2014,101 +2329,6 @@ public class Order_History_Details extends AppCompatActivity {
 
         }
     }
-
-    private void setActionBar() {
-
-        // TODO Auto-generated method stub
-        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        mActionBar.setCustomView(R.layout.actionbar_design);
-
-
-        View mCustomView = mActionBar.getCustomView();
-        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
-        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
-        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
-
-        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
-        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
-        img_notification.setVisibility(View.GONE);
-        img_cart.setVisibility(View.VISIBLE);
-        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
-        frame.setVisibility(View.VISIBLE);
-        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
-        img_notification.setVisibility(View.GONE);
-        appPrefs = new AppPrefs(Order_History_Details.this);
-        String qun = appPrefs.getCart_QTy();
-
-        setRefershData();
-
-
-
-        appPrefs = new AppPrefs(Order_History_Details.this);
-        String qu1 = appPrefs.getCart_QTy();
-        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
-            txt.setVisibility(View.GONE);
-            txt.setText("");
-        } else {
-            if (Integer.parseInt(qu1) > 999) {
-                txt.setText("999+");
-                txt.setVisibility(View.VISIBLE);
-            } else {
-                txt.setText(qu1 + "");
-                txt.setVisibility(View.VISIBLE);
-            }
-        }
-
-        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-        img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appPrefs = new AppPrefs(Order_History_Details.this);
-                appPrefs.setUser_notification("Order_History_Details");
-                Intent i = new Intent(Order_History_Details.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*Intent i = new Intent(Order_History_Details.this, D_OrderHistory.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-                finish();*/
-
-                onBackPressed();
-            }
-        });
-      /*  img_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
-                startActivity(i);
-            }
-        });*/
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Order_History_Details.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        img_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Order_History_Details.this, Notification.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-
 
     public class CustomResultAdapter extends BaseAdapter {
 
@@ -3066,26 +3286,10 @@ public class Order_History_Details extends AppCompatActivity {
         }
     }
 
-
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-
-        /*Intent i = new Intent(Order_History_Details.this, Order_history.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-        finish();*/
-
-        finish();
-
-
-    }
-
-    ;
-
     public class set_order_tracking extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3198,9 +3402,9 @@ public class Order_History_Details extends AppCompatActivity {
     }
 
     public class set_order_enquiry extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3389,36 +3593,6 @@ public class Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode1(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     private class GetProductDetailByProductDetail extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -3440,64 +3614,6 @@ public class Order_History_Details extends AppCompatActivity {
 
             return jsonData;
         }
-    }
-
-    public String GetProductDetailByProductDetail(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        return json[0];
-    }
-
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        return json[0];
     }
 
     private class GetProductDetailByCode_schme extends AsyncTask<Void, Void, String> {
@@ -3522,40 +3638,10 @@ public class Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode_schme(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class get_cartdata extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3724,36 +3810,6 @@ public class Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     private class GetOrderEnquiry extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -3777,40 +3833,10 @@ public class Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetOrderEnquiry(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Order_Enquiry", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3905,9 +3931,9 @@ public class Order_History_Details extends AppCompatActivity {
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3999,45 +4025,6 @@ public class Order_History_Details extends AppCompatActivity {
             }
 
         }
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 
     public class GetCartByQty extends AsyncTask<Void, Void, String> {

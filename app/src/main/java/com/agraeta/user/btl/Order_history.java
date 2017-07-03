@@ -93,7 +93,41 @@ public class Order_history extends ActionBarActivity {
         System.gc();
         Log.e("System GC", "Called");
         super.onResume();
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id();
+
+                role_id = user_data.get(i).getUser_type();
+
+                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                    appPrefs = new AppPrefs(Order_history.this);
+                    role_id = appPrefs.getSubSalesId();
+                    u_id = appPrefs.getSalesPersonId();
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            appPrefs = new AppPrefs(Order_history.this);
+            appPrefs.setCart_QTy("");
+        }
         turnGPSOn();
+
     }
 
     @Override
@@ -285,40 +319,6 @@ public class Order_history extends ActionBarActivity {
         img_notification.setVisibility(View.GONE);
         appPrefs = new AppPrefs(Order_history.this);
         String qun = appPrefs.getCart_QTy();
-
-        setRefershData();
-
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id();
-
-                role_id = user_data.get(i).getUser_type();
-
-                if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
-                    appPrefs = new AppPrefs(Order_history.this);
-                    role_id = appPrefs.getSubSalesId();
-                    u_id = appPrefs.getSalesPersonId();
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            appPrefs = new AppPrefs(Order_history.this);
-            appPrefs.setCart_QTy("");
-        }
 
         appPrefs = new AppPrefs(Order_history.this);
         String qu1 = appPrefs.getCart_QTy();

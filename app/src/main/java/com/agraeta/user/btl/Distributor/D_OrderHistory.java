@@ -106,6 +106,44 @@ public class D_OrderHistory extends AppCompatActivity {
         Runtime.getRuntime().gc();
         System.gc();
         Log.e("System GC", "Called");
+        setRefershData();
+
+        if (user_data.size() != 0) {
+            for (int i = 0; i < user_data.size(); i++) {
+
+                owner_id = user_data.get(i).getUser_id().toString();
+
+                role_id = user_data.get(i).getUser_type().toString();
+
+                if (role_id.equalsIgnoreCase("6")) {
+
+                    appPrefs = new AppPrefs(D_OrderHistory.this);
+                    role_id = appPrefs.getSubSalesId().toString();
+                    u_id = appPrefs.getSalesPersonId().toString();
+                } else if (role_id.equalsIgnoreCase("7")) {
+                    appPrefs = new AppPrefs(D_OrderHistory.this);
+                    role_id = appPrefs.getSubSalesId().toString();
+                    u_id = appPrefs.getSalesPersonId().toString();
+                    //Log.e("IDIDD",""+app.getSalesPersonId().toString());
+                } else {
+                    u_id = owner_id;
+                }
+
+
+            }
+
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+            para.add(new BasicNameValuePair("owner_id", owner_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
+
+            new GetCartByQty(para).execute();
+
+
+        } else {
+            appPrefs = new AppPrefs(D_OrderHistory.this);
+            appPrefs.setCart_QTy("");
+        }
         super.onResume();
     }
     @Override
@@ -264,45 +302,6 @@ public class D_OrderHistory extends AppCompatActivity {
         img_notification.setVisibility(View.GONE);
         appPrefs = new AppPrefs(D_OrderHistory.this);
         String qun = appPrefs.getCart_QTy();
-
-        setRefershData();
-
-        if (user_data.size() != 0) {
-            for (int i = 0; i < user_data.size(); i++) {
-
-                owner_id = user_data.get(i).getUser_id().toString();
-
-                role_id = user_data.get(i).getUser_type().toString();
-
-                if (role_id.equalsIgnoreCase("6")) {
-
-                    appPrefs = new AppPrefs(D_OrderHistory.this);
-                    role_id = appPrefs.getSubSalesId().toString();
-                    u_id = appPrefs.getSalesPersonId().toString();
-                } else if (role_id.equalsIgnoreCase("7")) {
-                    appPrefs = new AppPrefs(D_OrderHistory.this);
-                    role_id = appPrefs.getSubSalesId().toString();
-                    u_id = appPrefs.getSalesPersonId().toString();
-                    //Log.e("IDIDD",""+app.getSalesPersonId().toString());
-                } else {
-                    u_id = owner_id;
-                }
-
-
-            }
-
-            List<NameValuePair> para = new ArrayList<NameValuePair>();
-
-            para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id", u_id));
-
-            new GetCartByQty(para).execute();
-
-
-        } else {
-            appPrefs = new AppPrefs(D_OrderHistory.this);
-            appPrefs.setCart_QTy("");
-        }
 
         appPrefs = new AppPrefs(D_OrderHistory.this);
         String qu1 = appPrefs.getCart_QTy();
