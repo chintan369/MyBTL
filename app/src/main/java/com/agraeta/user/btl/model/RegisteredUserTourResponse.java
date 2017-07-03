@@ -21,6 +21,8 @@ public class RegisteredUserTourResponse extends AppModel {
     public static class Distributor implements Serializable {
         String user_id = "";
         String firm_name = "";
+        String tally_pan_no = "";
+        String gstin_uin = "";
 
         public String getUser_id() {
             return user_id;
@@ -29,37 +31,17 @@ public class RegisteredUserTourResponse extends AppModel {
         public String getFirm_name() {
             return firm_name;
         }
-    }
 
-    public class RegisteredUserTour {
-        User User = new User();
-        Distributor Distributor = new Distributor();
-        AreaItem Role = new AreaItem();
-        List<Address> Address = new ArrayList<>();
-        List<RegisteredUserData.OrderReason> SkipOrderPerson = new ArrayList<>();
-
-        public com.agraeta.user.btl.model.User getUser() {
-            return User;
+        public String getTally_pan_no() {
+            return tally_pan_no;
         }
 
-        public AreaItem getRole() {
-            return Role;
-        }
-
-        public RegisteredUserTourResponse.Distributor getDistributor() {
-            return Distributor;
-        }
-
-        public List<RegisteredUserTourResponse.Address> getAddress() {
-            return Address;
-        }
-
-        public List<RegisteredUserData.OrderReason> getSkipOrderPerson() {
-            return SkipOrderPerson;
+        public String getGstin_uin() {
+            return gstin_uin;
         }
     }
 
-    public class Address implements Serializable {
+    public static class Address implements Serializable {
         String id = "";
         String user_id = "";
         String first_name = "";
@@ -180,6 +162,34 @@ public class RegisteredUserTourResponse extends AppModel {
 
         public String getCountry_id() {
             return country_id;
+        }
+    }
+
+    public class RegisteredUserTour {
+        User User = new User();
+        Distributor Distributor = new Distributor();
+        AreaItem Role = new AreaItem();
+        List<Address> Address = new ArrayList<>();
+        List<RegisteredUserData.OrderReason> SkipOrderPerson = new ArrayList<>();
+
+        public com.agraeta.user.btl.model.User getUser() {
+            return User;
+        }
+
+        public AreaItem getRole() {
+            return Role;
+        }
+
+        public RegisteredUserTourResponse.Distributor getDistributor() {
+            return Distributor;
+        }
+
+        public List<RegisteredUserTourResponse.Address> getAddress() {
+            return Address;
+        }
+
+        public List<RegisteredUserData.OrderReason> getSkipOrderPerson() {
+            return SkipOrderPerson;
         }
     }
 }

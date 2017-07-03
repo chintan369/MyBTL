@@ -283,6 +283,10 @@ public class MainPage_drawer extends AppCompatActivity
             Menu menu = navigationView.getMenu();
 
 
+            if (apps.getUserRoleId().equals(C.CUSTOMER) || apps.getUserRoleId().equals(C.CARPENTER)) {
+                menu.findItem(R.id.menu_gst).setVisible(false);
+            }
+
             MenuItem bedMenuItem = menu.findItem(R.id.login);
 
             MenuItem dashboardMenuItem = menu.findItem(R.id.Dashboard);
@@ -642,6 +646,10 @@ public class MainPage_drawer extends AppCompatActivity
             Intent i = new Intent(MainPage_drawer.this, DistributorActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        } else if (id == R.id.menu_gst) {
+            Intent intent = new Intent(getApplicationContext(), GSTFormActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (id == R.id.menu_comboOffer) {
             Intent intent = new Intent(getApplicationContext(), ComboOfferListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

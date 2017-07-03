@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.GSTFormActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="GST Information"
+        android:textColor="#000"
+        android:textSize="17sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_margin="5dp"
+        android:background="@color/strip_bg"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Tax Payer Name"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/edt_tax_payer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="text"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Tax Payer Legal Name"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_legal_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="text"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Address Line1 "
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_add1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Address Line2 "
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_add2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Address Line3 "
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_add3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Area"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_area"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="text"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="City"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_city"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="text"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Pincode"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="number"
+                android:maxLength="6"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="E-mail"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="textEmailAddress"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Contact No."
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:inputType="number"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="State"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <Spinner
+                android:id="@+id/spn_state"
+                style="@style/spinner_style"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/spinner_border"
+                android:spinnerMode="dropdown"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Pan / IT No."
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_pan"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:capitalize="characters"
+                android:maxLength="10"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="GSTIN / Type"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:drawableRight="@drawable/star"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="GSTIN / UIN"
+                    android:textColor="@color/black_000"
+                    android:textSize="14dp"
+                    android:visibility="gone"/>
+
+
+                <EditText
+                    android:id="@+id/edt_gstuin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/border_slider"
+                    android:capitalize="characters"
+                    android:hint="GSTIN / UIN "
+                    android:maxLength="15"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:textColor="#99000000"
+                    android:textSize="14sp"/>
+
+                <Spinner
+
+                    android:id="@+id/spn_gst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/spinner_border"
+                    android:entries="@array/array_gstuin_type"
+                    android:padding="5dp"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Date of Issue (GST) "
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:focusable="false"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="ARN No. "
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_arnNo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:maxLength="15"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Date of Issue (ARN)"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+
+            <EditText
+                android:id="@+id/edt_datearn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:capitalize="characters"
+                android:focusable="false"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:id="@+id/layout_GSTCertificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_GSTCertificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <ImageView
+                        android:id="@+id/img_removeGST"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="end|top"
+                        android:background="@color/white"
+                        android:src="@drawable/com_facebook_close"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/txt_GSTCertificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_gst_certi"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_border_orange"
+                android:text="Upload GST Certificate"
+                android:textColor="@color/black_000"/>
+
+            <LinearLayout
+                android:id="@+id/layout_ARNCertificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_ARNCertificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"/>
+
+                    <ImageView
+                        android:id="@+id/img_removeARN"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="end|top"
+                        android:background="@color/white"
+                        android:src="@drawable/com_facebook_close"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/txt_ARNCertificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_arn_certi"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_border_orange"
+                android:text="Upload ARN Certificate"
+                android:textColor="@color/black_000"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/star"
+                    android:padding="5dp"
+                    android:text="Type of Business"
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="(Hardware Dealer, Architect, ETC…)"
+                    android:textColor="@color/black_000"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edt_bussinesstype"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:maxLength="30"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="#99000000"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Type of Supply"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/star"
+                android:padding="5dp"
+                android:text="Type of Supply"
+                android:textColor="@color/black_000"
+                android:textSize="14dp"/>
+
+            <Spinner
+                android:id="@+id/spn_supply"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/spinner_border"
+                android:entries="@array/array_supply_type"/>
+
+            <EditText
+                android:id="@+id/edt_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/border_slider"
+                android:gravity="top"
+                android:hint="Comments (for any further information)"
+                android:lines="3"
+                android:maxLines="3"
+                android:padding="5dp"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@color/black"
+                android:text="SUBMIT"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -83,11 +83,17 @@
               android:icon="@drawable/becomedealer"
               android:theme="@style/textfont_theme"
               android:title="Become A Dealer"/>
-       <!-- <item
-            android:id="@+id/career"
-            android:icon="@drawable/ic_action_inquiry"
-            android:theme="@style/textfont_theme"
-            android:title="Career" />-->
+
+        <item
+            android:id="@+id/menu_gst"
+            android:icon="@drawable/gst_128"
+            android:title="GST Information"/>
+
+        <!-- <item
+             android:id="@+id/career"
+             android:icon="@drawable/ic_action_inquiry"
+             android:theme="@style/textfont_theme"
+             android:title="Career" />-->
         <item
             android:id="@+id/contact"
             android:icon="@drawable/ic_action_contactus"

@@ -842,9 +842,6 @@ public class D_OrderHistory extends AppCompatActivity {
                 intent.setDataAndType(Uri.fromFile(file), "application/pdf");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
-
-
-
             }
 
         }

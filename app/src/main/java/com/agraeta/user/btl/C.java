@@ -153,4 +153,10 @@ public class C {
 
         return matcher.matches();
     }
+
+    public static boolean isAlphaNumeric15Digit(String string) {
+        Pattern pattern = Pattern.compile("[A-Za-z0-9]{15}");
+        Matcher matcher = pattern.matcher(string);
+        return matcher.matches();
+    }
 }
