@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.model.enquiries.CareerDetail;
 import com.agraeta.user.btl.model.enquiries.ProductRegistrationDetail;
 
 import java.util.ArrayList;
@@ -91,11 +90,6 @@ public class ProductRegistrationListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class OrderHolder{
-        TextView txt_userName,txt_mobileNo,txt_onDate;
-        ImageView img_info;
-    }
-
     private void showInformationDialog(final int position){
         View dialogView=inflater.inflate(R.layout.layout_dialog_enquiry_info,null);
 
@@ -116,7 +110,7 @@ public class ProductRegistrationListAdapter extends BaseAdapter {
 
         ImageView img_close=(ImageView) dialogView.findViewById(R.id.img_close);
 
-        txt_labelEnquiry.setText("Retailer Name");
+        txt_labelEnquiry.setText("Dealer Name");
 
         layout_companyName.setVisibility(View.GONE);
         layout_purchaseDate.setVisibility(View.VISIBLE);
@@ -158,5 +152,10 @@ public class ProductRegistrationListAdapter extends BaseAdapter {
         });
 
         dialog.show();
+    }
+
+    private class OrderHolder {
+        TextView txt_userName, txt_mobileNo, txt_onDate;
+        ImageView img_info;
     }
 }
