@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:drawableRight="@drawable/star"
-                android:text="To Name"
+                android:text="Person Name"
                 android:textColor="#000"
                 android:textSize="16sp"/>
 

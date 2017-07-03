@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="2dp"
-    app:cardUseCompatPadding="true"
-    android:layout_margin="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/img_offerThumb"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:scaleType="fitXY" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_offerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img_offerThumb"
-            android:padding="5dp"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:background="#f58634"/>
+            <ImageView
+                android:id="@+id/img_offerThumb"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:scaleType="fitXY"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/txt_offerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_offerThumb"
+                android:background="#f58634"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
 
-</android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -66,16 +66,32 @@ public class UnregisteredUserData extends AppModel {
             return country;
         }
 
+        public void setCountry(String country) {
+            this.country = country;
+        }
+
         public String getState() {
             return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
         }
 
         public String getCity() {
             return city;
         }
 
+        public void setCity(String city) {
+            this.city = city;
+        }
+
         public String getArea() {
             return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
         }
 
         public String getPincode() {
@@ -86,8 +102,16 @@ public class UnregisteredUserData extends AppModel {
             return contact_person;
         }
 
+        public void setContact_person(String contact_person) {
+            this.contact_person = contact_person;
+        }
+
         public String getFirm_name() {
             return firm_name;
+        }
+
+        public void setFirm_name(String firm_name) {
+            this.firm_name = firm_name;
         }
 
         public String getEmail() {
@@ -96,6 +120,10 @@ public class UnregisteredUserData extends AppModel {
 
         public String getMobile_no() {
             return mobile_no;
+        }
+
+        public void setMobile_no(String mobile_no) {
+            this.mobile_no = mobile_no;
         }
 
         public String getParty_report() {

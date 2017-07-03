@@ -28,7 +28,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
-import com.agraeta.user.btl.BTLProdcut_Detailpage;
 import com.agraeta.user.btl.BTL_Cart;
 import com.agraeta.user.btl.Bean_Address;
 import com.agraeta.user.btl.Bean_Desc;
@@ -41,7 +40,6 @@ import com.agraeta.user.btl.Bean_Schme_value;
 import com.agraeta.user.btl.Bean_User_data;
 import com.agraeta.user.btl.Bean_Value_Selected_Detail;
 import com.agraeta.user.btl.Bean_texhnicalImages;
-import com.agraeta.user.btl.Btl_WishList;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Globals;
@@ -69,11 +67,11 @@ import java.util.List;
  */
 public class Sales_Order_History_Details extends AppCompatActivity {
 
+    public static ArrayList<String> WishList = new ArrayList<String>();
     //    ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
 //    String user_id_main = new String();
 //    String role_id = new String();
     ImageView reorder_all;
-
     Button btn_pay1;
     TextView tv_total_product, tv_order_total, tv_subtotal, sub_t;
     ListView lv_checkout_product_list;
@@ -91,16 +89,12 @@ public class Sales_Order_History_Details extends AppCompatActivity {
     CustomAdapterOrderHistory_tracking adapter1;
     // ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     TextView tv_user_name_billing, tv_number_billing, tv_address_billing, tv_user_name_delivery, tv_number_delivery, tv_address_delivery;
-
     Dialog dialog;
     ImageView im_billing, im_delivery;
-
     ArrayList<Bean_Address> array_address = new ArrayList<Bean_Address>();
     ArrayList<String> array_final_address = new ArrayList<String>();
-
     String selected_billing_address = "";
     String selected_shipping_address = "";
-
     String selected_billing_address_id = "";
     String selected_shipping_address_id = "";
     String comment = "";
@@ -129,7 +123,6 @@ public class Sales_Order_History_Details extends AppCompatActivity {
     String qun = new String();
     ArrayList<Bean_Product> bean_product1 = new ArrayList<Bean_Product>();
     ArrayList<Bean_ProductOprtion> bean_productOprtions = new ArrayList<Bean_ProductOprtion>();
-    public static ArrayList<String> WishList = new ArrayList<String>();
     ArrayList<Bean_Desc> bean_desc1 = new ArrayList<Bean_Desc>();
     ArrayList<Bean_texhnicalImages> bean_technical = new ArrayList<Bean_texhnicalImages>();
     ArrayList<Bean_ProductImage> bean_productImages = new ArrayList<Bean_ProductImage>();
@@ -146,6 +139,14 @@ public class Sales_Order_History_Details extends AppCompatActivity {
     boolean isNotDone = true;
     String jsonData = "";
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     protected void onResume() {
         System.runFinalization();
@@ -1227,6 +1228,13 @@ public class Sales_Order_History_Details extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
 
+                                        String comment = txt_comm.getText().toString();
+
+                                        if (comment.isEmpty()) {
+                                            Globals.Toast2(getApplicationContext(), "Please Enter Enquiry");
+                                            return;
+                                        }
+
                                         List<NameValuePair> para = new ArrayList<NameValuePair>();
                                         appPrefs = new AppPrefs(Sales_Order_History_Details.this);
                                         para.add(new BasicNameValuePair("order_id", appPrefs.getOrder_history_id()));
@@ -1672,11 +1680,380 @@ public class Sales_Order_History_Details extends AppCompatActivity {
 
     }
 
+    private void setActionBar() {
+
+        // TODO Auto-generated method stub
+        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
+        img_notification.setVisibility(View.GONE);
+        img_cart.setVisibility(View.VISIBLE);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        frame.setVisibility(View.VISIBLE);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        img_notification.setVisibility(View.GONE);
+        appPrefs = new AppPrefs(Sales_Order_History_Details.this);
+        String qun = appPrefs.getCart_QTy();
+
+        setRefershData();
+
+        appPrefs = new AppPrefs(Sales_Order_History_Details.this);
+        String qu1 = appPrefs.getCart_QTy();
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
+            txt.setVisibility(View.GONE);
+            txt.setText("");
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
+                txt.setText("999+");
+                txt.setVisibility(View.VISIBLE);
+            } else {
+                txt.setText(qu1 + "");
+                txt.setVisibility(View.VISIBLE);
+            }
+        }
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appPrefs = new AppPrefs(Sales_Order_History_Details.this);
+                appPrefs.setUser_notification("Sales_Order_History_Details");
+                Intent i = new Intent(Sales_Order_History_Details.this, BTL_Cart.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Sales_Order_History_Details.this, SalesOrderHistory.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
+        });
+      /*  img_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
+                startActivity(i);
+            }
+        });*/
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Sales_Order_History_Details.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Sales_Order_History_Details.this, Notification.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+    }
+
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+        Intent i = new Intent(Sales_Order_History_Details.this, SalesOrderHistory.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
+
+
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(Sales_Order_History_Details.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+        }
+        db.close();
+    }
+
+    public String GetProductDetailByCode(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        return json[0];
+    }
+
+    public String GetProductDetailByCode1(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetProductDetailByProductDetail(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        return json[0];
+    }
+
+    public String GetProductDetailByCode_schme(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //Log.e("345678903",""+product_id);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetOrderEnquiry(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Order_Enquiry", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
 
     public class send_order_details extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1776,9 +2153,9 @@ public class Sales_Order_History_Details extends AppCompatActivity {
     }
 
     public class get_address_list extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -1953,96 +2330,6 @@ public class Sales_Order_History_Details extends AppCompatActivity {
 
         }
     }
-
-    private void setActionBar() {
-
-        // TODO Auto-generated method stub
-        android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM);
-        mActionBar.setCustomView(R.layout.actionbar_design);
-
-
-        View mCustomView = mActionBar.getCustomView();
-        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
-        ImageView img_btllogo = (ImageView) mCustomView.findViewById(R.id.img_btllogo);
-        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
-
-        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
-        ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
-        img_notification.setVisibility(View.GONE);
-        img_cart.setVisibility(View.VISIBLE);
-        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
-        frame.setVisibility(View.VISIBLE);
-        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
-        img_notification.setVisibility(View.GONE);
-        appPrefs = new AppPrefs(Sales_Order_History_Details.this);
-        String qun = appPrefs.getCart_QTy();
-
-        setRefershData();
-
-        appPrefs = new AppPrefs(Sales_Order_History_Details.this);
-        String qu1 = appPrefs.getCart_QTy();
-        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
-            txt.setVisibility(View.GONE);
-            txt.setText("");
-        } else {
-            if (Integer.parseInt(qu1) > 999) {
-                txt.setText("999+");
-                txt.setVisibility(View.VISIBLE);
-            } else {
-                txt.setText(qu1 + "");
-                txt.setVisibility(View.VISIBLE);
-            }
-        }
-        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-        img_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                appPrefs = new AppPrefs(Sales_Order_History_Details.this);
-                appPrefs.setUser_notification("Sales_Order_History_Details");
-                Intent i = new Intent(Sales_Order_History_Details.this, BTL_Cart.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        image_drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(Sales_Order_History_Details.this, SalesOrderHistory.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-                finish();
-            }
-        });
-      /*  img_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CheckoutPage.this,Main_CategoryPage.class);
-                startActivity(i);
-            }
-        });*/
-        img_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Sales_Order_History_Details.this, MainPage_drawer.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-        img_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Sales_Order_History_Details.this, Notification.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
-
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-    }
-
 
     public class CustomResultAdapter extends BaseAdapter {
 
@@ -3025,86 +3312,10 @@ public class Sales_Order_History_Details extends AppCompatActivity {
         }
     }
 
-
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-
-        Intent i = new Intent(Sales_Order_History_Details.this, SalesOrderHistory.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-        finish();
-
-
-    }
-
-    ;
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(Sales_Order_History_Details.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid = user_array_from_db.get(i).getId();
-            String user_id = user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no = user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-        }
-        db.close();
-    }
-
     public class set_order_tracking extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3256,65 +3467,6 @@ public class Sales_Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetProductDetailByCode(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        return json[0];
-    }
-
-    public String GetProductDetailByCode1(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     private class GetProductDetailByQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -3364,7 +3516,6 @@ public class Sales_Order_History_Details extends AppCompatActivity {
 
             jsonData = "";
             jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, pairList);
-            ;
             isNotDone = false;
             return jsonData;
         }
@@ -3383,47 +3534,15 @@ public class Sales_Order_History_Details extends AppCompatActivity {
 
             jsonData = "";
             jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, pairList);
-            ;
             isNotDone = false;
             return jsonData;
         }
     }
 
-    public String GetProductDetailByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-
     public class Add_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3518,9 +3637,9 @@ public class Sales_Order_History_Details extends AppCompatActivity {
     }
 
     public class Edit_Product extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -3614,75 +3733,6 @@ public class Sales_Order_History_Details extends AppCompatActivity {
         }
     }
 
-
-    public String GetProductDetailByProductDetail(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Product_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        return json[0];
-    }
-
-    public String GetProductDetailByCode_schme(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //Log.e("345678903",""+product_id);
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
     public class GetOrderEnquiry extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> pairList = new ArrayList<>();
@@ -3702,70 +3752,10 @@ public class Sales_Order_History_Details extends AppCompatActivity {
         }
     }
 
-    public String GetOrderEnquiry(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Order_Enquiry", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
-    public String GetCartByQty(final List<NameValuePair> params) {
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0] = false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]) {
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
-
     public class set_order_enquiry extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {

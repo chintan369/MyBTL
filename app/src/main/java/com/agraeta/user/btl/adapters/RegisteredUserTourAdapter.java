@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserDSRDetailActivity;
+import com.agraeta.user.btl.CompanySalesPerson.RegisteredUserSkipOrderActivity;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.RegisteredUserData;
 import com.agraeta.user.btl.model.RegisteredUserTourResponse;
+import com.agraeta.user.btl.model.UnregisteredUserData;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +90,25 @@ public class RegisteredUserTourAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String address = new Gson().toJson(userTourList.get(position).getAddress().get(0));
+                UnregisteredUserData.UnregisteredUser userData = new Gson().fromJson(address, UnregisteredUserData.UnregisteredUser.class);
 
+                userData.setFirm_name(userTourList.get(position).getDistributor().getFirm_name());
+                userData.setContact_person(userTourList.get(position).getDistributor().getFirm_name());
+                userData.setMobile_no(userTourList.get(position).getUser().getPhone_no());
+                userData.setState(userTourList.get(position).getAddress().get(0).getState_id());
+                userData.setCity(userTourList.get(position).getAddress().get(0).getCity_id());
+                userData.setArea(userTourList.get(position).getAddress().get(0).getArea_id());
+                userData.setCountry(userTourList.get(position).getAddress().get(0).getCountry_id());
+
+                Intent intent = new Intent(activity, RegisteredUserSkipOrderActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("firmName", userTourList.get(position).getDistributor().getFirm_name());
+                intent.putExtra("salesComapnyPerson", userTourList.get(position).getUser().getId());
+                intent.putExtra("userRoleID", userTourList.get(position).getUser().getRole_id());
+                intent.putExtra("isInEditMode", true);
+                intent.putExtra("userData", userData);
+                activity.startActivity(intent);
             }
         });
 

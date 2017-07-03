@@ -109,6 +109,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
     String skipPersonID="";
     String firmName="";
     String customerTypeID= "";
+    boolean isFromTour = false;
     private boolean isFirstTime = true;
 
     @Override
@@ -125,7 +126,6 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
         if(!gpsTracker.canGetLocation()){
             gpsTracker.showSettingsAlert();
-
         }
 
         Intent intent=getIntent();
@@ -193,7 +193,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
         edt_comment = (EditText) findViewById(R.id.edt_comment);
         edt_jointVisitWith = (EditText) findViewById(R.id.edt_jointVisitWith);
         edt_orderID=(EditText) findViewById(R.id.edt_orderID);
-
+        edt_orderID.setEnabled(false);
         edt_firmName.setText(firmName);
 
         if(isInEditMode){

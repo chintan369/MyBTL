@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
-import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -73,7 +74,7 @@ class CustomPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
 
-        return view == ((View) object);
+        return view == object;
     }
 
     @Override
@@ -92,38 +93,57 @@ class CustomPagerAdapter extends PagerAdapter {
         img_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_full.setDrawingCacheEnabled(true);
+
+                Picasso.with(mContext)
+                        .load(withoutFiles ? Globals.server_link + array_image.get(position) : Globals.server_link + "files/" + array_image.get(position))
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                String filePath = "";
+                                try {
+                                    File rootFile = new File(Environment.getExternalStorageDirectory() + "/BTL/Gallery");
+                                    if (rootFile.exists()) rootFile.delete();
+                                    rootFile.mkdir();
+                                    File imagePath = new File(rootFile + File.separator + productCode + "_" + productName + "_" + position + ".jpg");
+                                    if (imagePath.exists()) imagePath.delete();
+                                    imagePath.createNewFile();
+                                    //fileName = filePath+File.separator+fileName;
+                                    OutputStream ostream = new FileOutputStream(imagePath);
+                                    filePath = imagePath.getAbsolutePath();
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+                                    ostream.flush();
+                                    ostream.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                //Log.e("File Path","--> "+filePath);
+
+                                Intent share = new Intent(Intent.ACTION_SEND);
+                                share.setType("image/*");
+                                //share.setAction(Intent.ACTION_SEND_MULTIPLE);
+                                share.putExtra(Intent.EXTRA_SUBJECT, "" + productCode + "(" + productName + ")");
+                                share.putExtra(Intent.EXTRA_TEXT, "Item Code : " + "(" + productCode + ")" + "\nItem Name : " + productName);
+                                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
+                                activity.startActivity(Intent.createChooser(share, "Share via"));
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+                                Globals.Toast2(mContext, "Failed to Save Image");
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                            }
+                        });
+
+                /*img_full.setDrawingCacheEnabled(true);
                 img_full.destroyDrawingCache();
                 img_full.buildDrawingCache();
-                Bitmap bitmap = img_full.getDrawingCache();
-                String filePath = "";
-                try {
+                Bitmap bitmap = img_full.getDrawingCache();*/
 
-                    File rootFile = new File(Environment.getExternalStorageDirectory() + "/BTL/Gallery");
-                    if (rootFile.exists()) rootFile.delete();
-                    rootFile.mkdir();
-                    File imagePath = new File(rootFile + File.separator + productCode + "_" + productName + "_" + position + ".jpg");
-                    if (imagePath.exists()) imagePath.delete();
-                    imagePath.createNewFile();
-                    //fileName = filePath+File.separator+fileName;
-                    OutputStream ostream = new FileOutputStream(imagePath);
-                    filePath = imagePath.getAbsolutePath();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                    ostream.flush();
-                    ostream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                //Log.e("File Path","--> "+filePath);
-
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("image/*");
-                //share.setAction(Intent.ACTION_SEND_MULTIPLE);
-                share.putExtra(Intent.EXTRA_SUBJECT, "" + productCode + "("+productName+")");
-                share.putExtra(Intent.EXTRA_TEXT, "Item Code : " + "(" + productCode + ")" + "\nItem Name : " + productName);
-                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
-                activity.startActivity(Intent.createChooser(share, "Share via"));
             }
         });
         

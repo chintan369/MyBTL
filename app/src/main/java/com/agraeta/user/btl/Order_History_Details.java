@@ -1257,6 +1257,13 @@ public class Order_History_Details extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
 
+                                        String comment = txt_comm.getText().toString();
+
+                                        if (comment.isEmpty()) {
+                                            Globals.Toast2(getApplicationContext(), "Please Enter Enquiry");
+                                            return;
+                                        }
+
                                         List<NameValuePair> para = new ArrayList<NameValuePair>();
                                         appPrefs = new AppPrefs(Order_History_Details.this);
                                         para.add(new BasicNameValuePair("order_id", appPrefs.getOrder_history_id()));

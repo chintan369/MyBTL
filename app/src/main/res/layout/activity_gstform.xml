@@ -256,7 +256,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/border_slider"
                 android:inputType="number"
-                android:maxLength="30"
+                android:maxLength="10"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textColor="#99000000"
