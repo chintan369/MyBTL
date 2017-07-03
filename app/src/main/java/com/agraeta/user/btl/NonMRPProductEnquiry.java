@@ -79,8 +79,8 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
         txt_add_attachment= (TextView) findViewById(R.id.txt_add_attachment);
 
         if (prefs.getUser_LoginInfo().equals("1")) {
-            edt_firstName.setText(BTL.user.getFirst_name());
-            edt_lastName.setText(BTL.user.getLast_name());
+            edt_firstName.setText(BTL.user.getName());
+            edt_lastName.setText(BTL.user.getFirst_name());
             edt_emailAddress.setText(BTL.user.getEmail_id());
             edt_mobile.setText(BTL.user.getPhone_no());
         }
@@ -125,8 +125,7 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
                 }
                 else if(!C.validEmail(emailID)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Email ID");
-                }
-                else if(!mobile.isEmpty() && mobile.length()<10){
+                } else if (!mobile.isEmpty() || mobile.length() < 10) {
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Mobile Number");
                 }
                 else if(query.isEmpty()){
