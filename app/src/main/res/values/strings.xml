@@ -154,4 +154,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="array_supply_type">
+        <item>Select Supply Type</item>
+        <item>Goods</item>
+        <item>Services</item>
+    </string-array>
+
+    <string-array name="array_gstuin_type">
+        <item>GST Type</item>
+        <item>Provisional</item>
+        <item>Permanent</item>
+    </string-array>
+
 </resources>
