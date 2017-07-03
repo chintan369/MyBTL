@@ -75,7 +75,7 @@ public class Btl_WishList extends AppCompatActivity {
     double amount1;
     String option_name = "";
     String option_id = "";
-    boolean whereToBuyVisibility=true;
+    boolean whereToBuyVisibility = true;
 
     Dialog dialog, dialogOffer;
     int s = 0;
@@ -316,7 +316,7 @@ public class Btl_WishList extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    private void GetCartQtyCall(){
+    private void GetCartQtyCall() {
         setRefershData();
 
         if (user_data.size() != 0) {
@@ -1290,7 +1290,7 @@ public class Btl_WishList extends AppCompatActivity {
                                 bean.setPro_sellingprice(jproduct.getString("selling_price"));
                                 // bean.setPro_shortdesc(jproduct.getString("short_description"));
                                 bean.setPro_image(jproduct.getString("image"));
-                                String minPackOfQty=jproduct.getString("pack_of_qty");
+                                String minPackOfQty = jproduct.getString("pack_of_qty");
                                 bean.setPackQty(Integer.parseInt(minPackOfQty.isEmpty() ? "1" : minPackOfQty));
                                 bean1.setPro_id(jproduct.getString("id"));
                                 bean1.setPro_status(jproduct.getString("status"));
@@ -1325,14 +1325,14 @@ public class Btl_WishList extends AppCompatActivity {
 
                                 for (int s = 0; s < jProductOption.length(); s++) {
                                     JSONObject jProductOptiono = jProductOption.getJSONObject(s);
-                                    JSONObject productObject=jProductOptiono.getJSONObject("Product");
+                                    JSONObject productObject = jProductOptiono.getJSONObject("Product");
                                     JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
                                     JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
                                     JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
 
-                                    JSONArray schemeArray=jProductOptiono.getJSONArray("Scheme");
-                                    for(int m=0; m<schemeArray.length(); m++){
-                                        JSONObject schemeObj=schemeArray.getJSONObject(m);
+                                    JSONArray schemeArray = jProductOptiono.getJSONArray("Scheme");
+                                    for (int m = 0; m < schemeArray.length(); m++) {
+                                        JSONObject schemeObj = schemeArray.getJSONObject(m);
 
                                         Bean_schemeData beans = new Bean_schemeData();
                                         beans.setSchme_id(schemeObj.getString("id"));
@@ -1721,7 +1721,7 @@ public class Btl_WishList extends AppCompatActivity {
 
                     setRefershData();
 
-                    final String[] selectedProductID={bean_product1.get(position).getPro_id()};
+                    final String[] selectedProductID = {bean_product1.get(position).getPro_id()};
 
                     if (user_data.size() != 0) {
                         for (int i = 0; i < user_data.size(); i++) {
@@ -1735,7 +1735,7 @@ public class Btl_WishList extends AppCompatActivity {
                                 app = new AppPrefs(Btl_WishList.this);
                                 role_id = app.getSubSalesId().toString();
                                 user_id_main = app.getSalesPersonId().toString();
-                            }else {
+                            } else {
                                 user_id_main = owner_id;
                             }
 
@@ -1818,18 +1818,18 @@ public class Btl_WishList extends AppCompatActivity {
                     edt_count = (EditText) dialog.findViewById(R.id.edt_count);
                     edt_count.setSelection(edt_count.getText().length());
 
-                    final ImageView img_offerDialog=(ImageView) dialog.findViewById(R.id.img_offerDialog);
+                    final ImageView img_offerDialog = (ImageView) dialog.findViewById(R.id.img_offerDialog);
 
                     final TextView txt_availableScheme = (TextView) dialog.findViewById(R.id.txt_availableScheme);
 
-                    if(bean_product1.get(position).getScheme()==null || bean_product1.get(position).getScheme().isEmpty()){
+                    if (bean_product1.get(position).getScheme() == null || bean_product1.get(position).getScheme().isEmpty()) {
                         img_offerDialog.setVisibility(View.GONE);
                     }
 
                     img_offerDialog.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            showOfferDialog(position,selectedProductID[0]);
+                            showOfferDialog(position, selectedProductID[0]);
                         }
                     });
 
@@ -1948,7 +1948,7 @@ public class Btl_WishList extends AppCompatActivity {
 
                         ////Log.e("121212 ::",""+bean_productOprtions.size());
 
-                        final ArrayList<Bean_ProductOprtion> currentOptions=new ArrayList<Bean_ProductOprtion>();
+                        final ArrayList<Bean_ProductOprtion> currentOptions = new ArrayList<Bean_ProductOprtion>();
 
                         for (int c = 0; c < bean_productOprtions.size(); c++) {
                             ////Log.e("232323 ::",""+bean_productOprtions.get(c).getPro_id());
@@ -2119,17 +2119,18 @@ public class Btl_WishList extends AppCompatActivity {
                                         ArrayList<Bean_Attribute> att_array = new ArrayList<Bean_Attribute>();
                                         att_array = array_attribute_main.get(pos);
 
-                                        selectedProductID[0]=att_array.get(position1).getOption_pro_id();
+                                        selectedProductID[0] = att_array.get(position1).getOption_pro_id();
 
-                                        boolean foundScheme=false;
-                                        for(int a=0; a<bean_Schme_data.size(); a++){
-                                            if(bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])){
-                                                foundScheme=true;
+                                        boolean foundScheme = false;
+                                        for (int a = 0; a < bean_Schme_data.size(); a++) {
+                                            if (bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])) {
+                                                foundScheme = true;
                                                 break;
                                             }
                                         }
 
-                                        if(foundScheme) img_offerDialog.setVisibility(View.VISIBLE);
+                                        if (foundScheme)
+                                            img_offerDialog.setVisibility(View.VISIBLE);
                                         else img_offerDialog.setVisibility(View.GONE);
                                         ////Log.e("Position",""+att_array.get(position1).getValue_name());
                                         ////Log.e("Position",""+att_array.get(position1).getValue_id());
@@ -2359,7 +2360,7 @@ public class Btl_WishList extends AppCompatActivity {
                         public void onClick(View v) {
                             String c = edt_count.getText().toString();
                             ////Log.e("float - ",""+edt_count.getText().toString());
-                            if(!c.isEmpty()) {
+                            if (!c.isEmpty()) {
                                 s = Integer.parseInt(c);
                                 if (s > 0) {
                                     //int minPackOfQty = bean_product1.get(position).getPackQty();
@@ -2398,7 +2399,7 @@ public class Btl_WishList extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             String c1 = edt_count.getText().toString();
-                            c1=c1.isEmpty() ? "0" : c1;
+                            c1 = c1.isEmpty() ? "0" : c1;
                             ////Log.e("float - ",""+edt_count.getText().toString());
                             // s=Integer.parseInt(c1);
                             s = Integer.parseInt(c1);
@@ -2407,12 +2408,12 @@ public class Btl_WishList extends AppCompatActivity {
                                 s = s + minPackOfQty[0];
                             } else if (s > 0) {
 
-                                int remainder=C.modOf(minPackOfQty[0],s);
+                                int remainder = C.modOf(minPackOfQty[0], s);
 
                                 if (s < minPackOfQty[0]) {
 
                                     if (remainder > 0) {
-                                        s = s + (minPackOfQty[0] -s);
+                                        s = s + (minPackOfQty[0] - s);
                                     } else {
                                         s = s + minPackOfQty[0];
                                     }
@@ -2461,18 +2462,17 @@ public class Btl_WishList extends AppCompatActivity {
                         @Override
                         public void afterTextChanged(Editable s) {
 
-                            String enteredQty=edt_count.getText().toString().trim();
-                            int qty=Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
+                            String enteredQty = edt_count.getText().toString().trim();
+                            int qty = Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
 
-                            if(qty<=0){
+                            if (qty <= 0) {
                                 buy_cart.setEnabled(false);
                                 tv_total.setText("0.00");
-                            }
-                            else {
+                            } else {
                                 buy_cart.setEnabled(true);
                                 //int minPackOfQty = bean_product1.get(position).getPackQty();
 
-                                if(qty>= minPackOfQty[0] && C.modOf(qty, minPackOfQty[0])==0){
+                                /*if (qty >= minPackOfQty[0] && C.modOf(qty, minPackOfQty[0]) == 0) {
                                     String productpricce = tv_pop_sellingprice.getTag().toString();
                                     amount1 = Double.parseDouble(s.toString());
                                     amount1 = Double.parseDouble(productpricce) * amount1;
@@ -2480,37 +2480,42 @@ public class Btl_WishList extends AppCompatActivity {
                                     double w = round(amount1, 2);
                                     String str = String.format("%.2f", w);
                                     tv_total.setText(str);
-                                }
-                                else{
+                                } else {
                                     tv_total.setText("");
-                                }
+                                }*/
 
-                                ArrayList<Bean_schemeData> currentProductScheme=new ArrayList<Bean_schemeData>();
+                                String productpricce = tv_pop_sellingprice.getTag().toString();
+                                amount1 = Double.parseDouble(s.toString());
+                                amount1 = Double.parseDouble(productpricce) * amount1;
+                                double finalValue = (double) (Math.round(amount1 * 100) / 100);
+                                double w = round(amount1, 2);
+                                String str = String.format("%.2f", w);
+                                tv_total.setText(str);
 
-                                for(int i=0;i<bean_Schme_data.size();i++){
-                                    if(bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())){
+                                ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
+
+                                for (int i = 0; i < bean_Schme_data.size(); i++) {
+                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())) {
                                         currentProductScheme.add(bean_Schme_data.get(i));
                                     }
                                 }
 
-                                if(currentProductScheme.size()>0){
+                                if (currentProductScheme.size() > 0) {
 
-                                    int selectedPos=0;
+                                    int selectedPos = 0;
 
-                                    for(int i=0; i<currentProductScheme.size(); i++){
-                                        int schemeQty=Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
-                                        if(qty<schemeQty){
-                                            selectedPos=i;
+                                    for (int i = 0; i < currentProductScheme.size(); i++) {
+                                        int schemeQty = Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
+                                        if (qty < schemeQty) {
+                                            selectedPos = i;
                                             break;
-                                        }
-                                        else{
-                                            selectedPos=currentProductScheme.size()-1;
+                                        } else {
+                                            selectedPos = currentProductScheme.size() - 1;
                                         }
                                     }
 
                                     txt_availableScheme.setText(currentProductScheme.get(selectedPos).getSchme_name());
-                                }
-                                else txt_availableScheme.setText("");
+                                } else txt_availableScheme.setText("");
 
                             }
 
@@ -2548,7 +2553,7 @@ public class Btl_WishList extends AppCompatActivity {
                                 String str = String.format("%.2f", w);
                                 tv_total.setText(str);
                         *//*if(txt_count.getText().toString().equalsIgnoreCase("0")){
-							txt_amount.setEnabled(false);
+                            txt_amount.setEnabled(false);
 						}
 						*//*
 
@@ -2573,12 +2578,11 @@ public class Btl_WishList extends AppCompatActivity {
                                 int currentQty = Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
                                 //int minPackOfQty = bean_product1.get(position).getPackQty();
 
-                                if (currentQty< minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
+                                if (currentQty < minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
                                     C.showMinPackAlert(Btl_WishList.this, minPackOfQty[0]);
                                     //Globals.Toast(getApplicationContext(), "Please enter quantity in multiple of "+minPackOfQty+" or tap + / - button");
-                                    Log.e("Mod Rem","-->"+C.modOf(currentQty, minPackOfQty[0]));
-                                }
-                                else {
+                                    Log.e("Mod Rem", "-->" + C.modOf(currentQty, minPackOfQty[0]));
+                                } else {
                                     product_id = tv_pop_pname.getTag().toString();
                                     String qty = edt_count.getText().toString();
 
@@ -2589,12 +2593,12 @@ public class Btl_WishList extends AppCompatActivity {
                                     ////Log.e("111111111",""+product_id);
                                     ////Log.e("222222222",""+user_id_main);
                                     //    //Log.e("333333333",""+qty);
-                                    isNotDone=true;
+                                    isNotDone = true;
                                     new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                                    while (isNotDone){
+                                    while (isNotDone) {
 
                                     }
-                                    isNotDone=true;
+                                    isNotDone = true;
 
                                     String json = jsonData; //GetProductDetailByCode(params);
 
@@ -2718,7 +2722,6 @@ public class Btl_WishList extends AppCompatActivity {
                                                 //   loadingView.dismiss();
 
                                                 //        }
-
 
 
                                                 //loadingView.dismiss();
@@ -5861,41 +5864,39 @@ public class Btl_WishList extends AppCompatActivity {
 
                     ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-                    final List<String> schemeHeaders=new ArrayList<String>();
-                    final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+                    final List<String> schemeHeaders = new ArrayList<String>();
+                    final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-                    List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-                    for(int i=0; i<bean_S_data.size(); i++){
-                        if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+                    for (int i = 0; i < bean_S_data.size(); i++) {
+                        if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                             extraSpecialScheme.add(bean_S_data.get(i));
-                        }
-                        else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                        } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                             specialScheme.add(bean_S_data.get(i));
-                        }
-                        else {
+                        } else {
                             generalScheme.add(bean_S_data.get(i));
                         }
                     }
 
-                    if(extraSpecialScheme.size()>0){
+                    if (extraSpecialScheme.size() > 0) {
                         schemeHeaders.add("Extra Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                     }
 
-                    if(specialScheme.size()>0){
+                    if (specialScheme.size() > 0) {
                         schemeHeaders.add("Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                     }
 
-                    if(generalScheme.size()>0){
+                    if (generalScheme.size() > 0) {
                         schemeHeaders.add("General Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                     }
 
-                    final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(getApplicationContext(),schemeHeaders,schemeChildList);
+                    final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
                     listSchemes.setAdapter(schemeAdapter);
 
                     listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -5903,7 +5904,7 @@ public class Btl_WishList extends AppCompatActivity {
                         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                             setRefershData();
-                            String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                            String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                             if (user_data.size() != 0) {
                                 for (int i = 0; i < user_data.size(); i++) {
 
@@ -5930,12 +5931,12 @@ public class Btl_WishList extends AppCompatActivity {
                                 Log.e("111111111", "" + bean_product1.get(position).getPro_id());
                                 Log.e("222222222", "" + owner_id);
                                 Log.e("333333333", "" + user_id_main);
-                                isNotDone=true;
+                                isNotDone = true;
                                 new GetProductDetailByQty(para).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                                while(isNotDone){
+                                while (isNotDone) {
 
                                 }
-                                isNotDone=true;
+                                isNotDone = true;
                                 String json = jsonData; //GetProductDetailByQty(para);
 
                                 try {
@@ -5999,12 +6000,12 @@ public class Btl_WishList extends AppCompatActivity {
                                 Log.e("222222222", "" + user_id_main);
                                 Log.e("333333333", "" + qty);
 
-                                isNotDone=true;
+                                isNotDone = true;
                                 new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                                while (isNotDone){
+                                while (isNotDone) {
 
                                 }
-                                isNotDone=true;
+                                isNotDone = true;
 
                                 String jsons = jsonData; //GetProductDetailByCode(params);
 
@@ -6587,9 +6588,9 @@ public class Btl_WishList extends AppCompatActivity {
                     .placeholder(R.drawable.btl_watermark)
                     .into(result_holder.img_photo);
 
-            int mrpPrice=(int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
+            int mrpPrice = (int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
 
-            if(mrpPrice<=0){
+            if (mrpPrice <= 0) {
                 result_holder.btn_enquiry.setVisibility(View.VISIBLE);
                 result_holder.btn_buyonline.setVisibility(View.GONE);
                 result_holder.layout_prices.setVisibility(View.INVISIBLE);
@@ -6599,10 +6600,10 @@ public class Btl_WishList extends AppCompatActivity {
             result_holder.btn_enquiry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),NonMRPProductEnquiry.class);
+                    Intent intent = new Intent(getApplicationContext(), NonMRPProductEnquiry.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("productName",bean_product1.get(position).getPro_name());
-                    intent.putExtra("productID",bean_product1.get(position).getPro_id());
+                    intent.putExtra("productName", bean_product1.get(position).getPro_name());
+                    intent.putExtra("productID", bean_product1.get(position).getPro_id());
                     startActivity(intent);
                 }
             });
@@ -6763,7 +6764,7 @@ public class Btl_WishList extends AppCompatActivity {
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
 
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
 
             try {
 
@@ -6859,7 +6860,7 @@ public class Btl_WishList extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
             try {
 
 

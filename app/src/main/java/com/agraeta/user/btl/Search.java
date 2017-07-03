@@ -4214,7 +4214,7 @@ public class Search extends AppCompatActivity {
                                     buy_cart.setEnabled(true);
                                     //int minPackOfQty = bean_product1.get(position).getPackQty();
 
-                                    if (qty >= minPackOfQty[0] && C.modOf(qty, minPackOfQty[0]) == 0) {
+                                    /*if (qty >= minPackOfQty[0] && C.modOf(qty, minPackOfQty[0]) == 0) {
                                         String productpricce = tv_pop_sellingprice.getTag().toString();
                                         amount1 = Double.parseDouble(s.toString());
                                         amount1 = Double.parseDouble(productpricce) * amount1;
@@ -4224,7 +4224,15 @@ public class Search extends AppCompatActivity {
                                         tv_total.setText(str);
                                     } else {
                                         tv_total.setText("");
-                                    }
+                                    }*/
+
+                                    String productpricce = tv_pop_sellingprice.getTag().toString();
+                                    amount1 = Double.parseDouble(s.toString());
+                                    amount1 = Double.parseDouble(productpricce) * amount1;
+                                    //  float finalValue = (float)(Math.round( amount1 * 100 ) / 100);
+                                    double w1 = round(amount1, 2);
+                                    String str = String.format("%.2f", w1);
+                                    tv_total.setText(str);
 
                                     ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
 

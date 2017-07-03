@@ -62,6 +62,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -309,7 +310,7 @@ public class MainPage_drawer extends AppCompatActivity
             bedMenuItem.setTitle("My Account");
             bedMenuItem.setIcon(R.drawable.my_account);
 
-            if(apps.getUserRoleId().equals(C.ADMIN)) {
+            if (apps.getUserRoleId().equals(C.ADMIN)) {
                 bedMenuItem.setVisible(false);
                 menu.findItem(R.id.categories).setVisible(false);
                 menu.findItem(R.id.menu_videoGallery).setVisible(false);
@@ -428,25 +429,29 @@ public class MainPage_drawer extends AppCompatActivity
 
             }
 
-            if (!role_id.equals(C.ADMIN) && !role_id.equals(C.COMP_SALES_PERSON) && !role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-                Call<UserDetailResponse> userDetailResponseCall = adminAPI.getUserDetail(u_id);
-                userDetailResponseCall.enqueue(new Callback<UserDetailResponse>() {
-                    @Override
-                    public void onResponse(Call<UserDetailResponse> call, Response<UserDetailResponse> response) {
-                        UserDetailResponse detailResponse = response.body();
-                        if (detailResponse != null && detailResponse.isStatus()) {
-                            BTL.user = detailResponse.getData().getUser();
-                            BTL.distributor = detailResponse.getData().getDistributor();
-                            BTL.addressList.addAll(detailResponse.getData().getAddress());
-                        }
-                    }
+            Log.e("user & Role", u_id + " -- " + role_id);
 
-                    @Override
-                    public void onFailure(Call<UserDetailResponse> call, Throwable t) {
 
+            Call<UserDetailResponse> userDetailResponseCall = adminAPI.getUserDetail(u_id);
+            userDetailResponseCall.enqueue(new Callback<UserDetailResponse>() {
+                @Override
+                public void onResponse(Call<UserDetailResponse> call, Response<UserDetailResponse> response) {
+                    UserDetailResponse detailResponse = response.body();
+
+                    Log.e("response", new Gson().toJson(detailResponse));
+
+                    if (detailResponse != null && detailResponse.isStatus()) {
+                        BTL.user = detailResponse.getData().getUser();
+                        BTL.distributor = detailResponse.getData().getDistributor();
+                        BTL.addressList.addAll(detailResponse.getData().getAddress());
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onFailure(Call<UserDetailResponse> call, Throwable t) {
+                    Log.e("Failure", t.getMessage());
+                }
+            });
 
             List<NameValuePair> para = new ArrayList<NameValuePair>();
 
@@ -663,12 +668,11 @@ public class MainPage_drawer extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.CompanySales) {
-            if(apps.getUserRoleId().equals(C.ADMIN)){
+            if (apps.getUserRoleId().equals(C.ADMIN)) {
                 Intent i = new Intent(MainPage_drawer.this, AdminDashboard.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-            }
-            else {
+            } else {
                 Intent i = new Intent(MainPage_drawer.this, UserTypeActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
@@ -1746,7 +1750,7 @@ public class MainPage_drawer extends AppCompatActivity
                             JSONArray jArray_sticker = joj.getJSONArray("stickers");
                             JSONArray jArray_category = joj.getJSONArray("categories");
                             JSONArray jArray_marquee_msg = joj.getJSONArray("marquee_msg");
-                            JSONArray latest_products=joj.getJSONArray("latest_products");
+                            JSONArray latest_products = joj.getJSONArray("latest_products");
 
                             for (int z = 0; z < jArray_slider.length(); z++) {
 
@@ -1817,13 +1821,13 @@ public class MainPage_drawer extends AppCompatActivity
                             }
                             //setLayout(sticker_arra);
 
-                            for(int i=0; i<latest_products.length(); i++){
-                                JSONObject object=latest_products.getJSONObject(i);
+                            for (int i = 0; i < latest_products.length(); i++) {
+                                JSONObject object = latest_products.getJSONObject(i);
 
-                                JSONObject productObj=object.getJSONObject("Product");
-                                JSONObject labelObj=object.getJSONObject("Label");
+                                JSONObject productObj = object.getJSONObject("Product");
+                                JSONObject labelObj = object.getJSONObject("Label");
 
-                                Bean_Product product=new Bean_Product();
+                                Bean_Product product = new Bean_Product();
                                 product.setPro_id(productObj.getString("id"));
                                 product.setPro_code(productObj.getString("product_code"));
                                 product.setPro_name(productObj.getString("product_name"));

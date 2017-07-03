@@ -92,8 +92,7 @@ public class Add_Newuser_Address extends AppCompatActivity {
         new send_country_Data().execute();
     }
 
-    private void fetchId()
-    {
+    private void fetchId() {
         stateid.clear();
         statename.clear();
         cityid.clear();
@@ -259,8 +258,10 @@ public class Add_Newuser_Address extends AppCompatActivity {
                 // position1=""+position;
                 position_country = countryid.get(position);
                 position_countryname = countryname.get(position);
-                if (position_country.equalsIgnoreCase("0")) {
-//Globals.CustomToast(Add_Newuser_Address.this,"Please Select State",getLayoutInflater());
+                if (position == 0) {
+                    stateid.clear();
+                    statename.clear();
+                    spn_state.setAdapter(null);
                 } else {
                     new send_state_Data().execute();
                 }
@@ -285,7 +286,9 @@ public class Add_Newuser_Address extends AppCompatActivity {
                 position_state = stateid.get(position);
                 position_statename = statename.get(position);
                 if (position_state.equalsIgnoreCase("0")) {
-//Globals.CustomToast(Add_Newuser_Address.this,"Please Select State",getLayoutInflater());
+                    cityid.clear();
+                    cityname.clear();
+                    spn_city.setAdapter(null);
                 } else {
                     new send_city_Data().execute();
                 }

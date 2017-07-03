@@ -213,7 +213,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.WRAP_CONTENT);
         setActionBar();
-        jarray_cart=new JSONArray();
+        jarray_cart = new JSONArray();
 
         dialog = new Dialog(BTLProduct_Detail.this);
         Window window = dialog.getWindow();
@@ -563,7 +563,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
             public void onClick(View v) {
                 setRefershData();
                 final int[] minPackOfQty = {bean_product1.get(0).getPackQty()};
-                final String[] selectedProductID={pid};
+                final String[] selectedProductID = {pid};
                 if (user_data.size() != 0) {
                     for (int i = 0; i < user_data.size(); i++) {
 
@@ -971,23 +971,24 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                         // position1=""+position;
 
-                                        minPackOfQty[0] =bean_productOprtions.get(position1).getMinPackOfQty();
+                                        minPackOfQty[0] = bean_productOprtions.get(position1).getMinPackOfQty();
 
                                         int pos = Integer.parseInt(spinner.getTag().toString());
                                         ArrayList<Bean_Attribute> att_array = new ArrayList<Bean_Attribute>();
                                         att_array = array_attribute_main.get(pos);
 
-                                        selectedProductID[0]=att_array.get(position1).getOption_pro_id();
+                                        selectedProductID[0] = att_array.get(position1).getOption_pro_id();
 
-                                        boolean foundScheme=false;
-                                        for(int a=0; a<bean_Schme_data.size(); a++){
-                                            if(bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])){
-                                                foundScheme=true;
+                                        boolean foundScheme = false;
+                                        for (int a = 0; a < bean_Schme_data.size(); a++) {
+                                            if (bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])) {
+                                                foundScheme = true;
                                                 break;
                                             }
                                         }
 
-                                        if(foundScheme) img_offerDialog.setVisibility(View.VISIBLE);
+                                        if (foundScheme)
+                                            img_offerDialog.setVisibility(View.VISIBLE);
                                         else img_offerDialog.setVisibility(View.GONE);
 
                                         //Log.e("Position", "" + att_array.get(position1).getValue_name());
@@ -1232,7 +1233,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             //Log.e("float - ", "" + edt_count.getText().toString());
                             // s=Integer.parseInt(c1);
                             s = Integer.parseInt(c1);
-                            int mMinPackOfQty =  minPackOfQty[0];
+                            int mMinPackOfQty = minPackOfQty[0];
                             if (s == 0) {
                                 s = s + mMinPackOfQty;
                             } else if (s > 0) {
@@ -1298,7 +1299,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 Log.e("Modulo Rem", "-->" + qty % mMinPackOfQty);
 
-                                if (qty >= mMinPackOfQty && qty % mMinPackOfQty == 0) {
+                                /*if (qty >= mMinPackOfQty && C.modOf(qty,mMinPackOfQty) == 0) {
 
                                     String productpricce = tv_pop_sellingprice.getTag().toString();
                                     amount1 = Double.parseDouble(s.toString());
@@ -1309,7 +1310,15 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     tv_total.setText(str);
                                 } else {
                                     tv_total.setText("");
-                                }
+                                }*/
+
+                                String productpricce = tv_pop_sellingprice.getTag().toString();
+                                amount1 = Double.parseDouble(s.toString());
+                                amount1 = Double.parseDouble(productpricce) * amount1;
+                                //float finalValue = (float) (Math.round(amount1 * 100) / 100);
+                                double w = round(amount1, 2);
+                                String str = String.format("%.2f", w);
+                                tv_total.setText(str);
 
                                 int schemeSelectedPosition = 0;
 
@@ -1319,18 +1328,16 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     //Log.e("Scheme minQty","Qty : "+schemeQty+", ProductID - "+bean_product1.get(0).getPro_id());
 
                                     if (qty < schemeQty) {
-                                        schemeSelectedPosition=i;
+                                        schemeSelectedPosition = i;
                                         break;
-                                    }
-                                    else {
-                                        schemeSelectedPosition =bean_Schme_data.size()-1;
+                                    } else {
+                                        schemeSelectedPosition = bean_Schme_data.size() - 1;
                                     }
                                 }
 
-                                if(bean_Schme_data.size()>0){
+                                if (bean_Schme_data.size() > 0) {
                                     txt_availableScheme.setText(bean_Schme_data.get(schemeSelectedPosition).getSchme_name());
-                                }
-                                else {
+                                } else {
                                     txt_availableScheme.setText("");
                                 }
 
@@ -1357,8 +1364,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 int currentQty = Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
                                 //int minPackOfQty = bean_product1.get(0).getPackQty();
 
-                                if (currentQty<minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
-                                    C.showMinPackAlert(BTLProduct_Detail.this,minPackOfQty[0]);
+                                if (currentQty < minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
+                                    C.showMinPackAlert(BTLProduct_Detail.this, minPackOfQty[0]);
                                     Log.e("Mod Rem", "-->" + C.modOf(currentQty, minPackOfQty[0]));
                                 } else {
 
@@ -2280,41 +2287,39 @@ public class BTLProduct_Detail extends AppCompatActivity {
             }
             ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-            final List<String> schemeHeaders=new ArrayList<String>();
-            final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+            final List<String> schemeHeaders = new ArrayList<String>();
+            final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-            List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-            List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-            List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+            List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+            List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+            List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-            for(int i=0; i<bean_S_data.size(); i++){
-                if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+            for (int i = 0; i < bean_S_data.size(); i++) {
+                if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                     extraSpecialScheme.add(bean_S_data.get(i));
-                }
-                else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                     specialScheme.add(bean_S_data.get(i));
-                }
-                else {
+                } else {
                     generalScheme.add(bean_S_data.get(i));
                 }
             }
 
-            if(extraSpecialScheme.size()>0){
+            if (extraSpecialScheme.size() > 0) {
                 schemeHeaders.add("Extra Special Schemes");
-                schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
             }
 
-            if(specialScheme.size()>0){
+            if (specialScheme.size() > 0) {
                 schemeHeaders.add("Special Schemes");
-                schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
             }
 
-            if(generalScheme.size()>0){
+            if (generalScheme.size() > 0) {
                 schemeHeaders.add("General Schemes");
-                schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
             }
 
-            final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(getApplicationContext(),schemeHeaders,schemeChildList);
+            final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
             listSchemes.setAdapter(schemeAdapter);
 
             listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -2322,7 +2327,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                 public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                     setRefershData();
-                    String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                    String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                     if (user_data.size() != 0) {
                         for (int i = 0; i < user_data.size(); i++) {
 
@@ -2335,7 +2340,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 app = new AppPrefs(BTLProduct_Detail.this);
                                 role_id = app.getSubSalesId();
                                 user_id_main = app.getSalesPersonId();
-                            }  else {
+                            } else {
                                 user_id_main = owner_id;
                             }
 
@@ -2656,14 +2661,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5491");
                                     new Edit_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 } else {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5495");
                                     new Add_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 }
@@ -2777,14 +2782,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5607");
                                     new Edit_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 } else {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5611");
                                     new Add_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 }
@@ -2867,14 +2872,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5692");
                                     new Edit_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 } else {
                                     Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5696");
                                     new Add_Product().execute();
                                     dialogOffer.dismiss();
-                                    if(dialog.isShowing()){
+                                    if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
                                 }
@@ -2883,7 +2888,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                     } else {
                         dialogOffer.dismiss();
-                        if(dialog.isShowing()){
+                        if (dialog.isShowing()) {
                             dialog.dismiss();
                         }
                         Globals.CustomToast(BTLProduct_Detail.this, "Please Login First", getLayoutInflater());
@@ -2917,7 +2922,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
     }
 
     private void fetchID() {
-        btn_enquiry=(Button) findViewById(R.id.btn_enquiry);
+        btn_enquiry = (Button) findViewById(R.id.btn_enquiry);
         tv_product_mrp = (TextView) findViewById(R.id.tv_product_mrp);
         tv_product_selling_price = (TextView) findViewById(R.id.tv_product_selling_price);
         tv_product_name = (TextView) findViewById(R.id.tv_product_name);
@@ -3105,8 +3110,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                 app.setproduct_id(pid);
                 //Log.e("img_full", "" + pid);
                 i.putExtra("position", selected_image_position);
-                i.putExtra("imgProCode",bean_product1.get(0).getPro_code());
-                i.putExtra("imgProName",bean_product1.get(0).getPro_name());
+                i.putExtra("imgProCode", bean_product1.get(0).getPro_code());
+                i.putExtra("imgProName", bean_product1.get(0).getPro_name());
                 // i.putExtra("mylist", bean_productImages);
                 //Log.e("pos selected", "" + selected_image_position);
                 startActivity(i);
@@ -3174,12 +3179,13 @@ public class BTLProduct_Detail extends AppCompatActivity {
         try {
 
             File rootFile = new File(Environment.getExternalStorageDirectory() + "/BTL/Gallery");
-            if(rootFile.exists()) Log.e("Dir D","-->"+deleteDriectory(rootFile.getAbsolutePath()));
+            if (rootFile.exists())
+                Log.e("Dir D", "-->" + deleteDriectory(rootFile.getAbsolutePath()));
             rootFile.mkdir();
             File imagePath = new File(rootFile + File.separator + ImgProcode + "_" + ImgProName + ".jpg");
 
             if (imagePath.exists())
-                Log.e("File D","-->"+imagePath.delete());
+                Log.e("File D", "-->" + imagePath.delete());
 
             imagePath.createNewFile();
             //fileName = filePath+File.separator+fileName;
@@ -3195,7 +3201,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/*");
         //share.setAction(Intent.ACTION_SEND_MULTIPLE);
-        share.putExtra(Intent.EXTRA_SUBJECT, "" + ImgProcode + "("+ImgProName+")");
+        share.putExtra(Intent.EXTRA_SUBJECT, "" + ImgProcode + "(" + ImgProName + ")");
         share.putExtra(Intent.EXTRA_TEXT, "Item Code : " + "(" + ImgProcode + ")" + "\nItem Name : " + ImgProName);
         share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -3205,14 +3211,13 @@ public class BTLProduct_Detail extends AppCompatActivity {
         img_full.setDrawingCacheEnabled(false);
     }
 
-    private boolean deleteDriectory(String path){
+    private boolean deleteDriectory(String path) {
 
-        File directory=new File(path);
+        File directory = new File(path);
 
-        if(directory.exists() && directory.isDirectory()){
+        if (directory.exists() && directory.isDirectory()) {
             String[] children = directory.list();
-            for (int i = 0; i < children.length; i++)
-            {
+            for (int i = 0; i < children.length; i++) {
                 new File(directory, children[i]).delete();
             }
 
@@ -3943,8 +3948,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
         Intent i = new Intent(BTLProduct_Detail.this, Technical_Gallery.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.putExtra("FILES_TO_SEND", str);
-        i.putExtra("productCode",bean_product1.get(0).getPro_code());
-        i.putExtra("productName",bean_product1.get(0).getPro_name());
+        i.putExtra("productCode", bean_product1.get(0).getPro_code());
+        i.putExtra("productName", bean_product1.get(0).getPro_name());
         startActivity(i);
 
 
@@ -4137,8 +4142,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     //Log.e("code", pid + bean_product1.get(i).getPro_code());
                     mrp = bean_product1.get(ik).getPro_mrp();
 
-                    float mrpPrice=mrp.isEmpty() ? 0 : Float.parseFloat(mrp);
-
+                    float mrpPrice = mrp.isEmpty() ? 0 : Float.parseFloat(mrp);
 
 
                     tv_product_mrp.setText("" + bean_product1.get(ik).getPro_mrp());
@@ -4291,41 +4295,39 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                         ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-                        final List<String> schemeHeaders=new ArrayList<String>();
-                        final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+                        final List<String> schemeHeaders = new ArrayList<String>();
+                        final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-                        List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-                        List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-                        List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+                        List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+                        List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+                        List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-                        for(int i=0; i<bean_S_data.size(); i++){
-                            if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+                        for (int i = 0; i < bean_S_data.size(); i++) {
+                            if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                                 extraSpecialScheme.add(bean_S_data.get(i));
-                            }
-                            else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                            } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                                 specialScheme.add(bean_S_data.get(i));
-                            }
-                            else {
+                            } else {
                                 generalScheme.add(bean_S_data.get(i));
                             }
                         }
 
-                        if(extraSpecialScheme.size()>0){
+                        if (extraSpecialScheme.size() > 0) {
                             schemeHeaders.add("Extra Special Schemes");
-                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                         }
 
-                        if(specialScheme.size()>0){
+                        if (specialScheme.size() > 0) {
                             schemeHeaders.add("Special Schemes");
-                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                         }
 
-                        if(generalScheme.size()>0){
+                        if (generalScheme.size() > 0) {
                             schemeHeaders.add("General Schemes");
-                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                            schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                         }
 
-                        final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(getApplicationContext(),schemeHeaders,schemeChildList);
+                        final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
                         listSchemes.setAdapter(schemeAdapter);
 
                         listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -4333,7 +4335,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                                 setRefershData();
-                                String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                                String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                                 if (user_data.size() != 0) {
                                     for (int i = 0; i < user_data.size(); i++) {
 
@@ -4658,14 +4660,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                                 new Edit_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             } else {
 
                                                 new Add_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             }
@@ -4779,14 +4781,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                                 new Edit_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             } else {
 
                                                 new Add_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             }
@@ -4869,14 +4871,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                                 new Edit_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             } else {
 
                                                 new Add_Product().execute();
                                                 dialogOffer.dismiss();
-                                                if(dialog.isShowing()){
+                                                if (dialog.isShowing()) {
                                                     dialog.dismiss();
                                                 }
                                             }
@@ -4890,7 +4892,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 }
                                 dialogOffer.dismiss();
-                                if(dialog.isShowing()){
+                                if (dialog.isShowing()) {
                                     dialog.dismiss();
                                 }
                                 return true;
@@ -4904,12 +4906,12 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             }
                         });
 
-                        if(mrpPrice>0){
+                        if (mrpPrice > 0) {
                             dialogOffer.show();
                         }
                     }
 
-                    if(mrpPrice<=0){
+                    if (mrpPrice <= 0) {
                         detail_price.setVisibility(View.GONE);
                         btn_buyonline_product_detail.setVisibility(View.GONE);
                         img_offer.setVisibility(View.GONE);
@@ -4917,10 +4919,10 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         btn_enquiry.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent=new Intent(getApplicationContext(),NonMRPProductEnquiry.class);
+                                Intent intent = new Intent(getApplicationContext(), NonMRPProductEnquiry.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("productName",bean_product1.get(0).getPro_name());
-                                intent.putExtra("productID",bean_product1.get(0).getPro_id());
+                                intent.putExtra("productName", bean_product1.get(0).getPro_name());
+                                intent.putExtra("productID", bean_product1.get(0).getPro_id());
                                 startActivity(intent);
                             }
                         });
@@ -4975,41 +4977,39 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                 ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-                final List<String> schemeHeaders=new ArrayList<String>();
-                final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+                final List<String> schemeHeaders = new ArrayList<String>();
+                final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-                List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-                List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-                List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+                List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+                List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+                List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-                for(int i=0; i<bean_S_data.size(); i++){
-                    if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+                for (int i = 0; i < bean_S_data.size(); i++) {
+                    if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                         extraSpecialScheme.add(bean_S_data.get(i));
-                    }
-                    else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                    } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                         specialScheme.add(bean_S_data.get(i));
-                    }
-                    else {
+                    } else {
                         generalScheme.add(bean_S_data.get(i));
                     }
                 }
 
-                if(extraSpecialScheme.size()>0){
+                if (extraSpecialScheme.size() > 0) {
                     schemeHeaders.add("Extra Special Schemes");
-                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                 }
 
-                if(specialScheme.size()>0){
+                if (specialScheme.size() > 0) {
                     schemeHeaders.add("Special Schemes");
-                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                 }
 
-                if(generalScheme.size()>0){
+                if (generalScheme.size() > 0) {
                     schemeHeaders.add("General Schemes");
-                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                    schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                 }
 
-                final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(getApplicationContext(),schemeHeaders,schemeChildList);
+                final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
                 listSchemes.setAdapter(schemeAdapter);
 
                 listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -5017,7 +5017,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                         setRefershData();
-                        String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                        String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                         if (user_data.size() != 0) {
                             for (int i = 0; i < user_data.size(); i++) {
 
@@ -5351,14 +5351,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5491");
                                         new Edit_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     } else {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5495");
                                         new Add_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     }
@@ -5472,14 +5472,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5607");
                                         new Edit_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     } else {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5611");
                                         new Add_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     }
@@ -5562,14 +5562,14 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5692");
                                         new Edit_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     } else {
                                         Globals.generateNoteOnSD(getApplicationContext(), "Line Ex 5696");
                                         new Add_Product().execute();
                                         dialogOffer.dismiss();
-                                        if(dialog.isShowing()){
+                                        if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }
                                     }
@@ -5578,7 +5578,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                         } else {
                             dialogOffer.dismiss();
-                            if(dialog.isShowing()){
+                            if (dialog.isShowing()) {
                                 dialog.dismiss();
                             }
                             Globals.CustomToast(BTLProduct_Detail.this, "Please Login First", getLayoutInflater());
@@ -5929,7 +5929,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             // TODO Auto-generated method stub
 
                             // position1=""+position;
-
 
 
                             int pos = Integer.parseInt(sp_option.getTag().toString());
@@ -7370,7 +7369,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_AddCartData", ServiceHandler.POST, parameters);
 
-                Log.e("Webservice","CartData/App_AddCartData"+"\n"+parameters.toString());
+                Log.e("Webservice", "CartData/App_AddCartData" + "\n" + parameters.toString());
 
                 //System.out.println("array: " + json);
                 return json;
@@ -7387,7 +7386,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
             try {
 
 
@@ -7471,7 +7470,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_EditCartData", ServiceHandler.POST, parameters);
 
-                Log.e("Webservice","CartData/App_EditCartData"+"\n"+parameters.toString());
+                Log.e("Webservice", "CartData/App_EditCartData" + "\n" + parameters.toString());
                 //System.out.println("array: " + json);
                 return json;
             } catch (Exception e) {
@@ -7487,7 +7486,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
             try {
 
 

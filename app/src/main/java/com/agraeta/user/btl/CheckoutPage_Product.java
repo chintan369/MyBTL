@@ -177,9 +177,13 @@ public class CheckoutPage_Product extends AppCompatActivity {
         setRefershData();
 
         dialog = new Dialog(CheckoutPage_Product.this);
-        dialog.getWindow();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        dialog.setCanceledOnTouchOutside(false);
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(wlp);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
 
         dialog1 = new Dialog(CheckoutPage_Product.this);
         dialog1.getWindow();
@@ -555,6 +559,13 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        tv_user_name_billing.setText(BTL.user.getFirst_name() + " " + BTL.user.getLast_name());
+        tv_user_name_delivery.setText(BTL.user.getFirst_name() + " " + BTL.user.getLast_name());
+        tv_number_billing.setText(BTL.user.getPhone_no());
+        tv_number_delivery.setText(BTL.user.getPhone_no());
+
+        Log.e("User Info", BTL.user.getId() + " -> " + BTL.user.getName());
 
         new get_address_list().execute();
 
@@ -1498,14 +1509,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             //Log.e("json exce",j.getMessage());
                         }
 
-                        dialog = new Dialog(CheckoutPage_Product.this);
-                        Window window = dialog.getWindow();
-                        WindowManager.LayoutParams wlp = window.getAttributes();
-                        dialog.setCanceledOnTouchOutside(false);
-                        wlp.gravity = Gravity.BOTTOM;
-                        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-                        window.setAttributes(wlp);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
                         dialog.setContentView(R.layout.pop_lay);
                         minuss = (ImageView) dialog.findViewById(R.id.minus);
                         plus = (ImageView) dialog.findViewById(R.id.plus);
@@ -1613,16 +1617,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                 l_mrp.setVisibility(View.GONE);
                             }
                         }
-                       /* if(mrp > sellingprice){
-                            tv_pop_mrp.setVisibility(View.VISIBLE);
-                            tv_txt_mrp.setVisibility(View.VISIBLE);
-                            tv_pop_mrp.setPaintFlags(tv_pop_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-                        }else{
-                            tv_pop_mrp.setVisibility(View.GONE);
-                            tv_txt_mrp.setVisibility(View.GONE);
-
-                        }*/
 
 
                         dialog.show();
@@ -1781,7 +1775,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     buy_cart.setEnabled(true);
                                     int minPackOfQty = bean_cart_data.get(finalPosition).getMinPackOfQty();
 
-                                    if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
+                                    /*if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
                                         String productpricce = tv_pop_sellingprice.getTag().toString();
                                         amount1 = Double.parseDouble(s.toString());
                                         amount1 = Double.parseDouble(productpricce) * amount1;
@@ -1791,7 +1785,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                         tv_total.setText(str);
                                     } else {
                                         tv_total.setText(str);
-                                    }
+                                    }*/
+
+                                    String productpricce = tv_pop_sellingprice.getTag().toString();
+                                    amount1 = Double.parseDouble(s.toString());
+                                    amount1 = Double.parseDouble(productpricce) * amount1;
+                                    //float finalValue = (float)(Math.round( amount1 * 100 ) / 100);
+
+                                    String str = String.format("%.2f", amount1);
+                                    tv_total.setText(str);
 
                                 }
                             }
@@ -2743,14 +2745,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             //Log.e("json exce",j.getMessage());
                         }
 
-                        dialog = new Dialog(CheckoutPage_Product.this);
-                        Window window = dialog.getWindow();
-                        WindowManager.LayoutParams wlp = window.getAttributes();
-                        dialog.setCanceledOnTouchOutside(false);
-                        wlp.gravity = Gravity.BOTTOM;
-                        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-                        window.setAttributes(wlp);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
                         dialog.setContentView(R.layout.pop_lay);
                         minuss = (ImageView) dialog.findViewById(R.id.minus);
                         plus = (ImageView) dialog.findViewById(R.id.plus);
@@ -3026,7 +3021,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     buy_cart.setEnabled(true);
                                     int minPackOfQty = bean_cart_data.get(finalPosition).getMinPackOfQty();
 
-                                    if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
+                                    /*if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
                                         String productpricce = tv_pop_sellingprice.getTag().toString();
                                         amount1 = Double.parseDouble(s.toString());
                                         amount1 = Double.parseDouble(productpricce) * amount1;
@@ -3036,7 +3031,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                         tv_total.setText(str);
                                     } else {
                                         tv_total.setText(str);
-                                    }
+                                    }*/
+
+                                    String productpricce = tv_pop_sellingprice.getTag().toString();
+                                    amount1 = Double.parseDouble(s.toString());
+                                    amount1 = Double.parseDouble(productpricce) * amount1;
+                                    //float finalValue = (float)(Math.round( amount1 * 100 ) / 100);
+
+                                    String str = String.format("%.2f", amount1);
 
                                 }
                             }
@@ -5234,7 +5236,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                         || (result_1.equalsIgnoreCase(""))) {
                    /* Toast.makeText(Business_Registration.this, "SERVER ERRER",
                             Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(CheckoutPage_Product.this, "SERVER ERRER", CheckoutPage_Product.this.getLayoutInflater());
+                    Globals.CustomToast(CheckoutPage_Product.this, "SERVER ERROR", CheckoutPage_Product.this.getLayoutInflater());
                     loadingView.dismiss();
 
                 } else {
@@ -5346,7 +5348,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             array_final_address.add(final_address);
                             array_address.add(bean);
-                            if (bean.getFirstName().equalsIgnoreCase("") && role_id.equalsIgnoreCase("2")) {
+                            /*if (bean.getFirstName().equalsIgnoreCase("") && role_id.equalsIgnoreCase("2")) {
                                 tv_user_name_billing.setText(user_data.get(0).getF_name() + " " + user_data.get(0).getL_name());
                                 tv_user_name_delivery.setText(user_data.get(0).getF_name() + " " + user_data.get(0).getL_name());
                                 tv_number_billing.setText(user_data.get(0).getPhone_no());
@@ -5357,22 +5359,17 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                 tv_user_name_delivery.setText(bean.getFirstName());
                                 tv_number_billing.setText(bean.getMobile());
                                 tv_number_delivery.setText(bean.getMobile());
-                            }
+                            }*/
 
                             if (jobject_address.getString("default_address").equalsIgnoreCase("1")) {
 
-                                if (bean.getFirstName().equalsIgnoreCase("") && role_id.equalsIgnoreCase("2")) {
+                                /*if (bean.getFirstName().equalsIgnoreCase("") && role_id.equalsIgnoreCase("2")) {
                                     tv_user_name_billing.setText(user_data.get(0).getF_name() + " " + user_data.get(0).getL_name());
                                     tv_user_name_delivery.setText(user_data.get(0).getF_name() + " " + user_data.get(0).getL_name());
                                     tv_number_billing.setText(user_data.get(0).getPhone_no());
                                     tv_number_delivery.setText(user_data.get(0).getPhone_no());
-                                } else {
-
-                                    tv_user_name_billing.setText(bean.getFirstName());
-                                    tv_user_name_delivery.setText(bean.getFirstName());
-                                    tv_number_billing.setText(bean.getMobile());
-                                    tv_number_delivery.setText(bean.getMobile());
-                                }
+                                } else {*/
+                                /*}*/
 
                                /* tv_user_name_billing.setText(bean.getFirstName());
                                 tv_user_name_delivery.setText(bean.getFirstName());

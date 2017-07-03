@@ -1890,7 +1890,7 @@ public class BTL_Cart extends AppCompatActivity {
 
                                         int minPackOfQty = bean_cart_data.get(position).getMinPackOfQty();
 
-                                        if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
+                                        /*if (qty >= minPackOfQty && C.modOf(qty, minPackOfQty) == 0) {
                                             String productpricce = tv_pop_sellingprice.getTag().toString();
                                             amount1 = Double.parseDouble(s.toString());
                                             amount1 = Double.parseDouble(productpricce) * amount1;
@@ -1900,7 +1900,16 @@ public class BTL_Cart extends AppCompatActivity {
                                             tv_total.setText(str);
                                         } else {
                                             tv_total.setText("");
-                                        }
+                                        }*/
+
+                                        String productpricce = tv_pop_sellingprice.getTag().toString();
+                                        amount1 = Double.parseDouble(s.toString());
+                                        amount1 = Double.parseDouble(productpricce) * amount1;
+                                        //float finalValue = (float)(Math.round( amount1 * 100 ) / 100);
+
+                                        String str = String.format("%.2f", amount1);
+                                        tv_total.setText(str);
+
 
 
                                     }

@@ -1,24 +1,18 @@
 package com.agraeta.user.btl;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.model.AdminAPI;
@@ -26,11 +20,7 @@ import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.utils.FilePath;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +45,14 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
     int FILE_PICK_CODE=1;
 
     Custom_ProgressDialog dialog;
+    AppPrefs prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_non_mrpproduct_enquiry);
+
+        prefs = new AppPrefs(this);
 
         Intent intent=getIntent();
         productName=intent.getStringExtra("productName");
@@ -84,6 +77,13 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
         btn_submit=(Button) findViewById(R.id.btn_submit);
         layout_attachment= (LinearLayout) findViewById(R.id.layout_attachment);
         txt_add_attachment= (TextView) findViewById(R.id.txt_add_attachment);
+
+        if (prefs.getUser_LoginInfo().equals("1")) {
+            edt_firstName.setText(BTL.user.getFirst_name());
+            edt_lastName.setText(BTL.user.getLast_name());
+            edt_emailAddress.setText(BTL.user.getEmail_id());
+            edt_mobile.setText(BTL.user.getPhone_no());
+        }
 
         txt_add_attachment.setOnClickListener(new View.OnClickListener() {
             @Override
