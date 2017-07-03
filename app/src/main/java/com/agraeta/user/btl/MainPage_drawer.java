@@ -712,7 +712,7 @@ public class MainPage_drawer extends AppCompatActivity
 
             // TODO Auto-generated method stub
 
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(
                     MainPage_drawer.this);
             // Setting Dialog Title
             alertDialog.setTitle("Log Out application?");
@@ -831,7 +831,10 @@ public class MainPage_drawer extends AppCompatActivity
                         }
                     });
             // Showing Alert Message
-            alertDialog.show();
+
+            android.support.v7.app.AlertDialog dialog = alertDialog.create();
+
+            dialog.show();
 
 
 
@@ -1312,7 +1315,7 @@ public class MainPage_drawer extends AppCompatActivity
                     } else {
                         //Log.e("CATID", "" + CatId);
                         apps = new AppPrefs(MainPage_drawer.this);
-                        // apps.setUser_notification("product");
+                        apps.setUser_notification("");
                         apps.setUser_CatId(CatId);
                         Intent i = new Intent(MainPage_drawer.this, Main_CategoryPage.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1339,7 +1342,7 @@ public class MainPage_drawer extends AppCompatActivity
                         startActivity(i);
                     } else {
                         apps = new AppPrefs(MainPage_drawer.this);
-                        // apps.setUser_notification("product");
+                        apps.setUser_notification("");
                         apps.setUser_CatId(CatId);
                         Intent i = new Intent(MainPage_drawer.this, Main_CategoryPage.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -68,6 +68,9 @@ public class Drawer_CategoryPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__category_page);
+
+        Log.e("DrawerCategory", "true");
+
         // lmain1 = (LinearLayout)findViewById(R.id.grid_1);
         lmain2 = (LinearLayout)findViewById(R.id.grid_3);
         params = new LinearLayout.LayoutParams(android.app.ActionBar.LayoutParams.MATCH_PARENT,
@@ -85,129 +88,6 @@ public class Drawer_CategoryPage extends AppCompatActivity {
         //setLayout1(list_data);
     }
 
-    public class Set_Category_Page extends AsyncTask<Void,Void,String>
-    {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        Drawer_CategoryPage.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-                parameters.add(new BasicNameValuePair("parent_id", Cat_ID));
-
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"Category/App_GetCategory",ServiceHandler.POST,parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("null")
-                        || (result_1.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(Drawer_CategoryPage.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(Drawer_CategoryPage.this,""+Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-                        category_arra.clear();
-
-                        try {
-
-                            JSONArray joj = jObj.getJSONArray("data");
-
-
-
-
-                            for (int z = 0; z < joj.length(); z++) {
-
-                                JSONObject j = joj.getJSONObject(z);
-
-
-                                Bean_category bean = new Bean_category();
-                                bean.setId(j.getString("id"));
-                                bean.setName(j.getString("name"));
-                                bean.setIs_child(j.getString("is_child"));
-                                bean.setImg(j.getString("app_image"));
-                                category_arra.add(bean);
-
-
-                            }
-                            //Log.e("1122","1122"+category_arra.size());
-
-                            if(category_arra.size() == 0){
-                                Globals.CustomToast(Drawer_CategoryPage.this,"No Data",getLayoutInflater());
-                            }else {
-
-                                setLayout1(category_arra);
-                            }
-
-
-                        } catch (Exception e) {
-                        }
-
-                        loadingView.dismiss();
-
-
-                    }
-                }}catch(JSONException j){
-                j.printStackTrace();
-            }
-
-        }
-    }
     private void setActionBar() {
 
         // TODO Auto-generated method stub
@@ -363,329 +243,6 @@ public class Drawer_CategoryPage extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
-    public class set_check_parent extends AsyncTask<Void,Void,String>
-    {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        Drawer_CategoryPage.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-                parameters.add(new BasicNameValuePair("cat_id", Cat_ID));
-
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"Category/App_Get_Parent_Category",ServiceHandler.POST,parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("null")
-                        || (result_1.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(Drawer_CategoryPage.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(Drawer_CategoryPage.this,""+Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-                        category_arra.clear();
-
-                        try {
-
-                            JSONArray joj = jObj.getJSONArray("data");
-
-
-
-
-                            for (int z = 0; z < joj.length(); z++) {
-
-                                JSONObject j = joj.getJSONObject(z);
-
-
-                                back = j.getString("parent_id");
-
-
-
-
-                            }
-                            //Log.e("back","back"+back);
-
-                            if(back.equalsIgnoreCase("0")){
-                                //Globals.CustomToast(Main_CategoryPage.this,"No Data",getLayoutInflater());
-                                app = new AppPrefs(Drawer_CategoryPage.this);
-                                app.setUser_CatId("0");
-                                app.setUser_CatBack("1");
-                                Intent i = new Intent(Drawer_CategoryPage.this, Drawer_CategoryPage.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
-                            }else {
-
-                                //setLayout1(category_arra);
-                                app = new AppPrefs(Drawer_CategoryPage.this);
-                                app.setUser_CatId(back);
-                                Intent i = new Intent(Drawer_CategoryPage.this, Drawer_CategoryPage.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
-                            }
-
-                        } catch (Exception e) {
-                        }
-
-                        loadingView.dismiss();
-
-
-                    }
-                }}catch(JSONException j){
-                j.printStackTrace();
-            }
-
-        }
-    }
-
-  /*  private void setLayout1(ArrayList<Integer> str) {
-        // TODO Auto-generated method stub
-        lmain2.removeAllViews();
-        for (int ij = 0; ij < str.size(); ij++) {
-
-            LinearLayout lmain = new LinearLayout(Drawer_CategoryPage.this);
-            lmain.setLayoutParams(params);
-            lmain.setOrientation(LinearLayout.HORIZONTAL);
-            lmain.setPadding(2, 2, 2, 2);
-
-            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT,
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 1.0f);
-            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
-            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 200, 1.0f);
-
-            LinearLayout.LayoutParams par22 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 200, 1.0f);
-
-            LinearLayout.LayoutParams par23 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
-                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par24 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 200);
-
-            LinearLayout.LayoutParams pargrid = new LinearLayout.LayoutParams(
-                    300, 300,1.0f);
-
-            LinearLayout l1 = new LinearLayout(Drawer_CategoryPage.this);
-            l1.setLayoutParams(par1);
-
-            l1.setPadding(5, 0, 5, 0);
-            l1.setOrientation(LinearLayout.HORIZONTAL);
-            // l1.setGravity(Gravity.LEFT | Gravity.CENTER);
-
-            LinearLayout l3 = new LinearLayout(Drawer_CategoryPage.this);
-            l3.setLayoutParams(pargrid);
-            l3.setOrientation(LinearLayout.VERTICAL);
-            pargrid.setMargins(5, 5, 5, 5);
-            l3.setLayoutParams(pargrid);
-            l3.setGravity(Gravity.CENTER);
-            l3.setBackgroundResource(R.drawable.sticker_bg);
-
-
-            LinearLayout l4 = new LinearLayout(Drawer_CategoryPage.this);
-            l4.setLayoutParams(pargrid);
-            l4.setOrientation(LinearLayout.VERTICAL);
-            pargrid.setMargins(5, 5, 5, 5);
-            l4.setLayoutParams(pargrid);
-            l4.setGravity(Gravity.CENTER);
-            l4.setBackgroundResource(R.drawable.sticker_bg);
-
-
-
-
-
-            LinearLayout l5 = new LinearLayout(Drawer_CategoryPage.this);
-            l5.setLayoutParams(pargrid);
-            l5.setOrientation(LinearLayout.VERTICAL);
-            pargrid.setMargins(5, 5, 5, 5);
-            l5.setLayoutParams(pargrid);
-            l5.setGravity(Gravity.CENTER);
-            l5.setBackgroundResource(R.drawable.sticker_bg);
-
-
-            final LinearLayout l2 = new LinearLayout(Drawer_CategoryPage.this);
-            l2.setLayoutParams(par2);
-            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
-            l2.setOrientation(LinearLayout.HORIZONTAL);
-            l2.setPadding(5, 0, 5, 0);
-            l2.setVisibility(View.GONE);
-
-            count = ij;
-            final ImageView img_a = new ImageView(Drawer_CategoryPage.this);
-            img_a.setImageResource(str.get(count));
-            img_a.setLayoutParams(par24);
-            img_a.setPadding(10, 10, 10, 10);
-
-            l3.addView(img_a);
-
-            final TextView title = new TextView(Drawer_CategoryPage.this);
-            title.setText(list_data_name.get(count));
-            title.setLayoutParams(par23);
-            title.setGravity(Gravity.CENTER);
-            title.setTextSize(10);
-            title.setPadding(10, 10, 10, 10);
-            l3.addView(title);
-
-
-
-            l1.addView(l3);
-
-            count = count + 1;
-            final ImageView img_b = new ImageView(Drawer_CategoryPage.this);
-            img_b.setImageResource(str.get(count));
-            img_b.setLayoutParams(par24);
-            img_b.setPadding(10, 10, 10, 10);
-
-            l4.addView(img_b);
-
-            final TextView title_b = new TextView(Drawer_CategoryPage.this);
-            title_b.setText(list_data_name.get(count));
-            title_b.setLayoutParams(par23);
-            title_b.setTextSize(10);
-            title_b.setGravity(Gravity.CENTER);
-            title_b.setPadding(10, 10, 10, 10);
-            l4.addView(title_b);
-
-
-            l1.addView(l4);
-
-            count = count + 1;
-            final ImageView img_c = new ImageView(Drawer_CategoryPage.this);
-            img_c.setImageResource(str.get(count));
-            img_c.setLayoutParams(par24);
-            img_c.setPadding(10, 10, 10, 10);
-
-            l5.addView(img_c);
-
-            final TextView title_c = new TextView(Drawer_CategoryPage.this);
-            title_c.setText(list_data_name.get(count));
-            title_c.setLayoutParams(par23);
-            title_c.setTextSize(10);
-            title_c.setGravity(Gravity.CENTER);
-            title_c.setPadding(10, 10, 10, 10);
-            l5.addView(title_c);
-
-
-            l1.addView(l5);
-
-            ij = count;
-			*//*
-			 * final ImageView img_b = new ImageView(MainActivity.this);
-			 * img_b.setImageResource(R.drawable.slidingfitting);
-			 * img_b.setBackgroundResource(R.drawable.background_gradiant);
-			 * img_b.setPadding(10, 10, 10, 10); img_b.setLayoutParams(par21);
-			 * par21.setMargins(5, 5, 5, 5); img_b.setLayoutParams(par21);
-			 * l1.addView(img_b);
-			 *
-			 * final ImageView img_c = new ImageView(MainActivity.this);
-			 * img_c.setBackgroundResource(R.drawable.background_gradiant);
-			 * img_c.setImageResource(R.drawable.doorfitting);
-			 * img_c.setPadding(10, 10, 10, 10); img_c.setLayoutParams(par21);
-			 * par21.setMargins(5, 5, 5, 5); img_c.setLayoutParams(par21);
-			 * l1.addView(img_c);
-			 *//*
-
-            lmain.addView(l1);
-
-            lmain2.addView(lmain);
-
-
-            l3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Drawer_CategoryPage.this, Product_List.class);
-                    startActivity(i);
-                }
-            });
-
-            l4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Drawer_CategoryPage.this,Product_List.class);
-                    startActivity(i);
-                }
-            });
-            l5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Drawer_CategoryPage.this,Product_List.class);
-                    startActivity(i);
-                }
-            });
-
-
-        }
-
-    }*/
-
-
 
     private void setLayout1(ArrayList<Bean_category> str) {
         // TODO Auto-generated method stub
@@ -959,6 +516,7 @@ public class Drawer_CategoryPage extends AppCompatActivity {
 
         }
     }
+
     public void onBackPressed() {
         // TODO Auto-generated method stub
 
@@ -997,8 +555,198 @@ public class Drawer_CategoryPage extends AppCompatActivity {
                 startActivity(i);
             }
         }
-    };
+    }
 
+  /*  private void setLayout1(ArrayList<Integer> str) {
+        // TODO Auto-generated method stub
+        lmain2.removeAllViews();
+        for (int ij = 0; ij < str.size(); ij++) {
+
+            LinearLayout lmain = new LinearLayout(Drawer_CategoryPage.this);
+            lmain.setLayoutParams(params);
+            lmain.setOrientation(LinearLayout.HORIZONTAL);
+            lmain.setPadding(2, 2, 2, 2);
+
+            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT,
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 1.0f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 200, 1.0f);
+
+            LinearLayout.LayoutParams par22 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT, 200, 1.0f);
+
+            LinearLayout.LayoutParams par23 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT,
+                    android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par24 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 200);
+
+            LinearLayout.LayoutParams pargrid = new LinearLayout.LayoutParams(
+                    300, 300,1.0f);
+
+            LinearLayout l1 = new LinearLayout(Drawer_CategoryPage.this);
+            l1.setLayoutParams(par1);
+
+            l1.setPadding(5, 0, 5, 0);
+            l1.setOrientation(LinearLayout.HORIZONTAL);
+            // l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+            LinearLayout l3 = new LinearLayout(Drawer_CategoryPage.this);
+            l3.setLayoutParams(pargrid);
+            l3.setOrientation(LinearLayout.VERTICAL);
+            pargrid.setMargins(5, 5, 5, 5);
+            l3.setLayoutParams(pargrid);
+            l3.setGravity(Gravity.CENTER);
+            l3.setBackgroundResource(R.drawable.sticker_bg);
+
+
+            LinearLayout l4 = new LinearLayout(Drawer_CategoryPage.this);
+            l4.setLayoutParams(pargrid);
+            l4.setOrientation(LinearLayout.VERTICAL);
+            pargrid.setMargins(5, 5, 5, 5);
+            l4.setLayoutParams(pargrid);
+            l4.setGravity(Gravity.CENTER);
+            l4.setBackgroundResource(R.drawable.sticker_bg);
+
+
+
+
+
+            LinearLayout l5 = new LinearLayout(Drawer_CategoryPage.this);
+            l5.setLayoutParams(pargrid);
+            l5.setOrientation(LinearLayout.VERTICAL);
+            pargrid.setMargins(5, 5, 5, 5);
+            l5.setLayoutParams(pargrid);
+            l5.setGravity(Gravity.CENTER);
+            l5.setBackgroundResource(R.drawable.sticker_bg);
+
+
+            final LinearLayout l2 = new LinearLayout(Drawer_CategoryPage.this);
+            l2.setLayoutParams(par2);
+            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+            l2.setOrientation(LinearLayout.HORIZONTAL);
+            l2.setPadding(5, 0, 5, 0);
+            l2.setVisibility(View.GONE);
+
+            count = ij;
+            final ImageView img_a = new ImageView(Drawer_CategoryPage.this);
+            img_a.setImageResource(str.get(count));
+            img_a.setLayoutParams(par24);
+            img_a.setPadding(10, 10, 10, 10);
+
+            l3.addView(img_a);
+
+            final TextView title = new TextView(Drawer_CategoryPage.this);
+            title.setText(list_data_name.get(count));
+            title.setLayoutParams(par23);
+            title.setGravity(Gravity.CENTER);
+            title.setTextSize(10);
+            title.setPadding(10, 10, 10, 10);
+            l3.addView(title);
+
+
+
+            l1.addView(l3);
+
+            count = count + 1;
+            final ImageView img_b = new ImageView(Drawer_CategoryPage.this);
+            img_b.setImageResource(str.get(count));
+            img_b.setLayoutParams(par24);
+            img_b.setPadding(10, 10, 10, 10);
+
+            l4.addView(img_b);
+
+            final TextView title_b = new TextView(Drawer_CategoryPage.this);
+            title_b.setText(list_data_name.get(count));
+            title_b.setLayoutParams(par23);
+            title_b.setTextSize(10);
+            title_b.setGravity(Gravity.CENTER);
+            title_b.setPadding(10, 10, 10, 10);
+            l4.addView(title_b);
+
+
+            l1.addView(l4);
+
+            count = count + 1;
+            final ImageView img_c = new ImageView(Drawer_CategoryPage.this);
+            img_c.setImageResource(str.get(count));
+            img_c.setLayoutParams(par24);
+            img_c.setPadding(10, 10, 10, 10);
+
+            l5.addView(img_c);
+
+            final TextView title_c = new TextView(Drawer_CategoryPage.this);
+            title_c.setText(list_data_name.get(count));
+            title_c.setLayoutParams(par23);
+            title_c.setTextSize(10);
+            title_c.setGravity(Gravity.CENTER);
+            title_c.setPadding(10, 10, 10, 10);
+            l5.addView(title_c);
+
+
+            l1.addView(l5);
+
+            ij = count;
+			*//*
+             * final ImageView img_b = new ImageView(MainActivity.this);
+			 * img_b.setImageResource(R.drawable.slidingfitting);
+			 * img_b.setBackgroundResource(R.drawable.background_gradiant);
+			 * img_b.setPadding(10, 10, 10, 10); img_b.setLayoutParams(par21);
+			 * par21.setMargins(5, 5, 5, 5); img_b.setLayoutParams(par21);
+			 * l1.addView(img_b);
+			 *
+			 * final ImageView img_c = new ImageView(MainActivity.this);
+			 * img_c.setBackgroundResource(R.drawable.background_gradiant);
+			 * img_c.setImageResource(R.drawable.doorfitting);
+			 * img_c.setPadding(10, 10, 10, 10); img_c.setLayoutParams(par21);
+			 * par21.setMargins(5, 5, 5, 5); img_c.setLayoutParams(par21);
+			 * l1.addView(img_c);
+			 *//*
+
+            lmain.addView(l1);
+
+            lmain2.addView(lmain);
+
+
+            l3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Drawer_CategoryPage.this, Product_List.class);
+                    startActivity(i);
+                }
+            });
+
+            l4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Drawer_CategoryPage.this,Product_List.class);
+                    startActivity(i);
+                }
+            });
+            l5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Drawer_CategoryPage.this,Product_List.class);
+                    startActivity(i);
+                }
+            });
+
+
+        }
+
+    }*/
 
     private void setRefershData() {
         // TODO Auto-generated method stub
@@ -1063,7 +811,6 @@ public class Drawer_CategoryPage extends AppCompatActivity {
         db.close();
     }
 
-
     public String GetCartByQty(final List<NameValuePair> params){
 
         final String[] json = new String[1];
@@ -1093,6 +840,256 @@ public class Drawer_CategoryPage extends AppCompatActivity {
         //Log.e("my json",json[0]);
         return json[0];
     }
+
+    public class Set_Category_Page extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        Drawer_CategoryPage.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                parameters.add(new BasicNameValuePair("parent_id", Cat_ID));
+
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Category/App_GetCategory", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("null")
+                        || (result_1.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(Drawer_CategoryPage.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(Drawer_CategoryPage.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+                        category_arra.clear();
+
+                        try {
+
+                            JSONArray joj = jObj.getJSONArray("data");
+
+
+                            for (int z = 0; z < joj.length(); z++) {
+
+                                JSONObject j = joj.getJSONObject(z);
+
+
+                                Bean_category bean = new Bean_category();
+                                bean.setId(j.getString("id"));
+                                bean.setName(j.getString("name"));
+                                bean.setIs_child(j.getString("is_child"));
+                                bean.setImg(j.getString("app_image"));
+                                category_arra.add(bean);
+
+
+                            }
+                            //Log.e("1122","1122"+category_arra.size());
+
+                            if (category_arra.size() == 0) {
+                                Globals.CustomToast(Drawer_CategoryPage.this, "No Data", getLayoutInflater());
+                            } else {
+
+                                setLayout1(category_arra);
+                            }
+
+
+                        } catch (Exception e) {
+                        }
+
+                        loadingView.dismiss();
+
+
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
+    }
+
+    public class set_check_parent extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        Drawer_CategoryPage.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                parameters.add(new BasicNameValuePair("cat_id", Cat_ID));
+
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Category/App_Get_Parent_Category", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("null")
+                        || (result_1.equalsIgnoreCase(""))) {
+                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(Drawer_CategoryPage.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(Drawer_CategoryPage.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+                        category_arra.clear();
+
+                        try {
+
+                            JSONArray joj = jObj.getJSONArray("data");
+
+
+                            for (int z = 0; z < joj.length(); z++) {
+
+                                JSONObject j = joj.getJSONObject(z);
+
+
+                                back = j.getString("parent_id");
+
+
+                            }
+                            //Log.e("back","back"+back);
+
+                            if (back.equalsIgnoreCase("0")) {
+                                //Globals.CustomToast(Main_CategoryPage.this,"No Data",getLayoutInflater());
+                                app = new AppPrefs(Drawer_CategoryPage.this);
+                                app.setUser_CatId("0");
+                                app.setUser_CatBack("1");
+                                Intent i = new Intent(Drawer_CategoryPage.this, Drawer_CategoryPage.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            } else {
+
+                                //setLayout1(category_arra);
+                                app = new AppPrefs(Drawer_CategoryPage.this);
+                                app.setUser_CatId(back);
+                                Intent i = new Intent(Drawer_CategoryPage.this, Drawer_CategoryPage.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        loadingView.dismiss();
+
+
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
+    }
+
     public class GetCartByQty extends AsyncTask<Void, Void, String>{
 
         List<NameValuePair> params=new ArrayList<>();
