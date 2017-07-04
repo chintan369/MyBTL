@@ -2495,7 +2495,7 @@ public class Btl_WishList extends AppCompatActivity {
                                 ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
 
                                 for (int i = 0; i < bean_Schme_data.size(); i++) {
-                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())) {
+                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
                                         currentProductScheme.add(bean_Schme_data.get(i));
                                     }
                                 }

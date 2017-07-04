@@ -85,7 +85,7 @@ public class Product_List extends AppCompatActivity {
     LinearLayout l_spinner, l_spinner_text, l_linear, l_sort, l_view_spinner;
     String cartJSON = "";
     boolean hasCartCallFinish = true;
-    boolean whereToBuyVisibility=true;
+    boolean whereToBuyVisibility = true;
     TextView txt;
     boolean isNotDone = true;
     String jsonData = "";
@@ -206,7 +206,7 @@ public class Product_List extends AppCompatActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        layout_productList=(LinearLayout) findViewById(R.id.layout_productList);
+        layout_productList = (LinearLayout) findViewById(R.id.layout_productList);
 
         fetchid();
         isPermissionRequestRequired(Product_List.this, perms, 1);
@@ -227,7 +227,7 @@ public class Product_List extends AppCompatActivity {
                     role_id = app.getSubSalesId();
                     user_id_main = app.getSalesPersonId();
 
-                    Snackbar.make(layout_productList,"Taking Order for : "+app.getUserName(),Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(layout_productList, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
                 }
 
 
@@ -304,10 +304,10 @@ public class Product_List extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                int totalItems=bean_product1.size();
-                int lastVisibleItem=list_product.getLastVisiblePosition();
+                int totalItems = bean_product1.size();
+                int lastVisibleItem = list_product.getLastVisiblePosition();
 
-                if(lastVisibleItem==totalItems-1){
+                if (lastVisibleItem == totalItems - 1) {
 
                 /*}*/
 
@@ -344,10 +344,10 @@ public class Product_List extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                int totalItems=bean_product1.size();
-                int lastVisibleItem=list_product.getLastVisiblePosition();
+                int totalItems = bean_product1.size();
+                int lastVisibleItem = list_product.getLastVisiblePosition();
 
-                if (lastVisibleItem==totalItems-1) {
+                if (lastVisibleItem == totalItems - 1) {
 
                     page_id = page_id + 1;
 
@@ -1794,12 +1794,11 @@ public class Product_List extends AppCompatActivity {
 
             result_holder.BTN_wheretobuy_list.setTag(bean_product1.get(position).getPro_id());
 
-            result_holder.layout_prices=(LinearLayout) convertView.findViewById(R.id.layout_prices);
+            result_holder.layout_prices = (LinearLayout) convertView.findViewById(R.id.layout_prices);
 
-            if(!whereToBuyVisibility){
+            if (!whereToBuyVisibility) {
                 result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
             }
 
@@ -2018,7 +2017,7 @@ public class Product_List extends AppCompatActivity {
                   /*  result_holder.btn_buyonline.setClickable(false);
                     result_holder.btn_buyonline.setEnabled(false);*/
                     setRefershData();
-                    final String[] selectedProductID={bean_product1.get(position).getPro_id()};
+                    final String[] selectedProductID = {bean_product1.get(position).getPro_id()};
                     if (user_data.size() != 0) {
                         for (int i = 0; i < user_data.size(); i++) {
 
@@ -2117,18 +2116,18 @@ public class Product_List extends AppCompatActivity {
                         cancel = (Button) dialog.findViewById(R.id.cancel);
                         edt_count = (EditText) dialog.findViewById(R.id.edt_count);
                         edt_count.setSelection(edt_count.getText().length());
-                        final ImageView img_offerDialog=(ImageView) dialog.findViewById(R.id.img_offerDialog);
+                        final ImageView img_offerDialog = (ImageView) dialog.findViewById(R.id.img_offerDialog);
 
                         final TextView txt_availableScheme = (TextView) dialog.findViewById(R.id.txt_availableScheme);
 
-                        if(bean_product1.get(position).getScheme()==null || bean_product1.get(position).getScheme().isEmpty()){
+                        if (bean_product1.get(position).getScheme() == null || bean_product1.get(position).getScheme().isEmpty()) {
                             img_offerDialog.setVisibility(View.GONE);
                         }
 
                         img_offerDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                showOfferDialog(position,selectedProductID[0]);
+                                showOfferDialog(position, selectedProductID[0]);
                             }
                         });
 
@@ -2236,7 +2235,7 @@ public class Product_List extends AppCompatActivity {
 
                             //Log.e("121212 ::",""+bean_productOprtions.size());
 
-                            final ArrayList<Bean_ProductOprtion> currentOptions=new ArrayList<Bean_ProductOprtion>();
+                            final ArrayList<Bean_ProductOprtion> currentOptions = new ArrayList<Bean_ProductOprtion>();
 
                             for (int c = 0; c < bean_productOprtions.size(); c++) {
                                 //Log.e("232323 ::",""+bean_productOprtions.get(c).getPro_id());
@@ -2408,17 +2407,18 @@ public class Product_List extends AppCompatActivity {
                                             ArrayList<Bean_Attribute> att_array = new ArrayList<Bean_Attribute>();
                                             att_array = array_attribute_main.get(pos);
 
-                                            selectedProductID[0]=att_array.get(position1).getOption_pro_id();
+                                            selectedProductID[0] = att_array.get(position1).getOption_pro_id();
 
-                                            boolean foundScheme=false;
-                                            for(int a=0; a<bean_Schme_data.size(); a++){
-                                                if(bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])){
-                                                    foundScheme=true;
+                                            boolean foundScheme = false;
+                                            for (int a = 0; a < bean_Schme_data.size(); a++) {
+                                                if (bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])) {
+                                                    foundScheme = true;
                                                     break;
                                                 }
                                             }
 
-                                            if(foundScheme) img_offerDialog.setVisibility(View.VISIBLE);
+                                            if (foundScheme)
+                                                img_offerDialog.setVisibility(View.VISIBLE);
                                             else img_offerDialog.setVisibility(View.GONE);
                                             //Log.e("Position",""+att_array.get(position1).getValue_name());
                                             //Log.e("Position",""+att_array.get(position1).getValue_id());
@@ -2690,12 +2690,12 @@ public class Product_List extends AppCompatActivity {
                                     s = s + minPackOfQty[0];
                                 } else if (s > 0) {
 
-                                    int remainder=C.modOf(minPackOfQty[0],s);
+                                    int remainder = C.modOf(minPackOfQty[0], s);
 
                                     if (s < minPackOfQty[0]) {
 
                                         if (remainder > 0) {
-                                            s = s + (minPackOfQty[0]-s);
+                                            s = s + (minPackOfQty[0] - s);
                                         } else {
                                             s = s + minPackOfQty[0];
                                         }
@@ -2771,32 +2771,30 @@ public class Product_List extends AppCompatActivity {
                                     Log.e("TOTAL12", "" + str);
                                     tv_total.setText(str);
 
-                                    ArrayList<Bean_schemeData> currentProductScheme=new ArrayList<Bean_schemeData>();
+                                    ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
 
-                                    for(int i=0;i<bean_Schme_data.size();i++){
-                                        if(bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())){
+                                    for (int i = 0; i < bean_Schme_data.size(); i++) {
+                                        if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
                                             currentProductScheme.add(bean_Schme_data.get(i));
                                         }
                                     }
 
-                                    if(currentProductScheme.size()>0){
+                                    if (currentProductScheme.size() > 0) {
 
-                                        int selectedPos=0;
+                                        int selectedPos = 0;
 
-                                        for(int i=0; i<currentProductScheme.size(); i++){
-                                            int schemeQty=Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
-                                            if(qty<schemeQty){
-                                                selectedPos=i;
+                                        for (int i = 0; i < currentProductScheme.size(); i++) {
+                                            int schemeQty = Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
+                                            if (qty < schemeQty) {
+                                                selectedPos = i;
                                                 break;
-                                            }
-                                            else{
-                                                selectedPos=currentProductScheme.size()-1;
+                                            } else {
+                                                selectedPos = currentProductScheme.size() - 1;
                                             }
                                         }
 
                                         txt_availableScheme.setText(currentProductScheme.get(selectedPos).getSchme_name());
-                                    }
-                                    else txt_availableScheme.setText("");
+                                    } else txt_availableScheme.setText("");
 
 
                                 }
@@ -2869,13 +2867,12 @@ public class Product_List extends AppCompatActivity {
                                     int currentQty = Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
                                     //int minPackOfQty = bean_product1.get(position).getPackQty();
 
-                                    if (currentQty<minPackOfQty[0] || C.modOf(currentQty,minPackOfQty[0]) > 0) {
+                                    if (currentQty < minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
 
-                                        C.showMinPackAlert(Product_List.this,minPackOfQty[0]);
+                                        C.showMinPackAlert(Product_List.this, minPackOfQty[0]);
                                         //Globals.Toast(getApplicationContext(), "Please enter quantity in multiple of "+minPackOfQty+" or tap + / - button");
-                                        Log.e("Mod Rem","-->"+C.modOf(currentQty,minPackOfQty[0]));
-                                    }
-                                    else {
+                                        Log.e("Mod Rem", "-->" + C.modOf(currentQty, minPackOfQty[0]));
+                                    } else {
 
                                         product_id = tv_pop_pname.getTag().toString();
                                         String qty = edt_count.getText().toString();
@@ -3131,7 +3128,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                             }
-                                            Log.e("Data 2224",jarray_cart.toString());
+                                            Log.e("Data 2224", jarray_cart.toString());
                                             array_value.clear();
                                             if (kkk == 1) {
 
@@ -3298,7 +3295,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                                 }
-                                                Log.e("Data 2391",jarray_cart.toString());
+                                                Log.e("Data 2391", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
 
@@ -3539,7 +3536,7 @@ public class Product_List extends AppCompatActivity {
 
                                                 }
 
-                                                Log.e("Data 2630",jarray_cart.toString());
+                                                Log.e("Data 2630", jarray_cart.toString());
 
 
                                                 // db.Add_Product_cart_scheme(bean_s);
@@ -3699,7 +3696,7 @@ public class Product_List extends AppCompatActivity {
 
                                                 }
 
-                                                Log.e("Data 2692",jarray_cart.toString());
+                                                Log.e("Data 2692", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
 
@@ -3795,41 +3792,39 @@ public class Product_List extends AppCompatActivity {
                     ListView list_a = (ListView) dialogOffer.findViewById(R.id.list_schme);
                     ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-                    final List<String> schemeHeaders=new ArrayList<String>();
-                    final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+                    final List<String> schemeHeaders = new ArrayList<String>();
+                    final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-                    List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-                    for(int i=0; i<bean_S_data.size(); i++){
-                        if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+                    for (int i = 0; i < bean_S_data.size(); i++) {
+                        if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                             extraSpecialScheme.add(bean_S_data.get(i));
-                        }
-                        else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                        } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                             specialScheme.add(bean_S_data.get(i));
-                        }
-                        else {
+                        } else {
                             generalScheme.add(bean_S_data.get(i));
                         }
                     }
 
-                    if(extraSpecialScheme.size()>0){
+                    if (extraSpecialScheme.size() > 0) {
                         schemeHeaders.add("Extra Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                     }
 
-                    if(specialScheme.size()>0){
+                    if (specialScheme.size() > 0) {
                         schemeHeaders.add("Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                     }
 
-                    if(generalScheme.size()>0){
+                    if (generalScheme.size() > 0) {
                         schemeHeaders.add("General Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                     }
 
-                    final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(schemeHeaders,schemeChildList);
+                    final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(schemeHeaders, schemeChildList);
                     listSchemes.setAdapter(schemeAdapter);
 
                     listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -3837,7 +3832,7 @@ public class Product_List extends AppCompatActivity {
                         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                             setRefershData();
-                            String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                            String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                             if (user_data.size() != 0) {
                                 for (int i = 0; i < user_data.size(); i++) {
 
@@ -4158,7 +4153,7 @@ public class Product_List extends AppCompatActivity {
                                         }
                                         array_value.clear();
                                         dialog.dismiss();
-                                        Log.e("Data 3217",jarray_cart.toString());
+                                        Log.e("Data 3217", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -4270,7 +4265,7 @@ public class Product_List extends AppCompatActivity {
                                         // db.Add_Product_cart_scheme(bean_s);
 
                                         array_value.clear();
-                                        Log.e("Data 3330",jarray_cart.toString());
+                                        Log.e("Data 3330", jarray_cart.toString());
                                         //dialogOffer.dismiss();
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
@@ -4353,7 +4348,7 @@ public class Product_List extends AppCompatActivity {
 
                                         }
                                         array_value.clear();
-                                        Log.e("Data 3414",jarray_cart.toString());
+                                        Log.e("Data 3414", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -4705,7 +4700,7 @@ public class Product_List extends AppCompatActivity {
                                         }
                                         array_value.clear();
                                         dialog.dismiss();
-                                        Log.e("Data 3217",jarray_cart.toString());
+                                        Log.e("Data 3217", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -4817,7 +4812,7 @@ public class Product_List extends AppCompatActivity {
                                         // db.Add_Product_cart_scheme(bean_s);
 
                                         array_value.clear();
-                                        Log.e("Data 3330",jarray_cart.toString());
+                                        Log.e("Data 3330", jarray_cart.toString());
                                         //dialogOffer.dismiss();
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
@@ -4900,7 +4895,7 @@ public class Product_List extends AppCompatActivity {
 
                                         }
                                         array_value.clear();
-                                        Log.e("Data 3414",jarray_cart.toString());
+                                        Log.e("Data 3414", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -4961,12 +4956,12 @@ public class Product_List extends AppCompatActivity {
                 double o = offa / mrp;
                 int a = (int) o;*/
 
-                float percent=100 - (Float.parseFloat(bean_product1.get(position)
-                        .getPro_sellingprice())*100/Float.parseFloat(bean_product1.get(position)
+                float percent = 100 - (Float.parseFloat(bean_product1.get(position)
+                        .getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position)
                         .getPro_mrp()));
 
 
-                result_holder.off_tag.setText(String.format("%.0f",percent) + "% OFF");
+                result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
 
                 result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_mrp());
@@ -5015,11 +5010,11 @@ public class Product_List extends AppCompatActivity {
                         double o = offa / mrp;
                         int a = (int) o;*/
 
-                        float percent=100 - (Float.parseFloat(bean_product1.get(position)
-                                .getPro_sellingprice())*100/Float.parseFloat(bean_product1.get(position)
+                        float percent = 100 - (Float.parseFloat(bean_product1.get(position)
+                                .getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position)
                                 .getPro_mrp()));
 
-                        result_holder.off_tag.setText(String.format("%.0f",percent) + "% OFF");
+                        result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
                         result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position).getPro_mrp());
 
                         result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position).getPro_sellingprice());
@@ -5048,9 +5043,9 @@ public class Product_List extends AppCompatActivity {
                     .placeholder(R.drawable.btl_watermark)
                     .into(result_holder.img_photo);
 
-            int mrpPrice=(int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
+            int mrpPrice = (int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
 
-            if(mrpPrice<=0){
+            if (mrpPrice <= 0) {
                 result_holder.btn_enquiry.setVisibility(View.VISIBLE);
                 result_holder.btn_buyonline.setVisibility(View.GONE);
                 result_holder.layout_prices.setVisibility(View.INVISIBLE);
@@ -5060,10 +5055,10 @@ public class Product_List extends AppCompatActivity {
             result_holder.btn_enquiry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),NonMRPProductEnquiry.class);
+                    Intent intent = new Intent(getApplicationContext(), NonMRPProductEnquiry.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("productName",bean_product1.get(position).getPro_name());
-                    intent.putExtra("productID",bean_product1.get(position).getPro_id());
+                    intent.putExtra("productName", bean_product1.get(position).getPro_name());
+                    intent.putExtra("productID", bean_product1.get(position).getPro_id());
                     startActivity(intent);
                 }
             });
@@ -5075,12 +5070,12 @@ public class Product_List extends AppCompatActivity {
 
     private class ExpandableSchemeAdapter extends BaseExpandableListAdapter {
 
-        List<String> dataHeaderList=new ArrayList<>();
-        HashMap<String,List<Bean_schemeData>> dataChildList;
+        List<String> dataHeaderList = new ArrayList<>();
+        HashMap<String, List<Bean_schemeData>> dataChildList;
 
-        public ExpandableSchemeAdapter(List<String> dataHeaderList, HashMap<String,List<Bean_schemeData>> dataChildList){
-            this.dataHeaderList=dataHeaderList;
-            this.dataChildList=dataChildList;
+        public ExpandableSchemeAdapter(List<String> dataHeaderList, HashMap<String, List<Bean_schemeData>> dataChildList) {
+            this.dataHeaderList = dataHeaderList;
+            this.dataChildList = dataChildList;
         }
 
         @Override
@@ -5121,12 +5116,12 @@ public class Product_List extends AppCompatActivity {
         @Override
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-            if(convertView==null){
-                LayoutInflater inflater=(LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                convertView=inflater.inflate(R.layout.layout_group_header,parent,false);
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.layout_group_header, parent, false);
             }
 
-            TextView lblListHeader=(TextView) convertView.findViewById(R.id.lblListHeader);
+            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
 
             String groupHeader = getGroup(groupPosition) + " (" + getChildrenCount(groupPosition) + ")";
 
@@ -5138,14 +5133,14 @@ public class Product_List extends AppCompatActivity {
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-            Bean_schemeData schemeData= (Bean_schemeData) getChild(groupPosition,childPosition);
+            Bean_schemeData schemeData = (Bean_schemeData) getChild(groupPosition, childPosition);
 
-            if(convertView==null){
-                LayoutInflater inflater=(LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                convertView=inflater.inflate(R.layout.layout_child_item,parent,false);
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.layout_child_item, parent, false);
             }
 
-            TextView lblListHeader=(TextView) convertView.findViewById(R.id.lblListHeader);
+            TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
             lblListHeader.setText(schemeData.getSchme_name());
 
             return convertView;
@@ -5259,17 +5254,16 @@ public class Product_List extends AppCompatActivity {
                     .findViewById(R.id.txt_pack);
             result_holder.off_tag = (TextView) convertView.findViewById(R.id.off_tag);
             result_holder.img_offer = (ImageView) convertView.findViewById(R.id.img_offer);
-            result_holder.btn_enquiry=(Button) convertView.findViewById(R.id.btn_enquiry);
+            result_holder.btn_enquiry = (Button) convertView.findViewById(R.id.btn_enquiry);
 
-            result_holder.layout_prices=(LinearLayout) convertView.findViewById(R.id.layout_prices);
+            result_holder.layout_prices = (LinearLayout) convertView.findViewById(R.id.layout_prices);
 
             result_holder.BTN_wheretobuy_list.setTag(bean_product1.get(position).getPro_id());
             setRefershData();
 
-            if(whereToBuyVisibility){
+            if (whereToBuyVisibility) {
                 result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
             }
 
@@ -5537,9 +5531,7 @@ public class Product_List extends AppCompatActivity {
             result_holder.btn_buyonline.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     setRefershData();
-                    final String[] selectedProductID={bean_product1.get(position).getPro_id()};
                     if (user_data.size() != 0) {
                         for (int i = 0; i < user_data.size(); i++) {
 
@@ -5552,7 +5544,7 @@ public class Product_List extends AppCompatActivity {
                                 app = new AppPrefs(Product_List.this);
                                 role_id = app.getSubSalesId();
                                 u_id = app.getSalesPersonId();
-                            }  else {
+                            } else {
                                 u_id = owner_id;
                             }
 
@@ -5625,7 +5617,7 @@ public class Product_List extends AppCompatActivity {
                             j.printStackTrace();
                             //Log.e("json exce",j.getMessage());
                         }
-
+                        final String[] selectedProductID = {bean_product1.get(position).getPro_id()};
                         dialog.setContentView(R.layout.popup_cart);
                         minuss = (ImageView) dialog.findViewById(R.id.minus);
                         plus = (ImageView) dialog.findViewById(R.id.plus);
@@ -5633,18 +5625,18 @@ public class Product_List extends AppCompatActivity {
                         cancel = (Button) dialog.findViewById(R.id.cancel);
                         edt_count = (EditText) dialog.findViewById(R.id.edt_count);
                         edt_count.setSelection(edt_count.getText().length());
-                        final ImageView img_offerDialog=(ImageView) dialog.findViewById(R.id.img_offerDialog);
+                        final ImageView img_offerDialog = (ImageView) dialog.findViewById(R.id.img_offerDialog);
 
                         final TextView txt_availableScheme = (TextView) dialog.findViewById(R.id.txt_availableScheme);
 
-                        if(bean_product1.get(position).getScheme()==null || bean_product1.get(position).getScheme().isEmpty()){
+                        if (bean_product1.get(position).getScheme() == null || bean_product1.get(position).getScheme().isEmpty()) {
                             img_offerDialog.setVisibility(View.GONE);
                         }
 
                         img_offerDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                showOfferDialog(position,selectedProductID[0]);
+                                showOfferDialog(position, selectedProductID[0]);
                             }
                         });
 
@@ -5762,7 +5754,7 @@ public class Product_List extends AppCompatActivity {
 
                             //Log.e("121212 ::",""+bean_productOprtions.size());
 
-                            final ArrayList<Bean_ProductOprtion> currentProductOption=new ArrayList<Bean_ProductOprtion>();
+                            final ArrayList<Bean_ProductOprtion> currentProductOption = new ArrayList<Bean_ProductOprtion>();
 
                             for (int c = 0; c < bean_productOprtions.size(); c++) {
                                 //Log.e("232323 ::",""+bean_productOprtions.get(c).getPro_id());
@@ -5933,17 +5925,18 @@ public class Product_List extends AppCompatActivity {
                                             ArrayList<Bean_Attribute> att_array = new ArrayList<Bean_Attribute>();
                                             att_array = array_attribute_main.get(pos);
 
-                                            selectedProductID[0]=att_array.get(position1).getOption_pro_id();
+                                            selectedProductID[0] = att_array.get(position1).getOption_pro_id();
 
-                                            boolean foundScheme=false;
-                                            for(int a=0; a<bean_Schme_data.size(); a++){
-                                                if(bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])){
-                                                    foundScheme=true;
+                                            boolean foundScheme = false;
+                                            for (int a = 0; a < bean_Schme_data.size(); a++) {
+                                                if (bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])) {
+                                                    foundScheme = true;
                                                     break;
                                                 }
                                             }
 
-                                            if(foundScheme) img_offerDialog.setVisibility(View.VISIBLE);
+                                            if (foundScheme)
+                                                img_offerDialog.setVisibility(View.VISIBLE);
                                             else img_offerDialog.setVisibility(View.GONE);
 
                                             //Log.e("Position",""+att_array.get(position1).getValue_name());
@@ -6220,12 +6213,12 @@ public class Product_List extends AppCompatActivity {
                                     s = s + minPackOfQty[0];
                                 } else if (s > 0) {
 
-                                    int remainder=C.modOf(minPackOfQty[0],s);
+                                    int remainder = C.modOf(minPackOfQty[0], s);
 
                                     if (s < minPackOfQty[0]) {
 
                                         if (remainder > 0) {
-                                            s = s + (minPackOfQty[0] -s);
+                                            s = s + (minPackOfQty[0] - s);
                                         } else {
                                             s = s + minPackOfQty[0];
                                         }
@@ -6309,32 +6302,30 @@ public class Product_List extends AppCompatActivity {
                                     String str = String.format("%.2f", w1);
                                     tv_total.setText(str);
 
-                                    ArrayList<Bean_schemeData> currentProductScheme=new ArrayList<Bean_schemeData>();
+                                    ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
 
-                                    for(int i=0;i<bean_Schme_data.size();i++){
-                                        if(bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())){
+                                    for (int i = 0; i < bean_Schme_data.size(); i++) {
+                                        if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
                                             currentProductScheme.add(bean_Schme_data.get(i));
                                         }
                                     }
 
-                                    if(currentProductScheme.size()>0){
+                                    int selectedPos = -1;
+                                    for (int i = 0; i < currentProductScheme.size(); i++) {
+                                        int schemeQty = Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
 
-                                        int selectedPos=0;
-
-                                        for(int i=0; i<currentProductScheme.size(); i++){
-                                            int schemeQty=Integer.parseInt(currentProductScheme.get(i).getSchme_qty());
-                                            if(qty<schemeQty){
-                                                selectedPos=i;
-                                                break;
-                                            }
-                                            else{
-                                                selectedPos=currentProductScheme.size()-1;
-                                            }
+                                        if (qty < schemeQty) {
+                                            selectedPos = i;
+                                            break;
+                                        } else {
+                                            selectedPos = currentProductScheme.size() - 1;
                                         }
 
-                                        txt_availableScheme.setText(currentProductScheme.get(selectedPos).getSchme_name());
                                     }
-                                    else txt_availableScheme.setText("");
+
+                                    if (currentProductScheme.size() > 0 && selectedPos >= 0) {
+                                        txt_availableScheme.setText(currentProductScheme.get(selectedPos).getSchme_name());
+                                    } else txt_availableScheme.setText("");
 
                                 }
                             }
@@ -6357,12 +6348,11 @@ public class Product_List extends AppCompatActivity {
                                     int currentQty = Integer.parseInt(enteredQty.isEmpty() ? "0" : enteredQty);
                                     //int minPackOfQty = bean_product1.get(position).getPackQty();
 
-                                    if (currentQty<minPackOfQty[0] || C.modOf(currentQty,minPackOfQty[0]) > 0) {
-                                        C.showMinPackAlert(Product_List.this,minPackOfQty[0]);
+                                    if (currentQty < minPackOfQty[0] || C.modOf(currentQty, minPackOfQty[0]) > 0) {
+                                        C.showMinPackAlert(Product_List.this, minPackOfQty[0]);
                                         //Globals.Toast(getApplicationContext(), "Please enter quantity in multiple of "+minPackOfQty+" or tap + / - button");
-                                        Log.e("Mod Rem","-->"+C.modOf(currentQty,minPackOfQty[0]));
-                                    }
-                                    else {
+                                        Log.e("Mod Rem", "-->" + C.modOf(currentQty, minPackOfQty[0]));
+                                    } else {
                                         product_id = tv_pop_pname.getTag().toString();
                                         String qty = edt_count.getText().toString();
 
@@ -6591,7 +6581,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                             }
-                                            Log.e("Data 4898",jarray_cart.toString());
+                                            Log.e("Data 4898", jarray_cart.toString());
                                             array_value.clear();
                                             if (kkk == 1) {
 
@@ -6758,7 +6748,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                                 }
-                                                Log.e("Data 5065",jarray_cart.toString());
+                                                Log.e("Data 5065", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
 
@@ -6988,7 +6978,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                                 // db.Add_Product_cart_scheme(bean_s);
-                                                Log.e("Data 5297",jarray_cart.toString());
+                                                Log.e("Data 5297", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
 
@@ -7143,7 +7133,7 @@ public class Product_List extends AppCompatActivity {
 
 
                                                 }
-                                                Log.e("Data 5452",jarray_cart.toString());
+                                                Log.e("Data 5452", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
 
@@ -7238,41 +7228,39 @@ public class Product_List extends AppCompatActivity {
 
                     ExpandableListView listSchemes = (ExpandableListView) dialogOffer.findViewById(R.id.listSchemes);
 
-                    final List<String> schemeHeaders=new ArrayList<String>();
-                    final HashMap<String,List<Bean_schemeData>> schemeChildList=new HashMap<String, List<Bean_schemeData>>();
+                    final List<String> schemeHeaders = new ArrayList<String>();
+                    final HashMap<String, List<Bean_schemeData>> schemeChildList = new HashMap<String, List<Bean_schemeData>>();
 
-                    List<Bean_schemeData> extraSpecialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> specialScheme=new ArrayList<Bean_schemeData>();
-                    List<Bean_schemeData> generalScheme=new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> extraSpecialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> specialScheme = new ArrayList<Bean_schemeData>();
+                    List<Bean_schemeData> generalScheme = new ArrayList<Bean_schemeData>();
 
-                    for(int i=0; i<bean_S_data.size(); i++){
-                        if(bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)){
+                    for (int i = 0; i < bean_S_data.size(); i++) {
+                        if (bean_S_data.get(i).getCategory_id().equals(C.EXTRA_SPECIAL_SCHEME)) {
                             extraSpecialScheme.add(bean_S_data.get(i));
-                        }
-                        else if(bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)){
+                        } else if (bean_S_data.get(i).getCategory_id().equals(C.SPECIAL_SCHEME)) {
                             specialScheme.add(bean_S_data.get(i));
-                        }
-                        else {
+                        } else {
                             generalScheme.add(bean_S_data.get(i));
                         }
                     }
 
-                    if(extraSpecialScheme.size()>0){
+                    if (extraSpecialScheme.size() > 0) {
                         schemeHeaders.add("Extra Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                     }
 
-                    if(specialScheme.size()>0){
+                    if (specialScheme.size() > 0) {
                         schemeHeaders.add("Special Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                     }
 
-                    if(generalScheme.size()>0){
+                    if (generalScheme.size() > 0) {
                         schemeHeaders.add("General Schemes");
-                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
+                        schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                     }
 
-                    final ExpandableSchemeAdapter schemeAdapter=new ExpandableSchemeAdapter(schemeHeaders,schemeChildList);
+                    final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(schemeHeaders, schemeChildList);
                     listSchemes.setAdapter(schemeAdapter);
 
                     listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -7280,7 +7268,7 @@ public class Product_List extends AppCompatActivity {
                         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
                             setRefershData();
-                            String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+                            String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
                             if (user_data.size() != 0) {
                                 for (int i = 0; i < user_data.size(); i++) {
 
@@ -7595,7 +7583,7 @@ public class Product_List extends AppCompatActivity {
 
                                         }
                                         array_value.clear();
-                                        Log.e("Data 5868",jarray_cart.toString());
+                                        Log.e("Data 5868", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -7710,7 +7698,7 @@ public class Product_List extends AppCompatActivity {
                                         // db.Add_Product_cart_scheme(bean_s);
 
                                         array_value.clear();
-                                        Log.e("Data 5983",jarray_cart.toString());
+                                        Log.e("Data 5983", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -7794,7 +7782,7 @@ public class Product_List extends AppCompatActivity {
 
                                         }
                                         array_value.clear();
-                                        Log.e("Data 6067",jarray_cart.toString());
+                                        Log.e("Data 6067", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
@@ -7855,11 +7843,11 @@ public class Product_List extends AppCompatActivity {
                 double o = offa / mrp;
                 int a = (int) o;*/
 
-                float percent=100 - (Float.parseFloat(bean_product1.get(position)
-                        .getPro_sellingprice())*100/Float.parseFloat(bean_product1.get(position)
+                float percent = 100 - (Float.parseFloat(bean_product1.get(position)
+                        .getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position)
                         .getPro_mrp()));
 
-                result_holder.off_tag.setText(String.format("%.0f",percent) + "% OFF");
+                result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
 
                 result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_mrp());
@@ -7909,12 +7897,12 @@ public class Product_List extends AppCompatActivity {
                         double o = offa / mrp;
                         int a = (int) o;*/
 
-                        float percent=100 - (Float.parseFloat(bean_product1.get(position)
-                                .getPro_sellingprice())*100/Float.parseFloat(bean_product1.get(position)
+                        float percent = 100 - (Float.parseFloat(bean_product1.get(position)
+                                .getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position)
                                 .getPro_mrp()));
 
 
-                        result_holder.off_tag.setText(String.format("%.0f",percent) + "% OFF");
+                        result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
                         result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                                 .getPro_mrp());
 
@@ -7947,9 +7935,9 @@ public class Product_List extends AppCompatActivity {
                     .into(result_holder.img_photo);
 
 
-            float mrpPrice=Float.parseFloat(bean_product1.get(position).getPro_mrp());
+            float mrpPrice = Float.parseFloat(bean_product1.get(position).getPro_mrp());
 
-            if(mrpPrice<=0){
+            if (mrpPrice <= 0) {
                 result_holder.btn_enquiry.setVisibility(View.VISIBLE);
                 result_holder.btn_buyonline.setVisibility(View.GONE);
                 result_holder.layout_prices.setVisibility(View.INVISIBLE);
@@ -7959,10 +7947,10 @@ public class Product_List extends AppCompatActivity {
             result_holder.btn_enquiry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),NonMRPProductEnquiry.class);
+                    Intent intent = new Intent(getApplicationContext(), NonMRPProductEnquiry.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("productName",bean_product1.get(position).getPro_name());
-                    intent.putExtra("productID",bean_product1.get(position).getPro_id());
+                    intent.putExtra("productName", bean_product1.get(position).getPro_name());
+                    intent.putExtra("productID", bean_product1.get(position).getPro_id());
                     startActivity(intent);
                 }
             });
@@ -8033,7 +8021,7 @@ public class Product_List extends AppCompatActivity {
 
             loadingView.dismiss();
 
-            Log.e("JSON ProList",result_1);
+            Log.e("JSON ProList", result_1);
 
             try {
 
@@ -8103,7 +8091,7 @@ public class Product_List extends AppCompatActivity {
                             bean.setPro_sellingprice(jproduct.getString("selling_price"));
                             // bean.setPro_shortdesc(jproduct.getString("short_description"));
                             bean.setPro_image(jproduct.getString("image"));
-                            String minPackOfQty=jproduct.getString("pack_of_qty");
+                            String minPackOfQty = jproduct.getString("pack_of_qty");
                             bean.setPackQty(Integer.parseInt(minPackOfQty.isEmpty() ? "1" : minPackOfQty));
                             //   bean.setPro_moreinfo(jproduct.getString("more_info"));
                             JSONArray jschme = jsonObject.getJSONArray("Scheme");
@@ -8169,14 +8157,14 @@ public class Product_List extends AppCompatActivity {
 
                             for (int s = 0; s < jProductOption.length(); s++) {
                                 JSONObject jProductOptiono = jProductOption.getJSONObject(s);
-                                JSONObject productObject= jProductOptiono.getJSONObject("Product");
+                                JSONObject productObject = jProductOptiono.getJSONObject("Product");
                                 JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
                                 JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
                                 JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
-                                JSONArray schemeArray=jProductOptiono.getJSONArray("Scheme");
+                                JSONArray schemeArray = jProductOptiono.getJSONArray("Scheme");
 
-                                for(int m=0; m<schemeArray.length(); m++){
-                                    JSONObject schemeObj=schemeArray.getJSONObject(m);
+                                for (int m = 0; m < schemeArray.length(); m++) {
+                                    JSONObject schemeObj = schemeArray.getJSONObject(m);
 
                                     Bean_schemeData beans = new Bean_schemeData();
                                     beans.setSchme_id(schemeObj.getString("id"));
@@ -9159,9 +9147,9 @@ public class Product_List extends AppCompatActivity {
                                 JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
                                 JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
 
-                                JSONArray schemeArray=jProductOptiono.getJSONArray("Scheme");
-                                for(int m=0; m<schemeArray.length(); m++){
-                                    JSONObject schemeObj=schemeArray.getJSONObject(m);
+                                JSONArray schemeArray = jProductOptiono.getJSONArray("Scheme");
+                                for (int m = 0; m < schemeArray.length(); m++) {
+                                    JSONObject schemeObj = schemeArray.getJSONObject(m);
 
                                     Bean_schemeData beans = new Bean_schemeData();
                                     beans.setSchme_id(schemeObj.getString("id"));
@@ -10991,7 +10979,7 @@ public class Product_List extends AppCompatActivity {
 
                 parameters.add(new BasicNameValuePair("CartData", "" + jarray_cart));
 
-                Log.e("Product","Added -> "+parameters.toString());
+                Log.e("Product", "Added -> " + parameters.toString());
 
                 //Log.e("CART DATA",""+jarray_cart);
 
@@ -11013,7 +11001,7 @@ public class Product_List extends AppCompatActivity {
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
 
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
 
             try {
 
@@ -11119,7 +11107,7 @@ public class Product_List extends AppCompatActivity {
 
                 Log.e("CART DATA", "" + jarray_cart);
 
-                Log.e("Product","Edited -> "+parameters.toString());
+                Log.e("Product", "Edited -> " + parameters.toString());
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_EditCartData", ServiceHandler.POST, parameters);
 
@@ -11139,7 +11127,7 @@ public class Product_List extends AppCompatActivity {
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
 
-            jarray_cart=new JSONArray();
+            jarray_cart = new JSONArray();
 
             try {
 

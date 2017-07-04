@@ -2,12 +2,14 @@ package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.ComboOfferActivity;
@@ -60,6 +62,8 @@ public class ComboOfferListAdapter extends BaseAdapter {
 
             holder.img_offerThumb=(ImageView) convertView.findViewById(R.id.img_offerThumb);
             holder.txt_offerTitle=(TextView) convertView.findViewById(R.id.txt_offerTitle);
+            holder.card_comboOffer = (CardView) convertView.findViewById(R.id.card_comboOffer);
+            holder.layout_combo = (LinearLayout) convertView.findViewById(R.id.layout_combo);
 
             convertView.setTag(holder);
         }
@@ -72,7 +76,17 @@ public class ComboOfferListAdapter extends BaseAdapter {
 
         holder.txt_offerTitle.setText(offerItemList.get(position).getOfferTitle());
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.img_offerThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ComboOfferActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("combo_id", offerItemList.get(position).getOfferID());
+                activity.startActivity(intent);
+            }
+        });
+
+        holder.txt_offerTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ComboOfferActivity.class);
@@ -95,5 +109,7 @@ public class ComboOfferListAdapter extends BaseAdapter {
     private class ViewHolder {
         ImageView img_offerThumb;
         TextView txt_offerTitle;
+        CardView card_comboOffer;
+        LinearLayout layout_combo;
     }
 }

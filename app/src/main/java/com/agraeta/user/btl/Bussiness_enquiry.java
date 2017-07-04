@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -78,6 +79,8 @@ public class Bussiness_enquiry extends Fragment {
 
     AppPrefs prefs;
 
+    TextView txt_title;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +89,8 @@ public class Bussiness_enquiry extends Fragment {
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         business_array = new ArrayList<String>();
+
+        txt_title = (TextView) rootView.findViewById(R.id.txt_title);
 
         prefs = new AppPrefs(getContext());
 
@@ -214,16 +219,16 @@ public class Bussiness_enquiry extends Fragment {
                 } else if (position_city.equalsIgnoreCase("0")) {
                     sp_city.requestFocus();
                     Globals.CustomToast(getActivity(), "Please Select city", getActivity().getLayoutInflater());
-                } else if (e_companyname.getText().toString().trim().equalsIgnoreCase("")) {
-                    e_companyname.requestFocus();
-                    Globals.CustomToast(getActivity(), "Please Enter Company Name", getActivity().getLayoutInflater());
                 } else if (e_enquiry.getText().toString().trim().equalsIgnoreCase("")) {
                     e_enquiry.requestFocus();
                     Globals.CustomToast(getActivity(), "Please Enter your Enquiry Details", getActivity().getLayoutInflater());
                 }else if (e_enquiry.length() < 10) {
-                    Globals.CustomToast(getActivity(), "Please Enter Atleast 10 Character", getActivity().getLayoutInflater());
+                    Globals.CustomToast(getActivity(), "Please Enter Enquiry Atleast 10 Character", getActivity().getLayoutInflater());
                     e_enquiry.requestFocus();
-                }else {
+                } else if (e_companyname.getText().toString().trim().equalsIgnoreCase("")) {
+                    e_companyname.requestFocus();
+                    Globals.CustomToast(getActivity(), "Please Enter Company Name", getActivity().getLayoutInflater());
+                } else {
 
                     s_fname = e_fname.getText().toString().trim();
                     s_lname = e_lname.getText().toString().trim();
@@ -395,6 +400,9 @@ public class Bussiness_enquiry extends Fragment {
         db.close();
     }
 
+    public void setTitle(String title) {
+
+    }
 
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
@@ -522,6 +530,7 @@ public class Bussiness_enquiry extends Fragment {
 
         }
     }
+
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
         public StringBuilder sb;
@@ -646,8 +655,7 @@ public class Bussiness_enquiry extends Fragment {
         }
     }
 
-    public class Set_Bussniess_data extends AsyncTask<Void,Void,String>
-    {
+    public class Set_Bussniess_data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
         private String result;

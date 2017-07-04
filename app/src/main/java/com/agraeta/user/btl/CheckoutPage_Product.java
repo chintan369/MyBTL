@@ -1598,6 +1598,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             l_total.setVisibility(View.GONE);
                             txt_selling_price.setVisibility(View.GONE);
                             txt_total_txt.setVisibility(View.GONE);
+                            l_totalInDialog.setVisibility(View.GONE);
                         } else {
                             l_mrp.setVisibility(View.VISIBLE);
                             tv_txt_mrp.setVisibility(View.VISIBLE);

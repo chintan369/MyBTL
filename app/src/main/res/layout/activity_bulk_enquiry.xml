@@ -5,13 +5,14 @@
     android:id="@+id/activity_bulk_enquiry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.agraeta.user.btl.BulkEnquiryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.agraeta.user.btl.BulkEnquiryActivity">
 
     <fragment
+        android:id="@+id/fragment_bulkEnquiry"
+        class="com.agraeta.user.btl.Bussiness_enquiry"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.agraeta.user.btl.Bussiness_enquiry"
         tools:layout="@layout/activity_bussiness_enquiry"
         />
 

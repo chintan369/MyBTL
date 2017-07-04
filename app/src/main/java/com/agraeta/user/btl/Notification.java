@@ -2,9 +2,9 @@ package com.agraeta.user.btl;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
@@ -23,7 +22,6 @@ import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -90,6 +88,7 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         new GetNotificationList(true).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         btn_clearall=(Button) findViewById(R.id.btn_clearall);
+        btn_clearall.setVisibility(View.GONE);
         btn_clearall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +168,7 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
 
         // TODO Auto-generated method stub
         ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayOptions(mActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mActionBar.setCustomView(R.layout.actionbar_design);
 
 

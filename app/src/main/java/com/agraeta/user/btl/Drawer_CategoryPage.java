@@ -54,7 +54,7 @@ public class Drawer_CategoryPage extends AppCompatActivity {
     String cartJSON="";
     boolean hasCartCallFinish=true;
 
-    TextView txt;
+    TextView txt, txt_title;
 
 
     protected void onResume() {
@@ -80,9 +80,16 @@ public class Drawer_CategoryPage extends AppCompatActivity {
 
         setActionBar();
 
+        txt_title = (TextView) findViewById(R.id.txt_title);
+
         app = new AppPrefs(Drawer_CategoryPage.this);
         Cat_ID = app.getUser_CatId();
         //Log.e("CAT_Id", "" + Cat_ID);
+
+        if (!Cat_ID.equals("0")) {
+            txt_title.setText("Sub Categories");
+        }
+
         new Set_Category_Page().execute();
 
         //setLayout1(list_data);

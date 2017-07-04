@@ -80,7 +80,7 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
 
         if (prefs.getUser_LoginInfo().equals("1")) {
             edt_firstName.setText(BTL.user.getName());
-            edt_lastName.setText(BTL.user.getFirst_name());
+            edt_lastName.setText(BTL.distributor.getFirm_name());
             edt_emailAddress.setText(BTL.user.getEmail_id());
             edt_mobile.setText(BTL.user.getPhone_no());
         }

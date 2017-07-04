@@ -1320,22 +1320,23 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 String str = String.format("%.2f", w);
                                 tv_total.setText(str);
 
-                                int schemeSelectedPosition = 0;
+                                int schemeSelectedPosition = -1;
 
                                 for (int i = 0; i < bean_Schme_data.size(); i++) {
                                     int schemeQty = Integer.parseInt(bean_Schme_data.get(i).getSchme_qty());
 
                                     //Log.e("Scheme minQty","Qty : "+schemeQty+", ProductID - "+bean_product1.get(0).getPro_id());
-
-                                    if (qty < schemeQty) {
-                                        schemeSelectedPosition = i;
-                                        break;
-                                    } else {
-                                        schemeSelectedPosition = bean_Schme_data.size() - 1;
+                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
+                                        if (qty < schemeQty) {
+                                            schemeSelectedPosition = i;
+                                            break;
+                                        } else {
+                                            schemeSelectedPosition = bean_Schme_data.size() - 1;
+                                        }
                                     }
                                 }
 
-                                if (bean_Schme_data.size() > 0) {
+                                if (bean_Schme_data.size() > 0 && schemeSelectedPosition >= 0) {
                                     txt_availableScheme.setText(bean_Schme_data.get(schemeSelectedPosition).getSchme_name());
                                 } else {
                                     txt_availableScheme.setText("");

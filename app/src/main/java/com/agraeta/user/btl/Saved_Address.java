@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -335,12 +335,53 @@ public class Saved_Address extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
 
-    };
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    static class ResultHolder {
+
+
+        TextView tvaddress;
+
+        ImageView img_edit, img_delete, img_on;
+
+
+    }
+
     public class get_Address extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -470,6 +511,7 @@ public class Saved_Address extends AppCompatActivity {
 
         }
     }
+
     public class CustomResultAdapterDoctor extends BaseAdapter {
 
         LayoutInflater vi = (LayoutInflater) getSystemService(
@@ -521,6 +563,7 @@ public class Saved_Address extends AppCompatActivity {
 
             if(array_address.get(position).getDefult_add().equalsIgnoreCase("1")){
                 result_holder.img_on.setImageResource(R.drawable.on);
+                result_holder.img_delete.setVisibility(View.GONE);
             }else{
                 result_holder.img_on.setImageResource(R.drawable.off);
             }
@@ -672,20 +715,12 @@ public class Saved_Address extends AppCompatActivity {
         }
 
     }
-    static class ResultHolder {
 
-
-        TextView tvaddress;
-
-        ImageView img_edit, img_delete,img_on;
-
-
-    }
     public class delete_address extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -786,9 +821,9 @@ public class Saved_Address extends AppCompatActivity {
 
     public class default_address extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -886,34 +921,5 @@ public class Saved_Address extends AppCompatActivity {
             }
 
         }
-    }
-    public String GetCartByQty(final List<NameValuePair> params){
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 }
