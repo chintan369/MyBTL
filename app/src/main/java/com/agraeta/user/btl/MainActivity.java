@@ -123,10 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(iGo);
                     finish();
                 }
-
-
-
-
             }
 
 

@@ -371,7 +371,39 @@
                 android:id="@+id/txt_addVatDoc"
                 android:textColor="@color/strip_bg"
                 android:text="Add VAT TIN NO. Doc."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:text="Reference"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:id="@+id/edt_reference"
+                android:singleLine="true"
+                android:background="@drawable/background_gradiant"
+              />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:text="Remarks"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:id="@+id/edt_remarks"
+                android:singleLine="true"
+                android:background="@drawable/background_gradiant"
+                />
         </LinearLayout>
 
     </ScrollView>

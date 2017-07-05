@@ -69,7 +69,7 @@ public class BecomeSellerActivity extends AppCompatActivity {
     private static final int REQUEST_VAT_DOC = 3;
     WebView webView;
 
-    EditText edt_firstName,edt_lastName,edt_emailID,edt_mobile,edt_firmName,edt_contactPerson,edt_alternateContact,edt_addrLine1,edt_addrLine2,edt_pincode,edt_pan,edt_serviceTax,edt_vat;
+    EditText edt_firstName,edt_lastName,edt_emailID,edt_mobile,edt_firmName,edt_contactPerson,edt_alternateContact,edt_addrLine1,edt_addrLine2,edt_pincode,edt_pan,edt_serviceTax,edt_vat,edt_remarks,edt_reference;
     TextView txt_firstName,txt_lastName,txt_emailID,txt_mobile,txt_firmName,txt_tradeType,txt_contactPerson,txt_alternateContat,txt_addrLine1,txt_addrLine2,txt_state,txt_city,txt_pincode,txt_pan,txt_serviceTax,txt_vat;
 
     TextView txt_addPanDoc,txt_addServiceTaxDoc,txt_addVatDoc;
@@ -192,6 +192,8 @@ public class BecomeSellerActivity extends AppCompatActivity {
         edt_pan=(EditText) findViewById(R.id.edt_pan);
         edt_serviceTax=(EditText) findViewById(R.id.edt_serviceTax);
         edt_vat=(EditText) findViewById(R.id.edt_vat);
+        edt_remarks=(EditText)findViewById(R.id.edt_remarks);
+        edt_reference=(EditText)findViewById(R.id.edt_reference);
 
         spn_tradeType=(Spinner) findViewById(R.id.spn_tradeType);
         spn_state=(Spinner) findViewById(R.id.spn_state);
@@ -337,6 +339,8 @@ public class BecomeSellerActivity extends AppCompatActivity {
                 String panNo=getEnteredText(edt_pan);
                 String serviceTaxNo=getEnteredText(edt_serviceTax);
                 String vatNo=getEnteredText(edt_vat);
+                String reference=getEnteredText(edt_reference);
+                String remark=getEnteredText(edt_remarks);
                 String stateID=stateList.get(spn_state.getSelectedItemPosition()).getId();
                 String cityID=cityList.get(spn_city.getSelectedItemPosition()).getId();
 
