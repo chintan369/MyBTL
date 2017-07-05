@@ -36,6 +36,8 @@ public class ProductItem {
     @SerializedName("ProductOption")
     List<ProductOption> productOptionList;
 
+    String extraDiscount = "0.00";
+
     int quantity=0;
 
     public String getProductID() {
@@ -62,6 +64,10 @@ public class ProductItem {
         return sellingPrice;
     }
 
+    public void setSellingPrice(String sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
     public String getMinPackOfQty() {
         return minPackOfQty;
     }
@@ -72,6 +78,14 @@ public class ProductItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getExtraDiscount() {
+        return extraDiscount;
+    }
+
+    public void setExtraDiscount(String extraDiscount) {
+        this.extraDiscount = extraDiscount;
     }
 
     public Label getLabel() {

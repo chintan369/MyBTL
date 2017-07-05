@@ -85,8 +85,6 @@ public class QuotationListAdapter extends BaseAdapter {
         if (mrpPrice > sellingPrice) {
             double offPrice = mrpPrice - sellingPrice;
 
-            Log.e("Off Prices","MRP "+mrpPrice +", SP "+sellingPrice+", offPrice "+offPrice);
-
             double offPercent = (offPrice * 100);
             double percent =offPercent / mrpPrice;
 
@@ -96,7 +94,7 @@ public class QuotationListAdapter extends BaseAdapter {
 
             Log.e("Discount",discount+" %");
 
-            txt_discount.setText("Discount : " + discount + " % OFF");
+            if (discount >= 1) txt_discount.setText("Discount : " + discount + " % OFF");
         }
 
         if (totalPrice == 0) {

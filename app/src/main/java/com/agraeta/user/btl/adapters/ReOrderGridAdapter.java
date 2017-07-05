@@ -6,20 +6,13 @@ import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.Bean_Product;
@@ -35,8 +28,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by Nivida new on 14-Mar-17.
@@ -76,13 +67,14 @@ public class ReOrderGridAdapter extends BaseAdapter {
 
         View view=inflater.inflate(R.layout.layout_reorder_item,parent,false);
 
-        final TextView txt_productCode,txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_discountLabel, txt_discountName;
+        final TextView txt_productCode, txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_discountLabel, txt_discountName, txt_mrpLabel;
         final EditText edt_qty;
         ImageView img_plus,img_minus,img_offer;
 
         txt_productCode=(TextView) view.findViewById(R.id.txt_productCode);
         txt_productName=(TextView) view.findViewById(R.id.txt_productName);
         txt_mrpPrice=(TextView) view.findViewById(R.id.txt_mrpPrice);
+        txt_mrpLabel = (TextView) view.findViewById(R.id.txt_mrpLabel);
         txt_sellingPrice=(TextView) view.findViewById(R.id.txt_sellingPrice);
         txt_packOf=(TextView) view.findViewById(R.id.txt_packOf);
         txt_totalPrice=(TextView) view.findViewById(R.id.txt_totalPrice);
@@ -120,6 +112,12 @@ public class ReOrderGridAdapter extends BaseAdapter {
         double mrpPrice= Double.parseDouble(productList.get(position).getPro_mrp());
         double spPrice= Double.parseDouble(productList.get(position).getPro_sellingprice());
 
+        if (mrpPrice == spPrice) {
+            txt_mrpLabel.setVisibility(View.GONE);
+            txt_mrpPrice.setVisibility(View.GONE);
+            txt_discountName.setVisibility(View.GONE);
+        }
+
         double discountPrice= mrpPrice-spPrice;
         double discountPercent = discountPrice * 100;
         discountPercent = discountPercent / mrpPrice;
@@ -127,14 +125,19 @@ public class ReOrderGridAdapter extends BaseAdapter {
 
         txt_discountName.setText(percent+" % OFF");
 
-        edt_qty.setText(productList.get(position).getPro_qty());
+        int currentQty = Integer.parseInt(productList.get(position).getPro_qty());
+
+        if (currentQty < productList.get(position).getPackQty()) {
+            edt_qty.setText(String.valueOf(productList.get(position).getPackQty()));
+            productList.get(position).setPro_qty(String.valueOf(productList.get(position).getPackQty()));
+        } else {
+            edt_qty.setText(productList.get(position).getPro_qty());
+        }
 
         if(breakPosition==position)
         {
             edt_qty.requestFocus();
         }
-
-        int currentQty=Integer.parseInt(productList.get(position).getPro_qty());
 
         float sellingPrice=Float.parseFloat(productList.get(position).getPro_sellingprice());
 
@@ -244,14 +247,13 @@ public class ReOrderGridAdapter extends BaseAdapter {
             }
         });
 
-
         return view;
     }
 
     private void showSchemeDialog(final int selectedPosition) {
         final ArrayList<Bean_schemeData> schemeDataList=productList.get(selectedPosition).getSchemeList();
 
-        AlertDialog.Builder builder=new AlertDialog.Builder((Activity) context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View schemeView=inflater.inflate(R.layout.scheme_layout,null);
 
         ImageView btn_cancel=(ImageView) schemeView.findViewById(R.id.btn_cancel);
@@ -327,7 +329,7 @@ public class ReOrderGridAdapter extends BaseAdapter {
             int minPackOfQty=productList.get(i).getPackQty();
             int currentQty=Integer.parseInt(productList.get(i).getPro_qty().isEmpty() ? "0" : productList.get(i).getPro_qty());
 
-            if(currentQty>0 && C.modOf(currentQty,minPackOfQty)>0){
+            if (currentQty < minPackOfQty || (currentQty > 0 && C.modOf(currentQty, minPackOfQty) > 0)) {
                 breakPoint=i;
                 C.showMinPackAlert(context,minPackOfQty);
                 //Globals.Toast2(context,"Please enter quantity in multiplication of "+minPackOfQty);

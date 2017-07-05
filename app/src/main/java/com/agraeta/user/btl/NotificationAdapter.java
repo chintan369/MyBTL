@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.model.notifications.InboxResponse;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 
@@ -56,14 +56,18 @@ public class NotificationAdapter extends BaseAdapter {
 
         TextView time, message;
 
-        SimpleDateFormat sdf=new SimpleDateFormat("hh:mm dd/MMM", Locale.getDefault());
-        sdf.setLenient(true);
-
         time=(TextView) view.findViewById(R.id.time);
         message=(TextView) view.findViewById(R.id.msg);
 
         //Log.e("time in adapter",notification.getTime());
-        time.setText(notification.getInbox().getCreated());
+        String date = notification.getInbox().getCreated();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            time.setText(new SimpleDateFormat("dd-MM-yyyy").format(sdf.parse(date)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         message.setText(Html.fromHtml("<p align=\"justify\" style=\"font-size:20px\"><i>"+notification.getInbox().getMsg()+"</i></p>"));
         return view;
     }

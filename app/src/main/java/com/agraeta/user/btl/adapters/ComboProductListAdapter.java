@@ -21,6 +21,7 @@ import com.agraeta.user.btl.model.combooffer.ComboOfferDetail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Nivida new on 24-Apr-17.
@@ -83,6 +84,7 @@ public class ComboProductListAdapter extends BaseAdapter {
             holder.txt_mrpPrice = (TextView) convertView.findViewById(R.id.txt_mrpPrice);
             holder.txt_sellingPrice = (TextView) convertView.findViewById(R.id.txt_sellingPrice);
             holder.txt_packOf = (TextView) convertView.findViewById(R.id.txt_packOf);
+            holder.txt_discount = (TextView) convertView.findViewById(R.id.txt_discount);
             holder.img_minus = (ImageView) convertView.findViewById(R.id.img_minus);
             holder.img_plus = (ImageView) convertView.findViewById(R.id.img_plus);
             holder.edt_qty = (EditText) convertView.findViewById(R.id.edt_qty);
@@ -110,6 +112,18 @@ public class ComboProductListAdapter extends BaseAdapter {
         if(position==breakPoint){
             holder.edt_qty.requestFocus();
             breakPoint=-1;
+        }
+
+        float mrpPrice = Float.parseFloat(comboProductList.get(position).getProduct().getMrpPrice());
+        float sellingPrice = Float.parseFloat(comboProductList.get(position).getProduct().getSellingPrice());
+
+        if (mrpPrice > sellingPrice) {
+            int discount = (int) ((sellingPrice * 100) / mrpPrice);
+
+            if (discount >= 1) {
+                holder.txt_discount.setVisibility(View.VISIBLE);
+                holder.txt_discount.setText("Discount : " + discount + " % OFF");
+            }
         }
 
         holder.chk_product.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -305,9 +319,25 @@ public class ComboProductListAdapter extends BaseAdapter {
         return productList;
     }
 
+    public void setExtraDiscountPrice(String extraDiscountPrice) {
+        for (int i = 0; i < comboProductList.size(); i++) {
+
+            float extraDiscount = Float.parseFloat(extraDiscountPrice);
+            float sellingPrice = Float.parseFloat(comboProductList.get(i).getProduct().getSellingPrice());
+
+            double discount = (sellingPrice * extraDiscount) / 100;
+
+            double newSellingPrice = sellingPrice - discount;
+
+            comboProductList.get(i).getProduct().setSellingPrice(String.format(Locale.getDefault(), "%.2f", newSellingPrice));
+        }
+
+        notifyDataSetChanged();
+    }
+
     private class ViewHolder {
         CheckBox chk_product;
-        TextView txt_product, txt_productCode, txt_packOf, txt_sellingPrice, txt_mrpPrice;
+        TextView txt_product, txt_productCode, txt_packOf, txt_sellingPrice, txt_mrpPrice, txt_discount;
         ImageView img_minus, img_plus;
         EditText edt_qty;
     }

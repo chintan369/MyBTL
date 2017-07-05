@@ -26,6 +26,8 @@ public class ComboOfferItem{
     @SerializedName("min_qty")
     String minQty="";
 
+    String discount_percentage = "0.00";
+
     @SerializedName("ProductComboPack")
     List<ComboOfferDetail.ComboProduct> comboProductList=new ArrayList<>();
 
@@ -51,5 +53,9 @@ public class ComboOfferItem{
 
     public List<ComboOfferDetail.ComboProduct> getComboProductList() {
         return comboProductList;
+    }
+
+    public String getDiscount_percentage() {
+        return discount_percentage;
     }
 }

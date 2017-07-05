@@ -1978,8 +1978,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(edt_count.getText().toString());
 
-                                            double a = qu / buyqu;
-                                            double b = a * getqu;
+                                            int a = (int) (qu / buyqu);
+                                            int b = (int) (a * getqu);
                                             /*if (b > maxqu) {
                                                 b = maxqu;
                                             } else {
@@ -1987,7 +1987,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             }*/
 
 
-                                            bean_s.setPro_qty(String.valueOf((int) b));
+                                            bean_s.setPro_qty(String.valueOf(b));
 
 
                                             bean_s.setPro_mrp("0");
@@ -2024,7 +2024,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
                                                 jobject.put("name", bean_product_schme.get(0).getPro_name());
                                                 jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) b));
+                                                jobject.put("quantity", String.valueOf(b));
                                                 jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
                                                 jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
                                                 jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id().toString());
@@ -2730,8 +2730,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 //double maxqu = Double.parseDouble(maxq);
                                 int qu = Integer.parseInt(qty);
 
-                                double a = qu / buyqu;
-                                double b = a * getqu;
+                                int a = (int) (qu / buyqu);
+                                int b = (int) (a * getqu);
                                 /*if (b > maxqu) {
                                     b = maxqu;
                                 } else {
@@ -2749,7 +2749,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
                                     jobject.put("name", bean_product_schme.get(0).getPro_name());
                                     jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                    jobject.put("quantity", String.valueOf((int) b));
+                                    jobject.put("quantity", String.valueOf(b));
                                     jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
                                     //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
                                     jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
@@ -4729,8 +4729,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             //double maxqu = Double.parseDouble(maxq);
                                             int qu = Integer.parseInt(qty);
 
-                                            double a = qu / buyqu;
-                                            double b = a * getqu;
+                                            int a = (int) (qu / buyqu);
+                                            int b = (int) (a * getqu);
                                             /*if (b > maxqu) {
                                                 b = maxqu;
                                             } else {
@@ -4748,7 +4748,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
                                                 jobject.put("name", bean_product_schme.get(0).getPro_name());
                                                 jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                                jobject.put("quantity", String.valueOf((int) b));
+                                                jobject.put("quantity", String.valueOf(b));
                                                 jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
                                                 //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
                                                 jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
@@ -5420,8 +5420,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     //double maxqu = Double.parseDouble(maxq);
                                     int qu = Integer.parseInt(qty);
 
-                                    double a = qu / buyqu;
-                                    double b = a * getqu;
+                                    int a = (int) (qu / buyqu);
+                                    int b = (int) (a * getqu);
                                     /*if (b > maxqu) {
                                         b = maxqu;
                                     } else {
@@ -5439,7 +5439,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
                                         jobject.put("name", bean_product_schme.get(0).getPro_name());
                                         jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                        jobject.put("quantity", String.valueOf((int) b));
+                                        jobject.put("quantity", String.valueOf(b));
                                         jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
                                         //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
                                         jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());

@@ -12,6 +12,14 @@ public class OrderInvoice {
     OrderInvoiceItem OrderInvoice=new OrderInvoiceItem();
     List<InvoiceLR> InvoiceLr=new ArrayList<>();
 
+    public OrderInvoiceItem getOrderInvoice() {
+        return OrderInvoice;
+    }
+
+    public List<InvoiceLR> getInvoiceLr() {
+        return InvoiceLr;
+    }
+
     public class OrderInvoiceItem{
         String id="";
         String order_id="";
@@ -82,6 +90,9 @@ public class OrderInvoice {
         String destination="";
         String no_bundles="";
         String remarks="";
+        String invoice_no = "";
+        String invoice_date = "";
+        String cc_attached = "";
 
         public String getLr_no() {
             return lr_no;
@@ -110,13 +121,17 @@ public class OrderInvoice {
         public String getRemarks() {
             return remarks;
         }
-    }
 
-    public OrderInvoiceItem getOrderInvoice() {
-        return OrderInvoice;
-    }
+        public String getInvoice_no() {
+            return invoice_no;
+        }
 
-    public List<InvoiceLR> getInvoiceLr() {
-        return InvoiceLr;
+        public String getInvoice_date() {
+            return invoice_date;
+        }
+
+        public String getCc_attached() {
+            return cc_attached;
+        }
     }
 }

@@ -130,9 +130,9 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
         if (user_data.size() != 0) {
             for (int i = 0; i < user_data.size(); i++) {
 
-                owner_id = user_data.get(i).getUser_id().toString();
+                owner_id = user_data.get(i).getUser_id();
 
-                role_id = user_data.get(i).getUser_type().toString();
+                role_id = user_data.get(i).getUser_type();
 
                 if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
 

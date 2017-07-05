@@ -107,6 +107,9 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
 
                 if (breakPoint == -1) {
                     //TODO WORK FOR REORDER
+
+                    Log.e("Data", "user_id:" + user_id_main + ",role_id:" + role_id + ",owner_id:" + ownerID + ",product_id:" + reOrderGridAdapter.getProductArray());
+
                     reOrderDataCall = adminAPI.reOrderDataCall(user_id_main, role_id, ownerID, reOrderGridAdapter.getProductArray());
                     Log.e("Data", reOrderDataCall.toString());
                     Log.e("Array", user_id_main + " " + role_id + " " + ownerID + reOrderGridAdapter.getProductArray());

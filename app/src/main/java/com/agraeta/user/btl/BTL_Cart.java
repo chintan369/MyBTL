@@ -225,15 +225,15 @@ public class BTL_Cart extends AppCompatActivity {
 
             if (role_id.equalsIgnoreCase("0")) {
 
-                txt_subtotal.setText("(VAT will be added extra)");
+                txt_subtotal.setText("(GST will be added extra)");
             } else if (role_id.equalsIgnoreCase("2")) {
 
-                txt_subtotal.setText("(Tax Amount Inclusive)");
+                txt_subtotal.setText("(GST Amount Inclusive)");
             } else if (role_id.equalsIgnoreCase("10")) {
 
-                txt_subtotal.setText("(Tax Amount Inclusive)");
+                txt_subtotal.setText("(GST Amount Inclusive)");
             } else {
-                txt_subtotal.setText("(VAT will be added extra)");
+                txt_subtotal.setText("(GST will be added extra)");
             }
         }
 
@@ -1236,10 +1236,23 @@ public class BTL_Cart extends AppCompatActivity {
                 TextView txt_mrpPrice=(TextView) convertView.findViewById(R.id.txt_mrpPrice);
                 TextView txt_sellingPrice=(TextView) convertView.findViewById(R.id.txt_sellingPrice);
                 TextView txt_totalQty=(TextView) convertView.findViewById(R.id.txt_totalQty);
+                TextView txt_discount = (TextView) convertView.findViewById(R.id.txt_discount);
                 ImageView img_editCombo=(ImageView) convertView.findViewById(R.id.img_editCombo);
                 ImageView img_deleteCombo=(ImageView) convertView.findViewById(R.id.img_deleteCombo);
 
                 txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                float mrpPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_mrp());
+                float sellingPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
+
+                if (mrpPrice > sellingPrice) {
+                    int discount = (int) ((sellingPrice * 100) / mrpPrice);
+
+                    if (discount >= 1) {
+                        txt_discount.setVisibility(View.VISIBLE);
+                        txt_discount.setText("Discount : " + discount + " % OFF");
+                    }
+                }
 
                 txt_comboName.setText(bean_cart_data.get(position).getComboData().getOfferTitle());
                 txt_mrpPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_mrp());
@@ -2506,8 +2519,11 @@ public class BTL_Cart extends AppCompatActivity {
                                                     //double maxqu = Double.parseDouble(maxq);
                                                     int qu = Integer.parseInt(edt_count.getText().toString());
 
-                                                    double a = qu / buyqu;
-                                                    double b = a * getqu;
+                                                    int a = (int) (qu / buyqu);
+                                                    int b = (int) (a * getqu);
+
+                                                    Log.e("Qtys", a + " --- " + b);
+
                                                    /* if (b > maxqu) {
                                                         b = maxqu;
                                                     } else {
@@ -2515,7 +2531,7 @@ public class BTL_Cart extends AppCompatActivity {
                                                     }*/
 
 
-                                                    bean_s.setPro_qty(String.valueOf((int) b));
+                                                    bean_s.setPro_qty(String.valueOf(b));
 
 
                                                     bean_s.setPro_mrp("0");
@@ -2552,7 +2568,7 @@ public class BTL_Cart extends AppCompatActivity {
                                                         jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
                                                         jobject.put("name", bean_product_schme.get(0).getPro_name());
                                                         jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                                        jobject.put("quantity", String.valueOf((int) b));
+                                                        jobject.put("quantity", String.valueOf(b));
                                                         jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
                                                         jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
                                                         jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id().toString());

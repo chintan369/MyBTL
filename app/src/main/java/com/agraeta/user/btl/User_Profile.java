@@ -131,11 +131,9 @@ public class User_Profile extends AppCompatActivity {
         l_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(User_Profile.this, Saved_Address.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-
             }
         });
 

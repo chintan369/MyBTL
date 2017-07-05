@@ -96,12 +96,15 @@ public class Thankyou_Page extends AppCompatActivity {
         });
         setRefershData();
 
+        String mainRole = "";
+
         if(user_data.size() != 0) {
             for (int i = 0; i < user_data.size(); i++) {
 
                 owner_id = user_data.get(i).getUser_id();
 
                 role_id = user_data.get(i).getUser_type();
+                mainRole = user_data.get(i).getUser_type();
 
                 if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
 
@@ -118,6 +121,9 @@ public class Thankyou_Page extends AppCompatActivity {
         if(role_id.equalsIgnoreCase(C.CUSTOMER) || role_id.equalsIgnoreCase(C.CARPENTER)){
             bank_detail.setVisibility(View.GONE);
         }else{
+            if (mainRole.equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR)) {
+                txt_thankMessage.setVisibility(View.GONE);
+            }
             bank_detail.setVisibility(View.VISIBLE);
             new GetBankInformation().execute();
         }

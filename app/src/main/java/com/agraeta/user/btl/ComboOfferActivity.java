@@ -326,14 +326,18 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
         progressDialog.dismiss();
         offerDetail = response.body();
 
+        String extraDiscount = "0.00";
         if (offerDetail.isStatus()) {
+            extraDiscount = offerDetail.getComboData().getOfferItem().getDiscount_percentage();
             comboProductList.addAll(offerDetail.getComboData().getComboProductList());
             txt_requiredQty.setText(offerDetail.getComboData().getOfferItem().getMinQty());
+
         } else {
             Globals.Toast2(this, offerDetail.getMessage());
         }
 
         productListAdapter.notifyDataSetChanged();
+        productListAdapter.setExtraDiscountPrice(extraDiscount);
     }
 
     @Override

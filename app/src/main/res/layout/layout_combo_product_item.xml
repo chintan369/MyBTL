@@ -83,6 +83,15 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txt_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="@color/green"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,19 +107,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="2dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/black_000"
                     android:text="MRP"
-                    android:gravity="center"/>
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_mrpPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="2dp"
-                    android:textColor="@color/red"
-                    android:gravity="center"/>
+                    android:textColor="@color/red"/>
 
             </LinearLayout>
 
@@ -123,18 +132,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="2dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/black_000"
                     android:text="Selling Price"
-                    android:gravity="center"/>
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_sellingPrice"
-                    android:padding="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="2dp"
                     android:textColor="@color/green"/>
 
             </LinearLayout>
@@ -148,11 +157,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="2dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/black_000"
                     android:text="Pack Of"
-                    android:gravity="center"/>
+                    android:textColor="@color/black_000"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_packOf"

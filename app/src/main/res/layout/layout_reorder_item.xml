@@ -19,18 +19,18 @@
             android:id="@+id/txt_productCode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="2dp"
             android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="2dp"
             android:textColor="#000"
             android:textSize="14sp"
-            android:gravity="center_vertical"
             android:textStyle="bold"
             tools:text="BFS-S-80-110"/>
 
         <ImageView
+            android:id="@+id/img_offer"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/img_offer"
             android:src="@drawable/offer_new"/>
 
     </LinearLayout>
@@ -110,6 +110,7 @@
         android:padding="2dp">
 
         <TextView
+            android:id="@+id/txt_mrpLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

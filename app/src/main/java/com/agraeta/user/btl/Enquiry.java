@@ -1,36 +1,40 @@
 package com.agraeta.user.btl;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Enquiry extends AppCompatActivity {
 
+    AppPrefs app;
+    ImageView image_drawer, Ima_Home, Ima_cart, Ima_noti;
+    DatabaseHandler db;
+    String owner_id = new String();
+    String u_id = new String();
+    String role_id = new String();
+    ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
+    ArrayList<Bean_ProductCart> bean_cart = new ArrayList<Bean_ProductCart>();
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -40,20 +44,11 @@ public class Enquiry extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    AppPrefs app;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
 
-    ImageView image_drawer,Ima_Home,Ima_cart,Ima_noti;
-    DatabaseHandler db;
-    String owner_id = new String();
-    String u_id = new String();
-    String role_id = new String();
-    ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
-
-    ArrayList<Bean_ProductCart> bean_cart = new ArrayList<Bean_ProductCart>();
     protected void onResume() {
         System.runFinalization();
         Runtime.getRuntime().gc();
@@ -232,14 +227,15 @@ public class Enquiry extends AppCompatActivity {
 
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mSectionsPagerAdapter.addFragement(new Bussiness_enquiry(),"Business Enquiry");
-        mSectionsPagerAdapter.addFragement(new Careers(),"Careers");
         mSectionsPagerAdapter.addFragement(new Product_Enquiry(),"Product Enquiry");
+        mSectionsPagerAdapter.addFragement(new Bussiness_enquiry(), "Business Enquiry");
+        mSectionsPagerAdapter.addFragement(new Customer_Complains(), "Customer Complaints");
 
         if(role_id.isEmpty() || role_id.equals(C.CUSTOMER)){
             mSectionsPagerAdapter.addFragement(new ProductRegistration(),"Product Registration");
         }
-        mSectionsPagerAdapter.addFragement(new Customer_Complains(),"Customer Complaints");
+
+        mSectionsPagerAdapter.addFragement(new Careers(), "Careers");
 
 
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -305,6 +301,106 @@ public class Enquiry extends AppCompatActivity {
         }
         return true;
     }*/
+
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+        Intent i = new Intent(Enquiry.this, MainPage_drawer.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(Enquiry.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+        }
+        db.close();
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -411,107 +507,5 @@ public class Enquiry extends AppCompatActivity {
             }*/
             return mTitles.get(position);
         }
-    }
-
-    public void onBackPressed() {
-        // TODO Auto-generated method stub
-
-        Intent i = new Intent(Enquiry.this, MainPage_drawer.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-
-    };
-
-
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(Enquiry.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-        }
-        db.close();
-    }
-
-
-    public String GetCartByQty(final List<NameValuePair> params){
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
     }
 }
