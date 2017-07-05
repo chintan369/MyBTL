@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Paint;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class ComboProductListAdapter extends BaseAdapter {
 
         final ViewHolder holder;
 
-        if (convertView == null) {
+        /*if (convertView == null) {*/
             holder = new ViewHolder();
 
             convertView = inflater.inflate(R.layout.layout_combo_product_item, null);
@@ -90,9 +91,9 @@ public class ComboProductListAdapter extends BaseAdapter {
             holder.edt_qty = (EditText) convertView.findViewById(R.id.edt_qty);
 
             convertView.setTag(holder);
-        } else {
+        /*} else {
             holder = (ViewHolder) convertView.getTag();
-        }
+        }*/
 
         holder.txt_mrpPrice.setPaintFlags(holder.txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -119,6 +120,7 @@ public class ComboProductListAdapter extends BaseAdapter {
 
         if (mrpPrice > sellingPrice) {
             int discount = (int) ((sellingPrice * 100) / mrpPrice);
+            discount = 100 - discount;
 
             if (discount >= 1) {
                 holder.txt_discount.setVisibility(View.VISIBLE);
@@ -320,6 +322,9 @@ public class ComboProductListAdapter extends BaseAdapter {
     }
 
     public void setExtraDiscountPrice(String extraDiscountPrice) {
+
+        Log.e("Extra Discount", "Combo " + extraDiscountPrice);
+
         for (int i = 0; i < comboProductList.size(); i++) {
 
             float extraDiscount = Float.parseFloat(extraDiscountPrice);
@@ -328,6 +333,8 @@ public class ComboProductListAdapter extends BaseAdapter {
             double discount = (sellingPrice * extraDiscount) / 100;
 
             double newSellingPrice = sellingPrice - discount;
+
+            Log.e("New Prices", extraDiscount + ", " + sellingPrice + ", " + discount + ", " + newSellingPrice);
 
             comboProductList.get(i).getProduct().setSellingPrice(String.format(Locale.getDefault(), "%.2f", newSellingPrice));
         }

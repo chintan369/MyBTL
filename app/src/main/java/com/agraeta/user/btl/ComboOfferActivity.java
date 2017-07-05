@@ -306,6 +306,7 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
             e.printStackTrace();
             Log.e("Exception", e.getMessage());
         }
+        productListAdapter.setExtraDiscountPrice(editData.getOfferItem().getDiscount_percentage());
     }
 
     @Override

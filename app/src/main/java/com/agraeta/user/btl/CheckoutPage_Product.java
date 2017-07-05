@@ -1288,7 +1288,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                 if (mrpPrice > sellingPrice) {
                     int discount = (int) ((sellingPrice * 100) / mrpPrice);
-
+                    discount = 100 - discount;
                     if (discount >= 1) {
                         txt_discount.setVisibility(View.VISIBLE);
                         txt_discount.setText("Discount : " + discount + " % OFF");
