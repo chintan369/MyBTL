@@ -55,6 +55,7 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.SupportCallInfo;
 import com.agraeta.user.btl.model.UserDetailResponse;
+import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
 import com.agraeta.user.btl.utils.ParallaxPageTransformer;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -130,7 +131,7 @@ public class MainPage_drawer extends AppCompatActivity
     LinearLayout l3;
     AppPrefs apps;
     TextView marqueetextview;
-    LinearLayout lmain1, lmain2;
+    LinearLayout lmain1, lmain2, layout_comboOffers, layout_comboPacks;
     ArrayList<Integer> list_data = new ArrayList<Integer>();
     ArrayList<Integer> sticker_pro = new ArrayList<Integer>();
     ArrayList<String> list_data_name = new ArrayList<String>();
@@ -159,6 +160,7 @@ public class MainPage_drawer extends AppCompatActivity
     ArrayList<Bean_Product> latestProductList = new ArrayList<>();
     LinearLayout layout_latestProducts, layout_latestProductsLabel;
     AdminAPI adminAPI;
+    List<ComboOfferItem> comboOfferItemList = new ArrayList<>();
     private ViewPager mPager;
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private boolean mIntentInProgress;
@@ -233,8 +235,10 @@ public class MainPage_drawer extends AppCompatActivity
         layout_support = (LinearLayout) findViewById(R.id.layout_support);
         layout_latestProducts = (LinearLayout) findViewById(R.id.layout_latestProducts);
         layout_latestProductsLabel = (LinearLayout) findViewById(R.id.layout_latestProductsLabel);
+        layout_comboPacks = (LinearLayout) findViewById(R.id.layout_comboPacks);
+        layout_comboOffers = (LinearLayout) findViewById(R.id.layout_comboOffers);
 
-        new GetSupportCallInfo().execute();
+        new GetSupportCallInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         layout_support.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +271,8 @@ public class MainPage_drawer extends AppCompatActivity
 
         marqueetextview.setSelected(true);
 
-
+        apps = new AppPrefs(MainPage_drawer.this);
+        setRefershData();
         if (Globals.isConnectingToInternet1(MainPage_drawer.this) == false) {
 
             Globals.CustomToast(MainPage_drawer.this, "No Internet Connection", getLayoutInflater());
@@ -279,7 +284,7 @@ public class MainPage_drawer extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        apps = new AppPrefs(MainPage_drawer.this);
+
         if (apps.getUser_LoginInfo().toString().equalsIgnoreCase("1")) {
             Menu menu = navigationView.getMenu();
 
@@ -876,6 +881,43 @@ public class MainPage_drawer extends AppCompatActivity
         super.onResume();
         if (app.getUser_LoginInfo().equals("1")) {
             new GetUnreadInbox().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            setRefershData();
+
+            if (user_data.size() != 0) {
+                for (int i = 0; i < user_data.size(); i++) {
+
+                    owner_id = user_data.get(i).getUser_id().toString();
+
+                    role_id = user_data.get(i).getUser_type().toString();
+
+                    String userName = "";
+
+                    if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
+
+                        app = new AppPrefs(MainPage_drawer.this);
+                        role_id = app.getSubSalesId();
+                        u_id = app.getSalesPersonId();
+                        Snackbar.make(layout_main, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
+
+                    } else {
+                        u_id = owner_id;
+                    }
+
+
+                }
+
+                List<NameValuePair> para = new ArrayList<NameValuePair>();
+
+                para.add(new BasicNameValuePair("owner_id", owner_id));
+                para.add(new BasicNameValuePair("user_id", u_id));
+
+                new GetCartByQty(para).execute();
+
+            } else {
+                apps = new AppPrefs(MainPage_drawer.this);
+                apps.setCart_QTy("");
+            }
         }
     }
 
@@ -1586,6 +1628,155 @@ public class MainPage_drawer extends AppCompatActivity
         return json[0];
     }
 
+    private void setComboOfferData() {
+        if (comboOfferItemList.size() > 0) {
+            layout_comboOffers.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < comboOfferItemList.size(); i++) {
+                LinearLayout lmain = new LinearLayout(MainPage_drawer.this);
+                lmain.setLayoutParams(params);
+                lmain.setOrientation(LinearLayout.HORIZONTAL);
+                lmain.setPadding(2, 2, 2, 2);
+
+                LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                        android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+                LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                        android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+                LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                        android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                        android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                        android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+                LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                        350, 300, 1.0f);
+                LinearLayout l1 = new LinearLayout(MainPage_drawer.this);
+
+                l1.setLayoutParams(par1);
+                l1.setPadding(5, 5, 5, 5);
+                l1.setOrientation(LinearLayout.HORIZONTAL);
+                l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+                LinearLayout l3 = new LinearLayout(MainPage_drawer.this);
+                l3.setLayoutParams(par3);
+                l3.setOrientation(LinearLayout.VERTICAL);
+                l3.setPadding(5, 5, 5, 5);
+
+                final LinearLayout l2 = new LinearLayout(MainPage_drawer.this);
+                l2.setLayoutParams(par2);
+                l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+                l2.setOrientation(LinearLayout.HORIZONTAL);
+                l2.setPadding(5, 5, 5, 5);
+                l2.setVisibility(View.GONE);
+
+                final ImageView img_a = new ImageView(MainPage_drawer.this);
+
+                try {
+
+                    Picasso.with(getApplicationContext())
+                            .load(Globals.server_link + comboOfferItemList.get(i).getImagePath())
+                            .placeholder(R.drawable.btl_watermark)
+                            .into(img_a);
+
+
+                } catch (NullPointerException e) {
+
+                }
+
+                final int finalI = i;
+                img_a.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), ComboOfferActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("combo_id", comboOfferItemList.get(finalI).getOfferID());
+                        startActivity(intent);
+                    }
+                });
+
+                par21.setMargins(5, 5, 10, 5);
+
+                img_a.setLayoutParams(par21);
+                img_a.setScaleType(ImageView.ScaleType.FIT_XY);
+                l1.addView(img_a);
+
+
+                lmain.addView(l1);
+
+                layout_comboPacks.addView(lmain);
+            }
+
+            LinearLayout lmain = new LinearLayout(MainPage_drawer.this);
+            lmain.setLayoutParams(params);
+            lmain.setOrientation(LinearLayout.HORIZONTAL);
+            lmain.setPadding(2, 2, 2, 2);
+
+            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                    350, 300, 1.0f);
+            LinearLayout l1 = new LinearLayout(MainPage_drawer.this);
+
+            l1.setLayoutParams(par1);
+            l1.setPadding(5, 5, 5, 5);
+            l1.setOrientation(LinearLayout.HORIZONTAL);
+            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+            LinearLayout l3 = new LinearLayout(MainPage_drawer.this);
+            l3.setLayoutParams(par3);
+            l3.setOrientation(LinearLayout.VERTICAL);
+            l3.setPadding(5, 5, 5, 5);
+
+            final LinearLayout l2 = new LinearLayout(MainPage_drawer.this);
+            l2.setLayoutParams(par2);
+            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+            l2.setOrientation(LinearLayout.HORIZONTAL);
+            l2.setPadding(5, 5, 5, 5);
+            l2.setVisibility(View.GONE);
+
+            final ImageView img_a = new ImageView(MainPage_drawer.this);
+
+            try {
+
+                Picasso.with(getApplicationContext())
+                        .load(R.drawable.icon_more)
+                        .placeholder(R.drawable.btl_watermark)
+                        .into(img_a);
+
+
+            } catch (NullPointerException e) {
+
+            }
+            img_a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), ComboOfferListActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
+
+            par21.setMargins(5, 5, 10, 5);
+
+            img_a.setLayoutParams(par21);
+            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
+            l1.addView(img_a);
+
+
+            lmain.addView(l1);
+
+            layout_comboPacks.addView(lmain);
+        }
+    }
+
     public class pImageAdapter extends BaseAdapter {
 
         ArrayList<Integer> image_url = new ArrayList<Integer>();
@@ -1690,6 +1881,16 @@ public class MainPage_drawer extends AppCompatActivity
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 
+                if (apps.getUser_LoginInfo().equals("1") && user_data.size() > 0) {
+                    if (apps.getUserRoleId().equals(C.ADMIN) || apps.getUserRoleId().equals(C.COMP_SALES_PERSON) || apps.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+                        parameters.add(new BasicNameValuePair("user_id", apps.getSalesPersonId()));
+                        parameters.add(new BasicNameValuePair("role_id", apps.getSubSalesId()));
+                    } else {
+                        parameters.add(new BasicNameValuePair("user_id", apps.getUserId()));
+                        parameters.add(new BasicNameValuePair("role_id", apps.getUserRoleId()));
+                    }
+                }
+
                 Globals.generateNoteOnSD(getApplicationContext(), "Home/App_GetHomePageModuleData" + "\n" + parameters.toString());
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "Home/App_GetHomePageModuleData", ServiceHandler.POST, parameters);
@@ -1754,6 +1955,7 @@ public class MainPage_drawer extends AppCompatActivity
                             JSONArray jArray_category = joj.getJSONArray("categories");
                             JSONArray jArray_marquee_msg = joj.getJSONArray("marquee_msg");
                             JSONArray latest_products = joj.getJSONArray("latest_products");
+                            JSONArray combo_data = joj.getJSONArray("combo_data");
 
                             for (int z = 0; z < jArray_slider.length(); z++) {
 
@@ -1823,6 +2025,13 @@ public class MainPage_drawer extends AppCompatActivity
                                 setLayout(sticker_arra);
                             }
                             //setLayout(sticker_arra);
+
+                            for (int a = 0; a < combo_data.length(); a++) {
+                                ComboOfferItem offerItem = new Gson().fromJson(combo_data.get(a).toString(), ComboOfferItem.class);
+                                comboOfferItemList.add(offerItem);
+                            }
+
+                            setComboOfferData();
 
                             for (int i = 0; i < latest_products.length(); i++) {
                                 JSONObject object = latest_products.getJSONObject(i);

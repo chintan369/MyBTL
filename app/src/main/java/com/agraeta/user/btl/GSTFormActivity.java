@@ -2,6 +2,7 @@ package com.agraeta.user.btl;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.agraeta.user.btl.model.sales.SalesSubUserDataSingleAddress;
+import com.agraeta.user.btl.model.sales.SalesSubUserData;
 import com.agraeta.user.btl.utils.FilePath;
 import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -476,7 +477,7 @@ public class GSTFormActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void setUserDataFromLive(SalesSubUserDataSingleAddress currentUserData) {
+    private void setUserDataFromLive(SalesSubUserData currentUserData) {
 
 
         if (currentUserData.getDistributor().getGstin_uin() != null && !currentUserData.getDistributor().getGstin_uin().isEmpty()) {
@@ -488,27 +489,29 @@ public class GSTFormActivity extends AppCompatActivity {
         edt_tax_payer.setText(currentUserData.getDistributor().getFirm_name());
         edt_tax_payer.setEnabled(false);
         edt_legal_name.setText(currentUserData.getDistributor().getFirm_name());
-        edt_add1.setText(currentUserData.getAddress().getAddress_1());
+        edt_legal_name.setTextColor(Color.parseColor("#000000"));
+        edt_add1.setText(currentUserData.getAddress().get(0).getAddress_1());
         edt_add1.setEnabled(false);
-        edt_add2.setText(currentUserData.getAddress().getAddress_2());
+        edt_add2.setText(currentUserData.getAddress().get(0).getAddress_2());
         edt_add2.setEnabled(false);
-        edt_add3.setText(currentUserData.getAddress().getAddress_3());
+        edt_add3.setText(currentUserData.getAddress().get(0).getAddress_3());
         edt_add3.setEnabled(false);
         edt_email.setText(currentUserData.getUser().getEmail_id());
         edt_email.setEnabled(false);
         edt_mobile.setText(currentUserData.getUser().getPhone_no());
         edt_mobile.setEnabled(false);
         edt_pan.setText(currentUserData.getDistributor().getTally_pan_no());
-        edt_city.setText(currentUserData.getAddress().getCity().getName());
+        edt_pan.setTextColor(Color.parseColor("#000000"));
+        edt_city.setText(currentUserData.getAddress().get(0).getCity().getName());
         edt_city.setEnabled(false);
-        edt_area.setText(currentUserData.getAddress().getArea().getName());
+        edt_area.setText(currentUserData.getAddress().get(0).getArea().getName());
         edt_area.setEnabled(false);
-        edt_pincode.setText(currentUserData.getAddress().getPincode());
+        edt_pincode.setText(currentUserData.getAddress().get(0).getPincode());
         edt_pincode.setEnabled(false);
 
         spn_state.setEnabled(false);
 
-        new GetState(currentUserData.getAddress().getState_id()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GetState(currentUserData.getAddress().get(0).getState_id()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private boolean isValidGST(String currentStateID, String GSTNo, String PANNo) {
@@ -675,15 +678,13 @@ public class GSTFormActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(s);
 
                     if (object.getBoolean("status")) {
-                        SalesSubUserDataSingleAddress currentUserData = new Gson().fromJson(object.getString("data"), SalesSubUserDataSingleAddress.class);
+                        SalesSubUserData currentUserData = new Gson().fromJson(object.getString("data"), SalesSubUserData.class);
                         setUserDataFromLive(currentUserData);
                     }
                 } catch (Exception e) {
 
                 }
             }
-
-
         }
     }
 

@@ -604,7 +604,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
         db.close();
     }
 
-    private void showOfferDialog(final int position) {
+    private void showOfferDialog(final int position, String selectedProductID) {
 
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -625,7 +625,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
         for (int i = 0; i < bean_Schme_data.size(); i++) {
 
-            if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(bean_product1.get(position).getPro_id())) {
+            if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(selectedProductID)) {
                 Bean_schemeData beans = new Bean_schemeData();
                 beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
                 Log.e("ID", "" + bean_product1.get(position).getPro_id().toString());
@@ -677,7 +677,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
         }
 
-        ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
+        final ExpandableSchemeAdapter schemeAdapter = new ExpandableSchemeAdapter(getApplicationContext(), schemeHeaders, schemeChildList);
         listSchemes.setAdapter(schemeAdapter);
 
         listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -687,6 +687,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                 jarray_cart = new JSONArray();
 
                 setRefershData();
+                String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
 
                 if (user_data.size() != 0) {
                     for (int i = 0; i < user_data.size(); i++) {
@@ -786,6 +787,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                     params.add(new BasicNameValuePair("product_id", product_id));
                     params.add(new BasicNameValuePair("user_id", user_id_main));
                     params.add(new BasicNameValuePair("product_buy_qty", qty));
+                    params.add(new BasicNameValuePair("scheme_id", selectedSchemeID));
                     Log.e("111111111", "" + product_id);
                     Log.e("222222222", "" + user_id_main);
                     Log.e("333333333", "" + qty);
@@ -1416,20 +1418,6 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                                 for (int s1 = 0; s1 < jschme.length(); s1++) {
                                     JSONObject jProductScheme = jschme.getJSONObject(s1);
 
-                                    Bean_schemeData beans = new Bean_schemeData();
-                                    beans.setSchme_id(jProductScheme.getString("id"));
-                                    beans.setSchme_name(jProductScheme.getString("scheme_name"));
-                                    beans.setSchme_qty(jProductScheme.getString("buy_prod_qty"));
-                                    beans.setCategory_id(jProductScheme.getString("category_id"));
-                                    beans.setSchme_buy_prod_id(jProductScheme.getString("buy_prod_id"));
-                                    beans.setSchme_prod_id(jproduct.getString("id"));
-
-                                    Log.e("prod", "" + jproduct.getString("id"));
-                                    Log.e("prod", "" + jProductScheme.getString("scheme_name"));
-
-                                    bean_Schme_data.add(beans);
-
-
                                     ArrayList<String> a = new ArrayList<String>();
                                     a.add(jProductScheme.getString("scheme_name"));
                                     //Log.e("A2222222",""+jProductScheme.getString("scheme_name"));
@@ -1463,9 +1451,24 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                                     JSONObject productObject=jProductOptiono.getJSONObject("Product");
                                     JSONObject jPOOption = jProductOptiono.getJSONObject("Option");
                                     JSONObject jPOOptionValue = jProductOptiono.getJSONObject("OptionValue");
-
+                                    JSONArray schemeArray = jProductOptiono.getJSONArray("Scheme");
                                     JSONArray jPOProductOptionImage = jProductOptiono.getJSONArray("ProductOptionImage");
 
+
+                                    for (int m = 0; m < schemeArray.length(); m++) {
+                                        JSONObject schemeObj = schemeArray.getJSONObject(m);
+
+                                        Bean_schemeData beans = new Bean_schemeData();
+                                        beans.setSchme_id(schemeObj.getString("id"));
+                                        beans.setSchme_name(schemeObj.getString("scheme_name"));
+                                        beans.setSchme_qty(schemeObj.getString("buy_prod_qty"));
+                                        beans.setCategory_id(schemeObj.getString("category_id"));
+                                        beans.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
+                                        beans.setSchme_prod_id(jProductOptiono.getString("product_id"));
+
+                                        bean_Schme_data.add(beans);
+
+                                    }
 
                                     Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
                                     // arrOptionType=new ArrayList<String>();
@@ -1916,7 +1919,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     setRefershData();
-
+                    final String[] selectedProductID = {bean_product1.get(position).getPro_id()};
                     if (user_data.size() != 0) {
                         for (int i = 0; i < user_data.size(); i++) {
 
@@ -2010,7 +2013,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                         buy_cart.setText("Add To Quotation");
 
-                        ImageView img_offerDialog = (ImageView) dialog.findViewById(R.id.img_offerDialog);
+                        final ImageView img_offerDialog = (ImageView) dialog.findViewById(R.id.img_offerDialog);
 
                         final TextView txt_availableScheme = (TextView) dialog.findViewById(R.id.txt_availableScheme);
 
@@ -2021,7 +2024,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                         img_offerDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                showOfferDialog(position);
+                                showOfferDialog(position, selectedProductID[0]);
                             }
                         });
 
@@ -2314,6 +2317,22 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                                             int pos = Integer.parseInt(spinner.getTag().toString());
                                             ArrayList<Bean_Attribute> att_array = new ArrayList<Bean_Attribute>();
                                             att_array = array_attribute_main.get(pos);
+
+                                            selectedProductID[0] = att_array.get(position1).getOption_pro_id();
+
+                                            boolean foundScheme = false;
+                                            for (int a = 0; a < bean_Schme_data.size(); a++) {
+                                                if (bean_Schme_data.get(a).getSchme_prod_id().equals(selectedProductID[0])) {
+                                                    foundScheme = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            Log.e("Has Scheme", selectedProductID[0] + " -->" + foundScheme);
+
+                                            if (foundScheme)
+                                                img_offerDialog.setVisibility(View.VISIBLE);
+                                            else img_offerDialog.setVisibility(View.GONE);
 
                                             //Log.e("Position",""+att_array.get(position1).getValue_name());
                                             //Log.e("Position",""+att_array.get(position1).getValue_id());
@@ -2679,7 +2698,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                                     ArrayList<Bean_schemeData> currentProductScheme = new ArrayList<Bean_schemeData>();
 
                                     for (int i = 0; i < bean_Schme_data.size(); i++) {
-                                        if (bean_Schme_data.get(i).getSchme_prod_id().equals(bean_product1.get(position).getPro_id())) {
+                                        if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
                                             currentProductScheme.add(bean_Schme_data.get(i));
                                         }
                                     }

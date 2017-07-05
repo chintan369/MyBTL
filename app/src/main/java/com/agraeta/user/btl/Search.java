@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -144,6 +145,7 @@ public class Search extends AppCompatActivity {
     ArrayList<String> searchItemIDs = new ArrayList<>();
     ArrayList<String> searchItemNames = new ArrayList<>();
     ArrayAdapter<String> searchItemAdapter;
+    LinearLayout layout_main;
     private ArrayList<Integer> image_product = new ArrayList<Integer>();
     private String jsonData = "";
 
@@ -160,6 +162,7 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        layout_main = (LinearLayout) findViewById(R.id.layout_main);
        /* getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);*/
 
@@ -191,6 +194,7 @@ public class Search extends AppCompatActivity {
                     app = new AppPrefs(Search.this);
                     role_id = app.getSubSalesId().toString();
                     user_id_main = app.getSalesPersonId().toString();
+                    Snackbar.make(layout_main, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -3145,7 +3149,7 @@ public class Search extends AppCompatActivity {
                 user_id_main = "";
             }
 
-            if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+            if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                 result_holder.img_wish.setVisibility(View.GONE);
                 result_holder.img_shopping.setVisibility(View.GONE);
             } else {
@@ -3287,7 +3291,7 @@ public class Search extends AppCompatActivity {
                     user_id_main = "";
                 }
 
-                if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+                if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                     result_holder.img_wish.setVisibility(View.GONE);
                     result_holder.img_shopping.setVisibility(View.GONE);
                 } else {

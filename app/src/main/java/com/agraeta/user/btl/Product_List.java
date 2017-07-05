@@ -1817,7 +1817,7 @@ public class Product_List extends AppCompatActivity {
                 user_id_main = "";
             }
 
-            if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+            if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                 result_holder.img_wish.setVisibility(View.GONE);
                 result_holder.img_shopping.setVisibility(View.GONE);
             } else {
@@ -1907,7 +1907,7 @@ public class Product_List extends AppCompatActivity {
                 } else {
                     user_id_main = "";
                 }
-                if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+                if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                     result_holder.img_wish.setVisibility(View.GONE);
                     result_holder.img_shopping.setVisibility(View.GONE);
                 } else {
@@ -5278,7 +5278,7 @@ public class Product_List extends AppCompatActivity {
             } else {
                 user_id_main = "";
             }
-            if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+            if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                 result_holder.img_wish.setVisibility(View.GONE);
                 result_holder.img_shopping.setVisibility(View.GONE);
             } else {
@@ -5410,7 +5410,7 @@ public class Product_List extends AppCompatActivity {
                 } else {
                     user_id_main = "";
                 }
-                if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+                if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                     result_holder.img_wish.setVisibility(View.GONE);
                     result_holder.img_shopping.setVisibility(View.GONE);
                 } else {

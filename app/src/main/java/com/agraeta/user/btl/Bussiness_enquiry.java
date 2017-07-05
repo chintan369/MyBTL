@@ -84,7 +84,7 @@ public class Bussiness_enquiry extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        isFirstTime = true;
         rootView = inflater.inflate(R.layout.activity_bussiness_enquiry, container, false);
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -141,7 +141,6 @@ public class Bussiness_enquiry extends Fragment {
                 if (!s.toString().contains("+91-")) {
                     e_mobile.setText("+91-");
                     Selection.setSelection(e_mobile.getText(), e_mobile.getText().length());
-
                 }
 
             }

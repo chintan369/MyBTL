@@ -16,9 +16,6 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
 import com.agraeta.user.btl.C;
-import com.agraeta.user.btl.Distributor.LegderListActivity;
-import com.agraeta.user.btl.Distributor.OutstandingListActivity;
-import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.admin.AdminTallyActivity;
@@ -48,7 +45,7 @@ public class UserListAdapter extends BaseAdapter {
         this.userList = userList;
         this.activity = activity;
         this.prefs = new AppPrefs(activity);
-        inflater = (LayoutInflater) activity.getLayoutInflater();
+        inflater = activity.getLayoutInflater();
 
         builder = new AlertDialog.Builder(activity);
     }
@@ -57,8 +54,8 @@ public class UserListAdapter extends BaseAdapter {
         this.isSubuser = isSubuser;
         this.userList = userList;
         this.activity = activity;
-
-        inflater = (LayoutInflater) activity.getLayoutInflater();
+        this.prefs = new AppPrefs(activity);
+        inflater = activity.getLayoutInflater();
 
         builder = new AlertDialog.Builder(activity);
     }

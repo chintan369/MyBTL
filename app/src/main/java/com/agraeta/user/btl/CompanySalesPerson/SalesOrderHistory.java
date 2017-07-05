@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
@@ -36,6 +37,7 @@ import com.agraeta.user.btl.Bean_Filter_Status;
 import com.agraeta.user.btl.Bean_Order_history;
 import com.agraeta.user.btl.Bean_User_data;
 import com.agraeta.user.btl.Bean_inv;
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Globals;
@@ -99,6 +101,8 @@ public class SalesOrderHistory extends AppCompatActivity {
     int currentPage = 1;
     int totalPages = 1;
 
+    LinearLayout layout_main;
+
     protected void onResume() {
         System.runFinalization();
         Runtime.getRuntime().gc();
@@ -148,6 +152,7 @@ public class SalesOrderHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
+        layout_main = (LinearLayout) findViewById(R.id.layout_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         db = new DatabaseHandler(SalesOrderHistory.this);
         db.Delete_Order_histroy();
@@ -161,10 +166,12 @@ public class SalesOrderHistory extends AppCompatActivity {
 
                 user_id_main = user_data.get(i).getUser_id().toString();
                 role_id=user_data.get(i).getUser_type().toString();
-                if(role_id.equalsIgnoreCase("6") || role_id.equalsIgnoreCase("7")){
+                if (role_id.equals(C.ADMIN) || role_id.equalsIgnoreCase("6") || role_id.equalsIgnoreCase("7")) {
                     appPrefs = new AppPrefs(SalesOrderHistory.this);
                     role_id = appPrefs.getSubSalesId().toString();
                     user_id_main = appPrefs.getSalesPersonId().toString();
+
+                    Snackbar.make(layout_main, "Taking Order for : " + appPrefs.getUserName(), Snackbar.LENGTH_LONG).show();
                     //Log.e("IDIDD",""+appPrefs.getSalesPersonId().toString());
                 }
 

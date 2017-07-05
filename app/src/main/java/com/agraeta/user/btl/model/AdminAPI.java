@@ -146,7 +146,7 @@ public interface AdminAPI {
 
     @Multipart
     @POST(Globals.BECOME_SELLER)
-    Call<AppModel> becomeDealerCall(@Part("first_name") String firstName,@Part("last_name") String lastName,@Part("email") String emailID,@Part("role_id") String roleID, @Part("contact_no") String contactNo,@Part("firm_name") String firmName, @Part("contact_person") String contactPerson, @Part("alternate_no") String alterNateNo, @Part("address_1") String address1,@Part("address_2") String address2, @Part("state_id") String stateID, @Part("city_id") String cityID, @Part("pincode") String pinCode,@Part("pan_no") String panNo,@Part("service_tax_no") String STNo,@Part("vat_tin_no") String vatNo,@Part List<MultipartBody.Part> files);
+    Call<AppModel> becomeDealerCall(@Part("first_name") String firstName, @Part("last_name") String lastName, @Part("email") String emailID, @Part("role_id") String roleID, @Part("contact_no") String contactNo, @Part("firm_name") String firmName, @Part("contact_person") String contactPerson, @Part("alternate_no") String alterNateNo, @Part("address_1") String address1, @Part("address_2") String address2, @Part("state_id") String stateID, @Part("city_id") String cityID, @Part("pincode") String pinCode, @Part("pan_no") String panNo, @Part("service_tax_no") String STNo, @Part("vat_tin_no") String vatNo, @Part("remarks") String remarks, @Part("refrence") String reference, @Part List<MultipartBody.Part> files);
 
     @FormUrlEncoded
     @POST(Globals.ADD_OTHER_CITY)

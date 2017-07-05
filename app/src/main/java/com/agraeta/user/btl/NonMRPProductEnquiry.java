@@ -125,7 +125,7 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
                 }
                 else if(!C.validEmail(emailID)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Email ID");
-                } else if (!mobile.isEmpty() || mobile.length() < 10) {
+                } else if (mobile.isEmpty() || mobile.length() < 10) {
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Mobile Number");
                 }
                 else if(query.isEmpty()){
@@ -172,7 +172,6 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
 
                         productEnquiryCall=adminAPI.productEnquiryCall(firstName,lastName,emailID,mobile,productName,productID,query,files);
                     }
-
 
                     productEnquiryCall.enqueue(NonMRPProductEnquiry.this);
                 }

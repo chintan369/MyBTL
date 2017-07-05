@@ -125,6 +125,8 @@ public class Customer_Complains extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_customer__complains, container, false);
+        Log.e("OnCreateView", "Called");
+        isFirstTime = true;
 
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -759,6 +761,13 @@ public class Customer_Complains extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        Log.e("Resume", "Called");
+        super.onResume();
+
+    }
+
     public class send_dstate_Data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
@@ -881,6 +890,101 @@ public class Customer_Complains extends Fragment {
         }
     }
 
+   /* public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+
+        } else {
+
+            if (resultCode == RESULT_OK) {
+
+                switch (requestCode) {
+
+                    case 11:
+
+
+                        final Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        Thread t = new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                try {
+                                    //strTimeinMills = ""+System.currentTimeMillis();
+                                    strTempPath = System.currentTimeMillis() + ".png";
+                                    photo.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + strTempPath));
+                                } catch (Exception e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                        t.start();
+                        try {
+                            t.join();
+                        } catch (Exception e) {
+
+                        }
+
+                        String p = new File(Environment.getExternalStorageDirectory(), strTempPath).getAbsolutePath();
+                        //System.out.println("-------- Image Path is : " + p);
+                        String filename=p.substring(p.lastIndexOf("/")+1);
+                        txt_photo.setText(""+filename);
+                        Bitmap bm = BitmapFactory.decodeFile(new File(p).getAbsolutePath());
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                        byte[] b = baos.toByteArray();
+                        Image1 = Base64.encodeToString(b, Base64.DEFAULT);
+
+                        //System.out.println("Image1 :----------" + Image1);
+
+                        break;
+
+                    case 22:
+                        Uri selectedImageUri = data.getData();
+
+
+                        InputStream in = null;
+
+                        try {
+                            in = getActivity().getContentResolver().openInputStream(selectedImageUri);
+                        } catch (FileNotFoundException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inSampleSize = 4;
+                        Bitmap thumb = BitmapFactory.decodeStream(in, null, options);
+
+
+                        String p2 = getPath(selectedImageUri);
+                        //System.out.println("-------- Image Path is : " + p2);
+                        String filename1=p2.substring(p2.lastIndexOf("/")+1);
+                        txt_photo.setText(""+filename1);
+
+                        //imgPrescription1.setImageBitmap(thumb);
+                        path1 = new File(p2).getAbsolutePath();
+
+                        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
+                        thumb.compress(Bitmap.CompressFormat.PNG, 100, baos1); //bm is the bitmap object
+                        byte[] b1 = baos1.toByteArray();
+                        Image1 = Base64.encodeToString(b1, Base64.DEFAULT);
+                        //System.out.println("Image1 :----------" + Image1);
+
+
+                        break;
+
+                }
+
+
+            }
+        }
+    }*/
+
     public class send_dcity_Data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
@@ -998,104 +1102,9 @@ public class Customer_Complains extends Fragment {
             } catch (JSONException j) {
                 j.printStackTrace();
             }
-
+            loadingView.dismiss();
         }
     }
-
-   /* public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_CANCELED) {
-
-        } else {
-
-            if (resultCode == RESULT_OK) {
-
-                switch (requestCode) {
-
-                    case 11:
-
-
-                        final Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        Thread t = new Thread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                // TODO Auto-generated method stub
-                                try {
-                                    //strTimeinMills = ""+System.currentTimeMillis();
-                                    strTempPath = System.currentTimeMillis() + ".png";
-                                    photo.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + strTempPath));
-                                } catch (Exception e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                        t.start();
-                        try {
-                            t.join();
-                        } catch (Exception e) {
-
-                        }
-
-                        String p = new File(Environment.getExternalStorageDirectory(), strTempPath).getAbsolutePath();
-                        //System.out.println("-------- Image Path is : " + p);
-                        String filename=p.substring(p.lastIndexOf("/")+1);
-                        txt_photo.setText(""+filename);
-                        Bitmap bm = BitmapFactory.decodeFile(new File(p).getAbsolutePath());
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
-                        byte[] b = baos.toByteArray();
-                        Image1 = Base64.encodeToString(b, Base64.DEFAULT);
-
-                        //System.out.println("Image1 :----------" + Image1);
-
-                        break;
-
-                    case 22:
-                        Uri selectedImageUri = data.getData();
-
-
-                        InputStream in = null;
-
-                        try {
-                            in = getActivity().getContentResolver().openInputStream(selectedImageUri);
-                        } catch (FileNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = 4;
-                        Bitmap thumb = BitmapFactory.decodeStream(in, null, options);
-
-
-                        String p2 = getPath(selectedImageUri);
-                        //System.out.println("-------- Image Path is : " + p2);
-                        String filename1=p2.substring(p2.lastIndexOf("/")+1);
-                        txt_photo.setText(""+filename1);
-
-                        //imgPrescription1.setImageBitmap(thumb);
-                        path1 = new File(p2).getAbsolutePath();
-
-                        ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
-                        thumb.compress(Bitmap.CompressFormat.PNG, 100, baos1); //bm is the bitmap object
-                        byte[] b1 = baos1.toByteArray();
-                        Image1 = Base64.encodeToString(b1, Base64.DEFAULT);
-                        //System.out.println("Image1 :----------" + Image1);
-
-
-                        break;
-
-                }
-
-
-            }
-        }
-    }*/
 
     public class send_state_Data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
@@ -1210,13 +1219,16 @@ public class Customer_Complains extends Fragment {
                         }
                         loadingView.dismiss();
 
-                        new send_dstate_Data().execute();
+                        //new send_dstate_Data().execute();
 
                     }
                 }
             } catch (JSONException j) {
                 j.printStackTrace();
+                Log.e("Exception", j.getMessage());
             }
+
+            loadingView.dismiss();
 
         }
     }
@@ -1338,8 +1350,9 @@ public class Customer_Complains extends Fragment {
                 }
             } catch (JSONException j) {
                 j.printStackTrace();
+                Log.e("Exception", j.getMessage());
             }
-
+            loadingView.dismiss();
         }
     }
 

@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -189,6 +190,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
     ArrayList<Bean_schemeData> bean_Schme_data = new ArrayList<Bean_schemeData>();
     boolean whereToBuyVisibility = true;
     Button btn_enquiry;
+    LinearLayout layout_detail;
     //private SectionsPagerAdapter mSectionsPagerAdapter;
     private ArrayList<String> ImagesArray = new ArrayList<String>();
 
@@ -207,7 +209,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_btlprodcut__detailpage);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
+        layout_detail = (LinearLayout) findViewById(R.id.layout_detail);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
@@ -277,6 +279,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     app = new AppPrefs(BTLProduct_Detail.this);
                     role_id = app.getSubSalesId();
                     user_id_main = app.getSalesPersonId();
+                    Snackbar.make(layout_detail, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -294,7 +297,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (desc == false) {
+                if (!desc) {
 
                    /* img_desc.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down);
                     img_std_spec.setImageResource(R.drawable.ic_hardware_keyboard_arrow_right);
@@ -2974,7 +2977,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
             user_id_main = "";
         }
 
-        if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+        if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
             img_prodetail_wishlist.setVisibility(View.GONE);
             img_prodetail_shoppinglist.setVisibility(View.GONE);
         } else {
@@ -2994,7 +2997,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         standard_text_layout = (LinearLayout) findViewById(R.id.standard_text_layout);
         technical_text_layout = (LinearLayout) findViewById(R.id.technical_text_layout);
         layout_youtube_forimg = (LinearLayout) findViewById(R.id.layout_youtube_forimg);
-
 
         l_desc = (LinearLayout) findViewById(R.id.l_description);
         l_Std_spec = (LinearLayout) findViewById(R.id.l_standard_technical);
@@ -4083,7 +4085,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                 user_id_main = "";
             }
 
-            if (rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
+            if (rolee.equals(C.ADMIN) || rolee.equalsIgnoreCase("6") || rolee.equalsIgnoreCase("7")) {
                 img_prodetail_wishlist.setVisibility(View.GONE);
                 img_prodetail_shoppinglist.setVisibility(View.GONE);
             } else {

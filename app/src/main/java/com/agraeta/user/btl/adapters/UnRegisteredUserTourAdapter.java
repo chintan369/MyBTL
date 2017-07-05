@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.R;
+import com.agraeta.user.btl.SkipOrderUnregisterUserActivity;
 import com.agraeta.user.btl.UnregisteredUserDetailActivity;
 import com.agraeta.user.btl.model.UnregisteredUserData;
 
@@ -73,6 +74,17 @@ public class UnRegisteredUserTourAdapter extends BaseAdapter {
                 Intent intent = new Intent(activity, UnregisteredUserDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("userData", userTourList.get(position));
+                activity.startActivity(intent);
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SkipOrderUnregisterUserActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("isInEditMode", true);
+                intent.putExtra("userData", userTourList.get(position).getUnRegisteredUser());
                 activity.startActivity(intent);
             }
         });

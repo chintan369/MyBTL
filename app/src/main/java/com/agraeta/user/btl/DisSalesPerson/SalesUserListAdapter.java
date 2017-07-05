@@ -114,6 +114,7 @@ public class SalesUserListAdapter extends BaseAdapter implements Serializable{
                                 break;
                             case R.id.order:
                                 prefs=new AppPrefs(context);
+                                prefs.setUserName(distributorSalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 prefs.setSalesPersonId(txtName.getTag().toString());
                                 Intent ii=new Intent(context,Dist_SalesOrderHistory.class);
                                 ii.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/layout_main"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#fff"
-
               android:orientation="vertical"
     >
 
@@ -167,24 +166,24 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_margin="3dp"
-            android:padding="3dp"
-            android:textSize="12sp"
             android:background="@color/colorPrimaryDark"
+            android:padding="3dp"
             android:text="My Quotation"
             android:textColor="#FFFFFF"
+            android:textSize="12sp"
             android:visibility="visible"
             />
 
         <Button
+            android:id="@+id/btn_deleteAll"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:textSize="12sp"
-            android:id="@+id/btn_deleteAll"
-            android:text="Delete All"
-            android:padding="3dp"
-            android:textColor="@color/white"
+            android:layout_margin="3dp"
             android:background="@color/colorAccent"
-            android:layout_margin="3dp"/>
+            android:padding="3dp"
+            android:text="Delete All"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <View

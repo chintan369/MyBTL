@@ -74,7 +74,7 @@ public class User_Profile extends AppCompatActivity {
             u_text.setText("MY ORDERS");
             l_text.setText("View Order History & Track Your Orders");
         }
-        if ( app.getUserRoleId().equalsIgnoreCase("6") || app.getUserRoleId().equalsIgnoreCase("7")){
+        if (app.getUserRoleId().equals(C.ADMIN) || app.getUserRoleId().equalsIgnoreCase("6") || app.getUserRoleId().equalsIgnoreCase("7")) {
             l_shopping.setVisibility(View.GONE);
             l_mywish.setVisibility(View.GONE);
         }else{

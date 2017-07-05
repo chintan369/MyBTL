@@ -4,9 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,10 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.AppPrefs;
-import com.agraeta.user.btl.BTLProdcut_Detailpage;
 import com.agraeta.user.btl.BTL_Cart;
 import com.agraeta.user.btl.Bean_User_data;
-import com.agraeta.user.btl.Btl_WishList;
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Globals;
@@ -55,6 +55,7 @@ public class DisMyOrders extends AppCompatActivity {
     boolean hasCartCallFinish=true;
 
     TextView txt;
+    LinearLayout layout_main;
 
 
     protected void onResume() {
@@ -68,7 +69,7 @@ public class DisMyOrders extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dis_my_orders);
-
+        layout_main = (LinearLayout) findViewById(R.id.layout_main);
         back = getIntent().getStringExtra("BACK");
 
         fetchid();
@@ -77,6 +78,12 @@ public class DisMyOrders extends AppCompatActivity {
         app=new AppPrefs(getApplicationContext());
         app.setCurrentPage("OrderList2");
         userID=app.getUserId();
+
+        if (app.getUserRoleId().equals(C.ADMIN) || app.getUserRoleId().equals(C.COMP_SALES_PERSON) || app.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+            userID = app.getSalesPersonId();
+            Snackbar.make(layout_main, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
+        }
+
        /* setRefershData();
 
 
@@ -304,17 +311,129 @@ public class DisMyOrders extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    private class GetBillData extends AsyncTask<Void,Void,String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
+    public void onBackPressed() {
+        app = new AppPrefs(getApplicationContext());
 
+        if (app.getUser_notification().equalsIgnoreCase("mainpage_drawer")) {
+            Intent i = new Intent(DisMyOrders.this, MainPage_drawer.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else {
+            if (app.getUserRoleId().equalsIgnoreCase("4") || app.getUserRoleId().equalsIgnoreCase("5") || app.getUserRoleId().equalsIgnoreCase("3")) {
+                Intent i = new Intent(DisMyOrders.this, User_Profile.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            } else {
+                Intent i = new Intent(DisMyOrders.this, DisOrderListActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        }
+    }
+
+    private void setRefershData() {
+        // TODO Auto-generated method stub
+        user_data.clear();
+        db = new DatabaseHandler(DisMyOrders.this);
+
+        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
+
+        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < user_array_from_db.size(); i++) {
+
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
+            String email_id = user_array_from_db.get(i).getEmail_id();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
+            String f_name = user_array_from_db.get(i).getF_name();
+            String l_name = user_array_from_db.get(i).getL_name();
+            String password = user_array_from_db.get(i).getPassword();
+            String gender = user_array_from_db.get(i).getGender();
+            String usertype = user_array_from_db.get(i).getUser_type();
+            String login_with = user_array_from_db.get(i).getLogin_with();
+            String str_rid = user_array_from_db.get(i).getStr_rid();
+            String add1 = user_array_from_db.get(i).getAdd1();
+            String add2 = user_array_from_db.get(i).getAdd2();
+            String add3 = user_array_from_db.get(i).getAdd3();
+            String landmark = user_array_from_db.get(i).getLandmark();
+            String pincode = user_array_from_db.get(i).getPincode();
+            String state_id = user_array_from_db.get(i).getState_id();
+            String state_name = user_array_from_db.get(i).getState_name();
+            String city_id = user_array_from_db.get(i).getCity_id();
+            String city_name = user_array_from_db.get(i).getCity_name();
+            String str_response = user_array_from_db.get(i).getStr_response();
+
+
+            Bean_User_data contact = new Bean_User_data();
+            contact.setId(uid);
+            contact.setUser_id(user_id);
+            contact.setEmail_id(email_id);
+            contact.setPhone_no(phone_no);
+            contact.setF_name(f_name);
+            contact.setL_name(l_name);
+            contact.setPassword(password);
+            contact.setGender(gender);
+            contact.setUser_type(usertype);
+            contact.setLogin_with(login_with);
+            contact.setStr_rid(str_rid);
+            contact.setAdd1(add1);
+            contact.setAdd2(add2);
+            contact.setAdd3(add3);
+            contact.setLandmark(landmark);
+            contact.setPincode(pincode);
+            contact.setState_id(state_id);
+            contact.setState_name(state_name);
+            contact.setCity_id(city_id);
+            contact.setCity_name(city_name);
+            contact.setStr_response(str_response);
+            user_data.add(contact);
+
+
+        }
+        db.close();
+    }
+
+    public String GetCartByQty(final List<NameValuePair> params) {
+
+        final String[] json = new String[1];
+        final boolean[] notDone = {true};
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
+
+                    //System.out.println("array: " + json[0]);
+                    notDone[0] = false;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //  System.out.println("error1: " + e.toString());
+                    notDone[0] = false;
+
+                }
+            }
+        });
+        thread.start();
+        while (notDone[0]) {
+
+        }
+        //Log.e("my json",json[0]);
+        return json[0];
+    }
+
+    private class GetBillData extends AsyncTask<Void,Void,String> {
+        public StringBuilder sb;
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         //int distributor_id;
         String user_id;
         String jsonData="";
+        private String result;
+        private InputStream is;
 
         GetBillData(Activity activity, String user_id){
             this.activity=activity;
@@ -428,119 +547,7 @@ public class DisMyOrders extends AppCompatActivity {
             loadingView.dismiss();
         }
     }
-    public void onBackPressed() {
-        app = new AppPrefs(getApplicationContext());
 
-        if (app.getUser_notification().equalsIgnoreCase("mainpage_drawer")) {
-            Intent i = new Intent(DisMyOrders.this, MainPage_drawer.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
-        else {
-            if (app.getUserRoleId().equalsIgnoreCase("4") || app.getUserRoleId().equalsIgnoreCase("5") || app.getUserRoleId().equalsIgnoreCase("3")) {
-                Intent i = new Intent(DisMyOrders.this, User_Profile.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-            else
-            {
-                Intent i = new Intent(DisMyOrders.this, DisOrderListActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        }
-    }
-    private void setRefershData() {
-        // TODO Auto-generated method stub
-        user_data.clear();
-        db = new DatabaseHandler(DisMyOrders.this);
-
-        ArrayList<Bean_User_data> user_array_from_db = db.Get_Contact();
-
-        //Toast.makeText(getApplicationContext(), ""+category_array_from_db.size(), Toast.LENGTH_LONG).show();
-
-        for (int i = 0; i < user_array_from_db.size(); i++) {
-
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
-            String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
-            String f_name = user_array_from_db.get(i).getF_name();
-            String l_name = user_array_from_db.get(i).getL_name();
-            String password = user_array_from_db.get(i).getPassword();
-            String gender = user_array_from_db.get(i).getGender();
-            String usertype = user_array_from_db.get(i).getUser_type();
-            String login_with = user_array_from_db.get(i).getLogin_with();
-            String str_rid = user_array_from_db.get(i).getStr_rid();
-            String add1 = user_array_from_db.get(i).getAdd1();
-            String add2 = user_array_from_db.get(i).getAdd2();
-            String add3 = user_array_from_db.get(i).getAdd3();
-            String landmark = user_array_from_db.get(i).getLandmark();
-            String pincode = user_array_from_db.get(i).getPincode();
-            String state_id = user_array_from_db.get(i).getState_id();
-            String state_name = user_array_from_db.get(i).getState_name();
-            String city_id = user_array_from_db.get(i).getCity_id();
-            String city_name = user_array_from_db.get(i).getCity_name();
-            String str_response = user_array_from_db.get(i).getStr_response();
-
-
-            Bean_User_data contact = new Bean_User_data();
-            contact.setId(uid);
-            contact.setUser_id(user_id);
-            contact.setEmail_id(email_id);
-            contact.setPhone_no(phone_no);
-            contact.setF_name(f_name);
-            contact.setL_name(l_name);
-            contact.setPassword(password);
-            contact.setGender(gender);
-            contact.setUser_type(usertype);
-            contact.setLogin_with(login_with);
-            contact.setStr_rid(str_rid);
-            contact.setAdd1(add1);
-            contact.setAdd2(add2);
-            contact.setAdd3(add3);
-            contact.setLandmark(landmark);
-            contact.setPincode(pincode);
-            contact.setState_id(state_id);
-            contact.setState_name(state_name);
-            contact.setCity_id(city_id);
-            contact.setCity_name(city_name);
-            contact.setStr_response(str_response);
-            user_data.add(contact);
-
-
-        }
-        db.close();
-    }
-    public String GetCartByQty(final List<NameValuePair> params){
-
-        final String[] json = new String[1];
-        final boolean[] notDone = {true};
-
-        Thread thread=new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
-
-                    //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //  System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
-
-                }
-            }
-        });
-        thread.start();
-        while (notDone[0]){
-
-        }
-        //Log.e("my json",json[0]);
-        return json[0];
-    }
     public class GetCartByQty extends AsyncTask<Void, Void, String>{
 
         List<NameValuePair> params=new ArrayList<>();

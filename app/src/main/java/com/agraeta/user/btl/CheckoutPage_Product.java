@@ -899,6 +899,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             btn_continue.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    comm = edt_comment.getText().toString().trim();
+
+                                    transportationText = edt_transportation.getText().toString().trim();
+
+                                    if (transportationText.isEmpty()) {
+                                        Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
+                                        return;
+                                    }
 
                                     if (user_type.equals(C.ADMIN)) {
                                         dialog.dismiss();
@@ -995,12 +1003,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                             new send_B2B_details().execute();
                                         }
                                     } else {
-                                        transportationText = edt_transportation.getText().toString().trim();
-
-                                        if (transportationText.isEmpty()) {
-                                            Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
-                                            return;
-                                        }
 
                                         dialog.dismiss();
                                         DisplayMetrics metrics = getResources().getDisplayMetrics();

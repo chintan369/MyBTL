@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
@@ -125,6 +126,7 @@ public class BTL_Cart extends AppCompatActivity {
     int minOrderValue = 0;
 
     AdminAPI adminAPI;
+    LinearLayout layout_main;
     private String quotationID = "";
 
     protected void onResume() {
@@ -139,6 +141,7 @@ public class BTL_Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btl__cart);
+        layout_main = (LinearLayout) findViewById(R.id.layout_main);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         imageloader = new ImageLoader(BTL_Cart.this);
@@ -164,6 +167,7 @@ public class BTL_Cart extends AppCompatActivity {
                     app = new AppPrefs(BTL_Cart.this);
                     role_id = app.getSubSalesId().toString();
                     u_id = app.getSalesPersonId().toString();
+                    Snackbar.make(layout_main, "Taking Order for : " + app.getUserName(), Snackbar.LENGTH_LONG).show();
                 } else {
                     u_id = owner_id;
                 }

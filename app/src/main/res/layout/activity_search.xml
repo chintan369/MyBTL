@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.agraeta.user.btl.Search">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/layout_main"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.agraeta.user.btl.Search">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,37 +13,37 @@
         android:orientation="horizontal">
 
         <AutoCompleteTextView
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:textColor="#0048bc"
-            android:background="@drawable/black_underline"
+            android:id="@+id/Search_Actv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/black_underline"
             android:hint="Search Product"
-            android:textSize="14sp"
-            android:inputType="textAutoComplete"
-            android:singleLine="true"
             android:imeOptions="actionSearch"
+            android:inputType="textAutoComplete"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="#0048bc"
             android:textColorHint="#0048bc"
-            android:id="@+id/Search_Actv" />
+            android:textSize="14sp"/>
 
         <ImageView
-            android:layout_weight="5"
-            android:padding="10dp"
             android:id="@+id/image_search_pro"
-            android:src="@drawable/search"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
             android:background="@drawable/black_underline"
-            android:layout_height="match_parent" />
+            android:padding="10dp"
+            android:src="@drawable/search"/>
 
     </LinearLayout>
 
 
 
     <ListView
+        android:id="@+id/List_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/List_search" />
+        android:layout_weight="1"/>
 </LinearLayout>
 

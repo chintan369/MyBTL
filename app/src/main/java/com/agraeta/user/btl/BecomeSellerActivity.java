@@ -1,24 +1,16 @@
 package com.agraeta.user.btl;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.net.http.SslError;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.SslErrorHandler;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,27 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.agraeta.user.btl.CompanySalesPerson.SalesOrderHistory;
-import com.agraeta.user.btl.CompanySalesPerson.Sales_Order_History_Details;
-import com.agraeta.user.btl.CompanySalesPerson.Sales_Order_History_Filter;
-import com.agraeta.user.btl.DisSalesPerson.Dist_SalesOrderHistory;
-import com.agraeta.user.btl.DisSalesPerson.Dist_Sales_Order_History_Details;
-import com.agraeta.user.btl.DisSalesPerson.Dist_Sales_Order_History_Filter;
-import com.agraeta.user.btl.Distributor.D_OrderHistory;
-import com.agraeta.user.btl.Distributor.D_OrderHistoryDetails;
-import com.agraeta.user.btl.Distributor.D_OrderHistoryFilter;
-import com.agraeta.user.btl.Distributor.DisMyOrders;
-import com.agraeta.user.btl.Distributor.DisOrderListActivity;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.area.AreaItem;
 import com.agraeta.user.btl.utils.FilePath;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,8 +36,6 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class BecomeSellerActivity extends AppCompatActivity {
 
@@ -367,7 +342,7 @@ public class BecomeSellerActivity extends AppCompatActivity {
                 }
 
 
-                Call<AppModel> becomeSellerCall=adminAPI.becomeDealerCall(firstName,lastName,emailID,tradeType,mobile,firmName,contactPerson,alternateContact,addressLine1,addressLine2,stateID,cityID,pincode,panNo,serviceTaxNo,vatNo,files);
+                Call<AppModel> becomeSellerCall = adminAPI.becomeDealerCall(firstName, lastName, emailID, tradeType, mobile, firmName, contactPerson, alternateContact, addressLine1, addressLine2, stateID, cityID, pincode, panNo, serviceTaxNo, vatNo, remark, reference, files);
                 becomeSellerCall.enqueue(new Callback<AppModel>() {
                     @Override
                     public void onResponse(Call<AppModel> call, Response<AppModel> response) {
