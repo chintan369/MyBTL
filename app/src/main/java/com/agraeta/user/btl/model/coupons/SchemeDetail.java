@@ -110,11 +110,11 @@ public class SchemeDetail {
         }
 
         public String getStartDate() {
-            return getOnDate("yyyy-MM-dd","dd-MM-yyyy",startDate);
+            return getOnDate("dd-MM-yyyy", "dd-MM-yyyy", startDate);
         }
 
         public String getExpiryDate() {
-            return getOnDate("yyyy-MM-dd","dd-MM-yyyy",expiryDate);
+            return getOnDate("dd-MM-yyyy", "dd-MM-yyyy", expiryDate);
         }
 
         public String getSchemeTypeID() {

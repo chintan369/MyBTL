@@ -1447,7 +1447,7 @@ public class MainPage_drawer extends AppCompatActivity
                                 MainPage_Slider.class);
 						main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(main);*/
-                            MainPage_drawer.this.finish();
+                            System.exit(0);
                         }
                     })
                     .setNegativeButton("Cancel",
@@ -2110,51 +2110,14 @@ public class MainPage_drawer extends AppCompatActivity
                 if (json == null
                         || (json.equalsIgnoreCase(""))) {
 
-                    Globals.CustomToast(MainPage_drawer.this, "SERVER ERRER", getLayoutInflater());
+                    Globals.CustomToast(MainPage_drawer.this, "SERVER ERROR", getLayoutInflater());
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
 
                     String userStatus = jObj.getString("user_status");
                     if (userStatus.equals("0")) {
-                        AppPrefs prefs = new AppPrefs(getApplicationContext());
-                        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                        db.Delete_user_table();
-                        db.Clear_ALL_table();
-
-                        boolean isPressed = C.userInActiveDialog(MainPage_drawer.this);
-                        if (isPressed) {
-                            if (prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
-                                prefs.setSalesPersonId("");
-                                prefs.setSubSalesId("");
-                                prefs.setUserName("");
-                                Intent intent;
-                                if (prefs.getUserRoleId().equals(C.ADMIN)) {
-                                    intent = new Intent(getApplicationContext(), AdminDashboard.class);
-                                } else if (prefs.getUserRoleId().equals(C.COMP_SALES_PERSON)) {
-                                    intent = new Intent(getApplicationContext(), UserTypeActivity.class);
-                                } else {
-                                    intent = new Intent(getApplicationContext(), SalesTypeActivity.class);
-                                }
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                prefs.setUserId("");
-                                prefs.setUser_LoginInfo("");
-                                prefs.setUser_PersonalInfo("");
-                                prefs.setUser_SocialIdInfo("");
-                                prefs.setUser_SocialFirst("");
-                                prefs.setUser_Sociallast("");
-                                prefs.setUser_Socialemail("");
-                                prefs.setUser_SocialReInfo("");
-                                prefs.setUserRoleId("");
-                                Intent intent = new Intent(getApplicationContext(), MainPage_drawer.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
+                        C.userInActiveDialog(MainPage_drawer.this);
                     }
 
                     String date = jObj.getString("status");

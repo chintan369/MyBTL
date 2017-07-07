@@ -3932,6 +3932,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
 
         WebView webview_product_details = (WebView) dialog.findViewById(R.id.webview_product_details);
+        webview_product_details.getSettings().setJavaScriptEnabled(true);
         ImageView img_cancel = (ImageView) dialog.findViewById(R.id.btn_cancel);
         img_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
