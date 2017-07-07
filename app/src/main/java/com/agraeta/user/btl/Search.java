@@ -6669,7 +6669,10 @@ public class Search extends AppCompatActivity {
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
-
+                    String userStatus = jObj.getString("user_status");
+                    if (userStatus.equals("0")) {
+                        C.userInActiveDialog(Search.this);
+                    }
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {

@@ -2405,7 +2405,10 @@ public class My_Quotation extends AppCompatActivity implements QuotationListAdap
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
-
+                    String userStatus = jObj.getString("user_status");
+                    if (userStatus.equals("0")) {
+                        C.userInActiveDialog(My_Quotation.this);
+                    }
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {

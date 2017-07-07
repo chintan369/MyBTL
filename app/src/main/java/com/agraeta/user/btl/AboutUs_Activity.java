@@ -407,7 +407,10 @@ public class AboutUs_Activity extends AppCompatActivity {
                 // loadingView.dismiss();
             } else {
                 JSONObject jObj = new JSONObject(json);
-
+                String userStatus = jObj.getString("user_status");
+                if (userStatus.equals("0")) {
+                    C.userInActiveDialog(AboutUs_Activity.this);
+                }
                 String date = jObj.getString("status");
 
                 if (date.equalsIgnoreCase("false")) {

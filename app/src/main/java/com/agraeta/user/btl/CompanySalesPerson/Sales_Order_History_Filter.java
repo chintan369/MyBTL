@@ -34,6 +34,7 @@ import com.agraeta.user.btl.BTL_Cart;
 import com.agraeta.user.btl.Bean_Filter_Status;
 import com.agraeta.user.btl.Bean_User_data;
 import com.agraeta.user.btl.Btl_WishList;
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
@@ -682,7 +683,10 @@ public class Sales_Order_History_Filter extends AppCompatActivity {
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
-
+                    String userStatus = jObj.getString("user_status");
+                    if (userStatus.equals("0")) {
+                        C.userInActiveDialog(Sales_Order_History_Filter.this);
+                    }
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {

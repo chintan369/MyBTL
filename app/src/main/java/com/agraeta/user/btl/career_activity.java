@@ -964,7 +964,10 @@ TextView tv_filename;
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
-
+                    String userStatus = jObj.getString("user_status");
+                    if (userStatus.equals("0")) {
+                        C.userInActiveDialog(career_activity.this);
+                    }
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {

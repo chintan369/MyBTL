@@ -39,6 +39,7 @@ import com.agraeta.user.btl.Bean_Schme_value;
 import com.agraeta.user.btl.Bean_User_data;
 import com.agraeta.user.btl.Bean_Value_Selected_Detail;
 import com.agraeta.user.btl.Bean_texhnicalImages;
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.CompanySalesPerson.Bean_Otracking;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.DatabaseHandler;
@@ -3884,7 +3885,10 @@ public class D_OrderHistoryDetails extends AppCompatActivity {
                     // loadingView.dismiss();
                 } else {
                     JSONObject jObj = new JSONObject(json);
-
+                    String userStatus = jObj.getString("user_status");
+                    if (userStatus.equals("0")) {
+                        C.userInActiveDialog(D_OrderHistoryDetails.this);
+                    }
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {
