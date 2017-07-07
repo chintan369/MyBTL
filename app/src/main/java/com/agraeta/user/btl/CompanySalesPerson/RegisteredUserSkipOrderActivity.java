@@ -164,6 +164,9 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
         txt_comment = (TextView) findViewById(R.id.txt_comment);
         txt_jointVisitWith = (TextView) findViewById(R.id.txt_jointVisitWith);
 
+
+
+
         switch_isPastOrder=(SwitchButton) findViewById(R.id.switch_isPastOrder);
 
         C.setCompulsoryText(txt_firmName);
@@ -194,6 +197,21 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
         edt_jointVisitWith = (EditText) findViewById(R.id.edt_jointVisitWith);
         edt_orderID=(EditText) findViewById(R.id.edt_orderID);
         edt_orderID.setEnabled(false);
+
+        edt_firmName.setEnabled(false);
+        edt_addrLine1.setEnabled(false);
+        edt_addrLine2.setEnabled(false);
+        edt_addrLine3.setEnabled(false);
+        edt_pincode.setEnabled(false);
+        edt_contactPerson.setEnabled(false);
+        edt_emailID.setEnabled(false);
+        edt_mobile.setEnabled(false);
+
+        spn_country.setEnabled(false);
+        spn_state.setEnabled(false);
+        spn_city.setEnabled(false);
+        spn_area.setEnabled(false);
+
         edt_firmName.setText(firmName);
 
         if(isInEditMode){

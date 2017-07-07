@@ -57,7 +57,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Address 1"
+                    android:text="Address Line 1"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -85,7 +85,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Address 2"
+                    android:text="Address Line 2"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Address 3"
+                    android:text="Address Line 3"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -309,7 +309,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Email ID"
+                    android:text="Email"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -337,7 +337,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Mobile"
+                    android:text="Mobile No"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -365,7 +365,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Party Report"
+                    android:text="Party Report / Market Ref"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -399,7 +399,7 @@
                         android:gravity="center_vertical"
                         android:minHeight="40dp"
                         android:padding="5dp"
-                        android:text="Is Past Order? : "
+                        android:text="Past Order Recived"
                         android:textColor="@color/black_000"/>
 
                     <TextView
@@ -476,7 +476,7 @@
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:padding="5dp"
-                        android:text="Visiting Card\n(Front Side)"
+                        android:text="Visiting Card\n(Front)"
                         android:textColor="@color/black_000"/>
 
                 </LinearLayout>
@@ -506,7 +506,7 @@
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:padding="5dp"
-                        android:text="Visiting Card\n(Back Side)"
+                        android:text="Visiting Card\n(Back)"
                         android:textColor="@color/black_000"/>
 
                 </LinearLayout>
@@ -527,7 +527,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="40dp"
                     android:padding="5dp"
-                    android:text="Dealing in Brand"
+                    android:text="Dealing In Brand"
                     android:textColor="@color/black_000"/>
 
                 <TextView
@@ -567,6 +567,33 @@
                     android:minHeight="40dp"
                     android:padding="5dp"
                     android:text=""
+                    android:textColor="@color/black_000"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:padding="5dp"
+                    android:text="Skip Reason"
+                    android:textColor="@color/black_000"/>
+
+                <TextView
+                    android:id="@+id/txt_skip_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:padding="5dp"
+                    android:text="N/A"
                     android:textColor="@color/black_000"/>
 
             </LinearLayout>

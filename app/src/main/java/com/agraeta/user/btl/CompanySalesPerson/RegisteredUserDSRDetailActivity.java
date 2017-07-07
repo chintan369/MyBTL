@@ -21,6 +21,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
     TextView txt_firmName, txt_addrLine1, txt_addrLine2, txt_addrLine3, txt_country, txt_state, txt_city, txt_area, txt_pincode, txt_contactPerson, txt_emailID, txt_mobileNo, txt_dealingBrand, txt_customerType, txt_comment, txt_jointVisitWith, txt_isPastOrder, txt_pastOrderID, txt_partyReport;
     LinearLayout layout_visitngFront,layout_visitngBack,layout_attachment;
     ImageView img_visitingFront,img_visitingBack;
+    TextView txt_skip_reason;
 
     LinearLayout layout_attachment1,layout_attachment2,layout_attachment3,layout_attachment4;
     ImageView img_attachment1,img_attachment2,img_attachment3,img_attachment4;
@@ -60,6 +61,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         txt_isPastOrder=(TextView) findViewById(R.id.txt_isPastOrder);
         txt_pastOrderID=(TextView) findViewById(R.id.txt_pastOrderID);
         txt_partyReport = (TextView) findViewById(R.id.txt_partyReport);
+        txt_skip_reason=(TextView)findViewById(R.id.txt_skip_reason);
 
         layout_visitngFront=(LinearLayout) findViewById(R.id.layout_visitngFront);
         layout_visitngBack=(LinearLayout) findViewById(R.id.layout_visitngBack);
@@ -95,6 +97,7 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         txt_customerType.setText(userData.getRole().getName().isEmpty() ? "N/A" : userData.getRole().getName());
         txt_comment.setText(orderReason.getComment().isEmpty() ? "N/A" : orderReason.getComment());
         txt_jointVisitWith.setText(orderReason.getJoint_visit_with().isEmpty() ? "N/A" : orderReason.getJoint_visit_with());
+        txt_skip_reason.setText(orderReason.getReason_title().isEmpty() ? "N/A" : orderReason.getReason_title());
 
         if(orderReason.getIs_past_order().equals("1")){
             txt_isPastOrder.setText("Yes");

@@ -44,17 +44,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black_000"
                     android:textSize="16sp"
                     />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textColor="@color/black_000"
-                    android:textSize="16sp"
-                    android:text="Short Description" />
+
 
                 <TextView
                     android:id="@+id/txt_shortDescription"
