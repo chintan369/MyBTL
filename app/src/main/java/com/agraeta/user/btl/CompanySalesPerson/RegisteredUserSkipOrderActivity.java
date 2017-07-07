@@ -227,6 +227,7 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
             edt_jointVisitWith.setText(unregisteredUser.getJoint_visit_with());
         } else {
             edt_firmName.setText(subUserData.getDistributor().getFirm_name());
+            edt_contactPerson.setText(subUserData.getUser().getName());
             if (subUserData.getAddress().size() > 0) {
                 edt_addrLine1.setText(subUserData.getAddress().get(0).getAddress_1());
                 edt_addrLine2.setText(subUserData.getAddress().get(0).getAddress_2());

@@ -1,6 +1,7 @@
 package com.agraeta.user.btl;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -158,5 +159,23 @@ public class C {
         Pattern pattern = Pattern.compile("[A-Za-z0-9]{15}");
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
+    }
+
+    public static boolean userInActiveDialog(Activity activity) {
+        final boolean[] isPressed = {false};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        String message = "<h2>Your BTL account is inactivated By Admin</h2><br/>Contact them to continue";
+        builder.setMessage(Html.fromHtml(message));
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                isPressed[0] = true;
+                dialog.dismiss();
+            }
+        });
+        while (!isPressed[0]) {
+        }
+        return isPressed[0];
     }
 }
