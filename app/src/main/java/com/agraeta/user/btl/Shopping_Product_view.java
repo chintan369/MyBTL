@@ -833,12 +833,12 @@ public class Shopping_Product_view extends AppCompatActivity {
                                 //Log.e("D1D1",""+bean_product_schme.get(0).getPro_mrp());
                                 jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
                                 //Log.e("E1E1",""+bean_product_schme.get(0).getPro_sellingprice());
-                                jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id().toString());
-                                jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name().toString());
-                                jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id().toString());
-                                jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name().toString());
+                                jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id());
+                                jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name());
+                                jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id());
+                                jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name());
                                 jobject.put("item_total", "0");
-                                jobject.put("pro_scheme", bean_product1.get(position).getPro_id().toString());
+                                jobject.put("pro_scheme", "" + tv_pop_pname.getTag().toString());
                                 jobject.put("pack_of", bean_product1.get(position).getPro_label());
                                 jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
                                 //Log.e("C1C1",""+bean_schme.get(0).getScheme_id());

@@ -65,7 +65,7 @@ public class UnregisteredUserAdapter extends BaseAdapter {
         TextView txt_skipDate = (TextView) view.findViewById(R.id.txt_skipDate);
         ImageView img_info=(ImageView) view.findViewById(R.id.img_info);
 
-        if (userList.get(position).getSalesPerson().getName().trim().isEmpty()) {
+        if (userList.get(position).getSalesPerson().getName().replace("null", "").trim().isEmpty()) {
             txt_skipBy.setText("Skip By : " + "N/A");
         } else {
             txt_skipBy.setText("Skip By : " + userList.get(position).getSalesPerson().getName());
@@ -89,7 +89,7 @@ public class UnregisteredUserAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if(!fromAdmin){
                     Intent intent=new Intent(activity, SkipOrderUnregisterUserActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("isInEditMode",true);
                     intent.putExtra("userData",userList.get(position).getUnRegisteredUser());
                     activity.startActivityForResult(intent,REQUEST_ADD_EDIT);

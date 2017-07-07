@@ -11,11 +11,12 @@ public class AppPrefs {
 
 
     private static final String USER_PREFS = "USER_PREFS";
+    String currentPage = "";
+    String selectedUserType = "";
     private SharedPreferences appSharedPrefs;
     private SharedPreferences.Editor prefsEditor;
-
-
     private String user_notification = "user_email_prefs";
+    private int noticount = 0;
     private String user_Loginwith = "user_Loginwith";
     private String distributor_Loginwith="dis_Loginwith";
     private String PersonalInfo = "PersonalInfo";
@@ -74,10 +75,6 @@ public class AppPrefs {
     private String email="email";
     private String fi_name="fi_name";
     private String a_id="a_id";
-
-    String currentPage="";
-    String selectedUserType="";
-
     private String disSubSalesID="0";
     private String statusPR="";
     private String statusPR22="";
@@ -112,9 +109,18 @@ public class AppPrefs {
         DsalesId=appSharedPrefs.getString("DsalesId","");
         dSalesUserId=appSharedPrefs.getString("dSalesUserId","");
         SRP_Id=appSharedPrefs.getString("SRP_Id","");
-
+        noticount = appSharedPrefs.getInt("noticount", 0);
     }
 
+
+    public int getNoticount() {
+        return appSharedPrefs.getInt("noticount", 0);
+    }
+
+    public void setNoticount(int noticount) {
+        this.noticount = noticount;
+        prefsEditor.putInt("noticount", noticount).commit();
+    }
 
     public String getUserName() {
         return appSharedPrefs.getString("userName", "");
@@ -124,22 +130,17 @@ public class AppPrefs {
         prefsEditor.putString("userName", userName).commit();
     }
 
+    public String getUser_notification() {
+        // TODO Auto-generated method stub
+        return appSharedPrefs.getString(user_notification, "");
+    }
+
     public void setUser_notification(String notification) {
         // TODO Auto-generated method stub
         prefsEditor.putString(user_notification, notification).commit();
 
     }
 
-    public String getUser_notification() {
-        // TODO Auto-generated method stub
-        return appSharedPrefs.getString(user_notification, "");
-    }
-
-    public void setUser_LoginWith(String Loginwith) {
-        // TODO Auto-generated method stub
-        prefsEditor.putString(user_Loginwith, Loginwith).commit();
-
-    }
     public String getquo() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(quo, "");
@@ -150,6 +151,7 @@ public class AppPrefs {
         prefsEditor.putString(quo, quo1).commit();
 
     }
+
     public String geta_id() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(a_id, "");
@@ -161,7 +163,6 @@ public class AppPrefs {
 
     }
 
-
     public String getSalesPersonId() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(SalesPersonId, "");
@@ -172,6 +173,7 @@ public class AppPrefs {
         prefsEditor.putString(SalesPersonId, SalesPersonId1).commit();
 
     }
+
     public String getqutation_id() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(qutation_id, "");
@@ -182,6 +184,7 @@ public class AppPrefs {
         prefsEditor.putString(qutation_id, qutation_id1).commit();
 
     }
+
     public String getaddress_id() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(address_id, "");
@@ -192,6 +195,7 @@ public class AppPrefs {
         prefsEditor.putString(address_id, address_id1).commit();
 
     }
+
     public String getOrder() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Order, "");
@@ -228,6 +232,12 @@ public class AppPrefs {
         return appSharedPrefs.getString(user_Loginwith, "");
     }
 
+    public void setUser_LoginWith(String Loginwith) {
+        // TODO Auto-generated method stub
+        prefsEditor.putString(user_Loginwith, Loginwith).commit();
+
+    }
+
     public String getDistributor_Loginwith() {
         return distributor_Loginwith;
     }
@@ -236,26 +246,26 @@ public class AppPrefs {
         this.distributor_Loginwith = distributor_Loginwith;
     }
 
+    public String getUser_PersonalInfo() {
+        // TODO Auto-generated method stub
+        return appSharedPrefs.getString(PersonalInfo, "");
+    }
+
     public void setUser_PersonalInfo(String PersonalInfo1) {
         // TODO Auto-generated method stub
         prefsEditor.putString(PersonalInfo, PersonalInfo1).commit();
 
     }
 
-    public String getUser_PersonalInfo() {
+    public String getUser_LoginInfo() {
         // TODO Auto-generated method stub
-        return appSharedPrefs.getString(PersonalInfo, "");
+        return appSharedPrefs.getString(LoginInfo, "");
     }
 
     public void setUser_LoginInfo(String LoginInfo1) {
         // TODO Auto-generated method stub
         prefsEditor.putString(LoginInfo, LoginInfo1).commit();
 
-    }
-
-    public String getUser_LoginInfo() {
-        // TODO Auto-generated method stub
-        return appSharedPrefs.getString(LoginInfo, "");
     }
 
     public void setfi_name(String fi_name1) {
@@ -268,16 +278,18 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(fi_name, "");
     }
+
+    public String getl_name() {
+        // TODO Auto-generated method stub
+        return appSharedPrefs.getString(l_name, "");
+    }
+
     public void setl_name(String l_name1) {
         // TODO Auto-generated method stub
         prefsEditor.putString(l_name, l_name1).commit();
 
     }
 
-    public String getl_name() {
-        // TODO Auto-generated method stub
-        return appSharedPrefs.getString(l_name, "");
-    }
     public void setphone(String phone1) {
         // TODO Auto-generated method stub
         prefsEditor.putString(phone, phone1).commit();
@@ -299,20 +311,14 @@ public class AppPrefs {
         return appSharedPrefs.getString(email, "");
     }
 
-    public void setCart_QTy(String Cart_QTy1) {
-        // TODO Auto-generated method stub
-        prefsEditor.putString(Cart_QTy, Cart_QTy1).commit();
-
-    }
-
     public String getCart_QTy() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Cart_QTy, "");
     }
 
-    public void setUser_SocialIdInfo(String SocialIdInfo1) {
+    public void setCart_QTy(String Cart_QTy1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(SocialIdInfo, SocialIdInfo1).commit();
+        prefsEditor.putString(Cart_QTy, Cart_QTy1).commit();
 
     }
 
@@ -321,9 +327,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(SocialIdInfo, "");
     }
 
-    public void setUser_SocialReInfo(String SocialReInfo1) {
+    public void setUser_SocialIdInfo(String SocialIdInfo1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(SocialReInfo, SocialReInfo1).commit();
+        prefsEditor.putString(SocialIdInfo, SocialIdInfo1).commit();
 
     }
 
@@ -332,9 +338,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(SocialReInfo, "");
     }
 
-    public void setUser_CatBack(String CatBack1) {
+    public void setUser_SocialReInfo(String SocialReInfo1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(CatBack, CatBack1).commit();
+        prefsEditor.putString(SocialReInfo, SocialReInfo1).commit();
 
     }
 
@@ -343,9 +349,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(CatBack, "");
     }
 
-    public void setUser_SocialFirst(String SocialFirst1) {
+    public void setUser_CatBack(String CatBack1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(SocialFirst, SocialFirst1).commit();
+        prefsEditor.putString(CatBack, CatBack1).commit();
 
     }
 
@@ -354,9 +360,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(SocialFirst, "");
     }
 
-    public void setUser_Sociallast(String Sociallast1) {
+    public void setUser_SocialFirst(String SocialFirst1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Sociallast, Sociallast1).commit();
+        prefsEditor.putString(SocialFirst, SocialFirst1).commit();
 
     }
 
@@ -365,9 +371,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Sociallast, "");
     }
 
-    public void setUser_Socialemail(String Socialemail1) {
+    public void setUser_Sociallast(String Sociallast1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Socialemail, Socialemail1).commit();
+        prefsEditor.putString(Sociallast, Sociallast1).commit();
 
     }
 
@@ -376,9 +382,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Socialemail, "");
     }
 
-    public void setUser_CatId(String CatId1) {
+    public void setUser_Socialemail(String Socialemail1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(CatId, CatId1).commit();
+        prefsEditor.putString(Socialemail, Socialemail1).commit();
 
     }
 
@@ -386,9 +392,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(CatId, "");
     }
-    public void setSort_Radio(String Sort_Radio1) {
+
+    public void setUser_CatId(String CatId1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Sort_Radio, Sort_Radio1).commit();
+        prefsEditor.putString(CatId, CatId1).commit();
 
     }
 
@@ -396,9 +403,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Sort_Radio, "");
     }
-    public void set_search(String Search1) {
+
+    public void setSort_Radio(String Sort_Radio1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Search, Search1).commit();
+        prefsEditor.putString(Sort_Radio, Sort_Radio1).commit();
 
     }
 
@@ -407,9 +415,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Search, "");
     }
 
-    public void setPage_Data(String Page_Data1) {
+    public void set_search(String Search1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Page_Data, Page_Data1).commit();
+        prefsEditor.putString(Search, Search1).commit();
 
     }
 
@@ -418,10 +426,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Page_Data, "");
     }
 
-
-    public void setFilter_Sort(String Filter_Sort1) {
+    public void setPage_Data(String Page_Data1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Filter_Sort, Filter_Sort1).commit();
+        prefsEditor.putString(Page_Data, Page_Data1).commit();
 
     }
 
@@ -430,9 +437,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Filter_Sort, "");
     }
 
-    public void setFilter_Option(String Filter_Option1) {
+    public void setFilter_Sort(String Filter_Sort1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Filter_Option, Filter_Option1).commit();
+        prefsEditor.putString(Filter_Sort, Filter_Sort1).commit();
 
     }
 
@@ -441,9 +448,9 @@ public class AppPrefs {
         return appSharedPrefs.getString(Filter_Option, "");
     }
 
-    public void setFilter_SubCat(String Filter_SubCat1) {
+    public void setFilter_Option(String Filter_Option1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Filter_SubCat, Filter_SubCat1).commit();
+        prefsEditor.putString(Filter_Option, Filter_Option1).commit();
 
     }
 
@@ -451,9 +458,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Filter_SubCat, "");
     }
-    public void setFilter_Cat(String Filter_Cat1) {
+
+    public void setFilter_SubCat(String Filter_SubCat1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Filter_Cat, Filter_Cat1).commit();
+        prefsEditor.putString(Filter_SubCat, Filter_SubCat1).commit();
 
     }
 
@@ -461,15 +469,22 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Filter_Cat, "");
     }
-    public void setProduct_Sort(String Product_Sort1) {
+
+    public void setFilter_Cat(String Filter_Cat1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Product_Sort, Product_Sort1).commit();
+        prefsEditor.putString(Filter_Cat, Filter_Cat1).commit();
 
     }
 
     public String getProduct_Sort() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Product_Sort, "");
+    }
+
+    public void setProduct_Sort(String Product_Sort1) {
+        // TODO Auto-generated method stub
+        prefsEditor.putString(Product_Sort, Product_Sort1).commit();
+
     }
 
     public void setjobid(String jobid1) {
@@ -526,7 +541,10 @@ public class AppPrefs {
         return appSharedPrefs.getString(add_newGroup, "");
     }
 
-
+    public String getRef_Shopping() {
+        // TODO Auto-generated method stub
+        return appSharedPrefs.getString(Ref_Shopping, "");
+    }
 
     public void setRef_Shopping(String Ref_Shopping1) {
         // TODO Auto-generated method stub
@@ -534,19 +552,15 @@ public class AppPrefs {
 
     }
 
-    public String getRef_Shopping() {
+    public String getCart_Grand_total() {
         // TODO Auto-generated method stub
-        return appSharedPrefs.getString(Ref_Shopping, "");
+        return appSharedPrefs.getString(Cart_Grand_total, "");
     }
+
     public void setCart_Grand_total(String Cart_Grand_total1) {
         // TODO Auto-generated method stub
         prefsEditor.putString(Cart_Grand_total, Cart_Grand_total1).commit();
 
-    }
-
-    public String getCart_Grand_total() {
-        // TODO Auto-generated method stub
-        return appSharedPrefs.getString(Cart_Grand_total, "");
     }
 
     public void setwishid(String wishid1) {
@@ -570,21 +584,14 @@ public class AppPrefs {
         return appSharedPrefs.getString(product_id, "");
     }
 
-    public void setRef_Detail(String Ref_Detail1) {
-        // TODO Auto-generated method stub
-        prefsEditor.putString(Ref_Detail, Ref_Detail1).commit();
-
-    }
-
     public String getRef_Detail() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Ref_Detail, "");
     }
 
-
-    public void setOrder_history_filter_order_status(String Order_history_filter_order_status1) {
+    public void setRef_Detail(String Ref_Detail1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Order_history_filter_order_status, Order_history_filter_order_status1).commit();
+        prefsEditor.putString(Ref_Detail, Ref_Detail1).commit();
 
     }
 
@@ -592,9 +599,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Order_history_filter_order_status, "");
     }
-    public void setOrder_history_filter_to_date(String Order_history_filter_to_date1) {
+
+    public void setOrder_history_filter_order_status(String Order_history_filter_order_status1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Order_history_filter_to_date, Order_history_filter_to_date1).commit();
+        prefsEditor.putString(Order_history_filter_order_status, Order_history_filter_order_status1).commit();
 
     }
 
@@ -602,9 +610,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Order_history_filter_to_date, "");
     }
-    public void setOrder_history_filter_from_date(String Order_history_filter_from_date1) {
+
+    public void setOrder_history_filter_to_date(String Order_history_filter_to_date1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Order_history_filter_from_date, Order_history_filter_from_date1).commit();
+        prefsEditor.putString(Order_history_filter_to_date, Order_history_filter_to_date1).commit();
 
     }
 
@@ -612,9 +621,10 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Order_history_filter_from_date, "");
     }
-    public void setOrder_history_filter_predefine(String Order_history_filter_predefine1) {
+
+    public void setOrder_history_filter_from_date(String Order_history_filter_from_date1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Order_history_filter_predefine, Order_history_filter_predefine1).commit();
+        prefsEditor.putString(Order_history_filter_from_date, Order_history_filter_from_date1).commit();
 
     }
 
@@ -623,15 +633,21 @@ public class AppPrefs {
         return appSharedPrefs.getString(Order_history_filter_predefine, "");
     }
 
-    public void setOrder_history_id(String Order_history_id1) {
+    public void setOrder_history_filter_predefine(String Order_history_filter_predefine1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Order_history_id, Order_history_id1).commit();
+        prefsEditor.putString(Order_history_filter_predefine, Order_history_filter_predefine1).commit();
 
     }
 
     public String getOrder_history_id() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Order_history_id, "");
+    }
+
+    public void setOrder_history_id(String Order_history_id1) {
+        // TODO Auto-generated method stub
+        prefsEditor.putString(Order_history_id, Order_history_id1).commit();
+
     }
 
     public String getUserRoleId() {
@@ -769,26 +785,27 @@ public class AppPrefs {
         this.SRP_Id = SRP_Id;
         prefsEditor.putString("SRP_Id",SRP_Id).commit();
     }
-    public void setComment(String Comment1) {
-        // TODO Auto-generated method stub
-        prefsEditor.putString(Comment, Comment1).commit();
-
-    }
 
     public String getComment() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Comment, "");
     }
 
-    public void setAttachment(String Attachment1) {
+    public void setComment(String Comment1) {
         // TODO Auto-generated method stub
-        prefsEditor.putString(Attachment, Attachment1).commit();
+        prefsEditor.putString(Comment, Comment1).commit();
 
     }
 
     public String getAttachment() {
         // TODO Auto-generated method stub
         return appSharedPrefs.getString(Attachment, "");
+    }
+
+    public void setAttachment(String Attachment1) {
+        // TODO Auto-generated method stub
+        prefsEditor.putString(Attachment, Attachment1).commit();
+
     }
 
     public String getREF_No() {

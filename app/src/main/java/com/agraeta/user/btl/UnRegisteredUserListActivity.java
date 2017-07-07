@@ -60,8 +60,10 @@ public class UnRegisteredUserListActivity extends AppCompatActivity {
         edt_search=(EditText) findViewById(R.id.edt_search);
         list_unregisterUser=(ListView) findViewById(R.id.list_unregisterUser);
 
+        fromAdmin = prefs.getUserRoleId().equals(C.ADMIN);
+
         userAdapter=new UnregisteredUserAdapter(userList,this);
-        userAdapter.setFromAdmin(true);
+        userAdapter.setFromAdmin(fromAdmin);
         list_unregisterUser.setAdapter(userAdapter);
 
         Log.e("UserID","-->"+prefs.getUserId());

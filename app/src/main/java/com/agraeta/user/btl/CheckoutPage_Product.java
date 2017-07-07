@@ -5805,8 +5805,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 //Log.e("77777777","77777777");
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("receiver_id", user_ID));
-                parameters.add(new BasicNameValuePair("sender_id", subSales_id));
+                parameters.add(new BasicNameValuePair("receiver_id", subSales_id));
+                parameters.add(new BasicNameValuePair("sender_id", user_ID));
                 parameters.add(new BasicNameValuePair("mobile_no", phone));
 
 

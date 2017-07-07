@@ -12,14 +12,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import com.agraeta.user.btl.utils.BadgeUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 
@@ -35,21 +32,21 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
         //Displaying data in log
         //It is optional
         //Log.e(TAG, "From: " + remoteMessage.getFrom());
-        Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+        //Log.e(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
         Log.e(TAG, "DATA Message Body: " + remoteMessage.getData().toString());
 
         SimpleDateFormat sdf=new SimpleDateFormat("hh:mm dd/MMM", Locale.getDefault());
 
         AppPrefs prefs=new AppPrefs(getApplicationContext());
         DatabaseHandler db=new DatabaseHandler(getApplicationContext());
-        Bean_Notification notification=new Bean_Notification();
+        /*Bean_Notification notification=new Bean_Notification();
         notification.setTitle(remoteMessage.getData().get("title"));
         notification.setMessage(remoteMessage.getData().get("message"));
         notification.setTime(sdf.format(new Date()));
         //Log.e("time of notification", notification.getTime());
-        db.AddNotification(notification,remoteMessage.getData().get("user_id"));
+        db.AddNotification(notification,remoteMessage.getData().get("user_id"));*/
 
-        Log.e("Data Msg",remoteMessage.getData().toString()+" \n"+remoteMessage.toString());
+        Log.e("Data Msg", remoteMessage.getData().toString());
 
         boolean isForLogout=false;
 
@@ -74,8 +71,14 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
 
         String user_id=remoteMessage.getData().get("user_id");
 
-        if(prefs.getUserId().equalsIgnoreCase(user_id) && !isForLogout)
+        if (prefs.getUserId().equalsIgnoreCase(user_id) && !isForLogout) {
             notifyUser(remoteMessage.getData().get("title"),remoteMessage.getData().get("message"));
+            int totalCount = prefs.getNoticount();
+            totalCount++;
+            prefs.setNoticount(totalCount);
+            BadgeUtils.setBadge(getApplicationContext(), totalCount);
+        }
+
 
     }
 
@@ -87,8 +90,8 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void notifyUser(String title, String message){
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Intent intent = new Intent(this, Notification.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Intent intent = new Intent(this, com.agraeta.user.btl.Notification.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.btl_action);
         Notification mNotification = new Notification.Builder(this)

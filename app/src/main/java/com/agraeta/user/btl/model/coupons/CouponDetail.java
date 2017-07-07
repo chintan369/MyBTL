@@ -134,11 +134,11 @@ public class CouponDetail {
         }
 
         public String getStartDate() {
-            return getOnDate("yyyy-MM-dd", "dd MMM yyyy", startDate);
+            return getOnDate("dd-MM-yyyy", "dd MMM yyyy", startDate);
         }
 
         public String getExpiryDate() {
-            return getOnDate("yyyy-MM-dd", "dd MMM yyyy", expiryDate);
+            return getOnDate("dd-MM-yyyy", "dd MMM yyyy", expiryDate);
         }
 
         public String getTotalUsed() {

@@ -43,13 +43,13 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     String ownerID = new String();
     String userID = new String();
     String roleID = new String();
-    List<InboxResponse.InboxData> notificationList=new ArrayList<>();
+    List<InboxResponse.InboxData> notificationList = new ArrayList<>();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     TextView txt_noNotification;
 
     AdminAPI adminAPI;
-    int currentPage=1;
-    int totalPages=1;
+    int currentPage = 1;
+    int totalPages = 1;
 
     Custom_ProgressDialog dialog;
 
@@ -60,14 +60,15 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         Log.e("System GC", "Called");
         super.onResume();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-        db=new DatabaseHandler(getApplicationContext());
-        prefs=new AppPrefs(getApplicationContext());
+        db = new DatabaseHandler(getApplicationContext());
+        prefs = new AppPrefs(getApplicationContext());
 
-        dialog=new Custom_ProgressDialog(this,"Please Wait...");
+        dialog = new Custom_ProgressDialog(this, "Please Wait...");
         dialog.setCancelable(false);
 
         setActionBar();
@@ -75,28 +76,27 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     }
 
     private void fetchID() {
-        list_notification=(ListView) findViewById(R.id.list_notification);
-        txt_noNotification=(TextView) findViewById(R.id.txt_noNotification);
-        notificationAdapter=new NotificationAdapter(notificationList,this);
+        list_notification = (ListView) findViewById(R.id.list_notification);
+        txt_noNotification = (TextView) findViewById(R.id.txt_noNotification);
+        notificationAdapter = new NotificationAdapter(notificationList, this);
         list_notification.setAdapter(notificationAdapter);
 
-        adminAPI= ServiceGenerator.getAPIServiceClass();
+        adminAPI = ServiceGenerator.getAPIServiceClass();
 
 
         dialog.show();
 
         new GetNotificationList(true).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        btn_clearall=(Button) findViewById(R.id.btn_clearall);
+        btn_clearall = (Button) findViewById(R.id.btn_clearall);
         btn_clearall.setVisibility(View.GONE);
         btn_clearall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(notificationList.size()>0){
+                if (notificationList.size() > 0) {
                     clearAllNotifications();
-                }
-                else{
-                    Globals.CustomToast(getApplicationContext(),"No Notifications in the List to Delete",getLayoutInflater());
+                } else {
+                    Globals.CustomToast(getApplicationContext(), "No Notifications in the List to Delete", getLayoutInflater());
 
                 }
             }
@@ -106,26 +106,24 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     private void clearAllNotifications() {
         dialog.show();
         Call<AppModel> modelCall;
-        if(prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)){
-            modelCall=adminAPI.clearNotificationCall(prefs.getUserId(),null);
-        }
-        else {
-            modelCall=adminAPI.clearNotificationCall(null,prefs.getUserId());
+        if (prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+            modelCall = adminAPI.clearNotificationCall(prefs.getUserId(), null);
+        } else {
+            modelCall = adminAPI.clearNotificationCall(null, prefs.getUserId());
         }
 
         modelCall.enqueue(new Callback<AppModel>() {
             @Override
             public void onResponse(Call<AppModel> call, Response<AppModel> response) {
                 dialog.dismiss();
-                AppModel model=response.body();
-                if(model!=null){
-                    if(model.isStatus()){
+                AppModel model = response.body();
+                if (model != null) {
+                    if (model.isStatus()) {
                         notificationList.clear();
                         notificationAdapter.notifyDataSetChanged();
-                        Globals.Toast2(getApplicationContext(),model.getMessage());
-                    }
-                    else {
-                        Globals.Toast2(getApplicationContext(),model.getMessage());
+                        Globals.Toast2(getApplicationContext(), model.getMessage());
+                    } else {
+                        Globals.Toast2(getApplicationContext(), model.getMessage());
                     }
                 }
             }
@@ -133,7 +131,7 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
             @Override
             public void onFailure(Call<AppModel> call, Throwable t) {
                 dialog.dismiss();
-                Globals.showError(t,getApplicationContext());
+                Globals.showError(t, getApplicationContext());
             }
         });
 
@@ -141,11 +139,10 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
 
     private void getNotificationList() {
         Call<InboxResponse> inboxResponseCall;
-        if(prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)){
-            inboxResponseCall=adminAPI.inboxResponseCall(prefs.getUserId(),null,String.valueOf(currentPage));
-        }
-        else {
-            inboxResponseCall=adminAPI.inboxResponseCall(null,prefs.getUserId(),String.valueOf(currentPage));
+        if (prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+            inboxResponseCall = adminAPI.inboxResponseCall(prefs.getUserId(), null, String.valueOf(currentPage));
+        } else {
+            inboxResponseCall = adminAPI.inboxResponseCall(null, prefs.getUserId(), String.valueOf(currentPage));
         }
 
         inboxResponseCall.enqueue(this);
@@ -153,15 +150,16 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
 
     public void onBackPressed() {
         prefs = new AppPrefs(Notification.this);
-        if (prefs.getUser_notification().toString().equalsIgnoreCase("mainpage_drawer")) {
-            Intent i = new Intent(Notification.this, MainPage_drawer.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }  else {
+        /*if (prefs.getUser_notification().equalsIgnoreCase("mainpage_drawer")) {*/
+        Intent i = new Intent(Notification.this, MainPage_drawer.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
+        /*}  else {
             Intent i = new Intent(Notification.this, User_Profile.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
-        }
+        }*/
     }
 
     private void setActionBar() {
@@ -183,11 +181,11 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         img_notification.setVisibility(View.GONE);
         //img_home.setImageResource(R.drawable.btl_logo);
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
-        FrameLayout frame = (FrameLayout)mCustomView.findViewById(R.id.unread);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
         frame.setVisibility(View.VISIBLE);
-        TextView txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
+        TextView txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
         img_notification.setVisibility(View.GONE);
-        String qun =prefs.getCart_QTy();
+        String qun = prefs.getCart_QTy();
 
        /* setRefershData();
 
@@ -268,14 +266,14 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         }*/
 
         String qu1 = prefs.getCart_QTy();
-        if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
             txt.setVisibility(View.GONE);
             txt.setText("");
-        }else{
-            if(Integer.parseInt(qu1) > 999){
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
                 txt.setText("999+");
                 txt.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 txt.setText(qu1 + "");
                 txt.setVisibility(View.VISIBLE);
             }
@@ -293,20 +291,7 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
             @Override
             public void onClick(View v) {
 
-                prefs = new AppPrefs(Notification.this);
-                if (prefs.getUser_notification().toString().equalsIgnoreCase("mainpage_drawer")) {
-                    Intent i = new Intent(Notification.this, MainPage_drawer.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }  else {
-                    Intent i = new Intent(Notification.this, User_Profile.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
-//                Intent i = new Intent(Notification.this, MainPage_drawer.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(i);
-//                finish();
+                onBackPressed();
             }
         });
         img_notification.setOnClickListener(new View.OnClickListener() {
@@ -342,10 +327,10 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
 
         for (int i = 0; i < user_array_from_db.size(); i++) {
 
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
             String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
             String f_name = user_array_from_db.get(i).getF_name();
             String l_name = user_array_from_db.get(i).getL_name();
             String password = user_array_from_db.get(i).getPassword();
@@ -397,23 +382,21 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     @Override
     public void onResponse(Call<InboxResponse> call, Response<InboxResponse> response) {
         dialog.dismiss();
-        InboxResponse inboxResponse=response.body();
-        if(inboxResponse!=null){
-            if(inboxResponse.isStatus()){
-                totalPages=inboxResponse.getTotalPage();
+        InboxResponse inboxResponse = response.body();
+        if (inboxResponse != null) {
+            if (inboxResponse.isStatus()) {
+                totalPages = inboxResponse.getTotalPage();
                 notificationList.addAll(inboxResponse.getData());
                 notificationAdapter.notifyDataSetChanged();
-                if(currentPage<totalPages){
+                if (currentPage < totalPages) {
                     currentPage++;
                     getNotificationList();
                 }
-            }
-            else {
-                Globals.Toast2(this,inboxResponse.getMessage());
+            } else {
+                Globals.Toast2(this, inboxResponse.getMessage());
                 txt_noNotification.setVisibility(View.VISIBLE);
             }
-        }
-        else {
+        } else {
             Globals.defaultError(this);
         }
     }
@@ -421,17 +404,17 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     @Override
     public void onFailure(Call<InboxResponse> call, Throwable t) {
         dialog.dismiss();
-        Log.e("Error","--"+t.getMessage());
-        Globals.showError(t,this);
+        Log.e("Error", "--" + t.getMessage());
+        Globals.showError(t, this);
     }
 
-    private class GetNotificationList extends AsyncTask<Void, Void, String>{
+    private class GetNotificationList extends AsyncTask<Void, Void, String> {
 
-        boolean isFirstTime=true;
+        boolean isFirstTime = true;
 
         public GetNotificationList(boolean isFirstTime) {
             this.isFirstTime = isFirstTime;
-            if(isFirstTime){
+            if (isFirstTime) {
                 dialog.show();
             }
         }
@@ -439,16 +422,15 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         @Override
         protected String doInBackground(Void... params) {
 
-            List<NameValuePair> pairList=new ArrayList<>();
-            pairList.add(new BasicNameValuePair("page",String.valueOf(currentPage)));
-            if(prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)){
-                pairList.add(new BasicNameValuePair("owner_id",prefs.getUserId()));
-            }
-            else {
-                pairList.add(new BasicNameValuePair("user_id",prefs.getUserId()));
+            List<NameValuePair> pairList = new ArrayList<>();
+            pairList.add(new BasicNameValuePair("page", String.valueOf(currentPage)));
+            if (prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+                pairList.add(new BasicNameValuePair("owner_id", prefs.getUserId()));
+            } else {
+                pairList.add(new BasicNameValuePair("user_id", prefs.getUserId()));
             }
 
-            String json=new ServiceHandler().makeServiceCall(Globals.server_link+Globals.GET_NOTIFICATION_LIST,ServiceHandler.POST,pairList);
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.GET_NOTIFICATION_LIST, ServiceHandler.POST, pairList);
 
             return json;
         }
@@ -457,34 +439,33 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             dialog.dismiss();
-            if(s!=null && !s.isEmpty()){
-                try{
-                    JSONObject object=new JSONObject(s);
+            if (s != null && !s.isEmpty()) {
+                try {
+                    JSONObject object = new JSONObject(s);
 
-                    if(object.getBoolean("status")){
-                        totalPages=object.getInt("total_pages");
-                        Type inboxListType = new TypeToken<ArrayList<InboxResponse.InboxData>>(){}.getType();
+                    if (object.getBoolean("status")) {
+                        totalPages = object.getInt("total_pages");
+                        Type inboxListType = new TypeToken<ArrayList<InboxResponse.InboxData>>() {
+                        }.getType();
 
                         List<InboxResponse.InboxData> inboxDataList = new Gson().fromJson(object.getJSONArray("data").toString(), inboxListType);
 
                         notificationList.addAll(inboxDataList);
                         notificationAdapter.notifyDataSetChanged();
-                        if(currentPage<totalPages){
+                        if (currentPage < totalPages) {
                             currentPage++;
                             new GetNotificationList(false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
-                    }
-                    else {
+                    } else {
                         txt_noNotification.setVisibility(View.VISIBLE);
-                        Globals.Toast2(getApplicationContext(),object.getString("message"));
+                        Globals.Toast2(getApplicationContext(), object.getString("message"));
                     }
 
-                }catch (Exception e){
-                    Log.e("Exception",e.getMessage());
+                } catch (Exception e) {
+                    Log.e("Exception", e.getMessage());
                     Globals.defaultError(getApplicationContext());
                 }
-            }
-            else {
+            } else {
                 Globals.defaultError(getApplicationContext());
             }
         }

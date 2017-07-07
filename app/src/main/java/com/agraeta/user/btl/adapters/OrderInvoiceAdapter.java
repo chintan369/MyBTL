@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,7 +100,7 @@ public class OrderInvoiceAdapter extends BaseAdapter {
     private void goToLRDetailActivity(int position) {
         Intent intent=new Intent(activity, LRDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("jsonLR",new Gson().toJson(orderInvoiceList.get(position).getInvoiceLr().get(0)));
+        intent.putExtra("jsonLR", new Gson().toJson(orderInvoiceList.get(position).getInvoiceLr()));
         activity.startActivity(intent);
     }
 

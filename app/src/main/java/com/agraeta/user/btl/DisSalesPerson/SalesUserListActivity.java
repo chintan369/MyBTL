@@ -137,10 +137,10 @@ public class SalesUserListActivity extends AppCompatActivity {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                         SalesUserListActivity.this);
                 // Setting Dialog Title
-                alertDialog.setTitle("Logout application?");
+                alertDialog.setTitle("Log out application?");
                 // Setting Dialog Message
                 alertDialog
-                        .setMessage("Are you sure you want to logout?");
+                        .setMessage("Are you sure you want to log out?");
 
                 // Setting Icon to Dialog
                 // .setIcon(R.drawable.ic_launcher);

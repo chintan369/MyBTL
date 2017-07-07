@@ -56,6 +56,7 @@ import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.SupportCallInfo;
 import com.agraeta.user.btl.model.UserDetailResponse;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
+import com.agraeta.user.btl.utils.BadgeUtils;
 import com.agraeta.user.btl.utils.ParallaxPageTransformer;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.ConnectionResult;
@@ -308,6 +309,10 @@ public class MainPage_drawer extends AppCompatActivity
             MenuItem distributorsalesMenuItem = menu.findItem(R.id.DistributorSales);
             if (apps.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
                 distributorsalesMenuItem.setVisible(true);
+            }
+
+            if (apps.getUserRoleId().equals(C.COMP_SALES_PERSON) && apps.getSubSalesId().equals(C.DISTRIBUTOR)) {
+                menu.findItem(R.id.menu_comboOffer).setVisible(false);
             }
 
             MenuItem bed1MenuItem = menu.findItem(R.id.logout);
@@ -2226,10 +2231,16 @@ public class MainPage_drawer extends AppCompatActivity
                     JSONObject object = new JSONObject(s);
                     if (object.getBoolean("status")) {
                         int totalCount = object.getInt("total_unread_msg");
+                        AppPrefs prefs = new AppPrefs(getApplicationContext());
+                        prefs.setNoticount(totalCount);
+                        BadgeUtils.clearBadge(getApplicationContext());
                         notification_unread.setText(String.valueOf(totalCount));
                         if (totalCount > 0) {
                             notification_unread.setVisibility(View.VISIBLE);
+                            BadgeUtils.setBadge(getApplicationContext(), totalCount);
                         }
+
+
                     }
                 } catch (Exception e) {
                     Log.e("Exception", e.getMessage());

@@ -298,7 +298,7 @@ public class UserTypeActivity extends AppCompatActivity {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                         UserTypeActivity.this);
                 // Setting Dialog Title
-                alertDialog.setTitle("Log Out application?");
+                alertDialog.setTitle("Log out application?");
                 // Setting Dialog Message
                 alertDialog
                         .setMessage("Are you sure you want to log out?");
