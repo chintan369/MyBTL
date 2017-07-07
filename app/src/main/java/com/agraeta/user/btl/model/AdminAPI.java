@@ -232,4 +232,8 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.GET_COMBO_CART_ID)
     Call<ComboCartID> getComboCartIdCall(@Field("combo_id") String comboID, @Field("user_id") String userID, @Field("owner_id") String ownerID);
+
+    @FormUrlEncoded
+    @POST(Globals.SET_READ_MESSAGE)
+    Call<AppModel> getNotificationRead(@Field("msg_id") String messageID);
 }

@@ -133,8 +133,8 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
         C.setCompulsoryText(txt_addrLine1);
         C.setCompulsoryText(txt_country);
         C.setCompulsoryText(txt_state);
-        C.setCompulsoryText(txt_city);
-        C.setCompulsoryText(txt_area);
+        //C.setCompulsoryText(txt_city);
+        //C.setCompulsoryText(txt_area);
         C.setCompulsoryText(txt_pincode);
         C.setCompulsoryText(txt_partyReport);
         C.setCompulsoryText(txt_customerType);
@@ -363,7 +363,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 }
                 else {
                     dialog.show();
-                    loadCityData(stateList.get(position).getId());
+                    loadCityData(stateList.get(position).getId(), null);
                 }
             }
 
@@ -384,7 +384,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     showAddOtherCityDialog();
                 }
                 else {
-                    loadAreaData(cityList.get(position).getId());
+                    loadAreaData(cityList.get(position).getId(), null);
                 }
             }
 
@@ -400,8 +400,6 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 if (position != 0) {
                     if (position == areaNames.size() - 1) {
                         showAddOtherAreaDialog();
-                    } else {
-                        loadAreaData(cityList.get(position).getId());
                     }
                 }
             }
@@ -458,7 +456,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                                     if(response.body().isStatus()){
                                         Globals.Toast2(getApplicationContext(),response.body().getMessage());
                                         dialog.show();
-                                        loadCityData(stateID);
+                                        loadCityData(stateID, response.body().getNew_city_id());
                                     }
                                     else {
                                         Globals.Toast2(getApplicationContext(),response.body().getMessage());
@@ -527,7 +525,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
                             dialogB.dismiss();
                             dialog.show();
-                            final String cityID = cityList.get(spn_state.getSelectedItemPosition()).getId();
+                            final String cityID = cityList.get(spn_city.getSelectedItemPosition()).getId();
                             Call<AppModel> cityCall = adminAPI.addOtherArea(cityID, areaName);
                             cityCall.enqueue(new Callback<AppModel>() {
                                 @Override
@@ -536,7 +534,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                                     if (response.body().isStatus()) {
                                         Globals.Toast2(getApplicationContext(), response.body().getMessage());
                                         dialog.show();
-                                        loadAreaData(cityID);
+                                        loadAreaData(cityID, response.body().getNew_area_id());
                                     } else {
                                         Globals.Toast2(getApplicationContext(), response.body().getMessage());
                                     }
@@ -565,7 +563,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
         dialogB.show();
     }
 
-    private void loadCityData(String stateID) {
+    private void loadCityData(String stateID, final String cityID) {
 
         Call<AreaData> cityCall=adminAPI.getCityData(stateID);
         cityCall.enqueue(new Callback<AreaData>() {
@@ -604,6 +602,18 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     if(pos==0) isFirstTime=false;
                     spn_city.setSelection(pos);
                 }
+
+                if (cityID != null) {
+                    int pos = 0;
+                    for (int i = 0; i < cityList.size(); i++) {
+                        if (cityList.get(i).getId().equals(cityID)) {
+                            pos = i;
+                            break;
+                        }
+                    }
+                    if (pos == 0) isFirstTime = false;
+                    spn_city.setSelection(pos);
+                }
             }
 
             @Override
@@ -614,7 +624,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
         });
     }
 
-    private void loadAreaData(String cityID) {
+    private void loadAreaData(String cityID, final String areaID) {
         dialog.show();
         Call<AreaData> areaCall=adminAPI.getAreaData(cityID);
         areaCall.enqueue(new Callback<AreaData>() {
@@ -651,6 +661,18 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                         }
                     }
                     isFirstTime=false;
+                    spn_area.setSelection(pos);
+                }
+
+                if (areaID != null) {
+                    int pos = 0;
+                    for (int i = 0; i < areaList.size(); i++) {
+                        if (areaList.get(i).getId().equals(areaID)) {
+                            pos = i;
+                            break;
+                        }
+                    }
+                    isFirstTime = false;
                     spn_area.setSelection(pos);
                 }
             }
@@ -749,22 +771,22 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
 
                 if(!isValidated(edt_firmName,"Firm Name","Please Enter Firm name min of 3 letter",3,false)) return;
                 if(!isValidated(edt_addrLine1,"Address Line 1","Please Enter Address Line 1 min of 3 letter",3,false)) return;
-                /*if(spn_country.getSelectedItemPosition()==0){
+                if (spn_country.getSelectedItemPosition() == 0) {
                     Globals.Toast2(getApplicationContext(),"Please Select Country");
                     return;
                 }
                 if(spn_state.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select State");
                     return;
-                }*/
-                if(spn_city.getSelectedItemPosition()==0){
+                }
+                /*if(spn_city.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select City");
                     return;
                 }
                 if(spn_area.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select Area");
                     return;
-                }
+                }*/
                 if(!isValidated(edt_pincode,"Pincode","Please Enter Pincode of 6 Digit",6,false)) return;
                 if(!emailID.isEmpty() && !isValidated(edt_emailID,"Email ID","Please Enter Valid Email ID",0,true)) return;
                 if(!mobileNo.isEmpty() && !isValidated(edt_mobile,"Mobile No","Please Enter Valid Mobile No",10,false)) return;

@@ -54,6 +54,10 @@ public class InboxResponse extends AppModel {
             return is_read;
         }
 
+        public void setIs_read(String is_read) {
+            this.is_read = is_read;
+        }
+
         public String getCreated() {
             return created;
         }

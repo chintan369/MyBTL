@@ -15,6 +15,9 @@ public class AppModel {
 
     int total_pages=1;
 
+    String new_city_id = "0";
+    String new_area_id = "0";
+
     public boolean isStatus() {
         return status;
     }
@@ -25,5 +28,13 @@ public class AppModel {
 
     public int getTotalPage() {
         return total_pages;
+    }
+
+    public String getNew_city_id() {
+        return new_city_id;
+    }
+
+    public String getNew_area_id() {
+        return new_area_id;
     }
 }

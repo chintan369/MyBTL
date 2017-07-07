@@ -6,29 +6,37 @@
               android:background="@drawable/border_slider"
               android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/msg"
+    <LinearLayout
+        android:id="@+id/layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="center_vertical|top"
-        android:maxLines="3"
-        android:padding="5dp"
-        android:text="Notification Message"
-        android:textColor="#000"
-        android:textIsSelectable="true"
-        android:textSize="14sp"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical|right"
-        android:padding="5dp"
-        android:text="Notification Time"
-        android:textColor="#000"
-        android:textSize="14sp"
-        android:textStyle="italic"/>
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical|top"
+            android:maxLines="3"
+            android:padding="5dp"
+            android:text="Notification Message"
+            android:textColor="#000"
+            android:textIsSelectable="true"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:padding="5dp"
+            android:text="Notification Time"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
 
 </LinearLayout>
