@@ -2,13 +2,19 @@ package com.agraeta.user.btl;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
+import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
+import com.agraeta.user.btl.admin.AdminDashboard;
 
 import java.io.File;
 import java.net.URLConnection;
@@ -161,21 +167,54 @@ public class C {
         return matcher.matches();
     }
 
-    public static boolean userInActiveDialog(Activity activity) {
-        final boolean[] isPressed = {false};
+    public static void userInActiveDialog(final Activity activity) {
+        final AppPrefs prefs = new AppPrefs(activity);
+        final DatabaseHandler db = new DatabaseHandler(activity);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        String message = "<h2>Your BTL account is inactivated By Admin</h2><br/>Contact them to continue";
-        builder.setMessage(Html.fromHtml(message));
+        View view = activity.getLayoutInflater().inflate(R.layout.layout_dialog_inactive_user, null);
+        builder.setView(view);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                isPressed[0] = true;
+                if (prefs.getUserRoleId().equals(C.ADMIN) || prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || prefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+                    prefs.setSalesPersonId("");
+                    prefs.setSubSalesId("");
+                    prefs.setUserName("");
+                    Intent intent;
+                    if (prefs.getUserRoleId().equals(C.ADMIN)) {
+                        intent = new Intent(activity, AdminDashboard.class);
+                    } else if (prefs.getUserRoleId().equals(C.COMP_SALES_PERSON)) {
+                        intent = new Intent(activity, UserTypeActivity.class);
+                    } else {
+                        intent = new Intent(activity, SalesTypeActivity.class);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.startActivity(intent);
+                    activity.finish();
+                } else {
+                    prefs.setUserId("");
+                    prefs.setUser_LoginInfo("");
+                    prefs.setUser_PersonalInfo("");
+                    prefs.setUser_SocialIdInfo("");
+                    prefs.setUser_SocialFirst("");
+                    prefs.setUser_Sociallast("");
+                    prefs.setUser_Socialemail("");
+                    prefs.setUser_SocialReInfo("");
+                    prefs.setUserRoleId("");
+                    db.Delete_user_table();
+                    db.Clear_ALL_table();
+                    Intent intent = new Intent(activity, MainPage_drawer.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.startActivity(intent);
+                    activity.finish();
+                }
                 dialog.dismiss();
             }
         });
-        while (!isPressed[0]) {
-        }
-        return isPressed[0];
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Log.e("Dialog", "Created");
     }
 }

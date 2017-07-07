@@ -54,7 +54,7 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
             isForLogout=true;
             String user_id=remoteMessage.getData().get("user_id");
 
-            if(prefs.getUserId().equalsIgnoreCase(user_id)){
+            /*if(prefs.getUserId().equalsIgnoreCase(user_id)){
                 prefs.setUserId("");
                 prefs.setUser_LoginInfo("");
                 prefs.setUser_PersonalInfo("");
@@ -66,7 +66,7 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
                 prefs.setUserRoleId("");
                 db.Delete_user_table();
                 db.Clear_ALL_table();
-            }
+            }*/
         }
 
         String user_id=remoteMessage.getData().get("user_id");
