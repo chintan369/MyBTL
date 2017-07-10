@@ -330,6 +330,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:padding="5dp"
                     android:text="Group"
                     android:textColor="@color/black_000"
@@ -343,8 +344,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 

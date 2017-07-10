@@ -91,6 +91,9 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
     public void notifyUser(String title, String message){
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(this, com.agraeta.user.btl.Notification.class);
+        intent.putExtra("directNotification", true);
+        intent.putExtra("directTitle", title);
+        intent.putExtra("directMessage", message);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.btl_action);

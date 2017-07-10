@@ -147,6 +147,7 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
         btn_addToCart = (Button) findViewById(R.id.btn_addToCart);
 
         productListAdapter = new ComboProductListAdapter(comboProductList, this, this);
+        productListAdapter.setRoleID(roleID);
         list_comboOffer.setAdapter(productListAdapter);
 
         btn_addToCart.setOnClickListener(new View.OnClickListener() {

@@ -73,7 +73,7 @@ public class SchemeListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.txt_schemeTitle.setText(schemeDetailList.get(position).getScheme().getSchemeTitle());
+        holder.txt_schemeTitle.setText(schemeDetailList.get(position).getScheme().getSchemeName());
         holder.txt_schemeType.setText(schemeDetailList.get(position).getScheme().getSchemeTypeID());
         holder.txt_buyProduct.setText(schemeDetailList.get(position).getBuyProduct().getProductName()+", "+schemeDetailList.get(position).getScheme().getBuyQuantity()+" Quantity");
         holder.txt_freeProduct.setText(schemeDetailList.get(position).getGetFreeProduct().getProductName()+", "+schemeDetailList.get(position).getScheme().getGetFreeQuantity()+" Quantity");

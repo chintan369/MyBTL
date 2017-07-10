@@ -454,9 +454,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                 }
 
-
                 mLinearLayout.addView(rg);
-
 
                 dialog.show();
 
@@ -574,6 +572,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
 
         btn_pay1 = (Button) findViewById(R.id.btn_pay1);
+
+        if (appPrefs.getUserRoleId().equals(C.CUSTOMER) || appPrefs.getUserRoleId().equals(C.CARPENTER)) {
+            btn_pay1.setText("Make Payment");
+        }
+
         btn_pay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1289,17 +1292,17 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 float sellingPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
 
                 if (mrpPrice > sellingPrice) {
-                    int discount = (int) ((sellingPrice * 100) / mrpPrice);
+                    double discount = (sellingPrice * 100) / mrpPrice;
                     discount = 100 - discount;
                     if (discount >= 1) {
                         txt_discount.setVisibility(View.VISIBLE);
-                        txt_discount.setText("Discount : " + discount + " % OFF");
+                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
                     }
                 }
 
                 txt_comboName.setText(bean_cart_data.get(position).getComboData().getOfferTitle());
-                txt_mrpPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_mrp());
-                txt_sellingPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
+                txt_mrpPrice.setText(getResources().getString(R.string.Rs) + " " + bean_cart_data.get(position).getComboCart().getTotal_mrp());
+                txt_sellingPrice.setText(getResources().getString(R.string.Rs) + " " + bean_cart_data.get(position).getComboCart().getTotal_selling_price());
                 txt_totalQty.setText(bean_cart_data.get(position).getComboCart().getProductQty());
 
                 img_deleteCombo.setVisibility(View.GONE);

@@ -311,10 +311,6 @@ public class MainPage_drawer extends AppCompatActivity
                 distributorsalesMenuItem.setVisible(true);
             }
 
-            if (apps.getUserRoleId().equals(C.COMP_SALES_PERSON) && apps.getSubSalesId().equals(C.DISTRIBUTOR)) {
-                menu.findItem(R.id.menu_comboOffer).setVisible(false);
-            }
-
             MenuItem bed1MenuItem = menu.findItem(R.id.logout);
 
             bedMenuItem.setTitle("My Account");

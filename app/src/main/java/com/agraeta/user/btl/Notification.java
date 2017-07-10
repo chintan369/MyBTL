@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,9 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
     AdminAPI adminAPI;
     int currentPage = 1;
     int totalPages = 1;
+    boolean fromDirectNotification = false;
+    String directMessage = "";
+    String directTitle = "";
 
     Custom_ProgressDialog dialog;
 
@@ -71,8 +75,26 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         dialog = new Custom_ProgressDialog(this, "Please Wait...");
         dialog.setCancelable(false);
 
+        Intent intent = getIntent();
+        fromDirectNotification = intent.getBooleanExtra("directNotification", false);
+        directTitle = intent.getStringExtra("directTitle");
+        directMessage = intent.getStringExtra("directMessage");
+
+        if (fromDirectNotification) {
+            showNotificationDialog(directTitle, directMessage);
+        }
+
         setActionBar();
         fetchID();
+    }
+
+    private void showNotificationDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("CLOSE", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void fetchID() {
@@ -82,7 +104,6 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         list_notification.setAdapter(notificationAdapter);
 
         adminAPI = ServiceGenerator.getAPIServiceClass();
-
 
         dialog.show();
 

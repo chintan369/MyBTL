@@ -58,6 +58,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -1250,17 +1251,17 @@ public class BTL_Cart extends AppCompatActivity {
                 float sellingPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
 
                 if (mrpPrice > sellingPrice) {
-                    int discount = (int) ((sellingPrice * 100) / mrpPrice);
+                    double discount = (sellingPrice * 100) / mrpPrice;
                     discount = 100 - discount;
                     if (discount >= 1) {
                         txt_discount.setVisibility(View.VISIBLE);
-                        txt_discount.setText("Discount : " + discount + " % OFF");
+                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
                     }
                 }
 
                 txt_comboName.setText(bean_cart_data.get(position).getComboData().getOfferTitle());
-                txt_mrpPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_mrp());
-                txt_sellingPrice.setText(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
+                txt_mrpPrice.setText(getResources().getString(R.string.Rs) + " " + bean_cart_data.get(position).getComboCart().getTotal_mrp());
+                txt_sellingPrice.setText(getResources().getString(R.string.Rs) + " " + bean_cart_data.get(position).getComboCart().getTotal_selling_price());
                 txt_totalQty.setText(bean_cart_data.get(position).getComboCart().getProductQty());
 
                 img_editCombo.setOnClickListener(new View.OnClickListener() {
@@ -2947,7 +2948,7 @@ public class BTL_Cart extends AppCompatActivity {
                         btn_deleteAll.setVisibility(View.GONE);
                         setdata();
 
-                        if (quotationID.isEmpty()) {
+                        if (quotationID.isEmpty() || (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR))) {
                             my_quotation.setVisibility(View.GONE);
                         }
 
@@ -3005,7 +3006,10 @@ public class BTL_Cart extends AppCompatActivity {
                             my_quotation.setVisibility(View.GONE);
                         }
                         else {
-                            my_quotation.setVisibility(View.VISIBLE);
+
+                            if (!(appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR))) {
+                                my_quotation.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         Gson gson = new Gson();

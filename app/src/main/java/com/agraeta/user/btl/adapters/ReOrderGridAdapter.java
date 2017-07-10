@@ -67,7 +67,7 @@ public class ReOrderGridAdapter extends BaseAdapter {
 
         View view=inflater.inflate(R.layout.layout_reorder_item,parent,false);
 
-        final TextView txt_productCode, txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_discountLabel, txt_discountName, txt_mrpLabel;
+        final TextView txt_productCode, txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_schemeLabel, txt_discountName, txt_mrpLabel;
         final EditText edt_qty;
         ImageView img_plus,img_minus,img_offer;
 
@@ -81,7 +81,7 @@ public class ReOrderGridAdapter extends BaseAdapter {
         txt_optionName=(TextView) view.findViewById(R.id.txt_optionName);
         txt_optionSeperator=(TextView) view.findViewById(R.id.txt_optionSeperator);
         txt_optionValue=(TextView) view.findViewById(R.id.txt_optionValue);
-        txt_discountLabel=(TextView) view.findViewById(R.id.txt_discountLabel);
+        txt_schemeLabel = (TextView) view.findViewById(R.id.txt_schemeLabel);
         txt_discountName=(TextView) view.findViewById(R.id.txt_discountName);
 
         txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -243,6 +243,26 @@ public class ReOrderGridAdapter extends BaseAdapter {
                 txt_totalPrice.setText(context.getString(R.string.ruppe_name)+" "+totalPriceString);
 
                 productList.get(position).setPro_qty(enteredQty);
+
+                int schemeSelectedPosition = -1;
+
+                for (int i = 0; i < productList.get(position).getSchemeList().size(); i++) {
+                    int schemeQty = Integer.parseInt(productList.get(position).getSchemeList().get(i).getSchme_qty());
+
+
+                    if (qty < schemeQty) {
+                        schemeSelectedPosition = i;
+                        break;
+                    } else {
+                        schemeSelectedPosition = productList.get(position).getSchemeList().size() - 1;
+                    }
+                }
+
+                if (productList.get(position).getSchemeList().size() > 0 && schemeSelectedPosition >= 0) {
+                    txt_schemeLabel.setText(productList.get(position).getSchemeList().get(schemeSelectedPosition).getSchme_name());
+                } else {
+                    txt_schemeLabel.setText("");
+                }
 
             }
         });
