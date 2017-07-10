@@ -147,6 +147,26 @@ public class ReOrderGridAdapter extends BaseAdapter {
 
         txt_totalPrice.setText(context.getString(R.string.ruppe_name)+" "+totalPriceString);
 
+        int schemeSelectedPosition = -1;
+
+        for (int i = 0; i < productList.get(position).getSchemeList().size(); i++) {
+            int schemeQty = Integer.parseInt(productList.get(position).getSchemeList().get(i).getSchme_qty());
+            int qty = Integer.parseInt(productList.get(position).getPro_qty());
+
+            if (qty < schemeQty) {
+                schemeSelectedPosition = i;
+                break;
+            } else {
+                schemeSelectedPosition = productList.get(position).getSchemeList().size() - 1;
+            }
+        }
+
+        if (productList.get(position).getSchemeList().size() > 0 && schemeSelectedPosition >= 0) {
+            txt_schemeLabel.setText(productList.get(position).getSchemeList().get(schemeSelectedPosition).getSchme_name());
+        } else {
+            txt_schemeLabel.setText("");
+        }
+
         img_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
