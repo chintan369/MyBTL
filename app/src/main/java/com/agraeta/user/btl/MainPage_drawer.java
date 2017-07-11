@@ -721,7 +721,7 @@ public class MainPage_drawer extends AppCompatActivity
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(
                     MainPage_drawer.this);
             // Setting Dialog Title
-            alertDialog.setTitle("Log Out application?");
+            alertDialog.setTitle("Log out application?");
             // Setting Dialog Message
             alertDialog
                     .setMessage("Are you sure you want to log out?");

@@ -207,11 +207,6 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
         edt_emailID.setEnabled(false);
         edt_mobile.setEnabled(false);
 
-        spn_country.setEnabled(false);
-        spn_state.setEnabled(false);
-        spn_city.setEnabled(false);
-        spn_area.setEnabled(false);
-
         edt_firmName.setText(firmName);
 
         if(isInEditMode){
@@ -243,6 +238,11 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
         spn_city = (Spinner) findViewById(R.id.spn_city);
         spn_area = (Spinner) findViewById(R.id.spn_area);
         spn_skipReason = (Spinner) findViewById(R.id.spn_skipReason);
+
+        spn_country.setEnabled(false);
+        spn_state.setEnabled(false);
+        spn_city.setEnabled(false);
+        spn_area.setEnabled(false);
 
         countryAdapter=new ArrayAdapter<String>(getApplicationContext(),R.layout.textview,countryNames);
         stateAdapter=new ArrayAdapter<String>(getApplicationContext(),R.layout.textview,stateNames);

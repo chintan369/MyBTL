@@ -2948,7 +2948,11 @@ public class BTL_Cart extends AppCompatActivity {
                         btn_deleteAll.setVisibility(View.GONE);
                         setdata();
 
-                        if (quotationID.isEmpty() || (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR))) {
+                        if (quotationID.isEmpty()) {
+                            my_quotation.setVisibility(View.GONE);
+                        }
+
+                        if (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && appPrefs.getSubSalesId().equals(C.DISTRIBUTOR)) {
                             my_quotation.setVisibility(View.GONE);
                         }
 
@@ -3007,7 +3011,7 @@ public class BTL_Cart extends AppCompatActivity {
                         }
                         else {
 
-                            if (!(appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR))) {
+                            if (!(appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && appPrefs.getSubSalesId().equals(C.DISTRIBUTOR))) {
                                 my_quotation.setVisibility(View.VISIBLE);
                             }
                         }

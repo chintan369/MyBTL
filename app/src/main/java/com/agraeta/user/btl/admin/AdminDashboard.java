@@ -414,8 +414,8 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
 
     private void logout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Logout");
-        builder.setMessage("Logout from Application?");
+        builder.setTitle("Log out");
+        builder.setMessage("Log out from Application?");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
