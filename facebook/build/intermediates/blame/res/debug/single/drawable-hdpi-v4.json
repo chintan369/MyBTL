@@ -1,13 +1,5 @@
 [
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_close.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_close.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_topnub.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_topnub.png"
-    },
-    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_white.png"
     },
@@ -16,12 +8,16 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_xout.png"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_bottomnub.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_bottomnub.png"
-    },
-    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_icon_blue.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_icon_blue.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_bottomnub.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_bottomnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_large_white.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_bubble_large_white.png"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_xout.png",
@@ -30,6 +26,62 @@
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_button_send_round_shadow.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_button_send_round_shadow.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_topnub.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_topnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_small_white.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_bubble_small_white.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_background.9.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_background.9.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_send_icon_blue.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_blue.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_background.9.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_background.9.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_small_blue.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_bubble_small_blue.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_icon_white.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_icon_white.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_white.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_icon_blue.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_icon_blue.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_close.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_close.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_xout.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_xout.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_topnub.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_topnub.png"
+    },
+    {
+        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_bottomnub.png",
+        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_bottomnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_xout.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_xout.png"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_small_blue.png",
@@ -52,8 +104,12 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_send_icon_blue.png"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_background.9.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_background.9.png"
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_bottomnub.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_bottomnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_large_blue.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_bubble_large_blue.png"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_like_icon_selected.png",
@@ -68,6 +124,14 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_topnub.png"
     },
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_blue_background.9.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_blue_background.9.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_button_send_round_shadow.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_button_send_round_shadow.png"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\messenger_bubble_large_blue.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\messenger_bubble_large_blue.png"
     },
@@ -76,7 +140,23 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_favicon_white.png"
     },
     {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_close.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_close.png"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_bottomnub.png",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_bottomnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_tooltip_black_topnub.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_tooltip_black_topnub.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_favicon_white.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_favicon_white.png"
+    },
+    {
+        "merged": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\com_facebook_button_like_icon_selected.png",
+        "source": "D:\\Android_Studio_Projects\\MyBTL\\facebook\\src\\main\\res\\drawable-hdpi\\com_facebook_button_like_icon_selected.png"
     }
 ]
