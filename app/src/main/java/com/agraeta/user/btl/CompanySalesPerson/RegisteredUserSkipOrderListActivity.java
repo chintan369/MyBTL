@@ -50,6 +50,7 @@ public class RegisteredUserSkipOrderListActivity extends AppCompatActivity {
 
         setActionBar();
         fetchIDs();
+
     }
 
     private void fetchIDs() {

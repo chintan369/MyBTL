@@ -1,5 +1,29 @@
 [
     {
+        "outputFile": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-in\\values-in.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\bundles\\debug\\res\\values-in\\values-in.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-in\\values-in.xml",
         "map": [
             {

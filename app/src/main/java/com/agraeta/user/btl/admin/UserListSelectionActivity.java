@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -85,14 +86,18 @@ public class UserListSelectionActivity extends AppCompatActivity {
                     Intent intent=new Intent(getApplicationContext(),UsersListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("roleID",usersRoleID.get(position));
+                    Log.e("roleID",""+usersRoleID.get(position));
                     intent.putExtra("roleName",usersRoleName.get(position));
+                    Log.e("roleName",""+usersRoleName.get(position));
                     startActivity(intent);
                 }
                 else {
                     Intent intent=new Intent(getApplicationContext(),UserOrderListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("roleID",usersRoleID.get(position));
+                    Log.e("roleID",""+usersRoleID.get(position));
                     intent.putExtra("roleName",usersRoleName.get(position));
+                    Log.e("roleName",""+usersRoleName.get(position));
                     startActivity(intent);
                 }
             }

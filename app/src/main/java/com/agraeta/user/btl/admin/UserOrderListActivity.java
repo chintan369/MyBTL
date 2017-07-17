@@ -146,13 +146,15 @@ public class UserOrderListActivity extends AppCompatActivity implements Callback
         OrderData orderData=response.body();
 
         if(orderData.isStatus()){
-            page++;
+
             int maxPage = orderData.getTotalPage();
 
             orderListItems.addAll(orderData.getOrderList());
             orderListAdapter.notifyDataSetChanged();
 
-            if(page<maxPage){
+            if(page<maxPage)
+            {
+                page++;
                 if(isSpecificUser) orderDataCall=adminAPI.orderData(userID,roleID,page);
                 else orderDataCall=adminAPI.orderData(null,roleID,page);
 

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_activity_layout.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_activity_layout.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_large.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_large.xml"
     },
@@ -12,12 +16,20 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_large.xml"
     },
     {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_large.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_device_auth_dialog_fragment.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\com_facebook_device_auth_dialog_fragment.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_round.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_round.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_round.xml"
     },
     {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_activity_layout.xml",
@@ -36,11 +48,43 @@
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\activity_maps.xml"
     },
     {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_device_auth_dialog_fragment.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_device_auth_dialog_fragment.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_login_fragment.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\com_facebook_login_fragment.xml"
     },
     {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_login_fragment.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_small.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_small.xml"
+    },
+    {
         "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_round.xml",
         "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_large.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\com_facebook_tooltip_bubble.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_white_round.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\messenger_button_send_blue_small.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\layout\\activity_maps.xml",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\layout\\activity_maps.xml"
     }
 ]

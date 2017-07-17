@@ -231,7 +231,8 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     if(pos==0) isFirstTime=false;
                     spn_country.setSelection(pos);
                 } else if (!isInEditMode && isFirstTime) {
-                    if (countryList.size() > 0) {
+                    if (countryList.size() > 0)
+                    {
                         spn_country.setSelection(1);
                     }
                 }
@@ -476,8 +477,10 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         dialogB.dismiss();
                         spn_city.setSelection(0);
+
                     }
                 });
             }
@@ -554,7 +557,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         dialogB.dismiss();
-                        spn_city.setSelection(0);
+                        //spn_city.setSelection(0);
                     }
                 });
             }

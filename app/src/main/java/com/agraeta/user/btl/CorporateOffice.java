@@ -129,7 +129,12 @@ public class CorporateOffice extends Fragment {
                 } else if (validateEmail1(e_email.getText().toString()) != true) {
                     // Toast.makeText(Business_Registration.this,"Please enter valid email address",Toast.LENGTH_LONG).show();
                     Globals.CustomToast(getActivity(), "Please enter a valid email address", getActivity().getLayoutInflater());
-                } else {
+                }
+                else if (e_msg.getText().toString().trim().equalsIgnoreCase("")) {
+                    // Toast.makeText(Business_Registration.this,"Please enter valid email address",Toast.LENGTH_LONG).show();
+                    Globals.CustomToast(getActivity(), "Please enter message", getActivity().getLayoutInflater());
+                }
+                else {
 
                     s_fname = e_fname.getText().toString().trim();
                     s_lname = e_lname.getText().toString().trim();

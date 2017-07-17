@@ -124,7 +124,7 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         UserList userResponse = response.body();
 
         if (userResponse.isStatus()) {
-            page++;
+
             int maxPage = userResponse.getTotalPage();
 
             //Log.e("totalPageCount","maxPage="+maxPage);
@@ -137,6 +137,7 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
             userListAdapter.notifyDataSetChanged();
 
             if (page <= maxPage) {
+                page++;
                 userListCallback = adminAPI.userList(null,roleID, page);
                 userListCallback.enqueue(this);
                 list_users.addFooterView(footerLoadingView);

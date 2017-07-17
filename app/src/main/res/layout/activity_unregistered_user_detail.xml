@@ -57,7 +57,7 @@
                     android:minHeight="40dp"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:text="Address 1"
+                    android:text="Address Line 1"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
 
@@ -84,7 +84,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Address 2"
+                    android:text="Address Line 2"
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
@@ -112,7 +112,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Address 3"
+                    android:text="Address Line 3"
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
@@ -280,7 +280,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Contact Person"
+                    android:text="Contact Person Name"
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
@@ -308,7 +308,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Email ID"
+                    android:text="Email"
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
@@ -336,7 +336,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Mobile"
+                    android:text="Mobile No"
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>
@@ -364,7 +364,7 @@
                     android:layout_height="match_parent"
                     android:minHeight="40dp"
                     android:textColor="@color/black_000"
-                    android:text="Party Report"
+                    android:text="Party Report / Market Ref."
                     android:padding="5dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"/>

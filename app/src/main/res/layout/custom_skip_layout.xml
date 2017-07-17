@@ -40,6 +40,16 @@
                 android:textSize="14sp"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date : "
+                android:id="@+id/txt_date"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:textSize="14sp"
+                />
+
 
 
         </LinearLayout>
