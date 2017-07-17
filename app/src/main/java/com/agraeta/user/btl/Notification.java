@@ -1,5 +1,6 @@
 package com.agraeta.user.btl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -92,7 +93,12 @@ public class Notification extends AppCompatActivity implements Callback<InboxRes
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("CLOSE", null);
+        builder.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
