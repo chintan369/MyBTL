@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    tools:context="com.agraeta.user.btl.CorporateOffice">1
+    tools:context="com.agraeta.user.btl.CorporateOffice">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -129,14 +130,12 @@
     android:orientation="vertical">
             <TextView
                 android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="16sp"
 
-                android:text="First Name "
-                android:drawableRight="@drawable/star"
-                />
+                android:text="First Name "/>
             <EditText
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -149,11 +148,11 @@
 
             <TextView
                 android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:drawableRight="@drawable/star"
+
                 android:text="Last Name "/>
             <EditText
                 android:layout_marginTop="5dp"
@@ -167,11 +166,11 @@
 
             <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/star"
+
                 android:text="Email"
                 android:textSize="16sp"/>
             <EditText
@@ -185,11 +184,10 @@
                 android:background="@drawable/border_slider"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Mobile No."
-                android:drawableRight="@drawable/star"
                 android:textSize="16sp"
                 android:layout_marginTop="5dp"/>
             <EditText
@@ -207,11 +205,11 @@
 
             <TextView
                 android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="16sp"
-                android:drawableRight="@drawable/star"
+
                 android:text="Message "/>
     <EditText
         android:id="@+id/etmessage_corpo_offi"
@@ -258,5 +256,4 @@
         </LinearLayout>
 
     </ScrollView>
-
 </LinearLayout>
