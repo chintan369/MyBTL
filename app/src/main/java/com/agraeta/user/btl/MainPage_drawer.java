@@ -327,6 +327,7 @@ public class MainPage_drawer extends AppCompatActivity
                 menu.findItem(R.id.becomeDealer).setVisible(false);
                 menu.findItem(R.id.contact).setVisible(false);
                 menu.findItem(R.id.menu_communicate).setVisible(false);
+                menu.findItem(R.id.menu_gst).setVisible(false);
             }
 
             bed1MenuItem.setVisible(true);

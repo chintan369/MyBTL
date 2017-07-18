@@ -1,13 +1,5 @@
 [
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_icon_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_icon_white.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_send_icon_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_send_icon_white.png"
-    },
-    {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_small_blue.png",
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_small_blue.png"
     },
@@ -18,10 +10,6 @@
     {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_button_send_round_shadow.png",
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_button_send_round_shadow.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_large_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_large_white.png"
     },
     {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_large_white.png",
@@ -36,28 +24,8 @@
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_send_icon_white.png"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_icon_blue.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_icon_blue.png"
-    },
-    {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_small_white.png",
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_small_white.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_button_send_round_shadow.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_button_send_round_shadow.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_small_blue.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_small_blue.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_like_icon_selected.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_like_icon_selected.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_large_blue.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_large_blue.png"
     },
     {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_icon_blue.png",
@@ -68,15 +36,7 @@
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_favicon_white.png"
     },
     {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_favicon_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_favicon_white.png"
-    },
-    {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\com_facebook_button_icon_white.png",
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xxhdpi\\com_facebook_button_icon_white.png"
-    },
-    {
-        "merged": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi-v4\\messenger_bubble_small_white.png",
-        "source": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\drawable-xxhdpi\\messenger_bubble_small_white.png"
     }
 ]

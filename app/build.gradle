@@ -50,13 +50,12 @@ android {
     }
 
     dexOptions {
-        incremental true;
 //        preDexLibraries = false
 //        javaMaxHeapSize "4G" // 2g should be also OK
 
-        /* incremental true
+        incremental true
         preDexLibraries false
-        javaMaxHeapSize "2G" */// 2g should be also OK
+        javaMaxHeapSize "4G" // 2g should be also OK
 
 //        javaMaxHeapSize "2048M"
     }

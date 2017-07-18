@@ -90,12 +90,14 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void notifyUser(String title, String message){
+        int notificationID=new Random(2).nextInt();
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(this, SingleNotificationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("directNotification", true);
         intent.putExtra("directTitle", title);
         intent.putExtra("directMessage", message);
+        intent.putExtra("notiID",notificationID);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.btl_action);
@@ -114,9 +116,8 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
                 .build();
 
         mNotification.flags += Notification.FLAG_AUTO_CANCEL;
-        mNotification.flags += Notification.FLAG_NO_CLEAR;
         mNotification.flags += Notification.FLAG_SHOW_LIGHTS;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(new Random(2).nextInt(), mNotification);
+        notificationManager.notify(notificationID, mNotification);
     }
 }

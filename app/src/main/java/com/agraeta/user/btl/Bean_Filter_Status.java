@@ -31,4 +31,5 @@ public class Bean_Filter_Status {
     public void setFilter_name(String filter_name) {
         this.filter_name = filter_name;
     }
+
 }

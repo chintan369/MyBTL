@@ -118,14 +118,24 @@ public class Thankyou_Page extends AppCompatActivity {
 
             }
         }
-        if(role_id.equalsIgnoreCase(C.CUSTOMER) || role_id.equalsIgnoreCase(C.CARPENTER)){
+        if(role_id.equalsIgnoreCase(C.CUSTOMER) || role_id.equalsIgnoreCase(C.CARPENTER) || role_id.equalsIgnoreCase(C.THIRD_TIER_RETAILER) || role_id.equalsIgnoreCase(C.DISTRIBUTOR_PROFESSIONAL)){
             bank_detail.setVisibility(View.GONE);
         }else{
             if (mainRole.equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR)) {
                 txt_thankMessage.setVisibility(View.GONE);
             }
-            bank_detail.setVisibility(View.VISIBLE);
-            new GetBankInformation().execute();
+
+            if((mainRole.equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR_PROFESSIONAL)) || (mainRole.equals(C.COMP_SALES_PERSON) && role_id.equals(C.THIRD_TIER_RETAILER)) ||
+                    (mainRole.equals(C.DISTRIBUTOR_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR_PROFESSIONAL)) || (mainRole.equals(C.DISTRIBUTOR_SALES_PERSON) && role_id.equals(C.THIRD_TIER_RETAILER)))
+            {
+                bank_detail.setVisibility(View.GONE);
+            }
+            else {
+                bank_detail.setVisibility(View.VISIBLE);
+                new GetBankInformation().execute();
+            }
+
+
         }
 
     }

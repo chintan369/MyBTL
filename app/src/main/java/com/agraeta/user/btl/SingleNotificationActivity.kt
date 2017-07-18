@@ -1,5 +1,6 @@
 package com.agraeta.user.btl
 
+import android.app.PendingIntent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +13,9 @@ class SingleNotificationActivity : AppCompatActivity() {
 
         val directMessage: String = intent.getStringExtra("directMessage")
         val directTitle: String = intent.getStringExtra("directTitle")
+        val notificationID: Int = intent.getIntExtra("notiID",0)
+
+
 
         showNotificationDialog(directTitle, directMessage)
     }
@@ -20,6 +24,7 @@ class SingleNotificationActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(directTitle)
         builder.setMessage(directMessage)
+
         builder.setPositiveButton("CLOSE") { dialog, _ ->
             onBackPressed()
         }
