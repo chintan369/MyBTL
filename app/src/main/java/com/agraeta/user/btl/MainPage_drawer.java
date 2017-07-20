@@ -863,6 +863,7 @@ public class MainPage_drawer extends AppCompatActivity
         } else if (id == R.id.bulkEnquiry) {
             Intent intent = new Intent(getApplicationContext(), BulkEnquiryActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //intent.putExtra("flag","1");
             startActivity(intent);
         }
 

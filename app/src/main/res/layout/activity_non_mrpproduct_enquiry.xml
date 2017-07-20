@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Product Enquiry"
+                android:text="Enquiry"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 

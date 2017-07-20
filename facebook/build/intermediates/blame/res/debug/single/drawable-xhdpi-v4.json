@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\com_facebook_favicon_white.png",
-        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xhdpi\\com_facebook_favicon_white.png"
-    },
-    {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\com_facebook_tooltip_black_background.9.png",
         "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xhdpi\\com_facebook_tooltip_black_background.9.png"
+    },
+    {
+        "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\com_facebook_favicon_white.png",
+        "source": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\drawable-xhdpi\\com_facebook_favicon_white.png"
     },
     {
         "merged": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\messenger_button_send_round_shadow.png",

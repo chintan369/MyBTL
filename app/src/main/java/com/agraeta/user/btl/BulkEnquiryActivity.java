@@ -1,5 +1,6 @@
 package com.agraeta.user.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,12 +10,15 @@ import android.widget.TextView;
 
 public class BulkEnquiryActivity extends AppCompatActivity {
 
-    TextView txt;
+    TextView txt,titletext;
+    String string="";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bulk_enquiry);
+
 
         setActionBar();
     }
@@ -39,6 +43,9 @@ public class BulkEnquiryActivity extends AppCompatActivity {
         frame.setVisibility(View.GONE);
         img_notification.setVisibility(View.GONE);
         txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
+        titletext = (TextView) mCustomView.findViewById(R.id.txt_title);
+
+        titletext.setText("Bulk Order Enquiry");
 
         img_cart.setVisibility(View.GONE);
         img_home.setVisibility(View.GONE);

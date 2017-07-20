@@ -42,6 +42,11 @@
             android:title="Categories" />
 
         <item
+            android:id="@+id/menu_gst"
+            android:icon="@drawable/gst_128"
+            android:title="GST Information"/>
+
+        <item
             android:id="@+id/menu_comboOffer"
             android:icon="@drawable/combo_offer"
             android:theme="@style/textfont_theme"
@@ -84,10 +89,7 @@
               android:theme="@style/textfont_theme"
               android:title="Become A Dealer"/>
 
-        <item
-            android:id="@+id/menu_gst"
-            android:icon="@drawable/gst_128"
-            android:title="GST Information"/>
+
 
         <!-- <item
              android:id="@+id/career"
