@@ -746,13 +746,16 @@ public class Btl_WishList extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Edit_Product().execute();
+
 
                             } else {
-
-                                new Add_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product().execute();
+
                             }
 
 
@@ -861,13 +864,17 @@ public class Btl_WishList extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Edit_Product().execute();
+
 
                             } else {
 
-                                new Add_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product().execute();
+
                             }
 
                         } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -944,13 +951,16 @@ public class Btl_WishList extends AppCompatActivity {
 
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
-
-                                new Edit_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Edit_Product().execute();
+
                             } else {
 
-                                new Add_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product().execute();
+
                             }
                         }
                     }
@@ -962,6 +972,7 @@ public class Btl_WishList extends AppCompatActivity {
 
                 }
                 dialogOffer.dismiss();
+                dialog.dismiss();
                 return true;
             }
         });

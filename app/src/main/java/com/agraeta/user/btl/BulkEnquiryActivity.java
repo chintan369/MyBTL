@@ -43,10 +43,10 @@ public class BulkEnquiryActivity extends AppCompatActivity {
         frame.setVisibility(View.GONE);
         img_notification.setVisibility(View.GONE);
         txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
-        titletext = (TextView) mCustomView.findViewById(R.id.txt_title);
+        /*titletext = (TextView) mCustomView.findViewById(R.id.txt_title);
 
         titletext.setText("Bulk Order Enquiry");
-
+*/
         img_cart.setVisibility(View.GONE);
         img_home.setVisibility(View.GONE);
         txt.setVisibility(View.GONE);

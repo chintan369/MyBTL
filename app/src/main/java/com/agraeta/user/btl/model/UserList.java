@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserList {
     @SerializedName("status")
-    boolean status;
+    boolean status = true;
 
     @SerializedName("message")
     String message;

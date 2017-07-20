@@ -34,8 +34,8 @@ import static com.agraeta.user.btl.Globals.showError;
 
 public class UsersListActivity extends AppCompatActivity implements Callback<UserList> {
 
-    private ListView list_users;
     private final List<User> userList = new ArrayList<>();
+    private ListView list_users;
     private UserListAdapter userListAdapter;
 
     private String roleID = "";
@@ -114,6 +114,10 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         adminAPI = retrofit.create(AdminAPI.class);
 
         userListCallback = adminAPI.userList(null,roleID, page);
+
+        Log.e("roleId", roleID);
+        Log.e("page", "" + page);
+
         userListCallback.enqueue(this);
     }
 
@@ -123,7 +127,10 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         list_users.removeFooterView(footerLoadingView);
         UserList userResponse = response.body();
 
-        if (userResponse.isStatus()) {
+
+        if (userResponse.isStatus() == true) {
+
+            Log.e("status", "" + userResponse.isStatus());
 
             int maxPage = userResponse.getTotalPage();
 
@@ -137,6 +144,8 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
             userListAdapter.notifyDataSetChanged();
 
             if (page <= maxPage) {
+
+
                 page++;
                 userListCallback = adminAPI.userList(null,roleID, page);
                 userListCallback.enqueue(this);
@@ -153,6 +162,7 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         list_users.removeFooterView(footerLoadingView);
 
         showError(t, getApplicationContext());
+
 
         Log.e("ERROR", t.getMessage());
     }

@@ -1086,7 +1086,7 @@ public class Search extends AppCompatActivity {
 
     private void showOfferDialog(final int position,String selecetdProductID) {
 
-
+        Log.e("buyNow", "buynow");
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
@@ -1145,17 +1145,17 @@ public class Search extends AppCompatActivity {
         }
 
         if(extraSpecialScheme.size()>0){
-            schemeHeaders.add("Extra Special Schemes");
+            schemeHeaders.add("App Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
         }
 
         if(specialScheme.size()>0){
-            schemeHeaders.add("Special Schemes");
+            schemeHeaders.add("Special Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
         }
 
         if(generalScheme.size()>0){
-            schemeHeaders.add("General Schemes");
+            schemeHeaders.add("Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
         }
 
@@ -1166,11 +1166,17 @@ public class Search extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
+
+                Log.e("buyNow", "buynow");
                 setRefershData();
 
                 String selectedSchemeID=((Bean_schemeData)schemeAdapter.getChild(groupPosition,childPosition)).getSchme_id();
 
                 if (user_data.size() != 0) {
+
+
+                    Log.e("test", "test");
+
                     for (int i = 0; i < user_data.size(); i++) {
 
                         owner_id = user_data.get(i).getUser_id();
@@ -1230,7 +1236,7 @@ public class Search extends AppCompatActivity {
 
                                 qun = "1";
                                 kkk = 0;
-                                //Log.e("131313131331","1");
+                                Log.e("131313131331", "1");
 
                                 // loadingView.dismiss();
                             } else {
@@ -1311,7 +1317,7 @@ public class Search extends AppCompatActivity {
                                 bean_product_schme.clear();
                                 bean_schme.clear();
                                 bean_Oprtions.clear();
-                                //Log.e("11111111",""+product_id);
+                                Log.e("12111111", "" + product_id);
                                 //   Globals.CustomToast(Product_List.this, "" + Message, getLayoutInflater());
                                 // loadingView.dismiss();
                             } else {
@@ -1322,7 +1328,7 @@ public class Search extends AppCompatActivity {
                                 bean_schme.clear();
                                 bean_Oprtions.clear();
                                 JSONObject jsonArray = jObj.getJSONObject("data");
-                                //Log.e("3333333333",""+product_id);
+                                Log.e("3333333333", "" + product_id);
                                 //   for (int i = 0; i < jsonArray.length(); i++) {
                                 // JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 JSONObject jschme = jsonArray.getJSONObject("Scheme");
@@ -1400,7 +1406,7 @@ public class Search extends AppCompatActivity {
                                 bean_sc.setType_id(jschme.getString("type_id"));
                                 bean_sc.setScheme_name(jschme.getString("scheme_name"));
                                 bean_sc.setScheme_id(jschme.getString("id"));
-                                //Log.e("Type ID11111 : ",""+jschme.getString("type_id"));
+                                Log.e("Type ID11111 : ", "" + jschme.getString("type_id"));
                                 bean_schme.add(bean_sc);
                                 //   loadingView.dismiss();
 
@@ -1507,16 +1513,26 @@ public class Search extends AppCompatActivity {
                             }
                             array_value.clear();
 
-                            Log.e("kkkkkkk", "" + kkk);
+
                             if (kkk == 1) {
 
-                                new Edit_Product().execute();
+
+                                dialog.dismiss();
                                 dialogOffer.dismiss();
+                                Log.e("kkkkkkk", "" + kkk);
+                                new Edit_Product().execute();
+
+
 
                             } else {
 
-                                new Add_Product().execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                Log.e("kkkkkkk2", "" + kkk);
+
+                                new Add_Product().execute();
+
+
                             }
 
 
@@ -1626,12 +1642,16 @@ public class Search extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product().execute();
+                                dialog.dismiss();
                                 dialogOffer.dismiss();
+                                new Edit_Product().execute();
+
                             } else {
 
-                                new Add_Product().execute();
+                                dialog.dismiss();
                                 dialogOffer.dismiss();
+                                new Add_Product().execute();
+
                             }
 
                         } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("3")) {
@@ -1713,17 +1733,25 @@ public class Search extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product().execute();
+                                dialog.dismiss();
                                 dialogOffer.dismiss();
+                                Log.e("edit ", "edit");
+                                new Edit_Product().execute();
+
                             } else {
 
-                                new Add_Product().execute();
+                                dialog.dismiss();
                                 dialogOffer.dismiss();
+                                Log.e("add ", "add");
+
+                                new Add_Product().execute();
+
                             }
                         }
                     }
 
                 } else {
+                    dialog.dismiss();
                     dialogOffer.dismiss();
                     Globals.CustomToast(Search.this, "Please Login First", getLayoutInflater());
                     user_id_main = "";
@@ -2507,6 +2535,9 @@ public class Search extends AppCompatActivity {
                 //Log.e("", "" + parameters);
 
 
+                Log.e("paramerters", "" + parameters);
+
+
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "Product/App_Get_Search_ProductList", ServiceHandler.POST, parameters);
 
                 //System.out.println("array: " + json);
@@ -2639,6 +2670,8 @@ public class Search extends AppCompatActivity {
                                     a.add(jProductScheme.getString("scheme_name"));
                                     //Log.e("A2222222",""+jProductScheme.getString("scheme_name"));
                                     sa += jProductScheme.getString("scheme_name").toString() + "\n";
+
+                                    Log.e("name", "" + jProductScheme.getString("scheme_name"));
                                     bean.setSchemea(a);
                                 }
 
@@ -3452,6 +3485,9 @@ public class Search extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
+
+                    Log.e("buyNow", "buynow");
+
                     setRefershData();
 
                     final String[] selectedProductID={bean_product1.get(position).getPro_id()};
@@ -3562,6 +3598,10 @@ public class Search extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 showOfferDialog(position,selectedProductID[0]);
+
+
+                                Log.e("position", "" + position);
+                                Log.e("selectProductID", "" + selectedProductID[0]);
                             }
                         });
 
@@ -5239,17 +5279,17 @@ public class Search extends AppCompatActivity {
                     }
 
                     if(extraSpecialScheme.size()>0){
-                        schemeHeaders.add("Extra Special Schemes");
+                        schemeHeaders.add("App Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),extraSpecialScheme);
                     }
 
                     if(specialScheme.size()>0){
-                        schemeHeaders.add("Special Schemes");
+                        schemeHeaders.add("Special Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),specialScheme);
                     }
 
                     if(generalScheme.size()>0){
-                        schemeHeaders.add("General Schemes");
+                        schemeHeaders.add("Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size()-1),generalScheme);
                     }
 
@@ -5604,13 +5644,18 @@ public class Search extends AppCompatActivity {
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
-                                            new Edit_Product().execute();
+                                            dialog.dismiss();
                                             dialogOffer.dismiss();
+
+                                            new Edit_Product().execute();
+
 
                                         } else {
+                                            dialog.dismiss();
+                                            dialogOffer.dismiss();
 
                                             new Add_Product().execute();
-                                            dialogOffer.dismiss();
+
                                         }
 
 
@@ -5719,12 +5764,19 @@ public class Search extends AppCompatActivity {
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
-                                            new Edit_Product().execute();
+
+                                            dialog.dismiss();
                                             dialogOffer.dismiss();
+
+                                            new Edit_Product().execute();
+
                                         } else {
 
-                                            new Add_Product().execute();
+                                            dialog.dismiss();
                                             dialogOffer.dismiss();
+
+                                            new Add_Product().execute();
+
                                         }
 
                                     } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("3")) {
@@ -5806,12 +5858,19 @@ public class Search extends AppCompatActivity {
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
 
-                                            new Edit_Product().execute();
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+
+                                            Log.e("edit", "edit");
+                                            new Edit_Product().execute();
+
                                         } else {
 
-                                            new Add_Product().execute();
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+                                            Log.e("add", "add");
+                                            new Add_Product().execute();
+
                                         }
                                     }
                                 }
@@ -6567,6 +6626,7 @@ public class Search extends AppCompatActivity {
                         //bean_productOprtions.clear();
 
                         loadingView.dismiss();
+
                         GetCartQtyCall();
                         /*Intent i = new Intent(Search.this, Search.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

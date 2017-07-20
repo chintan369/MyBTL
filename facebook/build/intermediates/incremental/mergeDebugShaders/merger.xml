@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\NIVIDA-APPS\MyBTL\facebook\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\NIVIDA-APPS\MyBTL\facebook\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Eclipse To Android Studio\Spyran\MyBTL\facebook\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\Eclipse To Android Studio\Spyran\MyBTL\facebook\src\debug\shaders"/></dataSet></merger>

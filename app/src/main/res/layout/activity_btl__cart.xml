@@ -168,10 +168,11 @@
             android:layout_margin="3dp"
             android:background="@color/colorPrimaryDark"
             android:padding="3dp"
+
             android:text="My Quotation"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:visibility="visible"
+            android:visibility="gone"
             />
 
         <Button

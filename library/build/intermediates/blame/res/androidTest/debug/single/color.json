@@ -1,10 +1,10 @@
 [
     {
-        "merged": "E:\\NIVIDA-APPS\\MyBTL\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
-        "source": "E:\\NIVIDA-APPS\\MyBTL\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+        "merged": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     },
     {
-        "merged": "E:\\NIVIDA-APPS\\MyBTL\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
-        "source": "E:\\NIVIDA-APPS\\MyBTL\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+        "merged": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
     }
 ]

@@ -709,6 +709,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             final EditText edt_comment = (EditText) dialog.findViewById(R.id.edt_comment);
                             final EditText edt_transportation = (EditText) dialog.findViewById(R.id.edt_transportation);
+                            edt_transportation.setVisibility(View.GONE);
                             btn_continue = (Button) dialog.findViewById(R.id.btn_send);
                             Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
                             Button btn_upload_photo2 = (Button) dialog.findViewById(R.id.btn_upload_photo2);
@@ -748,11 +749,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                 public void onClick(View v) {
 
                                     transportationText = edt_transportation.getText().toString().trim();
-                                    if (transportationText.isEmpty()) {
+                                    /*if (transportationText.isEmpty()) {
                                         Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
                                         return;
                                     }
-
+*/
                                     btn_continue.setEnabled(false);
                                     try {
                                         JSONObject jobject_OrderUserData = new JSONObject();
@@ -863,6 +864,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             final EditText edt_comment = (EditText) dialog.findViewById(R.id.edt_comment);
                             final EditText edt_transportation = (EditText) dialog.findViewById(R.id.edt_transportation);
+                            edt_transportation.setVisibility(View.GONE);
                             Button btn_continue = (Button) dialog.findViewById(R.id.btn_send);
                             Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
                             Button btn_upload_photo2 = (Button) dialog.findViewById(R.id.btn_upload_photo2);
@@ -906,11 +908,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                                     transportationText = edt_transportation.getText().toString().trim();
 
-                                    if (transportationText.isEmpty()) {
+                                    /*if (transportationText.isEmpty()) {
                                         Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
                                         return;
                                     }
-
+*/
                                     if (user_type.equals(C.ADMIN)) {
                                         dialog.dismiss();
                                         try {
@@ -5803,7 +5805,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
 
-            try {
+
 
                 //Log.e("77777777","77777777");
 
@@ -5813,19 +5815,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 parameters.add(new BasicNameValuePair("mobile_no", phone));
 
 
-                //Log.e("","" + parameters);
+            Log.e("otp", "------->" + parameters);
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/APP_Generate_OTP", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
 
+            Log.e("json", json);
                 return json;
-
-            }
         }
 
         @Override
@@ -5833,6 +5830,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             //Log.e("ttttttttt","ttttt");
             super.onPostExecute(result_1);
+
+            Log.e("json", result_1);
 
 //            try {
             try {
@@ -5852,7 +5851,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                     appPrefs.setREF_No(dataObj.getString("reference_no"));
                     store_ref = appPrefs.getREF_No();
 
-                    //Log.e("uuuuu",""+store_ref);
+                    Log.e("uuuuu", "" + store_ref);
 
 
 //                    store_reference = appPrefs.getReference_no();

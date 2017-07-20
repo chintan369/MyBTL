@@ -46,6 +46,7 @@ import com.facebook.internal.FragmentWrapper;
 /**
  * A base class for a facebook button.
  */
+@SuppressWarnings("ResourceType")
 public abstract class FacebookButtonBase extends Button {
     private String analyticsButtonCreatedEventName;
     private String analyticsButtonTappedEventName;
@@ -88,6 +89,14 @@ public abstract class FacebookButtonBase extends Button {
     }
 
     /**
+     * Gets the fragment that contains this control.
+     * @return The android.support.v4.app.Fragment that contains this control.
+     */
+    public Fragment getFragment() {
+        return (parentFragment != null) ? parentFragment.getSupportFragment() : null;
+    }
+
+    /**
      * Sets the fragment that contains this control. This allows the button to be embedded inside a
      * Fragment, and will allow the fragment to receive the
      * {@link Fragment#onActivityResult(int, int, android.content.Intent) onActivityResult}
@@ -97,14 +106,6 @@ public abstract class FacebookButtonBase extends Button {
      */
     public void setFragment(final android.app.Fragment fragment) {
         parentFragment = new FragmentWrapper(fragment);
-    }
-
-    /**
-     * Gets the fragment that contains this control.
-     * @return The android.support.v4.app.Fragment that contains this control.
-     */
-    public Fragment getFragment() {
-        return (parentFragment != null) ? parentFragment.getSupportFragment() : null;
     }
 
     /**

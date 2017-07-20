@@ -1026,13 +1026,17 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product(jarray_cart.toString()).execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Edit_Product(jarray_cart.toString()).execute();
+
 
                             } else {
 
-                                new Add_Product(jarray_cart.toString()).execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product(jarray_cart.toString()).execute();
+
                             }
 
 
@@ -1141,13 +1145,15 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
-
+                                dialogOffer.dismiss();
+                                dialog.dismiss();
                                 new Edit_Product(jarray_cart.toString()).execute();
-                                dialogOffer.dismiss();
-                            } else {
 
-                                new Add_Product(jarray_cart.toString()).execute();
+                            } else {
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product(jarray_cart.toString()).execute();
+
                             }
 
                         } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("3")) {
@@ -1229,18 +1235,23 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
 
-                                new Edit_Product(jarray_cart.toString()).execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Edit_Product(jarray_cart.toString()).execute();
+
                             } else {
 
-                                new Add_Product(jarray_cart.toString()).execute();
                                 dialogOffer.dismiss();
+                                dialog.dismiss();
+                                new Add_Product(jarray_cart.toString()).execute();
+
                             }
                         }
                     }
 
                 } else {
                     dialogOffer.dismiss();
+                    dialog.dismiss();
                     Globals.CustomToast(ProductSearchForQuotationActivity.this, "Please Login First", getLayoutInflater());
                     user_id_main = "";
 
@@ -4040,14 +4051,16 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
-                                            new Edit_Product(jarray_cart.toString()).execute();
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+                                            new Edit_Product(jarray_cart.toString()).execute();
+
 
                                         } else {
-
-                                            new Add_Product(jarray_cart.toString()).execute();
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+                                            new Add_Product(jarray_cart.toString()).execute();
+
                                         }
 
 
@@ -4156,13 +4169,15 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            dialogOffer.dismiss();
+                                            dialog.dismiss();
                                             new Edit_Product(jarray_cart.toString()).execute();
-                                            dialogOffer.dismiss();
-                                        } else {
 
-                                            new Add_Product(jarray_cart.toString()).execute();
+                                        } else {
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+                                            new Add_Product(jarray_cart.toString()).execute();
+
                                         }
 
                                     } else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("3")) {
@@ -4243,13 +4258,16 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
 
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
-                                            new Edit_Product(jarray_cart.toString()).execute();
                                             dialogOffer.dismiss();
+                                            dialog.dismiss();
+                                            new Edit_Product(jarray_cart.toString()).execute();
+
                                         } else {
+                                            dialogOffer.dismiss();
+                                            dialog.dismiss();
 
                                             new Add_Product(jarray_cart.toString()).execute();
-                                            dialogOffer.dismiss();
+
                                         }
                                     }
                                 }

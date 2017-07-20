@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 173
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 235
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 299
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 351
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 422
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 64,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 502
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 68,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 581
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 65,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 669
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 66,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 748
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 69,
                         "startColumn": 4,
@@ -201,7 +201,7 @@
                     "endOffset": 828
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 67,
                         "startColumn": 4,
@@ -220,7 +220,7 @@
                     "endOffset": 903
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 75,
                         "startColumn": 4,
@@ -239,7 +239,7 @@
                     "endOffset": 987
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 70,
                         "startColumn": 4,
@@ -258,7 +258,7 @@
                     "endOffset": 1079
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 71,
                         "startColumn": 4,
@@ -277,7 +277,7 @@
                     "endOffset": 1182
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 72,
                         "startColumn": 4,
@@ -296,7 +296,7 @@
                     "endOffset": 1266
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 73,
                         "startColumn": 4,
@@ -315,7 +315,7 @@
                     "endOffset": 1330
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 53,
                         "startColumn": 4,
@@ -334,7 +334,7 @@
                     "endOffset": 1407
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -353,7 +353,7 @@
                     "endOffset": 1482
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -372,7 +372,7 @@
                     "endOffset": 1549
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -391,7 +391,7 @@
                     "endOffset": 1611
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -410,7 +410,7 @@
                     "endOffset": 1682
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 48,
                         "startColumn": 4,
@@ -429,7 +429,7 @@
                     "endOffset": 4226
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -448,7 +448,7 @@
                     "endOffset": 4283
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -467,7 +467,7 @@
                     "endOffset": 4337
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -486,7 +486,7 @@
                     "endOffset": 4406
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -505,7 +505,7 @@
                     "endOffset": 4485
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -524,7 +524,7 @@
                     "endOffset": 4549
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\dimens.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -543,7 +543,7 @@
                     "endOffset": 4623
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -562,7 +562,7 @@
                     "endOffset": 4696
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
@@ -581,7 +581,7 @@
                     "endOffset": 4769
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -600,7 +600,7 @@
                     "endOffset": 4841
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -619,7 +619,7 @@
                     "endOffset": 4914
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
@@ -638,7 +638,7 @@
                     "endOffset": 4987
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
@@ -657,7 +657,7 @@
                     "endOffset": 5052
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -676,7 +676,7 @@
                     "endOffset": 5121
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -695,7 +695,7 @@
                     "endOffset": 5186
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -714,7 +714,7 @@
                     "endOffset": 5268
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 41,
                         "startColumn": 4,
@@ -733,7 +733,7 @@
                     "endOffset": 5351
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 40,
                         "startColumn": 4,
@@ -752,7 +752,7 @@
                     "endOffset": 5432
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,
@@ -771,7 +771,7 @@
                     "endOffset": 5515
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 43,
                         "startColumn": 4,
@@ -790,7 +790,7 @@
                     "endOffset": 5587
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 4,
@@ -809,7 +809,7 @@
                     "endOffset": 5657
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 45,
                         "startColumn": 4,
@@ -828,7 +828,7 @@
                     "endOffset": 5728
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 46,
                         "startColumn": 4,
@@ -847,7 +847,7 @@
                     "endOffset": 5797
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 4,
@@ -866,7 +866,7 @@
                     "endOffset": 5866
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 4,
@@ -885,7 +885,7 @@
                     "endOffset": 5937
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 51,
                         "startColumn": 4,
@@ -904,7 +904,7 @@
                     "endOffset": 6002
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -923,7 +923,7 @@
                     "endOffset": 6174
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,
@@ -942,7 +942,7 @@
                     "endOffset": 6289
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
@@ -961,7 +961,7 @@
                     "endOffset": 6407
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -980,7 +980,7 @@
                     "endOffset": 6502
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
@@ -999,7 +999,7 @@
                     "endOffset": 6567
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -1018,7 +1018,7 @@
                     "endOffset": 6635
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -1037,7 +1037,7 @@
                     "endOffset": 6695
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -1056,7 +1056,7 @@
                     "endOffset": 6767
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -1075,7 +1075,7 @@
                     "endOffset": 6839
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -1094,7 +1094,7 @@
                     "endOffset": 6930
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -1113,7 +1113,7 @@
                     "endOffset": 7004
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -1132,7 +1132,7 @@
                     "endOffset": 7078
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -1151,7 +1151,7 @@
                     "endOffset": 7161
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -1170,7 +1170,7 @@
                     "endOffset": 7262
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -1189,7 +1189,7 @@
                     "endOffset": 7325
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 38,
                         "startColumn": 4,
@@ -1208,7 +1208,7 @@
                     "endOffset": 7390
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
@@ -1227,7 +1227,7 @@
                     "endOffset": 7519
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -1247,7 +1247,7 @@
                     "endOffset": 7645
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\debug\\res\\values\\google_maps_api.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\debug\\res\\values\\google_maps_api.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -1267,7 +1267,7 @@
                     "endOffset": 7705
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
@@ -1286,7 +1286,7 @@
                     "endOffset": 7757
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 40,
                         "startColumn": 4,
@@ -1306,7 +1306,7 @@
                     "endOffset": 8223
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -1327,7 +1327,7 @@
                     "endOffset": 8349
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -1348,7 +1348,7 @@
                     "endOffset": 8477
                 },
                 "from": {
-                    "file": "C:\\Users\\SEO\\.android\\build-cache\\53ade3cd22e523a4c7cc02b2ae623bdaffc4efb1\\output\\res\\values\\values.xml",
+                    "file": "C:\\Users\\NWSPL-17\\.android\\build-cache\\cdaf32b7150e108953691129c6cdf3839e3ffa86\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -1369,7 +1369,7 @@
                     "endOffset": 8570
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 2,
@@ -1390,7 +1390,7 @@
                     "endOffset": 8708
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 2,
@@ -1411,7 +1411,7 @@
                     "endOffset": 8985
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 2,
@@ -1432,7 +1432,7 @@
                     "endOffset": 9144
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 2,
@@ -1453,7 +1453,7 @@
                     "endOffset": 9284
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 2,
@@ -1474,7 +1474,7 @@
                     "endOffset": 9562
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 46,
                         "startColumn": 2,
@@ -1495,7 +1495,7 @@
                     "endOffset": 9722
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 53,
                         "startColumn": 2,
@@ -1516,7 +1516,7 @@
                     "endOffset": 10212
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 58,
                         "startColumn": 2,
@@ -1537,7 +1537,7 @@
                     "endOffset": 10317
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 70,
                         "startColumn": 2,
@@ -1558,7 +1558,7 @@
                     "endOffset": 10462
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 74,
                         "startColumn": 2,
@@ -1579,7 +1579,7 @@
                     "endOffset": 10607
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 78,
                         "startColumn": 2,
@@ -1600,7 +1600,7 @@
                     "endOffset": 10713
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 82,
                         "startColumn": 2,
@@ -1621,7 +1621,7 @@
                     "endOffset": 10858
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 2,
@@ -1642,7 +1642,7 @@
                     "endOffset": 11003
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\messenger_button_styles.xml",
                     "position": {
                         "startLine": 90,
                         "startColumn": 2,
@@ -1663,7 +1663,7 @@
                     "endOffset": 11350
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 115,
                         "startColumn": 4,
@@ -1684,7 +1684,7 @@
                     "endOffset": 11981
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 77,
                         "startColumn": 4,
@@ -1705,7 +1705,7 @@
                     "endOffset": 12160
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 89,
                         "startColumn": 4,
@@ -1726,7 +1726,7 @@
                     "endOffset": 12596
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 103,
                         "startColumn": 4,
@@ -1747,7 +1747,7 @@
                     "endOffset": 12847
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 110,
                         "startColumn": 4,
@@ -1768,7 +1768,7 @@
                     "endOffset": 13029
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 93,
                         "startColumn": 4,
@@ -1789,7 +1789,7 @@
                     "endOffset": 13353
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 97,
                         "startColumn": 4,
@@ -1810,7 +1810,7 @@
                     "endOffset": 13731
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 55,
                         "startColumn": 4,

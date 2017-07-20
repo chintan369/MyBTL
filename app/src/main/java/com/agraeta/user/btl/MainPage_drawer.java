@@ -72,6 +72,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.io.File;
 import java.io.InputStream;
@@ -153,6 +154,7 @@ public class MainPage_drawer extends AppCompatActivity
     AppPrefs app;
     LinearLayout l_strickers;
     TextView cate;
+    String currentVersion = "1.0";
     String cartJSON = "";
     boolean hasCartCallFinish = true;
     LinearLayout layout_support;
@@ -217,6 +219,39 @@ public class MainPage_drawer extends AppCompatActivity
         return false;
     }
 
+    private void showAlertDialogForUpdate(String currentVersion, String onlineVersion) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Version Update!");
+        builder.setMessage("Hello, SmartNode's new Version " + onlineVersion + " is available on Play Store with new improvements.\n" + "Please update it from Play Store");
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final String appPackageName = getPackageName();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        android.support.v7.app.AlertDialog dialog = builder.create();
+
+        if (!this.isFinishing())
+            dialog.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,6 +263,15 @@ public class MainPage_drawer extends AppCompatActivity
         app = new AppPrefs(MainPage_drawer.this);
         app.setCurrentPage("MAINPAGE");
         app.set_search("");
+
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            currentVersion = "1.0";
+            e.printStackTrace();
+        }
+
+        new GetVersionCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         //Log.e("isMdevice", "" + isMdevice);
 
         adminAPI = ServiceGenerator.getAPIServiceClass();
@@ -1777,6 +1821,38 @@ public class MainPage_drawer extends AppCompatActivity
             lmain.addView(l1);
 
             layout_comboPacks.addView(lmain);
+        }
+    }
+
+    private class GetVersionCode extends AsyncTask<Void, String, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            String newVersion = null;
+            try {
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + MainPage_drawer.this.getPackageName() + "&hl=en")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select("div[itemprop=softwareVersion]")
+                        .first()
+                        .ownText();
+                return newVersion;
+            } catch (Exception e) {
+                return newVersion;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String onlineVersion) {
+            super.onPostExecute(onlineVersion);
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+                if (Float.valueOf(currentVersion) < Float.valueOf(onlineVersion)) {
+                    showAlertDialogForUpdate(currentVersion, onlineVersion);
+                }
+            }
+            Log.e("update", "Current version " + currentVersion + "playstore version " + onlineVersion);
         }
     }
 

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
+        "outputFile": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "E:\\NIVIDA-APPS\\MyBTL\\facebook\\src\\main\\res\\values-in\\messenger_button_strings.xml",
+                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values-in\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,

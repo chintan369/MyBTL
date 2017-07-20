@@ -3012,7 +3012,7 @@ public class BTL_Cart extends AppCompatActivity {
                         else {
 
                             if (!(appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && appPrefs.getSubSalesId().equals(C.DISTRIBUTOR))) {
-                                my_quotation.setVisibility(View.VISIBLE);
+                                my_quotation.setVisibility(View.GONE);
                             } else {
                                 my_quotation.setVisibility(View.GONE);
                             }

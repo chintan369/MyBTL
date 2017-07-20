@@ -1009,17 +1009,17 @@ public class Product_List extends AppCompatActivity {
         }
 
         if (extraSpecialScheme.size() > 0) {
-            schemeHeaders.add("Extra Special Schemes");
+            schemeHeaders.add("App Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
         }
 
         if (specialScheme.size() > 0) {
-            schemeHeaders.add("Special Schemes");
+            schemeHeaders.add("Special Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
         }
 
         if (generalScheme.size() > 0) {
-            schemeHeaders.add("General Schemes");
+            schemeHeaders.add("Offers");
             schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
         }
 
@@ -3810,17 +3810,17 @@ public class Product_List extends AppCompatActivity {
                     }
 
                     if (extraSpecialScheme.size() > 0) {
-                        schemeHeaders.add("Extra Special Schemes");
+                        schemeHeaders.add("App Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                     }
 
                     if (specialScheme.size() > 0) {
-                        schemeHeaders.add("Special Schemes");
+                        schemeHeaders.add("Special Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                     }
 
                     if (generalScheme.size() > 0) {
-                        schemeHeaders.add("General Schemes");
+                        schemeHeaders.add("Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                     }
 
@@ -7246,17 +7246,17 @@ public class Product_List extends AppCompatActivity {
                     }
 
                     if (extraSpecialScheme.size() > 0) {
-                        schemeHeaders.add("Extra Special Schemes");
+                        schemeHeaders.add("App Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), extraSpecialScheme);
                     }
 
                     if (specialScheme.size() > 0) {
-                        schemeHeaders.add("Special Schemes");
+                        schemeHeaders.add("Special Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), specialScheme);
                     }
 
                     if (generalScheme.size() > 0) {
-                        schemeHeaders.add("General Schemes");
+                        schemeHeaders.add("Offers");
                         schemeChildList.put(schemeHeaders.get(schemeHeaders.size() - 1), generalScheme);
                     }
 
