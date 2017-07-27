@@ -272,6 +272,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/border_slider"
                 android:drawableLeft="@mipmap/icc_coomm"
+                android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:lines="4"
                 android:minLines="4"

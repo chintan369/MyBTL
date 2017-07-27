@@ -108,8 +108,8 @@ public class ProductRegistrationListAdapter extends BaseAdapter {
         TextView txt_purchaseDate=(TextView) dialogView.findViewById(R.id.txt_purchaseDate);
         TextView txt_invoiceLink=(TextView) dialogView.findViewById(R.id.txt_invoiceLink);
 
-        TextView txt_cityLabel=(TextView)dialogView.findViewById(R.id.txt_cityLabel);
-        TextView txt_stateLabel=(TextView)dialogView.findViewById(R.id.txt_stateLabel);
+        TextView txt_cityLabel = (TextView) dialogView.findViewById(R.id.txt_cityLabel);
+        TextView txt_stateLabel = (TextView) dialogView.findViewById(R.id.txt_stateLabel);
 
         txt_cityLabel.setText("Purchase City");
         txt_stateLabel.setText("Purchase State");

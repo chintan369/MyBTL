@@ -305,15 +305,15 @@ public class BTL_Cart extends AppCompatActivity {
 
                 if (role_id.equalsIgnoreCase("0")) {
 
-                    txt_subtotal.setText("(VAT will be added extra)");
+                    txt_subtotal.setText("(GST will be added extra)");
                 } else if (role_id.equalsIgnoreCase("2")) {
 
-                    txt_subtotal.setText("(Tax Amount Inclusive)");
+                    txt_subtotal.setText("(GST Amount Inclusive)");
                 } else if (role_id.equalsIgnoreCase("10")) {
 
-                    txt_subtotal.setText("(Tax Amount Inclusive)");
+                    txt_subtotal.setText("(GST Amount Inclusive)");
                 } else {
-                    txt_subtotal.setText("(VAT will be added extra)");
+                    txt_subtotal.setText("(GST will be added extra)");
                 }
 
 

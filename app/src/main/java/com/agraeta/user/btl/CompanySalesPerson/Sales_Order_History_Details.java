@@ -225,15 +225,15 @@ public class Sales_Order_History_Details extends AppCompatActivity {
 
         if (role_id.equalsIgnoreCase("0")) {
 
-            sub_t.setText("Sub Total (VAT will be added extra):");
+            sub_t.setText("Sub Total (GST will be added extra):");
         } else if (role_id.equalsIgnoreCase("2")) {
 
-            sub_t.setText("Sub Total (Tax Amount Inclusive):");
+            sub_t.setText("Sub Total (GST Amount Inclusive):");
         } else if (role_id.equalsIgnoreCase("10")) {
 
-            sub_t.setText("Sub Total (Tax Amount Inclusive):");
+            sub_t.setText("Sub Total (GST Amount Inclusive):");
         } else {
-            sub_t.setText("Sub Total (VAT will be added extra):");
+            sub_t.setText("Sub Total (GST will be added extra):");
         }
 
         Intent intent = getIntent();

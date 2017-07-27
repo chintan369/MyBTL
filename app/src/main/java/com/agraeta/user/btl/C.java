@@ -52,9 +52,7 @@ public class C {
     public static final String SPECIAL_SCHEME = "2";
     public static final String GENERAL_SCHEME = "1";
     private static final Pattern EMAIL_ADDRESS
-            = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,64}" + "(" +
-            "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,5}" + ")+"
-    );
+            = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,5}" + ")+");
 
     public static int modOf(int value1, int value2) {
         if (value1 > value2)

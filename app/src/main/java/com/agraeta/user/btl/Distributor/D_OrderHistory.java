@@ -173,13 +173,9 @@ public class D_OrderHistory extends AppCompatActivity {
         if(user_id_main.isEmpty()) user_id_main=appPrefs.getUserId();
 
 
-
-
-
+        setRefershData();
         fetchID();
         setActionBar();
-
-        setRefershData();
 
         new get_order_history().execute();
     }
@@ -877,7 +873,20 @@ public class D_OrderHistory extends AppCompatActivity {
 
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("user_id", user_id_main));
+
+                if (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) || appPrefs.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON) || appPrefs.getUserRoleId().equals(C.ADMIN)) {
+                    parameters.add(new BasicNameValuePair("user_id", appPrefs.getSalesPersonId()));
+                    parameters.add(new BasicNameValuePair("role_id", appPrefs.getSubSalesId()));
+                    parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
+                } else {
+                    parameters.add(new BasicNameValuePair("user_id", appPrefs.getUserId()));
+                    parameters.add(new BasicNameValuePair("role_id", appPrefs.getUserRoleId()));
+                    parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
+                }
+
+
+                Log.e("params", parameters.toString());
+                Log.e("IDs", user_id_main + " " + appPrefs.getUserId() + " " + appPrefs.getSubSalesId() + " " + appPrefs.getSalesPersonId());
 
                 if(appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase(""))
                 {

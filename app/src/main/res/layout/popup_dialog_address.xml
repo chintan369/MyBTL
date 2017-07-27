@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/layout_address_dialog"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_address_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
-    </LinearLayout>
+            </LinearLayout>
 
 
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_add_new_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Add New Address"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="#fff"
-            android:layout_weight="1"
-            android:layout_margin="3dp"
-            android:id="@+id/btn_add_new_address" />
+            android:textColor="#fff"/>
+
         <Button
+            android:id="@+id/btn_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Select Address"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="#fff"
             android:layout_margin="3dp"
             android:layout_weight="1"
-            android:id="@+id/btn_select" />
+            android:background="@color/colorPrimaryDark"
+            android:text="Select Address"
+            android:textColor="#fff"/>
     </LinearLayout>
 </LinearLayout>

@@ -371,18 +371,18 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             if (user_data.get(i).getUser_type().equalsIgnoreCase("0")) {
 
-                txt_subtotal.setText("(VAT will be added extra)");
+                txt_subtotal.setText("(GST will be added extra)");
             } else if (user_data.get(i).getUser_type().equalsIgnoreCase("2")) {
 
-                txt_subtotal.setText("(Tax Amount Inclusive)");
+                txt_subtotal.setText("(GST Amount Inclusive)");
             } else if (user_data.get(i).getUser_type().equalsIgnoreCase("10")) {
 
-                txt_subtotal.setText("(Tax Amount Inclusive)");
+                txt_subtotal.setText("(GST Amount Inclusive)");
             }/*else if(user_data.get(i).getUser_type().equalsIgnoreCase("5")) {
 
                 txt_subtotal.setText("(Tax Amount Inclusive)");
             }*/ else {
-                txt_subtotal.setText("(VAT will be added extra)");
+                txt_subtotal.setText("(GST will be added extra)");
             }
         }
 
@@ -463,12 +463,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
         });
 
         im_delivery.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 appPrefs = new AppPrefs(CheckoutPage_Product.this);
                 appPrefs.setaddress_id("");
                 final Dialog dialog = new Dialog(CheckoutPage_Product.this);
                 dialog.setContentView(R.layout.popup_dialog_address);
+                dialog.setTitle("My Addresses");
 
                 Button btn_add_new_address = (Button) dialog.findViewById(R.id.btn_add_new_address);
                 Button btn_select = (Button) dialog.findViewById(R.id.btn_select);
@@ -526,10 +528,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 LinearLayout mLinearLayout = (LinearLayout) dialog.findViewById(R.id.layout_address_dialog);
 
                 RadioGroup rg = new RadioGroup(CheckoutPage_Product.this);
+                rg.setDividerDrawable(getResources().getDrawable(R.color.colorPrimary));
+                rg.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
                 rg.setOrientation(RadioGroup.VERTICAL);
                 for (int i = 0; i < array_final_address.size(); i++) {
                     final RadioButton rb = new RadioButton(CheckoutPage_Product.this);
+                    rb.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    rb.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.bg_radio_button));
                     rg.addView(rb);
+
 
                     if (array_address.get(i).getAddress_id().equals(selected_shipping_address_id)) {
                         rb.setChecked(true);

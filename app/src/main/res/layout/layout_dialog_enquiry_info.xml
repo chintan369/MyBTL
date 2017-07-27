@@ -51,7 +51,7 @@
                     android:padding="5dp"
                     android:text="Full Name"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_userName"
@@ -60,7 +60,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -77,7 +77,7 @@
                     android:padding="5dp"
                     android:text="Email ID"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_emailID"
@@ -86,7 +86,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:padding="5dp"
                     android:text="Contact No"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_contactNo"
@@ -112,7 +112,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -124,14 +124,14 @@
                 android:padding="2dp">
 
                 <TextView
+                    android:id="@+id/txt_cityLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:padding="5dp"
-                    android:id="@+id/txt_cityLabel"
                     android:text="City"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_city"
@@ -140,7 +140,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -152,14 +152,14 @@
                 android:padding="2dp">
 
                 <TextView
+                    android:id="@+id/txt_stateLabel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:padding="5dp"
-                    android:id="@+id/txt_stateLabel"
                     android:text="State"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_state"
@@ -168,7 +168,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -186,7 +186,7 @@
                     android:padding="5dp"
                     android:text="Product Name"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_productName"
@@ -195,7 +195,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -214,7 +214,7 @@
                     android:padding="5dp"
                     android:text="Vacancy"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_vacancyName"
@@ -223,7 +223,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -242,7 +242,7 @@
                     android:padding="5dp"
                     android:text="Document"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_documentLink"
@@ -252,7 +252,7 @@
                     android:padding="5dp"
                     android:text="View Document"
                     android:textColor="@color/colorLink"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -270,7 +270,7 @@
                     android:padding="5dp"
                     android:text="Company"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_companyName"
@@ -279,7 +279,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -298,7 +298,7 @@
                     android:padding="5dp"
                     android:text="Comment"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_comment"
@@ -307,7 +307,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -326,7 +326,7 @@
                     android:padding="5dp"
                     android:text="Purchase Date"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_purchaseDate"
@@ -335,7 +335,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -352,7 +352,7 @@
                     android:padding="5dp"
                     android:text="Date"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_onDate"
@@ -361,7 +361,7 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -380,7 +380,7 @@
                     android:padding="5dp"
                     android:text="Invoice"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/txt_invoiceLink"
@@ -390,7 +390,7 @@
                     android:padding="5dp"
                     android:text="View Invoice"
                     android:textColor="@color/colorLink"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 
@@ -409,7 +409,7 @@
                     android:padding="5dp"
                     android:text="Image"
                     android:textColor="@color/black_000"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
 
                 <LinearLayout
@@ -425,7 +425,7 @@
                         android:layout_gravity="center"
                         android:padding="5dp"
                         android:textColor="@color/black_000"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"/>
 
                 </LinearLayout>
 

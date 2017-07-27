@@ -107,7 +107,7 @@ public class SendQuotationActivity extends AppCompatActivity {
                 vat = vat.isEmpty() ? "0" : vat;
                 float percent=Float.parseFloat(vat);
                 if(percent>100){
-                    Globals.Toast2(getApplicationContext(),"VAT Percent must be in 1 - 100");
+                    Globals.Toast2(getApplicationContext(), "GST Percent must be in 1 - 100");
                     edt_vat.setText("100");
                     return;
                 }
@@ -115,7 +115,7 @@ public class SendQuotationActivity extends AppCompatActivity {
 
                 float vatPriceValue=countPercent(subTotal,percent);
 
-                txt_vatLabel.setText("Out Put Vat @ "+vat+"% :");
+                txt_vatLabel.setText("Out Put GST @ " + vat + "% :");
                 txt_vatPrice.setText(getResources().getString(R.string.Rs)+" "+formatFloat(vatPriceValue));
                 countTotalPrice();
             }
@@ -151,7 +151,7 @@ public class SendQuotationActivity extends AppCompatActivity {
                 else if(!emailCC.isEmpty() && !C.validEmail(emailCC)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid CC Email");
                 } else if (vat.isEmpty() || vatF <= 1) {
-                    Globals.Toast2(getApplicationContext(),"Please Enter VAT Rate More than 1%");
+                    Globals.Toast2(getApplicationContext(), "Please Enter GST Rate More than 1%");
                 }
                 else {
 

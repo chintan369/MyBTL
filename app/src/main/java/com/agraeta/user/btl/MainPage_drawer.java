@@ -271,7 +271,7 @@ public class MainPage_drawer extends AppCompatActivity
             e.printStackTrace();
         }
 
-        new GetVersionCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        //new GetVersionCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         //Log.e("isMdevice", "" + isMdevice);
 
         adminAPI = ServiceGenerator.getAPIServiceClass();
