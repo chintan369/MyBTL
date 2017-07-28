@@ -115,8 +115,8 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .build();
 
-        mNotification.flags += Notification.FLAG_AUTO_CANCEL;
-        mNotification.flags += Notification.FLAG_SHOW_LIGHTS;
+        mNotification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_ONLY_ALERT_ONCE;
+        mNotification.flags |= Notification.FLAG_SHOW_LIGHTS;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, mNotification);
     }

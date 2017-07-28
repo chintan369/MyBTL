@@ -92,7 +92,7 @@ public class BecomeSellerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_become_seller);
-app=new AppPrefs(this);
+        app = new AppPrefs(this);
         setActionBar();
         fetchIDs();
     }
@@ -714,10 +714,22 @@ app=new AppPrefs(this);
        // img_cart.setVisibility(View.VISIBLE);
         img_home.setVisibility(View.VISIBLE);
         txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
+        txt.setVisibility(View.GONE);
         img_notification.setVisibility(View.GONE);
         app = new AppPrefs(BecomeSellerActivity.this);
         String qun =app.getCart_QTy();
 
+
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppPrefs prefs = new AppPrefs(getApplicationContext());
+                prefs.setUser_notification("");
+                Intent intent = new Intent(getApplicationContext(), BTL_Cart.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
         //img_category.setVisibility(View.GONE);
        // img_notification.setVisibility(View.GONE);
@@ -755,6 +767,7 @@ app=new AppPrefs(this);
 
 
         }else{
+            txt.setVisibility(View.GONE);
             app = new AppPrefs(BecomeSellerActivity.this);
             app.setCart_QTy("");
         }
@@ -846,6 +859,11 @@ app=new AppPrefs(this);
         db.close();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     public class GetCartByQty extends AsyncTask<Void, Void, String> {
 
         List<NameValuePair> params=new ArrayList<>();
@@ -891,13 +909,12 @@ app=new AppPrefs(this);
                     String date = jObj.getString("status");
 
                     if (date.equalsIgnoreCase("false")) {
-
+                        txt.setVisibility(View.GONE);
                         app = new AppPrefs(BecomeSellerActivity.this);
                         app.setCart_QTy("0");
 
                         // loadingView.dismiss();
                     } else {
-
 
                         int qu = jObj.getInt("data");
                         app = new AppPrefs(BecomeSellerActivity.this);
@@ -915,7 +932,7 @@ app=new AppPrefs(this);
             }
 
             String qu1 = app.getCart_QTy();
-            if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
+            if (qu1.isEmpty() || Integer.parseInt(qu1) < 1) {
                 txt.setVisibility(View.GONE);
                 txt.setText("");
             }else{
@@ -923,15 +940,10 @@ app=new AppPrefs(this);
                     txt.setText("999+");
                     txt.setVisibility(View.VISIBLE);
                 }else {
-                    txt.setText(qu1 + "");
+                    txt.setText(qu1);
                     txt.setVisibility(View.VISIBLE);
                 }
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }

@@ -1035,9 +1035,10 @@ public class BTL_Cart extends AppCompatActivity {
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else {
-            Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
+            /*Intent i = new Intent(BTL_Cart.this, MainPage_drawer.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+            startActivity(i);*/
+            finish();
         }
 
     }

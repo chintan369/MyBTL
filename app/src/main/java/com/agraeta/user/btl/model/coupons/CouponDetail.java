@@ -146,7 +146,7 @@ public class CouponDetail {
         }
 
         public String getMaxDiscount() {
-            return "\u20B9 " + maxDiscount;
+            return maxDiscount.replace("null", "").isEmpty() ? "N/A" : "\u20B9 " + maxDiscount;
         }
 
         public String getMultipleTimeUses() {

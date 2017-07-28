@@ -19,12 +19,12 @@ import com.squareup.picasso.Picasso;
 public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
 
     TextView txt_firmName, txt_addrLine1, txt_addrLine2, txt_addrLine3, txt_country, txt_state, txt_city, txt_area, txt_pincode, txt_contactPerson, txt_emailID, txt_mobileNo, txt_dealingBrand, txt_customerType, txt_comment, txt_jointVisitWith, txt_isPastOrder, txt_pastOrderID, txt_partyReport;
-    LinearLayout layout_visitngFront,layout_visitngBack,layout_attachment;
-    ImageView img_visitingFront,img_visitingBack;
+    LinearLayout layout_visitngFront, layout_visitngBack, layout_attachment;
+    ImageView img_visitingFront, img_visitingBack;
     TextView txt_skip_reason;
 
-    LinearLayout layout_attachment1,layout_attachment2,layout_attachment3,layout_attachment4;
-    ImageView img_attachment1,img_attachment2,img_attachment3,img_attachment4;
+    LinearLayout layout_attachment1, layout_attachment2, layout_attachment3, layout_attachment4;
+    ImageView img_attachment1, img_attachment2, img_attachment3, img_attachment4;
 
     RegisteredUserData.RegisteredUser userData;
 
@@ -33,8 +33,8 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registered_user_dsrdetail);
 
-        Intent intent=getIntent();
-        userData=(RegisteredUserData.RegisteredUser) intent.getSerializableExtra("userData");
+        Intent intent = getIntent();
+        userData = (RegisteredUserData.RegisteredUser) intent.getSerializableExtra("userData");
 
         setActionBar();
         fetchIDs();
@@ -42,41 +42,41 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
     }
 
     private void fetchIDs() {
-        txt_firmName=(TextView) findViewById(R.id.txt_firmName);
-        txt_addrLine1=(TextView) findViewById(R.id.txt_addrLine1);
-        txt_addrLine2=(TextView) findViewById(R.id.txt_addrLine2);
-        txt_addrLine3=(TextView) findViewById(R.id.txt_addrLine3);
-        txt_country=(TextView) findViewById(R.id.txt_country);
-        txt_state=(TextView) findViewById(R.id.txt_state);
-        txt_city=(TextView) findViewById(R.id.txt_city);
-        txt_area=(TextView) findViewById(R.id.txt_area);
-        txt_pincode=(TextView) findViewById(R.id.txt_pincode);
-        txt_contactPerson=(TextView) findViewById(R.id.txt_contactPerson);
-        txt_emailID=(TextView) findViewById(R.id.txt_emailID);
-        txt_mobileNo=(TextView) findViewById(R.id.txt_mobileNo);
-        txt_dealingBrand=(TextView) findViewById(R.id.txt_dealingBrand);
-        txt_customerType=(TextView) findViewById(R.id.txt_customerType);
-        txt_comment=(TextView) findViewById(R.id.txt_comment);
-        txt_jointVisitWith=(TextView) findViewById(R.id.txt_jointVisitWith);
-        txt_isPastOrder=(TextView) findViewById(R.id.txt_isPastOrder);
-        txt_pastOrderID=(TextView) findViewById(R.id.txt_pastOrderID);
+        txt_firmName = (TextView) findViewById(R.id.txt_firmName);
+        txt_addrLine1 = (TextView) findViewById(R.id.txt_addrLine1);
+        txt_addrLine2 = (TextView) findViewById(R.id.txt_addrLine2);
+        txt_addrLine3 = (TextView) findViewById(R.id.txt_addrLine3);
+        txt_country = (TextView) findViewById(R.id.txt_country);
+        txt_state = (TextView) findViewById(R.id.txt_state);
+        txt_city = (TextView) findViewById(R.id.txt_city);
+        txt_area = (TextView) findViewById(R.id.txt_area);
+        txt_pincode = (TextView) findViewById(R.id.txt_pincode);
+        txt_contactPerson = (TextView) findViewById(R.id.txt_contactPerson);
+        txt_emailID = (TextView) findViewById(R.id.txt_emailID);
+        txt_mobileNo = (TextView) findViewById(R.id.txt_mobileNo);
+        txt_dealingBrand = (TextView) findViewById(R.id.txt_dealingBrand);
+        txt_customerType = (TextView) findViewById(R.id.txt_customerType);
+        txt_comment = (TextView) findViewById(R.id.txt_comment);
+        txt_jointVisitWith = (TextView) findViewById(R.id.txt_jointVisitWith);
+        txt_isPastOrder = (TextView) findViewById(R.id.txt_isPastOrder);
+        txt_pastOrderID = (TextView) findViewById(R.id.txt_pastOrderID);
         txt_partyReport = (TextView) findViewById(R.id.txt_partyReport);
-        txt_skip_reason=(TextView)findViewById(R.id.txt_skip_reason);
+        txt_skip_reason = (TextView) findViewById(R.id.txt_skip_reason);
 
-        layout_visitngFront=(LinearLayout) findViewById(R.id.layout_visitngFront);
-        layout_visitngBack=(LinearLayout) findViewById(R.id.layout_visitngBack);
-        layout_attachment=(LinearLayout) findViewById(R.id.layout_attachment);
-        layout_attachment1=(LinearLayout) findViewById(R.id.layout_attachment1);
-        layout_attachment2=(LinearLayout) findViewById(R.id.layout_attachment2);
-        layout_attachment3=(LinearLayout) findViewById(R.id.layout_attachment3);
-        layout_attachment4=(LinearLayout) findViewById(R.id.layout_attachment4);
+        layout_visitngFront = (LinearLayout) findViewById(R.id.layout_visitngFront);
+        layout_visitngBack = (LinearLayout) findViewById(R.id.layout_visitngBack);
+        layout_attachment = (LinearLayout) findViewById(R.id.layout_attachment);
+        layout_attachment1 = (LinearLayout) findViewById(R.id.layout_attachment1);
+        layout_attachment2 = (LinearLayout) findViewById(R.id.layout_attachment2);
+        layout_attachment3 = (LinearLayout) findViewById(R.id.layout_attachment3);
+        layout_attachment4 = (LinearLayout) findViewById(R.id.layout_attachment4);
 
-        img_visitingFront=(ImageView) findViewById(R.id.img_visitingFront);
-        img_visitingBack=(ImageView) findViewById(R.id.img_visitingBack);
-        img_attachment1=(ImageView) findViewById(R.id.img_attachment1);
-        img_attachment2=(ImageView) findViewById(R.id.img_attachment2);
-        img_attachment3=(ImageView) findViewById(R.id.img_attachment3);
-        img_attachment4=(ImageView) findViewById(R.id.img_attachment4);
+        img_visitingFront = (ImageView) findViewById(R.id.img_visitingFront);
+        img_visitingBack = (ImageView) findViewById(R.id.img_visitingBack);
+        img_attachment1 = (ImageView) findViewById(R.id.img_attachment1);
+        img_attachment2 = (ImageView) findViewById(R.id.img_attachment2);
+        img_attachment3 = (ImageView) findViewById(R.id.img_attachment3);
+        img_attachment4 = (ImageView) findViewById(R.id.img_attachment4);
 
         final RegisteredUserData.OrderReason orderReason = userData.getOrderReason();
 
@@ -99,52 +99,58 @@ public class RegisteredUserDSRDetailActivity extends AppCompatActivity {
         txt_jointVisitWith.setText(orderReason.getJoint_visit_with().isEmpty() ? "N/A" : orderReason.getJoint_visit_with());
         txt_skip_reason.setText(orderReason.getReason_title().isEmpty() ? "N/A" : orderReason.getReason_title());
 
-        if(orderReason.getIs_past_order().equals("1")){
+        if (orderReason.getIs_past_order().equals("1")) {
             txt_isPastOrder.setText("Yes");
             txt_pastOrderID.setText(orderReason.getOrder_id());
         }
 
-        if(!orderReason.getVisiting_card1().isEmpty()){
-            Picasso.with(this).load(Globals.server_link+orderReason.getVisiting_card1())
+        if (!orderReason.getVisiting_card1().isEmpty()) {
+            Picasso.with(this).load(Globals.server_link + orderReason.getVisiting_card1())
+                    .placeholder(R.drawable.btl_watermark)
+                    .resize(100, 150)
                     .into(img_visitingFront);
-        }
-        else layout_visitngFront.setVisibility(View.GONE);
+        } else layout_visitngFront.setVisibility(View.GONE);
 
-        if(!orderReason.getVisiting_card2().isEmpty()){
-            Picasso.with(this).load(Globals.server_link+orderReason.getVisiting_card2())
+        if (!orderReason.getVisiting_card2().isEmpty()) {
+            Picasso.with(this).load(Globals.server_link + orderReason.getVisiting_card2())
+                    .placeholder(R.drawable.btl_watermark)
+                    .resize(100, 150)
                     .into(img_visitingBack);
-        }
-        else layout_visitngBack.setVisibility(View.GONE);
+        } else layout_visitngBack.setVisibility(View.GONE);
 
-        if(!orderReason.getAttachment1().isEmpty()){
+        if (!orderReason.getAttachment1().isEmpty()) {
 
             layout_attachment1.setVisibility(View.VISIBLE);
             Picasso.with(this)
-                    .load(Globals.server_link+orderReason.getAttachment1())
+                    .load(Globals.server_link + orderReason.getAttachment1())
                     .placeholder(R.drawable.btl_watermark)
+                    .resize(100, 150)
                     .into(img_attachment1);
 
-            if(!orderReason.getAttachment2().isEmpty()){
+            if (!orderReason.getAttachment2().isEmpty()) {
 
                 layout_attachment2.setVisibility(View.VISIBLE);
                 Picasso.with(this)
-                        .load(Globals.server_link+orderReason.getAttachment2())
+                        .load(Globals.server_link + orderReason.getAttachment2())
                         .placeholder(R.drawable.btl_watermark)
+                        .resize(100, 150)
                         .into(img_attachment2);
 
-                if(!orderReason.getAttachment3().isEmpty()){
+                if (!orderReason.getAttachment3().isEmpty()) {
 
                     layout_attachment3.setVisibility(View.VISIBLE);
                     Picasso.with(this)
-                            .load(Globals.server_link+orderReason.getAttachment3())
+                            .load(Globals.server_link + orderReason.getAttachment3())
                             .placeholder(R.drawable.btl_watermark)
+                            .resize(100, 150)
                             .into(img_attachment3);
 
-                    if(!orderReason.getAttachment4().isEmpty()){
+                    if (!orderReason.getAttachment4().isEmpty()) {
                         layout_attachment4.setVisibility(View.VISIBLE);
                         Picasso.with(this)
-                                .load(Globals.server_link+orderReason.getAttachment4())
+                                .load(Globals.server_link + orderReason.getAttachment4())
                                 .placeholder(R.drawable.btl_watermark)
+                                .resize(100, 150)
                                 .into(img_attachment4);
                     }
                 }

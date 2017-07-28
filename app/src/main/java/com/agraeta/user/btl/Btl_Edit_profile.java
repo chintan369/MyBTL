@@ -2,9 +2,9 @@ package com.agraeta.user.btl;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
@@ -96,8 +96,8 @@ public class Btl_Edit_profile extends AppCompatActivity {
                 if(role_id.toString().equalsIgnoreCase("2")){
                     edt_first.setEnabled(true);
                     edt_last.setEnabled(true);
-                    edt_mobile.setEnabled(true);
-                    edt_email.setEnabled(true);
+                    edt_mobile.setEnabled(false);
+                    //edt_email.setEnabled(true);
                     registration1.setVisibility(View.VISIBLE);
                     reset.setVisibility(View.VISIBLE);
                 }else{
@@ -256,118 +256,6 @@ public class Btl_Edit_profile extends AppCompatActivity {
 
     }
 
-    public class send_Update_Data extends AsyncTask<Void,Void,String>
-    {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        Btl_Edit_profile.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("id", uid));
-                parameters.add(new BasicNameValuePair("first_name", firstname));
-                parameters.add(new BasicNameValuePair("last_name", lastname));
-                parameters.add(new BasicNameValuePair("gender", gender));
-                parameters.add(new BasicNameValuePair("phone_no", mobile));
-
-
-
-                //Log.e("1", "" + firstname + "- " + lastname + "- " + gender + "- " + mobile);
-                //Log.e("2", "" + email);
-
-               // Log.e("4",""+parameters);
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"User/App_EditProfile",ServiceHandler.POST,parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-                   /* Toast.makeText(Btl_Edit_profile.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(Btl_Edit_profile.this,"SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        // Toast.makeText(Btl_Edit_profile.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(Btl_Edit_profile.this, ""+Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-
-                        String Message = jObj.getString("message");
-                        //Toast.makeText(Btl_Edit_profile.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(Btl_Edit_profile.this, "" + Message, getLayoutInflater());
-                        loadingView.dismiss();
-
-                        setRefershData();
-
-
-                            for (int i = 0; i < user_data.size(); i++) {
-                                db = new DatabaseHandler(Btl_Edit_profile.this);
-                                db.Update_User_edit(mobile, firstname, lastname, gender, user_data.get(i).getId());
-                                db.close();
-
-                        }
-
-                        Intent i = new Intent(Btl_Edit_profile.this, User_Profile.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    }
-                }}catch(JSONException j){
-                j.printStackTrace();
-            }
-
-        }
-    }
     private void setActionBar() {
 
         // TODO Auto-generated method stub
@@ -536,7 +424,7 @@ public class Btl_Edit_profile extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
 
-    };
+    }
 
     private void setRefershData() {
         // TODO Auto-generated method stub
@@ -641,5 +529,117 @@ public class Btl_Edit_profile extends AppCompatActivity {
         }
         //Log.e("my json",json[0]);
         return json[0];
+    }
+
+    public class send_Update_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        Btl_Edit_profile.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+                parameters.add(new BasicNameValuePair("id", uid));
+                parameters.add(new BasicNameValuePair("first_name", firstname));
+                parameters.add(new BasicNameValuePair("last_name", lastname));
+                parameters.add(new BasicNameValuePair("gender", gender));
+                parameters.add(new BasicNameValuePair("phone_no", mobile));
+
+
+                //Log.e("1", "" + firstname + "- " + lastname + "- " + gender + "- " + mobile);
+                //Log.e("2", "" + email);
+
+                // Log.e("4",""+parameters);
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_EditProfile", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                   /* Toast.makeText(Btl_Edit_profile.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(Btl_Edit_profile.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        // Toast.makeText(Btl_Edit_profile.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(Btl_Edit_profile.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+
+                        String Message = jObj.getString("message");
+                        //Toast.makeText(Btl_Edit_profile.this,""+Message,Toast.LENGTH_LONG).show();
+                        Globals.CustomToast(Btl_Edit_profile.this, "" + Message, getLayoutInflater());
+                        loadingView.dismiss();
+
+                        setRefershData();
+
+
+                        for (int i = 0; i < user_data.size(); i++) {
+                            db = new DatabaseHandler(Btl_Edit_profile.this);
+                            db.Update_User_edit(mobile, firstname, lastname, gender, user_data.get(i).getId());
+                            db.close();
+
+                        }
+
+                        Intent i = new Intent(Btl_Edit_profile.this, User_Profile.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
     }
 }

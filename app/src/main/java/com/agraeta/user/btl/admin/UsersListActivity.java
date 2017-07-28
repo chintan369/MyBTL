@@ -1,9 +1,9 @@
 package com.agraeta.user.btl.admin;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,8 +19,6 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.User;
 import com.agraeta.user.btl.model.UserList;
 
-import java.net.ConnectException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +111,7 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
 
         adminAPI = retrofit.create(AdminAPI.class);
 
-        userListCallback = adminAPI.userList(null,roleID, page);
+        userListCallback = adminAPI.userList(null, roleID, page);
 
         Log.e("roleId", roleID);
         Log.e("page", "" + page);
@@ -127,8 +125,7 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         list_users.removeFooterView(footerLoadingView);
         UserList userResponse = response.body();
 
-
-        if (userResponse.isStatus() == true) {
+        if (userResponse.isStatus()) {
 
             Log.e("status", "" + userResponse.isStatus());
 
@@ -138,16 +135,14 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
 
             List<User> userData = userResponse.getUserList();
 
-            //Log.e("Current Max", page + " --> " + maxPage);
+            Log.e("Current Max", page + " --> " + maxPage);
 
             userList.addAll(userData);
             userListAdapter.notifyDataSetChanged();
 
-            if (page <= maxPage) {
-
-
+            if (page < maxPage) {
                 page++;
-                userListCallback = adminAPI.userList(null,roleID, page);
+                userListCallback = adminAPI.userList(null, roleID, page);
                 userListCallback.enqueue(this);
                 list_users.addFooterView(footerLoadingView);
             }

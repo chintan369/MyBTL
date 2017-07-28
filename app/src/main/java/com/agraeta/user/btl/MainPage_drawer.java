@@ -223,7 +223,7 @@ public class MainPage_drawer extends AppCompatActivity
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle("Version Update!");
-        builder.setMessage("Hello, SmartNode's new Version " + onlineVersion + " is available on Play Store with new improvements.\n" + "Please update it from Play Store");
+        builder.setMessage("Hello, BTL's new Version " + onlineVersion + " is available on Play Store with new improvements.\n" + "Please update it from Play Store");
         builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -271,7 +271,7 @@ public class MainPage_drawer extends AppCompatActivity
             e.printStackTrace();
         }
 
-        //new GetVersionCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GetVersionCode().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         //Log.e("isMdevice", "" + isMdevice);
 
         adminAPI = ServiceGenerator.getAPIServiceClass();
@@ -1559,6 +1559,8 @@ public class MainPage_drawer extends AppCompatActivity
                 TextView txt_productName = (TextView) view.findViewById(R.id.txt_productName);
 
                 Picasso.with(this).load(Globals.IMAGE_LINK + latestProductList.get(i).getPro_image())
+                        .placeholder(R.drawable.btl_watermark)
+                        .error(R.drawable.btl_noimage)
                         .into(img_product);
 
                 txt_productName.setText(latestProductList.get(i).getPro_name() + " - (" + latestProductList.get(i).getPro_code() + ")");
@@ -2317,9 +2319,10 @@ public class MainPage_drawer extends AppCompatActivity
                         if (totalCount > 0) {
                             notification_unread.setVisibility(View.VISIBLE);
                             BadgeUtils.setBadge(getApplicationContext(), totalCount);
+                        } else {
+                            notification_unread.setVisibility(View.GONE);
+                            BadgeUtils.clearBadge(getApplicationContext());
                         }
-
-
                     }
                 } catch (Exception e) {
                     Log.e("Exception", e.getMessage());

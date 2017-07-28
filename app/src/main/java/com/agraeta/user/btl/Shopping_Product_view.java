@@ -357,6 +357,7 @@ public class Shopping_Product_view extends AppCompatActivity {
 
         ImageView btn_cancel = (ImageView) dialogOffer.findViewById(R.id.btn_cancel);
         bean_S_data.clear();
+        ArrayList<String> distinctSchemeIDs = new ArrayList<String>();
 
         Log.e("size", "" + bean_Schme_data.size());
 
@@ -364,17 +365,19 @@ public class Shopping_Product_view extends AppCompatActivity {
         for (int i = 0; i < bean_Schme_data.size(); i++) {
 
             if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(selectedProductID)) {
-                Bean_schemeData beans = new Bean_schemeData();
-                beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
-                Log.e("ID", "" + bean_product1.get(position).getPro_id().toString());
-                Log.e("name", "" + bean_Schme_data.get(i).getSchme_name().toString());
-                beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
-                beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
-                beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
-                beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
-                beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
+                if (!distinctSchemeIDs.contains(bean_Schme_data.get(i).getSchme_id())) {
+                    distinctSchemeIDs.add(bean_Schme_data.get(i).getSchme_id());
 
-                bean_S_data.add(beans);
+                    Bean_schemeData beans = new Bean_schemeData();
+                    beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
+                    beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
+                    beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
+                    beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
+                    beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
+                    beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
+
+                    bean_S_data.add(beans);
+                }
             }
 
 
@@ -5927,6 +5930,7 @@ public class Shopping_Product_view extends AppCompatActivity {
 
                     ImageView btn_cancel = (ImageView) dialogOffer.findViewById(R.id.btn_cancel);
                     bean_S_data.clear();
+                    ArrayList<String> distinctSchemeIDs = new ArrayList<String>();
 
                     Log.e("size", "" + bean_Schme_data.size());
 
@@ -5934,17 +5938,21 @@ public class Shopping_Product_view extends AppCompatActivity {
                     for (int i = 0; i < bean_Schme_data.size(); i++) {
 
                         if (bean_Schme_data.get(i).getSchme_prod_id().equalsIgnoreCase(bean_product1.get(position).getPro_id())) {
-                            Bean_schemeData beans = new Bean_schemeData();
-                            beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
-                            Log.e("ID", "" + bean_product1.get(position).getPro_id().toString());
-                            Log.e("name", "" + bean_Schme_data.get(i).getSchme_name().toString());
-                            beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
-                            beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
-                            beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
-                            beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
-                            beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
+                            if (!distinctSchemeIDs.contains(bean_Schme_data.get(i).getSchme_id())) {
+                                distinctSchemeIDs.add(bean_Schme_data.get(i).getSchme_id());
+                                Bean_schemeData beans = new Bean_schemeData();
+                                beans.setSchme_id(bean_Schme_data.get(i).getSchme_id());
+                                Log.e("ID", "" + bean_product1.get(position).getPro_id().toString());
+                                Log.e("name", "" + bean_Schme_data.get(i).getSchme_name().toString());
+                                beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
+                                beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
+                                beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
+                                beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
+                                beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
 
-                            bean_S_data.add(beans);
+                                bean_S_data.add(beans);
+                            }
+
                         }
                     }
 

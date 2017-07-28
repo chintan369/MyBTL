@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,7 @@ public class NotificationAdapter extends BaseAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        message.setText(Html.fromHtml("<p align=\"justify\" style=\"font-size:20px\"><i>"+notification.getInbox().getMsg()+"</i></p>"));
+        message.setText(notification.getInbox().getMsg());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

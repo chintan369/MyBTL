@@ -99,11 +99,19 @@ public class DownloadsActivity extends AppCompatActivity {
         View mCustomView = mActionBar.getCustomView();
         ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
         FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
 
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
         img_notification.setVisibility(View.GONE);
         unread.setVisibility(View.GONE);
+
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         image_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
