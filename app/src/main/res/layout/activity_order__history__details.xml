@@ -12,33 +12,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
         <ImageView
-            android:layout_weight="4"
-            android:padding="8dp"
-            android:background="@drawable/black_underline"
-            android:src="@drawable/search"
-            android:layout_width="match_parent"
-
-            android:layout_height="match_parent" />
-        <View
-            android:layout_width="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#D4D4D4"
-            android:layout_height="match_parent" />
-        <EditText
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:id="@+id/et_search"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:background="@drawable/black_underline"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@drawable/black_underline"
+            android:padding="8dp"
+
+            android:src="@drawable/search"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#D4D4D4"/>
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/black_underline"
             android:focusable="false"
-            android:hint="Search"/>
+            android:hint="Search"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
@@ -47,61 +47,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:visibility="gone"
         android:layout_gravity="start"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
-        android:background="#FFFFFF">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:orientation="horizontal"
 
             android:visibility="gone"
             >
             <ImageView
-                android:padding="5dp"
-                android:layout_gravity="center"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:src="@drawable/cart"
                 android:visibility="gone"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="\u20B90 CR"
-                android:textSize="16sp"
-
-                android:gravity="center_horizontal|center"
                 android:layout_gravity="center"
-                android:textColor="#ffffff"/>
+                android:gravity="center_horizontal|center"
+
+                android:text="\u20B90 CR"
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
             android:gravity="center"
-            android:background="#FFFFFF">
+            android:orientation="horizontal">
             <ImageView
-                android:padding="5dp"
-                android:layout_gravity="center"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:src="@drawable/cart"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="\u20B9100.00"
-                android:textSize="16sp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:gravity="left|center"
-                android:layout_gravity="center"
-                android:textColor="#000000"/>
+                android:text="\u20B9100.00"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
         </LinearLayout>
     </LinearLayout>
     <View
@@ -122,29 +122,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:paddingLeft="5dp"
         >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/order_id_de"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="#000"
             android:textStyle="bold"
             />
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/order_date_de"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="#000"
             android:textStyle="bold"
             />
         <TextView
+            android:id="@+id/order_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/order_status"
             android:textColor="#000"
             android:textStyle="bold"
             />
@@ -152,47 +152,47 @@
     </LinearLayout>
     </ScrollView>
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="3dp"
             android:id="@+id/morei"
-            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:clickable="true"
             android:gravity="center_vertical"
-            android:layout_weight="4">
+            android:orientation="vertical"
+            android:padding="3dp">
 
             <ImageView
+                android:id="@+id/option_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:padding="3dp"
                 android:src="@drawable/menu_2_96"
-                android:id="@+id/option_icon"
                 />
 
         </LinearLayout>
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_margin="6dp"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:src="@drawable/orderinq"
-            android:layout_marginLeft="5dp"
-android:visibility="gone"
             android:id="@+id/inq"
-            android:text="More Info"/>
-        <ImageView
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_margin="6dp"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:src="@drawable/more_info"
             android:layout_marginLeft="5dp"
-android:visibility="gone"
+            android:src="@drawable/orderinq"
+            android:text="More Info"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:visibility="gone"/>
+        <ImageView
             android:id="@+id/more_info"
-            android:text="More Info"/>
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="6dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/more_info"
+            android:text="More Info"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:visibility="gone"/>
         </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -207,27 +207,27 @@ android:visibility="gone"
     </ScrollView>-->
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:orientation="vertical">
 
 
 
 
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
 
                 <TextView
@@ -235,19 +235,19 @@ android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="#000"
+                    android:gravity="center_vertical"
                     android:paddingLeft="5dp"
                     android:text="Billing Address"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="14sp"/>
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <ImageView
+                    android:id="@+id/im_billing"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/im_billing"
-                    android:visibility="gone"
                     android:src="@drawable/edit"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <TextView
@@ -255,16 +255,16 @@ android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#000"
                 android:text=""
+                android:textColor="#000"
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/tv_number_billing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#000"
                 android:text=""
+                android:textColor="#000"
 
                 android:textSize="14sp"/>
             <TextView
@@ -282,39 +282,39 @@ android:visibility="gone"
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#000000"
             android:layout_marginRight="5dp"
+            android:background="#000000"
             />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:orientation="vertical">
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="#000"
+                    android:gravity="center_vertical"
                     android:paddingLeft="5dp"
                     android:text="Shipping Address"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="14sp"/>
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <ImageView
+                    android:id="@+id/im_delivery"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/im_delivery"
-                    android:visibility="gone"
                     android:src="@drawable/edit"
+                    android:visibility="gone"
                     />
             </LinearLayout>
             <TextView
@@ -322,8 +322,8 @@ android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#000"
                 android:text=""
+                android:textColor="#000"
 
                 android:textSize="14sp"/>
             <TextView
@@ -331,8 +331,8 @@ android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#000"
                 android:text=""
+                android:textColor="#000"
 
                 android:textSize="14sp"/>
             <TextView
@@ -361,68 +361,68 @@ android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:layout_margin="1dp"
+        android:gravity="center"
         android:orientation="horizontal"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="left|center"
-            android:textColor="#000000"
             android:paddingLeft="10dp"
-            android:textStyle="bold"
             android:text="Order Summary"
+            android:textColor="#000000"
             android:textSize="12sp"
+            android:textStyle="bold"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="end|center"
                 android:text="Products:"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
                 />
             <TextView
+                android:id="@+id/tv_total_product"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal|center"
-                android:textColor="#000000"
-                android:id="@+id/tv_total_product"
                 android:text="1"
+                android:textColor="#000000"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/reorder_txt"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="right|center"
-
-            android:paddingRight="10dp"
-
-            android:src="@drawable/reoderall"
-            android:id="@+id/reorder_txt"
             android:layout_marginRight="4dp"
+
+            android:layout_weight="1"
+
+            android:gravity="right|center"
+            android:paddingRight="10dp"
+            android:src="@drawable/reoderall"
          />
 
     </LinearLayout>
@@ -433,13 +433,13 @@ android:visibility="gone"
         android:background="#d4d4d4"/>
 
     <ListView
+        android:id="@+id/lv_checkout_product_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_checkout_product_list"
-        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
 
-        android:divider="@null"
-        android:layout_gravity="center_horizontal" />
+        android:layout_weight="1"
+        android:divider="@null"/>
 
 
 
@@ -449,14 +449,14 @@ android:visibility="gone"
         android:background="#d4d4d4" />
 
     <ScrollView
+        android:id="@+id/sc_amt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/sc_amt"
         android:layout_weight="1.5">
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -467,10 +467,10 @@ android:visibility="gone"
                 android:textSize="16sp" />
 
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@drawable/black_underline" />
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -479,10 +479,10 @@ android:visibility="gone"
                 android:padding="5dp" >
 
                 <TextView
+                    android:id="@+id/sub_t"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/sub_t"
                     android:text="Sub Total (Inc. Vat): "
                     android:textColor="#000"
                     android:textSize="14sp"
@@ -502,19 +502,19 @@ android:visibility="gone"
                     android:layout_height="wrap_content"
 
                     android:gravity="right"
-                    android:text="100000.00"
+                    android:text=""
                     android:textColor="#000"
                     android:textSize="14sp"
                     />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_coupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/lnr_coupon"
-                android:visibility="gone"
-                android:padding="5dp" >
+                android:padding="5dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/txt_coupon_name"
@@ -589,10 +589,10 @@ android:visibility="gone"
                     />
             </LinearLayout>
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@drawable/black_underline" />
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
 
             <View
                 android:layout_width="match_parent"
@@ -610,12 +610,12 @@ android:visibility="gone"
 
         <Button
             android:id="@+id/btn_pay1"
-            android:textColor="#FFFFFF"
-            android:text="Confirm"
-            android:visibility="gone"
-            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Confirm"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -702,7 +702,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             } catch (JSONException e) {
 
                             }
-                            new send_order_details().execute();
+                            new send_order_details(tv_order_total.getText().toString()).execute();
                         } else if (appPrefs.getUserRoleId().equalsIgnoreCase("3") || user_type.equalsIgnoreCase("4") || user_type.equalsIgnoreCase("5") || user_type.equalsIgnoreCase("8") || user_type.equalsIgnoreCase("9")) {
 
                             DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -1186,7 +1186,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             } catch (JSONException e) {
 
                             }
-                            new send_order_details().execute();
+                            new send_order_details(tv_order_total.getText().toString()).execute();
                         }
 
 
@@ -1294,6 +1294,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 TextView txt_discount = (TextView) convertView.findViewById(R.id.txt_discount);
                 ImageView img_editCombo = (ImageView) convertView.findViewById(R.id.img_editCombo);
                 ImageView img_deleteCombo = (ImageView) convertView.findViewById(R.id.img_deleteCombo);
+                LinearLayout layout_price = (LinearLayout) convertView.findViewById(R.id.layout_price);
 
                 txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -1328,6 +1329,14 @@ public class CheckoutPage_Product extends AppCompatActivity {
                         startActivityForResult(intent, EDIT_COMBO);
                     }
                 });
+
+                Log.e("RoleID - Role", role_id + " - " + role);
+
+                if (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR)) {
+                    layout_price.setVisibility(View.GONE);
+                    txt_discount.setVisibility(View.GONE);
+                }
+
             } else {
                 convertView = getLayoutInflater().inflate(R.layout.checkout_product_list, null);
 
@@ -1358,13 +1367,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 } else {
                     //user_id_main = "";
                 }
-                if (role_id.equalsIgnoreCase("3") && role.equalsIgnoreCase("6")) {
-                    l_cal.setVisibility(View.GONE);
-                    l_cal_qty.setVisibility(View.VISIBLE);
-                } else {
-                    l_cal.setVisibility(View.VISIBLE);
-                    l_cal_qty.setVisibility(View.GONE);
-                }
+
 
                 double mrpPrice = Double.parseDouble(bean_cart_data.get(position).getMrp());
                 double sellingPrice = Double.parseDouble(bean_cart_data.get(position).getSelling_price());
@@ -1396,6 +1399,16 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 } else {
                     txt_scheme.setVisibility(View.VISIBLE);
                     txt_scheme.setText(bean_cart_data.get(position).getScheme_title().toString());
+                }
+
+                if (role_id.equalsIgnoreCase("3") && role.equalsIgnoreCase("6")) {
+                    l_cal.setVisibility(View.GONE);
+                    l_cal_qty.setVisibility(View.VISIBLE);
+                    txt_discount.setVisibility(View.GONE);
+                } else {
+                    l_cal.setVisibility(View.VISIBLE);
+                    l_cal_qty.setVisibility(View.GONE);
+                    txt_discount.setVisibility(View.VISIBLE);
                 }
 
                 tv_product_selling_price.setText(bean_cart_data.get(position).getSelling_price());
@@ -4559,8 +4572,13 @@ public class CheckoutPage_Product extends AppCompatActivity {
     public class send_order_details extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
+        String totalAmount = "";
         private String result;
         private InputStream is;
+
+        public send_order_details(String totalAmount) {
+            this.totalAmount = totalAmount;
+        }
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -4722,7 +4740,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                         Intent i = new Intent(CheckoutPage_Product.this, PayUMentActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.putExtra("orderID", jObj.getString("data"));
-                        i.putExtra("orderAmount", String.valueOf(jObj.getInt("amount")));
+                        i.putExtra("orderAmount", totalAmount);
+                        //i.putExtra("orderAmount", String.valueOf(jObj.getInt("amount")));
                         i.putExtra("payUData", payuData);
                         startActivity(i);
 

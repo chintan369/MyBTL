@@ -123,6 +123,7 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/txt_sellingLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -234,6 +235,7 @@
             android:gravity="center_vertical|end">
 
             <TextView
+                android:id="@+id/txt_totalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"

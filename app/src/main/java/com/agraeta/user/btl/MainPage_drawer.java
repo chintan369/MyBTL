@@ -397,6 +397,7 @@ public class MainPage_drawer extends AppCompatActivity
             android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
 
             View view = getLayoutInflater().inflate(R.layout.layout_dialog_supportinfo, null);
+            ImageView img_close = (ImageView) view.findViewById(R.id.img_close);
             ListView list_callInfo = (ListView) view.findViewById(R.id.list_callInfo);
             SupportCallAdapter adapter = new SupportCallAdapter(callInfoList, this);
             list_callInfo.setAdapter(adapter);
@@ -406,18 +407,36 @@ public class MainPage_drawer extends AppCompatActivity
 
             final android.support.v7.app.AlertDialog dialog = builder.create();
 
+            img_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            final AppPrefs prefs = new AppPrefs(this);
+
             list_callInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:" + callInfoList.get(position).getContact()));
-                    if (ActivityCompat.checkSelfPermission(MainPage_drawer.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE);
+
+                    if (prefs.getUserRoleId().equals(C.CUSTOMER) || prefs.getUserRoleId().equals(C.CARPENTER) || prefs.getUserRoleId().isEmpty()) {
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + callInfoList.get(position).getContact()));
+                        if (ActivityCompat.checkSelfPermission(MainPage_drawer.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE);
+                            }
+                            return;
                         }
-                        return;
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_EMAIL, callInfoList.get(position).getContact());
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                        startActivity(intent);
                     }
-                    startActivity(intent);
                     dialog.dismiss();
                 }
             });
@@ -476,8 +495,6 @@ public class MainPage_drawer extends AppCompatActivity
                 } else {
                     u_id = owner_id;
                 }
-
-
             }
 
             Log.e("user & Role", u_id + " -- " + role_id);
@@ -1881,7 +1898,6 @@ public class MainPage_drawer extends AppCompatActivity
             this.activity = activity;
             this.context = context;
             this.image_url = categoryimg;
-
             this.layoutinflater = layoutinflater;
 
         }

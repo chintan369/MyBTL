@@ -8,9 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="match_parent"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        android:padding="5dp">
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -20,217 +20,212 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="#000000"
-                android:visibility="gone"
                 android:text="Corporate Office"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:visibility="gone"
-                android:background="@drawable/black_underline"/>
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="gone"
                 android:layout_marginBottom="1dp"
+                android:layout_weight="1"
                 android:text="Agraeta Technik Pvt. Ltd."
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:visibility="gone"
                 android:layout_marginBottom="1dp"
+                android:layout_weight="1"
                 android:text="BTL Farm, Vir Savarkar Marg,"
                 android:textSize="16sp"
+                android:visibility="gone"
                 />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginBottom="1dp"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:text="Opp. Gadkari Nagar, Chandansar,"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:text="Virat East - 401 303, Maharashtra"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:visibility="gone"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:visibility="gone"
-                android:background="@drawable/black_underline"/>
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:text="Call us on"
-                android:textStyle="bold"/>
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
-                android:visibility="gone"
-                android:text="0250 - 6814 878 / 6450 762"/>
+                android:layout_weight="1"
+                android:text="0250 - 6814 878 / 6450 762"
+                android:visibility="gone"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:visibility="gone"
-                android:background="@drawable/black_underline"/>
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:visibility="gone"
-                android:textColor="#000000"
                 android:layout_marginBottom="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Mail us on"
-                android:textStyle="bold"/>
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
-                android:visibility="gone"
-                android:text="info@agraeta.com"/>
+                android:layout_weight="1"
+                android:text="info@agraeta.com"
+                android:visibility="gone"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:visibility="gone"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/black_underline"/>
+                android:background="@drawable/black_underline"
+                android:visibility="gone"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical">
             <TextView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
+                android:text="First Name "
+                android:textSize="16sp"/>
 
-                android:text="First Name "/>
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/etfirst_name_corpo_offi"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:background="@drawable/border_slider"
-                android:drawableLeft="@mipmap/ic_parson"/>
+    <EditText
+        android:id="@+id/etfirst_name_corpo_offi"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_slider"
+        android:drawableLeft="@mipmap/ic_parson"
+        android:textSize="14sp"/>
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
+                android:text="Last Name "
 
-                android:text="Last Name "/>
+                android:textSize="16sp"/>
             <EditText
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
                 android:id="@+id/etlast_name_corpo_offi"
-                android:layout_weight="1"
-                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/border_slider"
-                android:drawableLeft="@mipmap/ic_parson"/>
+                android:drawableLeft="@mipmap/ic_parson"
+                android:textSize="14sp"/>
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
+                android:drawableRight="@drawable/star"
 
                 android:text="Email"
                 android:textSize="16sp"/>
             <EditText
 
+                android:id="@+id/Et_Emailid_corpo_offi"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:drawableLeft="@mipmap/ic_email"
-                android:textSize="14sp"
+                android:background="@drawable/border_slider"
 
-                android:id="@+id/Et_Emailid_corpo_offi"
-                android:background="@drawable/border_slider"/>
+                android:drawableLeft="@mipmap/ic_email"
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
                 android:text="Mobile No."
-                android:textSize="16sp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="16sp"/>
             <EditText
 
-                android:layout_marginTop="5dp"
+                android:id="@+id/etmobile_corpo_offi"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/etmobile_corpo_offi"
-                android:textSize="14sp"
-                android:maxLength="14"
-                android:inputType="number"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_slider"
-                android:drawableLeft="@drawable/ic_flag"/>
+                android:drawableLeft="@drawable/ic_flag"
+                android:inputType="number"
+                android:maxLength="14"
+                android:textSize="14sp"/>
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="16sp"
-
-                android:text="Message "/>
+                android:layout_marginTop="5dp"
+                android:drawableRight="@drawable/star"
+                android:text="Message"
+                android:textSize="16sp"/>
     <EditText
         android:id="@+id/etmessage_corpo_offi"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="top"
-        android:background="@drawable/border_slider"
-
-        android:padding="10dp"
+        android:layout_gravity="top|start"
         android:layout_margin="3dp"
-        android:textSize="16sp"
-        android:inputType="textMultiLine"
 
-        android:textColor="#000"
-        android:singleLine="false"
-        android:textColorHint="#000"
+        android:background="@drawable/border_slider"
+        android:gravity="top"
         android:imeOptions="actionNext"
-        android:minLines="3"
+        android:inputType="textMultiLine"
         android:lines="3"
-
-
+        android:minLines="3"
+        android:padding="10dp"
+        android:singleLine="false"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        android:textSize="16sp"
         />
            <!-- <EditText
                 android:layout_marginTop="5dp"
@@ -243,15 +238,15 @@
                 android:drawableLeft="@mipmap/ic_email"/>-->
 
             <Button
+                android:id="@+id/co_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="100dp"
-                android:id="@+id/co_submit"
-                android:textColor="#FFFFFF"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
-                android:text="Submit"/>
+                android:text="Submit"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
         </LinearLayout>
 

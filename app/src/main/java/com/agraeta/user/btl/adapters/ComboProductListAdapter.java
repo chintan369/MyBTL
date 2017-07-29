@@ -106,10 +106,7 @@ public class ComboProductListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }*/
 
-        if (prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && roleID.equals(C.DISTRIBUTOR)) {
-            holder.layout_mrpPrice.setVisibility(View.GONE);
-            holder.layout_spPrice.setVisibility(View.GONE);
-        }
+
 
         holder.txt_mrpPrice.setPaintFlags(holder.txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -142,6 +139,12 @@ public class ComboProductListAdapter extends BaseAdapter {
                 holder.txt_discount.setVisibility(View.VISIBLE);
                 holder.txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
             }
+        }
+
+        if (prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && roleID.equals(C.DISTRIBUTOR)) {
+            holder.layout_mrpPrice.setVisibility(View.GONE);
+            holder.layout_spPrice.setVisibility(View.GONE);
+            holder.txt_discount.setVisibility(View.GONE);
         }
 
         holder.chk_product.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -1245,18 +1245,22 @@ public class BTL_Cart extends AppCompatActivity {
                 TextView txt_discount = (TextView) convertView.findViewById(R.id.txt_discount);
                 ImageView img_editCombo=(ImageView) convertView.findViewById(R.id.img_editCombo);
                 ImageView img_deleteCombo=(ImageView) convertView.findViewById(R.id.img_deleteCombo);
+                LinearLayout layout_price = (LinearLayout) convertView.findViewById(R.id.layout_price);
 
                 txt_mrpPrice.setPaintFlags(txt_mrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                float mrpPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_mrp());
-                float sellingPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
+                Log.e("RoleID - Role", role_id + " - " + role);
+
+
+                double mrpPrice = Double.parseDouble(bean_cart_data.get(position).getComboCart().getTotal_mrp());
+                double sellingPrice = Double.parseDouble(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
 
                 if (mrpPrice > sellingPrice) {
                     double discount = (sellingPrice * 100) / mrpPrice;
                     discount = 100 - discount;
                     if (discount >= 1) {
                         txt_discount.setVisibility(View.VISIBLE);
-                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
+                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", (float) discount) + " % OFF");
                     }
                 }
 
@@ -1307,6 +1311,11 @@ public class BTL_Cart extends AppCompatActivity {
                         });
                     }
                 });
+
+                if (appPrefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && role_id.equals(C.DISTRIBUTOR)) {
+                    layout_price.setVisibility(View.GONE);
+                    txt_discount.setVisibility(View.GONE);
+                }
 
             } else {
 
@@ -1403,8 +1412,8 @@ public class BTL_Cart extends AppCompatActivity {
 
                     product_sellingprice.setTag(bean_cart_data.get(position).getSelling_price());
 
-                    double mrp = Double.parseDouble(bean_cart_data.get(position).getMrp());
-                    double sellingprice = Double.parseDouble(bean_cart_data.get(position).getSelling_price());
+                    float mrp = Float.parseFloat(bean_cart_data.get(position).getMrp());
+                    float sellingprice = Float.parseFloat(bean_cart_data.get(position).getSelling_price());
                     // Log.e("MRP", "" + mrp);
                     // Log.e("sellingprice", "" + sellingprice);
                     if (mrp > sellingprice) {
@@ -1413,11 +1422,22 @@ public class BTL_Cart extends AppCompatActivity {
 
                         off_tag.setVisibility(View.VISIBLE);
 
+                        Log.e("Prices", mrp + " - " + sellingprice);
 
-                        double off = mrp - sellingprice;
-                        double offa = off * 100;
-                        double o = offa / mrp;
-                        int a = (int) o;
+
+                        float percent = (sellingprice * 100) / mrp;
+                        percent = 100 - percent;
+
+                        int perc = (int) percent;
+
+                        Log.e("Percent", "--" + (int) percent);
+
+                        /*float off = mrp - sellingprice;
+                        float o = off / mrp;
+                        float offa = o * 100;
+                        int a = (int) offa;
+
+                        Log.e("Offs",off+" - "+o+" - "+offa+" - "+a);*/
 
                         setRefershData();
                         if (user_data.size() != 0) {
@@ -1433,10 +1453,10 @@ public class BTL_Cart extends AppCompatActivity {
                         }
                         if (role_id.equalsIgnoreCase("3") && role.equalsIgnoreCase("6")) {
 
-                            off_tag.setText(String.valueOf(a) + "% OFF");
+                            off_tag.setText(String.valueOf(perc) + "% OFF");
                             off_tag.setVisibility(View.INVISIBLE);
                         } else {
-                            off_tag.setText(String.valueOf(a) + "% OFF");
+                            off_tag.setText(String.valueOf(perc) + "% OFF");
                             off_tag.setVisibility(View.VISIBLE);
                         }
                         //Log.e("111111111", "" + mrp);

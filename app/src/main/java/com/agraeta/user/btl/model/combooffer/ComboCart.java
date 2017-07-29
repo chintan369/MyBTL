@@ -86,7 +86,7 @@ public class ComboCart {
         int totalQty=0;
 
         try{
-            JSONArray productArray=new JSONArray(products.replace("\\",""));
+            JSONArray productArray = new JSONArray(products);
             for(int i=0; i<productArray.length(); i++){
                 JSONObject object=productArray.getJSONObject(i);
                 int qty=Integer.parseInt(object.getString("pro_qty"));

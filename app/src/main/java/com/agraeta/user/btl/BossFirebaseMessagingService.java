@@ -72,7 +72,13 @@ public class BossFirebaseMessagingService extends FirebaseMessagingService {
 
         String user_id=remoteMessage.getData().get("user_id");
 
-        if (prefs.getUserId().equalsIgnoreCase(user_id) && !isForLogout) {
+        if (remoteMessage.getData().get("message").contains("OTP")) {
+            notifyUser(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
+            int totalCount = prefs.getNoticount();
+            totalCount++;
+            prefs.setNoticount(totalCount);
+            BadgeUtils.setBadge(getApplicationContext(), totalCount);
+        } else if (prefs.getUserId().equalsIgnoreCase(user_id) && !isForLogout) {
             notifyUser(remoteMessage.getData().get("title"),remoteMessage.getData().get("message"));
             int totalCount = prefs.getNoticount();
             totalCount++;

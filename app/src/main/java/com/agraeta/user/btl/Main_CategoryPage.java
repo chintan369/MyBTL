@@ -47,7 +47,7 @@ public class Main_CategoryPage extends AppCompatActivity {
     String cartJSON = "";
     boolean hasCartCallFinish = true;
 
-    TextView txt;
+    TextView txt, txt_title;
 
 
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
@@ -88,6 +88,7 @@ public class Main_CategoryPage extends AppCompatActivity {
                 android.app.ActionBar.LayoutParams.WRAP_CONTENT);
 
         imageloader = new ImageLoader(Main_CategoryPage.this);
+        txt_title = (TextView) findViewById(R.id.txt_title);
         setActionBar();
        /* list_data = new ArrayList<Integer>();
         list_data.add(R.drawable.doorfittings);
@@ -114,6 +115,11 @@ public class Main_CategoryPage extends AppCompatActivity {
 
         app = new AppPrefs(Main_CategoryPage.this);
         Cat_ID = app.getUser_CatId();
+
+        if (!Cat_ID.equals("0")) {
+            txt_title.setText("Sub Categories");
+        }
+
         //Log.e("CAT_Id",""+Cat_ID);
         new Set_Category_Page().execute();
 

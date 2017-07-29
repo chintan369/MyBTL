@@ -61,6 +61,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class D_OrderHistoryDetails extends AppCompatActivity {
     public static ArrayList<String> WishList = new ArrayList<String>();
@@ -1598,7 +1599,7 @@ public class D_OrderHistoryDetails extends AppCompatActivity {
                 txt_couponname.setText("Coupon (" + history.getCoupon_name() + ") Discount :");
                 txt_couponamount.setText(history.getDiscount_amount());
 
-                tv_subtotal.setText(String.valueOf(subTotal));
+                tv_subtotal.setText(String.format(Locale.getDefault(), "%.2f", (float) subTotal));
                 tv_order_total.setText(String.valueOf(total));
             } else {
                 tv_order_total.setText("" + bean_cart.get(0).getTotal());

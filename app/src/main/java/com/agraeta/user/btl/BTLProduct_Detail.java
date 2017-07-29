@@ -159,7 +159,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
       };*/
     String wishid = "";
     String mrp, sellingprice;
-    Dialog dialog, dialogOffer;
+    Dialog dialog, dialogOffer, dialogDesc;
     Spinner sp_option;
     TextView txt_optionname, txt_mrp, txt_sell;
     String product_id = "";
@@ -225,6 +225,10 @@ public class BTLProduct_Detail extends AppCompatActivity {
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialogDesc = new Dialog(BTLProduct_Detail.this);
+        dialogDesc.setCanceledOnTouchOutside(false);
+        dialogDesc.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialogOffer = new Dialog(BTLProduct_Detail.this);
         dialogOffer.getWindow();
@@ -1325,22 +1329,33 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                 int schemeSelectedPosition = -1;
 
+                                ArrayList<Bean_schemeData> selectedProductSchemes = new ArrayList<Bean_schemeData>();
+
                                 for (int i = 0; i < bean_Schme_data.size(); i++) {
-                                    int schemeQty = Integer.parseInt(bean_Schme_data.get(i).getSchme_qty());
+                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
+                                        selectedProductSchemes.add(bean_Schme_data.get(i));
+                                    }
+                                }
+
+                                for (int i = 0; i < selectedProductSchemes.size(); i++) {
+                                    int schemeQty = Integer.parseInt(selectedProductSchemes.get(i).getSchme_qty());
 
                                     //Log.e("Scheme minQty","Qty : "+schemeQty+", ProductID - "+bean_product1.get(0).getPro_id());
-                                    if (bean_Schme_data.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
+
+                                    Log.e("Scheme Pro ID", selectedProductSchemes.get(i).getSchme_prod_id() + " - " + selectedProductID[0]);
+
+                                    if (selectedProductSchemes.get(i).getSchme_prod_id().equals(selectedProductID[0])) {
                                         if (qty < schemeQty) {
                                             schemeSelectedPosition = i;
                                             break;
                                         } else {
-                                            schemeSelectedPosition = bean_Schme_data.size() - 1;
+                                            schemeSelectedPosition = selectedProductSchemes.size() - 1;
                                         }
                                     }
                                 }
 
-                                if (bean_Schme_data.size() > 0 && schemeSelectedPosition >= 0) {
-                                    txt_availableScheme.setText(bean_Schme_data.get(schemeSelectedPosition).getSchme_name());
+                                if (selectedProductSchemes.size() > 0 && schemeSelectedPosition >= 0) {
+                                    txt_availableScheme.setText(selectedProductSchemes.get(schemeSelectedPosition).getSchme_name());
                                 } else {
                                     txt_availableScheme.setText("");
                                 }
@@ -1905,9 +1920,9 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("item_total", tv_total.getText().toString());
                                                 jobject.put("pro_scheme", " ");
                                                 jobject.put("pack_of", bean_product1.get(0).getPro_label());
-                                                jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                                jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                                jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                                jobject.put("scheme_id", " ");
+                                                jobject.put("scheme_title", " ");
+                                                jobject.put("scheme_pack_id", " ");
                                                 if (list_of_images.size() == 0) {
                                                     jobject.put("prod_img", bean_product1.get(0).getPro_image().toString());
                                                     // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
@@ -3925,25 +3940,25 @@ public class BTLProduct_Detail extends AppCompatActivity {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
 
-        dialog.setContentView(R.layout.webview_popup);
-        dialog.getWindow().setLayout((6 * width) / 7, (4 * height) / 5);
-        dialog.setCancelable(true);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogDesc.setContentView(R.layout.webview_popup);
+        dialogDesc.getWindow().setLayout((6 * width) / 7, (4 * height) / 5);
+        dialogDesc.setCancelable(true);
+        dialogDesc.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        WebView webview_product_details = (WebView) dialog.findViewById(R.id.webview_product_details);
+        WebView webview_product_details = (WebView) dialogDesc.findViewById(R.id.webview_product_details);
         webview_product_details.getSettings().setJavaScriptEnabled(true);
-        ImageView img_cancel = (ImageView) dialog.findViewById(R.id.btn_cancel);
+        ImageView img_cancel = (ImageView) dialogDesc.findViewById(R.id.btn_cancel);
         img_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialogDesc.dismiss();
             }
         });
 
         webview_product_details.loadData("<HTML><body> " + html_code + " </body></HTML>", "text/html", null);
 
-        dialog.show();
+        dialogDesc.show();
 
     }
 

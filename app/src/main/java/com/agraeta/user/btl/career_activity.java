@@ -75,6 +75,8 @@ TextView tv_filename;
 
     TextView txt;
 
+    boolean isFirstTime = true;
+
 
     String smobile = new String();
     protected void onResume() {
@@ -166,7 +168,6 @@ TextView tv_filename;
                     startActivityForResult(intent1,RQS_GET_IMAGE);
                 }
             });
-
 
             new send_state_Data().execute();
         }catch (NullPointerException e)
@@ -799,12 +800,24 @@ TextView tv_filename;
 
                                 cityname.add(cname);
                                 cityid.add(cId);
+                            }
 
+                            ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(career_activity.this, android.R.layout.simple_spinner_item, cityname);
+                            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spn_city_careers.setAdapter(adapter_city);
 
-                                ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(career_activity.this,  android.R.layout.simple_spinner_item, cityname);
-                                adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spn_city_careers.setAdapter(adapter_city);
+                            if (isFirstTime && BTL.addressList.size() > 0) {
+                                int pos = 0;
+                                for (int k = 0; k < cityname.size(); k++) {
+                                    if (cityid.get(k).equals(BTL.addressList.get(0).getCity_id())) {
+                                        Log.e("city ID", cityid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
 
+                                spn_city_careers.setSelection(pos);
+                                isFirstTime = false;
                             }
                         }
                         loadingView.dismiss();
@@ -912,11 +925,24 @@ TextView tv_filename;
                                 statename.add(sname);
                                 stateid.add(sId);
 
+                            }
 
-                                ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(career_activity.this,  android.R.layout.simple_spinner_item, statename);
-                                adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spn_state_Careers.setAdapter(adapter_state);
+                            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(career_activity.this, android.R.layout.simple_spinner_item, statename);
+                            adapter_state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spn_state_Careers.setAdapter(adapter_state);
 
+
+                            if (isFirstTime && BTL.addressList.size() > 0) {
+                                int pos = 0;
+                                for (int k = 0; k < statename.size(); k++) {
+                                    if (stateid.get(k).equals(BTL.addressList.get(0).getState_id())) {
+                                        Log.e("State ID", stateid.get(k));
+                                        pos = k;
+                                        break;
+                                    }
+                                }
+                                if (pos == 0) isFirstTime = false;
+                                spn_state_Careers.setSelection(pos);
                             }
                         }
                         loadingView.dismiss();

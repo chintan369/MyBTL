@@ -15,6 +15,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.AppPrefs;
 import com.agraeta.user.btl.Bean_Product;
 import com.agraeta.user.btl.Bean_schemeData;
 import com.agraeta.user.btl.C;
@@ -39,11 +40,12 @@ public class ReOrderGridAdapter extends BaseAdapter {
     Activity context;
     LayoutInflater inflater;
     int breakPosition=-1;
+    AppPrefs prefs;
 
     public ReOrderGridAdapter(Activity context, List<Bean_Product> productList) {
         this.context = context;
         this.productList = productList;
-
+        this.prefs = new AppPrefs(context);
         inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -67,7 +69,7 @@ public class ReOrderGridAdapter extends BaseAdapter {
 
         View view=inflater.inflate(R.layout.layout_reorder_item,parent,false);
 
-        final TextView txt_productCode, txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_schemeLabel, txt_discountName, txt_mrpLabel;
+        final TextView txt_productCode, txt_productName, txt_mrpPrice, txt_sellingPrice, txt_packOf, txt_totalPrice, txt_optionName, txt_optionSeperator, txt_optionValue, txt_schemeLabel, txt_discountName, txt_mrpLabel, txt_sellingLabel, txt_totalLabel;
         final EditText edt_qty;
         ImageView img_plus,img_minus,img_offer;
 
@@ -75,8 +77,10 @@ public class ReOrderGridAdapter extends BaseAdapter {
         txt_productName=(TextView) view.findViewById(R.id.txt_productName);
         txt_mrpPrice=(TextView) view.findViewById(R.id.txt_mrpPrice);
         txt_mrpLabel = (TextView) view.findViewById(R.id.txt_mrpLabel);
+        txt_sellingLabel = (TextView) view.findViewById(R.id.txt_sellingLabel);
         txt_sellingPrice=(TextView) view.findViewById(R.id.txt_sellingPrice);
         txt_packOf=(TextView) view.findViewById(R.id.txt_packOf);
+        txt_totalLabel = (TextView) view.findViewById(R.id.txt_totalLabel);
         txt_totalPrice=(TextView) view.findViewById(R.id.txt_totalPrice);
         txt_optionName=(TextView) view.findViewById(R.id.txt_optionName);
         txt_optionSeperator=(TextView) view.findViewById(R.id.txt_optionSeperator);
@@ -173,6 +177,16 @@ public class ReOrderGridAdapter extends BaseAdapter {
                 showSchemeDialog(position);
             }
         });
+
+        if (prefs.getUserRoleId().equals(C.COMP_SALES_PERSON) && prefs.getSubSalesId().equals(C.DISTRIBUTOR)) {
+            txt_mrpLabel.setVisibility(View.GONE);
+            txt_sellingLabel.setVisibility(View.GONE);
+            txt_mrpPrice.setVisibility(View.GONE);
+            txt_discountName.setVisibility(View.GONE);
+            txt_sellingPrice.setVisibility(View.GONE);
+            txt_totalLabel.setVisibility(View.GONE);
+            txt_totalPrice.setVisibility(View.GONE);
+        }
 
         img_plus.setOnClickListener(new View.OnClickListener() {
             @Override
