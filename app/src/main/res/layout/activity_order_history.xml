@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:padding="10dp"
-            >
+            android:padding="10dp">
+
             <LinearLayout
                 android:id="@+id/lin_filter"
                 android:layout_width="match_parent"
@@ -27,19 +27,20 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
 
-                    android:src="@drawable/filter"/>
+                    android:src="@drawable/filter" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:text="Filter"
 
-                    android:textColor="#000000"/>
-
+                    android:textColor="#000000" />
 
 
                 <View
@@ -47,7 +48,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="40dp"
                     android:background="#d4d4d4"
-                    android:gravity="left|center"/>
+                    android:gravity="left|center" />
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,7 +59,8 @@
                     android:background="#e2791d"
                     android:text="back"
                     android:textColor="#fff"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
+
                 <Button
                     android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
@@ -66,11 +69,12 @@
                     android:layout_marginLeft="5dp"
                     android:background="#e2791d"
                     android:text="back"
-                    android:textColor="#fff"/>
+                    android:textColor="#fff" />
             </LinearLayout>
 
 
         </LinearLayout>
+
         <View
 
             android:layout_width="match_parent"
@@ -85,8 +89,7 @@
             android:layout_margin="10dp"
             android:text="Order History"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
         <View
 
@@ -121,7 +124,7 @@
                     android:padding="5dp"
                     android:text="#ID"
                     android:textColor="@color/black_000"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_orderDate"
@@ -133,7 +136,7 @@
                     android:padding="5dp"
                     android:text="Date"
                     android:textColor="@color/black_000"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_orderStatus"
@@ -145,7 +148,7 @@
                     android:padding="5dp"
                     android:text="Status"
                     android:textColor="@color/black_000"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txt_orderAmount"
@@ -156,7 +159,7 @@
                     android:padding="5dp"
                     android:text="Amount"
                     android:textColor="@color/black_000"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
             </LinearLayout>
 

@@ -1,42 +1,56 @@
 package com.agraeta.user.btl;
 
+import com.agraeta.user.btl.model.combooffer.ProductItem;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by chaitalee on 4/14/2016.
  */
 public class Bean_Product {
 
-    private int id ;
+    String optionID = "";
+    String optionName = "";
+    String optionValueID = "";
+    String optionValueName = "";
+    List<ProductItem.ProductOption> ProductOption = new ArrayList<>();
+    private int _id;
+    @SerializedName("id")
     private String pro_id = "";
+    @SerializedName("product_code")
     private String pro_code = "";
+    @SerializedName("product_name")
     private String pro_name = "";
     private String pro_label = "";
+    @SerializedName("mrp")
     private String pro_mrp = "";
+    @SerializedName("selling_price")
     private String pro_sellingprice = "";
+    @SerializedName("description")
     private String pro_shortdesc = "";
     private String pro_moreinfo = "";
-
-    String optionID="";
-    String optionName="";
-    String optionValueID="";
-    String optionValueName="";
-
     private String pro_cat_id = "";
     private String pro_qty = "";
     private String pro_image = "";
     private ArrayList<String>  Schemea= new ArrayList<>();
     private String Scheme = "";
-    private int packQty=1;
 
+    // Label Label = new Label();
+    private int packQty = 1;
     private ArrayList<Bean_schemeData> schemeList=new ArrayList<>();
 
+    /* public class Label{
+         String name = "";
+     }
+ */
     public Bean_Product() {
 
     }
 
     public Bean_Product(int id, String pro_id, String pro_code, String pro_name, String pro_label, String pro_mrp, String pro_sellingprice, String pro_shortdesc, String pro_moreinfo, String pro_cat_id, String pro_qty, String pro_image) {
-        this.id = id;
+        this._id = id;
         this.pro_id = pro_id;
         this.pro_code = pro_code;
         this.pro_name = pro_name;
@@ -65,7 +79,7 @@ public class Bean_Product {
     }
 
     public Bean_Product(int id, String pro_id, String pro_code, String pro_name, String pro_label, String pro_mrp, String pro_sellingprice, String pro_shortdesc, String pro_moreinfo, String pro_cat_id, String pro_qty, String pro_image, String scheme) {
-        this.id = id;
+        this._id = id;
         this.pro_id = pro_id;
         this.pro_code = pro_code;
         this.pro_name = pro_name;
@@ -81,7 +95,7 @@ public class Bean_Product {
     }
 
     public Bean_Product(int id, String pro_id, String pro_code, String pro_name, String pro_label, String pro_mrp, String pro_sellingprice, String pro_shortdesc, String pro_moreinfo, String pro_cat_id, String pro_qty, String pro_image, ArrayList<String> schemea, String scheme) {
-        this.id = id;
+        this._id = id;
         this.pro_id = pro_id;
         this.pro_code = pro_code;
         this.pro_name = pro_name;
@@ -95,6 +109,10 @@ public class Bean_Product {
         this.pro_image = pro_image;
         Schemea = schemea;
         Scheme = scheme;
+    }
+
+    public List<ProductItem.ProductOption> getProductOption() {
+        return ProductOption;
     }
 
     public ArrayList<String> getSchemea() {
@@ -114,11 +132,11 @@ public class Bean_Product {
     }
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getPro_id() {
@@ -226,7 +244,7 @@ public class Bean_Product {
     }
 
     public String getOptionID() {
-        return optionID;
+        return ProductOption.get(0).getOption_id();
     }
 
     public void setOptionID(String optionID) {
@@ -234,7 +252,7 @@ public class Bean_Product {
     }
 
     public String getOptionName() {
-        return optionName;
+        return ProductOption.get(0).getOption().getName();
     }
 
     public void setOptionName(String optionName) {
@@ -242,7 +260,7 @@ public class Bean_Product {
     }
 
     public String getOptionValueID() {
-        return optionValueID;
+        return ProductOption.get(0).getOption_value_id();
     }
 
     public void setOptionValueID(String optionValueID) {
@@ -250,7 +268,7 @@ public class Bean_Product {
     }
 
     public String getOptionValueName() {
-        return optionValueName;
+        return ProductOption.get(0).getOptionValue().getName();
     }
 
     public void setOptionValueName(String optionValueName) {

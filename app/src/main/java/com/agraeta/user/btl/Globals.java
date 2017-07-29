@@ -96,13 +96,19 @@ public class Globals {
     public static final String CATALOG_LIST = "Catalog/App_Get_Download_Catalog";
     public static final String USER_INFO = "User/APP_User_Info";
 
+    public static final String GET_CART_ITEM_QTY = "CartData/App_GetItemQty";
+    public static final String GET_SCHEME_DETAILS = "Scheme/App_Get_Scheme_Details";
+    public static final String GET_ALL_PRODUCT = "Product/App_Get_Product_Details";
+
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
     //public static String server_link ="http://www.btlkart.com/";
-    public static String server_link = "http://demo.btlindia.com/";
+    //public static String server_link = "http://demo.btlindia.com/";
+    public static String server_link = "http://www.btlindia.com/";
 
     public static String IMAGE_LINK = server_link + "files/";
 
-    public static String server_link1 = "http://demo.btlindia.com";
+    //public static String server_link1 = "http://demo.btlindia.com";
+    public static String server_link1 = "http://www.btlindia.com";
     static boolean connect = true;
     public static boolean isConnectingToInternet1(Context con){
 
@@ -217,7 +223,7 @@ public class Globals {
         if(t instanceof UnknownHostException || t instanceof ConnectException) noInternet(context);
         else defaultError(context);
 
-        //Log.e("Exception",t.getMessage());
+        Log.e("Exception", t.getMessage());
     }
 
     public static void generateNoteOnSD(Context context, String sBody) {

@@ -1,6 +1,8 @@
 package com.agraeta.user.btl.model;
 
+import com.agraeta.user.btl.C;
 import com.agraeta.user.btl.Globals;
+import com.agraeta.user.btl.ProductOrderResponse;
 import com.agraeta.user.btl.model.area.AreaData;
 import com.agraeta.user.btl.model.combooffer.ComboCartEdit;
 import com.agraeta.user.btl.model.combooffer.ComboCartID;
@@ -236,4 +238,19 @@ public interface AdminAPI {
     @FormUrlEncoded
     @POST(Globals.SET_READ_MESSAGE)
     Call<AppModel> getNotificationRead(@Field("msg_id") String messageID);
+
+    @FormUrlEncoded
+    @POST(Globals.GET_CART_ITEM_QTY)
+    Call<GetCartItemQuantityResponse> getCartItemQuantity(@Field(C.PRODUCT_ID) String productID, @Field(C.OWNER_ID) String ownerID, @Field(C.USER_ID) String userID);
+
+    @FormUrlEncoded
+    @POST(Globals.GET_SCHEME_DETAILS)
+    Call<GetSchemeDetailResponse> getSchemeDetailResponse(@Field(C.PRODUCT_ID) String productID, @Field(C.USER_ID) String userID, @Field("product_buy_qty") String buyQty);
+
+
+    @FormUrlEncoded
+    @POST(Globals.GET_ALL_PRODUCT)
+    Call<ProductOrderResponse> getProductsData(@Field(C.PRODUCT_ID) String productId, @Field(C.USER_ID) String userId, @Field("role_id") String roleId);
+
+
 }

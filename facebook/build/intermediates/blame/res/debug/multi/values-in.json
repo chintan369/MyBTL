@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
+        "outputFile": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
         "map": [
             {
                 "to": {
@@ -11,37 +11,13 @@
                     "endOffset": 111
                 },
                 "from": {
-                    "file": "F:\\BTL_ChailtaleeMam\\Phase 2 Doc\\MyApplication2\\facebook\\src\\main\\res\\values-in\\messenger_button_strings.xml",
+                    "file": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\src\\main\\res\\values-in\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
                         "startOffset": 1164,
                         "endColumn": 58,
                         "endOffset": 1220
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 60,
-                    "endOffset": 111
-                },
-                "from": {
-                    "file": "D:\\Eclipse To Android Studio\\Spyran\\MyBTL\\facebook\\src\\main\\res\\values-in\\messenger_button_strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 2,
-                        "startOffset": 1186,
-                        "endColumn": 58,
-                        "endOffset": 1242
                     }
                 }
             }

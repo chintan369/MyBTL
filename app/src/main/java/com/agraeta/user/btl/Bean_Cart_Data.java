@@ -1,7 +1,6 @@
 package com.agraeta.user.btl;
 
 import com.agraeta.user.btl.model.combooffer.ComboCart;
-import com.agraeta.user.btl.model.combooffer.ComboOfferData;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
 
 /**
@@ -10,6 +9,12 @@ import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
 
 public class Bean_Cart_Data {
 
+    String quotationID = "";
+    String isBTLProduct = "1";
+    String cartID = "";
+    boolean comboPack = false;
+    ComboOfferItem comboData;
+    ComboCart comboCart;
     private String id = new String();
     private String user_id = new String();
     private String role_id = new String();
@@ -32,15 +37,8 @@ public class Bean_Cart_Data {
     private String scheme_title = new String();
     private String scheme_pack_id = new String();
     private String prod_img = new String();
+    private String final_packOf = "";
     private int minPackOfQty=1;
-    String quotationID="";
-    String isBTLProduct="1";
-    String cartID="";
-
-    boolean comboPack=false;
-
-    ComboOfferItem comboData;
-    ComboCart comboCart;
 
 
     public Bean_Cart_Data(String id, String user_id, String role_id, String owner_id, String product_id, String category_id, String name, String pro_code, String quantity, String mrp, String selling_price, String option_id, String option_name, String option_value_id, String option_value_name, String item_total, String pro_scheme, String pack_of, String scheme_id, String scheme_title, String prod_img) {
@@ -326,5 +324,13 @@ public class Bean_Cart_Data {
 
     public void setCartID(String cartID) {
         this.cartID = cartID;
+    }
+
+    public String getFinal_packOf() {
+        return final_packOf;
+    }
+
+    public void setFinal_packOf(String final_packOf) {
+        this.final_packOf = final_packOf;
     }
 }

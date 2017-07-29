@@ -1,15 +1,27 @@
 package com.agraeta.user.btl;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by chaitalee on 9/29/2016.
  */
 public class Bean_Schme_value {
+
+
+    @SerializedName("get_prod_qty")
     private String get_qty = new String();
+
+    @SerializedName("buy_prod_qty")
     private String buy_qty = new String();
     private String max_qty = "";
     private String scheme_name = new String();
+
+    @SerializedName("discount_percentage")
     private String disc_per = new String();
+
     private String type_id = new String();
+
+    @SerializedName("id")
     private String scheme_id = new String();
 
     public Bean_Schme_value(String get_qty, String buy_qty, String max_qty) {

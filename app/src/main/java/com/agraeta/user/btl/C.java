@@ -51,6 +51,9 @@ public class C {
     public static final String EXTRA_SPECIAL_SCHEME = "3";
     public static final String SPECIAL_SCHEME = "2";
     public static final String GENERAL_SCHEME = "1";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String OWNER_ID = "owner_id";
+    public static final String USER_ID = "user_id";
     private static final Pattern EMAIL_ADDRESS
             = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{1,5}" + ")+");
 

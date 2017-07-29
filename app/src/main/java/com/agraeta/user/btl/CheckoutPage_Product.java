@@ -190,6 +190,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.setCancelable(false);
 
+
         if (user_data.size() != 0) {
             for (int i = 0; i < user_data.size(); i++) {
 
@@ -651,6 +652,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             }
 
                             for (int i = 0; i < bean_cart_data.size(); i++) {
+
+                                Log.e("getBeanss", "--->" + new Gson().toJson(bean_cart_data));
                                 try {
 
                                     product_id = bean_cart_data.get(i).getPro_scheme().toString();
@@ -666,7 +669,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     String newStr = newString.replace(")", "");
                                     //Log.e("avbcdf", "" + newStr);
                                     jobject.put("pro_code", newStr);
-                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+                                    //jobject.put("pro_name", bean_cart_data.get(i).getName());
+
                                     jobject.put("pro_qty", bean_cart_data.get(i).getQuantity());
                                     jobject.put("pro_mrp", bean_cart_data.get(i).getMrp());
                                     jobject.put("pro_sellingprice", bean_cart_data.get(i).getSelling_price());
@@ -675,7 +679,12 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     jobject.put("pro_Option_value_id", bean_cart_data.get(i).getOption_value_id());
                                     jobject.put("pro_Option_value_name", bean_cart_data.get(i).getOption_value_name());
                                     jobject.put("pro_total", bean_cart_data.get(i).getItem_total());
+                                    //jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
                                     jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+
+                                    Log.e("Data", "" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
+                                    Log.e("Name&PackOf1", "---->" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
                                     //Log.e("sTRSSS", "" + strr);
                                     jobject.put("pro_scheme", bean_cart_data.get(i).getScheme_id());
                                     jarray_OrderProductData.put(jobject);
@@ -780,6 +789,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     }
 
                                     for (int i = 0; i < bean_cart_data.size(); i++) {
+
+                                        Log.e("getBeanss2", "--->" + new Gson().toJson(bean_cart_data));
                                         try {
 
 
@@ -802,7 +813,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                 String newStr = newString.replace(")", "");
                                                 //Log.e("avbcdf", "" + newStr);
                                                 jobject.put("pro_code", newStr);
-                                                jobject.put("pro_name", bean_cart_data.get(i).getName());
+                                                // jobject.put("pro_name", bean_cart_data.get(i).getName());
                                                 jobject.put("pro_qty", bean_cart_data.get(i).getQuantity());
                                                 jobject.put("pro_mrp", bean_cart_data.get(i).getMrp());
                                                 jobject.put("pro_sellingprice", bean_cart_data.get(i).getSelling_price());
@@ -811,9 +822,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                 jobject.put("pro_Option_value_id", bean_cart_data.get(i).getOption_value_id());
                                                 jobject.put("pro_Option_value_name", bean_cart_data.get(i).getOption_value_name());
                                                 jobject.put("pro_total", bean_cart_data.get(i).getItem_total());
-                                                jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                                // jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
                                                 //Log.e("sTRSSS", "" + strr);
                                                 jobject.put("pro_scheme", bean_cart_data.get(i).getScheme_id());
+                                                jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                                jobject.put("pro_name", bean_cart_data.get(i).getName());
+
+
+                                                Log.e("Name&PackOf2", "---->" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
+
                                                 jarray_OrderProductData.put(jobject);
                                             }
                                             // }
@@ -940,6 +957,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                         }
 
                                         for (int i = 0; i < bean_cart_data.size(); i++) {
+
+                                            Log.e("getBeanss3", "--->" + new Gson().toJson(bean_cart_data));
                                             try {
 
                                                 product_id = bean_cart_data.get(i).getPro_scheme();
@@ -964,7 +983,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                     String newStr = newString.replace(")", "");
                                                     //Log.e("avbcdf",""+newStr);
                                                     jobject.put("pro_code", newStr);
-                                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+                                                    //  jobject.put("pro_name", bean_cart_data.get(i).getName());
                                                     jobject.put("pro_qty", bean_cart_data.get(i).getQuantity());
                                                     jobject.put("pro_mrp", bean_cart_data.get(i).getMrp());
                                                     jobject.put("pro_sellingprice", bean_cart_data.get(i).getSelling_price());
@@ -973,9 +992,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                                     jobject.put("pro_Option_value_id", bean_cart_data.get(i).getOption_value_id());
                                                     jobject.put("pro_Option_value_name", bean_cart_data.get(i).getOption_value_name());
                                                     jobject.put("pro_total", bean_cart_data.get(i).getItem_total());
-                                                    jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                                    //   jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
                                                     //Log.e("sTRSSS",""+strr);
                                                     jobject.put("pro_scheme", bean_cart_data.get(i).getScheme_id());
+                                                    jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+
+
+                                                    Log.e("Name&PackOf3", "---->" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
+
                                                     jarray_OrderProductData.put(jobject);
                                                 }
 
@@ -1146,13 +1171,15 @@ public class CheckoutPage_Product extends AppCompatActivity {
                             }
 
                             for (int i = 0; i < bean_cart_data.size(); i++) {
+
+                                Log.e("getBeanss4", "--->" + new Gson().toJson(bean_cart_data));
                                 try {
                                     JSONObject jobject = new JSONObject();
 
                                     jobject.put("pro_id", bean_cart_data.get(i).getProduct_id());
                                     jobject.put("pro_cat_id", bean_cart_data.get(i).getCategory_id());
                                     jobject.put("pro_code", bean_cart_data.get(i).getPro_code());
-                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+                                    // jobject.put("pro_name", bean_cart_data.get(i).getName());
                                     jobject.put("pro_qty", bean_cart_data.get(i).getQuantity());
                                     jobject.put("pro_mrp", bean_cart_data.get(i).getMrp());
                                     jobject.put("pro_sellingprice", bean_cart_data.get(i).getSelling_price());
@@ -1161,7 +1188,13 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     jobject.put("pro_Option_value_id", bean_cart_data.get(i).getOption_value_id());
                                     jobject.put("pro_Option_value_name", bean_cart_data.get(i).getOption_value_name());
                                     jobject.put("pro_total", bean_cart_data.get(i).getItem_total());
+                                    // jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
                                     jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
+                                    jobject.put("pro_name", bean_cart_data.get(i).getName());
+
+
+                                    Log.e("Name&PackOf4", "---->" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
+
                                     jarray_OrderProductData.put(jobject);
 
 
@@ -4610,7 +4643,9 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 parameters.add(new BasicNameValuePair("OrderProductData", "" + jarray_OrderProductData));
                 //Log.e("OrderProductData", "" + jarray_OrderProductData);
 
+                Log.e("DataOfOrder", "-->" + jarray_OrderProductData.get(0).toString());
                 Log.e("4", "" + parameters);
+
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_AddOrder", ServiceHandler.POST, parameters);
                 return json;
@@ -4859,6 +4894,8 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                 Log.e("4", parameters.toString());
 
+                Log.e("getDatasss", "" + parameters.toString());
+
                 //json = new ServiceHandler().makeServiceCall(GlobalVariable.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Add_B2B_Order", ServiceHandler.POST, parameters, 2);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
@@ -5056,6 +5093,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 //Log.e("OrderTotalData", "" + jarray_OrderTotalData);
                 parameters.add(new BasicNameValuePair("OrderProductData", "" + jarray_OrderProductData));
                 //Log.e("OrderProductData", "" + jarray_OrderProductData);
+
+
+                Log.e("DataOfOrder", "" + jarray_OrderProductData.toString());
+
                 if (!docPath1.equalsIgnoreCase(""))
                     parameters.add(new BasicNameValuePair("attachment_1", docPath1));
 
@@ -5832,23 +5873,22 @@ public class CheckoutPage_Product extends AppCompatActivity {
         protected String doInBackground(Void... params) {
 
 
+            //Log.e("77777777","77777777");
 
-                //Log.e("77777777","77777777");
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                parameters.add(new BasicNameValuePair("receiver_id", subSales_id));
-                parameters.add(new BasicNameValuePair("sender_id", user_ID));
-                parameters.add(new BasicNameValuePair("mobile_no", phone));
+            List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+            parameters.add(new BasicNameValuePair("receiver_id", subSales_id));
+            parameters.add(new BasicNameValuePair("sender_id", user_ID));
+            parameters.add(new BasicNameValuePair("mobile_no", phone));
 
 
             Log.e("otp", "------->" + parameters);
 
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/APP_Generate_OTP", ServiceHandler.POST, parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
+            json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/APP_Generate_OTP", ServiceHandler.POST, parameters);
+            //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+            //System.out.println("array: " + json);
 
             Log.e("json", json);
-                return json;
+            return json;
         }
 
         @Override
@@ -6078,6 +6118,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                         }
 
                         for (int i = 0; i < bean_cart_data.size(); i++) {
+                            Log.e("getBeanss5", "--->" + new Gson().toJson(bean_cart_data));
                             try {
 
                                 product_id = bean_cart_data.get(i).getPro_scheme();
@@ -6114,6 +6155,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                     jobject.put("pack_of", bean_cart_data.get(i).getPack_of());
                                     //Log.e("sTRSSS",""+strr);
                                     jobject.put("pro_scheme", bean_cart_data.get(i).getScheme_id());
+
+
+                                    Log.e("Name&PackOf5", "---->" + bean_cart_data.get(i).getName() + "-->" + bean_cart_data.get(i).getPack_of());
+
+
                                     jarray_OrderProductData.put(jobject);
                                 }
 
