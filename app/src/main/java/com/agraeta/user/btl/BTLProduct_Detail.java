@@ -2063,7 +2063,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                             }
 
-
                                             // db.Add_Product_cart_scheme(bean_s);
 
                                             array_value.clear();
@@ -2263,7 +2262,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         });
     }
 
-    private void showOfferDialog(String selectedProductID) {
+    private void showOfferDialog(final String selectedProductID) {
         {
 
             DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -2369,7 +2368,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                         // product_id = tv_pop_pname.getTag().toString();
                         List<NameValuePair> para = new ArrayList<NameValuePair>();
-                        para.add(new BasicNameValuePair("product_id", pid));
+                        para.add(new BasicNameValuePair("product_id", selectedProductID));
                         para.add(new BasicNameValuePair("owner_id", owner_id));
                         para.add(new BasicNameValuePair("user_id", user_id_main));
                         Log.e("111111111", "" + pid);
@@ -2441,7 +2440,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         Log.e("qty", "" + qty);
 
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("product_id", product_id));
+                        params.add(new BasicNameValuePair("product_id", selectedProductID));
                         params.add(new BasicNameValuePair("user_id", user_id_main));
                         params.add(new BasicNameValuePair("product_buy_qty", qty));
                         params.add(new BasicNameValuePair("scheme_id", selectedSchemeID));
@@ -2633,7 +2632,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("user_id", user_id_main);
                                         jobject.put("role_id", role_id);
                                         jobject.put("owner_id", owner_id);
-                                        jobject.put("product_id", pid);
+                                        jobject.put("product_id", selectedProductID);
                                         jobject.put("category_id", CategoryID);
                                         jobject.put("name", tv_product_name.getText().toString());
 
@@ -2702,7 +2701,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     jobject.put("user_id", user_id_main);
                                     jobject.put("role_id", role_id);
                                     jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", pid);
+                                    jobject.put("product_id", selectedProductID);
                                     jobject.put("category_id", CategoryID);
                                     jobject.put("name", tv_product_name.getText().toString());
                                     String newString = tv_product_code.getText().toString().trim().replace("(", "");
@@ -2846,7 +2845,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("user_id", user_id_main);
                                         jobject.put("role_id", role_id);
                                         jobject.put("owner_id", owner_id);
-                                        jobject.put("product_id", pid);
+                                        jobject.put("product_id", selectedProductID);
                                         jobject.put("category_id", CategoryID);
                                         jobject.put("name", tv_product_name.getText().toString());
                                         String newString = tv_product_code.getText().toString().trim().replace("(", "");
@@ -3005,7 +3004,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         product_detail_marquee = (TextView) this.findViewById(R.id.product_detail_marquee);
         product_detail_marquee.setSelected(true);
 
-
         layout_imagegrid = (LinearLayout) findViewById(R.id.layout_imagegrid);
         Feature_text_layout = (LinearLayout) findViewById(R.id.Feature_text_layout);
         moreinfo_text_layout = (LinearLayout) findViewById(R.id.moreinfo_text_layout);
@@ -3021,7 +3019,6 @@ public class BTLProduct_Detail extends AppCompatActivity {
         l_features = (LinearLayout) findViewById(R.id.l_Feature);
         l_videos = (LinearLayout) findViewById(R.id.l_videos);
         l_more = (LinearLayout) findViewById(R.id.l_more_Info);
-
 
         l_desc_detail = (LinearLayout) findViewById(R.id.l_description_detail);
         l_std_spec_detail = (LinearLayout) findViewById(R.id.l_standard_technical_detail);
