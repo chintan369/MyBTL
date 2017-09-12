@@ -27,7 +27,6 @@ import com.agraeta.user.btl.Main_CategoryPage;
 import com.agraeta.user.btl.Notification;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.ServiceHandler;
-import com.agraeta.user.btl.User_Profile;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -256,7 +255,7 @@ public class DisMyOrders extends AppCompatActivity {
         image_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                app = new AppPrefs(getApplicationContext());
+                /*app = new AppPrefs(getApplicationContext());
 
                 if (app.getUser_notification().toString().equalsIgnoreCase("mainpage_drawer")) {
                     Intent i = new Intent(DisMyOrders.this, MainPage_drawer.class);
@@ -276,7 +275,9 @@ public class DisMyOrders extends AppCompatActivity {
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                     }
-                }
+                }*/
+
+                onBackPressed();
             }
         });
         img_category.setOnClickListener(new View.OnClickListener() {
@@ -313,13 +314,14 @@ public class DisMyOrders extends AppCompatActivity {
 
     public void onBackPressed() {
         app = new AppPrefs(getApplicationContext());
-
         if (app.getUser_notification().equalsIgnoreCase("mainpage_drawer")) {
             Intent i = new Intent(DisMyOrders.this, MainPage_drawer.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else {
-            if (app.getUserRoleId().equalsIgnoreCase("4") || app.getUserRoleId().equalsIgnoreCase("5") || app.getUserRoleId().equalsIgnoreCase("3")) {
+
+            super.onBackPressed();
+            /*if (app.getUserRoleId().equalsIgnoreCase("4") || app.getUserRoleId().equalsIgnoreCase("5") || app.getUserRoleId().equalsIgnoreCase("3")) {
                 Intent i = new Intent(DisMyOrders.this, User_Profile.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
@@ -327,7 +329,7 @@ public class DisMyOrders extends AppCompatActivity {
                 Intent i = new Intent(DisMyOrders.this, DisOrderListActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-            }
+            }*/
         }
     }
 
@@ -630,4 +632,6 @@ public class DisMyOrders extends AppCompatActivity {
             }
         }
     }
+
+
 }

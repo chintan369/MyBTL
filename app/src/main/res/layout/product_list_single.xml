@@ -10,9 +10,9 @@
         android:layout_height="170dp"
         android:orientation="horizontal">
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
@@ -27,33 +27,33 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10%off"
-                        android:padding="3dp"
                         android:layout_marginTop="2dp"
+                        android:background="#e2791d"
                         android:gravity="right"
+                        android:padding="3dp"
 
+                        android:text="10%off"
                         android:textColor="#fff"
                         android:visibility="invisible"
-                        android:background="#e2791d"
                         />
                     <TextView
+                        android:id="@+id/off_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10%off"
-                        android:padding="2dp"
                         android:layout_marginTop="2dp"
-                        android:gravity="center"
-                        android:id="@+id/off_tag"
-                        android:textColor="#fff"
-
-
                         android:background="#e2791d"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="10%off"
+
+
+                        android:textColor="#fff"
                         />
                 </LinearLayout>
             <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/imageView2"
                 android:src="@drawable/a"
                />
             </LinearLayout>
@@ -61,47 +61,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="8dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
 
+                        android:id="@+id/product_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textStyle="bold"
                         android:layout_weight="1"
-android:maxLines="2"
                         android:ellipsize="end"
-                        android:textColor="#000000"
                         android:gravity="left|center"
+                        android:maxLines="2"
                         android:text="BossSolardfssfdsf"
-                        android:id="@+id/product_name" />
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
 
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/whishlist"
-
-                        android:padding="3dp"
                         android:id="@+id/img_wish"
-                        />
-                    <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/shoppinlist"
 
                         android:padding="3dp"
-                        android:id="@+id/img_shooping"
+                        android:src="@drawable/whishlist"
                         />
                     <ImageView
+                        android:id="@+id/img_shooping"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+
+                        android:padding="3dp"
+                        android:src="@drawable/shoppinlist"
+                        />
+                    <ImageView
+                        android:id="@+id/img_offer"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/offer_new"
-                        android:id="@+id/img_offer"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -111,15 +111,15 @@ android:maxLines="2"
                     android:orientation="vertical"
                     >
                     <TextView
-                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/product_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:textColor="#000000"
+                        android:layout_gravity="center_horizontal"
                         android:gravity="left|center"
 
                         android:text="(B306)"
-                        android:id="@+id/product_code" />
+                        android:textColor="#000000" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -127,17 +127,17 @@ android:maxLines="2"
 
                         >
                         <TextView
+                            android:id="@+id/txt_pack"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="Pack.of :"
-                            android:id="@+id/txt_pack"
                             />
                         <TextView
+                            android:id="@+id/product_packof"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="1"
                             android:layout_weight="2"
-                            android:id="@+id/product_packof" />
+                            android:text="1" />
 
                     </LinearLayout>
 
@@ -145,112 +145,112 @@ android:maxLines="2"
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_prices"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/layout_prices"
-                    android:orientation="horizontal"
                     android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
                     >
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-
                         android:layout_weight="1"
+
+                        android:orientation="vertical"
                         >
                         <TextView
+                            android:id="@+id/txt_mrp_main"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
 
-                            android:id="@+id/txt_mrp_main"
+                            android:layout_weight="1"
                             android:text="MRP"/>
                         <TextView
+                            android:id="@+id/product_mrp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:textColor="@color/red"
                             android:text="\u20B9745.00"
-                            android:id="@+id/product_mrp" />
+                            android:textColor="@color/red" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:orientation="vertical"
                         >
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:id="@+id/txt_selling"
-                            android:text="SELLING PRICE"/>
-                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:textColor="@color/green"
+                            android:text="SP (Incl. GST)" />
+                        <TextView
+                            android:id="@+id/product_sellingprice"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:text="\u20B9745.00"
-                            android:id="@+id/product_sellingprice" />
+                            android:textColor="@color/green" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:textStyle="bold"
-                            android:text="DEALER PRICE"/>
+                            android:text="DEALER PRICE"
+                            android:textStyle="bold" />
                         <TextView
-                            android:textColor="#06A54B"
+                            android:id="@+id/p_del_prize"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="\u20B9630.00"
-                            android:id="@+id/p_del_prize" />
+                            android:textColor="#06A54B" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     >
                     <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="#ffffff"
                         android:id="@+id/BTN_wheretobuy_list"
-                        android:background="#01035a"
-                        android:text="where to buy"/>
-                    <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:background="#e2791d"
-                        android:textColor="#fff"
+                        android:background="#01035a"
+                        android:text="where to buy"
+                        android:textColor="#ffffff" />
+                    <Button
                         android:id="@+id/btn_buyonline"
-                        android:text="Buy Now"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:background="#e2791d"
+                        android:text="Buy Now"
+                        android:textColor="#fff" />
 
                     <Button
-                        android:visibility="gone"
+                        android:id="@+id/btn_enquiry"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginLeft="5dp"
-                        android:textColor="#ffffff"
-                        android:id="@+id/btn_enquiry"
+                        android:layout_weight="1"
                         android:background="#e2791d"
-                        android:text="Ask Quote"/>
+                        android:text="Ask Quote"
+                        android:textColor="#ffffff"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -263,9 +263,9 @@ android:maxLines="2"
     </LinearLayout>
 
     <View
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
-        android:layout_width="match_parent"
         android:background="#000000"/>
 
 

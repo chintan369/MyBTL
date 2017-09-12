@@ -169,7 +169,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center"
-                        android:text="Selling Price"
+                        android:text="SP (Incl. GST)"
                         android:textColor="#000000"
                         android:textSize="14sp"
                         />

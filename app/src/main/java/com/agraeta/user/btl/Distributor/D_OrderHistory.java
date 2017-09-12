@@ -158,6 +158,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
         Log.e("IDs for Distb",appPrefs.getSRP_Id()+" - - "+appPrefs.getUserId());
 
+
         if(appPrefs.getUserRoleId().equalsIgnoreCase("3"))
         {
             if(appPrefs.getCurrentPage().equalsIgnoreCase("OrderList1"))
@@ -879,7 +880,7 @@ public class D_OrderHistory extends AppCompatActivity {
                     parameters.add(new BasicNameValuePair("role_id", appPrefs.getSubSalesId()));
                     parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
                 } else {
-                    parameters.add(new BasicNameValuePair("user_id", appPrefs.getUserId()));
+                    parameters.add(new BasicNameValuePair("user_id", user_id_main));
                     parameters.add(new BasicNameValuePair("role_id", appPrefs.getUserRoleId()));
                     parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
                 }

@@ -29,6 +29,7 @@ public class LRDetailActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         jsonLR=intent.getStringExtra("jsonLR");
+        Log.e("datas", "------->" + jsonLR);
 
         setActionBar();
         fetchIDs();
@@ -48,7 +49,6 @@ public class LRDetailActivity extends AppCompatActivity {
 
         try{
             final OrderInvoice.InvoiceLR invoiceLR=new Gson().fromJson(jsonLR, OrderInvoice.InvoiceLR.class);
-
             txt_transportarName.setText(invoiceLR.getLrDetail().getTransporter_name());
             txt_designation.setText(invoiceLR.getLrDetail().getDestination());
             txt_LRNo.setText(invoiceLR.getLrDetail().getLr_no());
@@ -57,6 +57,7 @@ public class LRDetailActivity extends AppCompatActivity {
             txt_ccAttach.setText(invoiceLR.getLrDetail().getCc_attached());
             txt_remarks.setText(invoiceLR.getLrDetail().getRemarks());
             txt_invoiceNoDate.setText(invoiceLR.getLrDetail().getInvoice_no() + "\n\n" + invoiceLR.getLrDetail().getInvoice_date());
+
 
             img_download.setOnClickListener(new View.OnClickListener() {
                 @Override

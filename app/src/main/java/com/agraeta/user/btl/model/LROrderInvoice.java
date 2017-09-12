@@ -4,30 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Nivida new on 23-Jun-17.
+ * Created by NWSPL-17 on 14-Sep-17.
  */
 
-public class OrderInvoice {
+public class LROrderInvoice {
 
-    OrderInvoiceItem OrderInvoice=new OrderInvoiceItem();
-    List<InvoiceLR> InvoiceLr=new ArrayList<>();
 
+    OrderInvoiceItem OrderInvoice = new OrderInvoiceItem();
+    InvoiceLR InvoiceLr = new InvoiceLR();
 
     public OrderInvoiceItem getOrderInvoice() {
         return OrderInvoice;
     }
 
-    public List<InvoiceLR> getInvoiceLr() {
+
+    public InvoiceLR getLr() {
         return InvoiceLr;
     }
 
-    public class OrderInvoiceItem{
-        String id="";
-        String order_id="";
-        String invoice_no="";
-        String order_total="";
-        String invoice_date="";
-        String invoice_file="";
+    public class OrderInvoiceItem {
+        String id = "";
+        String order_id = "";
+        String invoice_no = "";
+        String order_total = "";
+        String invoice_date = "";
+        String invoice_file = "";
 
         public String getId() {
             return id;
@@ -54,13 +55,13 @@ public class OrderInvoice {
         }
     }
 
-    public class InvoiceLR{
-        String id="";
-        String invoice_id="";
-        String lr_id="";
-        String created="";
+    public class InvoiceLR {
+        String id = "";
+        String invoice_id = "";
+        String lr_id = "";
+        String created = "";
 
-        LRDetail LrDetail=new LRDetail();
+        List<LRDetail> LrDetail = new ArrayList<>();
 
         public String getId() {
             return id;
@@ -78,19 +79,19 @@ public class OrderInvoice {
             return created;
         }
 
-        public LRDetail getLrDetail() {
+        public List<LRDetail> getLrDetail() {
             return LrDetail;
         }
     }
 
-    public class LRDetail{
-        String lr_no="";
-        String lr_date="";
-        String courier_receipt_file="";
-        String transporter_name="";
-        String destination="";
-        String no_bundles="";
-        String remarks="";
+    public class LRDetail {
+        String lr_no = "";
+        String lr_date = "";
+        String courier_receipt_file = "";
+        String transporter_name = "";
+        String destination = "";
+        String no_bundles = "";
+        String remarks = "";
         String invoice_no = "";
         String invoice_date = "";
         String cc_attached = "";
@@ -135,4 +136,6 @@ public class OrderInvoice {
             return cc_attached;
         }
     }
+
+
 }
