@@ -3,10 +3,10 @@ package com.agraeta.user.btl.Distributor;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.agraeta.user.btl.AppPrefs;
 import com.agraeta.user.btl.CompanySalesPerson.BeanUserArea;
 import com.agraeta.user.btl.Custom_ProgressDialog;
@@ -28,6 +27,7 @@ import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.ServiceHandler;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -294,18 +294,23 @@ public class S_R_P_OrderList extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    public class GetDisProfData extends AsyncTask<Void,Void,String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), DisOrderListActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
+    public class GetDisProfData extends AsyncTask<Void,Void,String> {
+        public StringBuilder sb;
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         //int distributor_id;
         String user_id;
         String role_id;
         String jsonData="";
+        private String result;
+        private InputStream is;
 
         //        public GetDisSalesData(Activity activity,int distributor_id){
 //            this.activity=activity;
@@ -347,6 +352,8 @@ public class S_R_P_OrderList extends AppCompatActivity {
 
 
                 jsonData = new ServiceHandler().makeServiceCall(Globals.server_link+"User/APP_Distributor_User_Details",ServiceHandler.POST,parameters);
+
+                Log.e("parameters2", "--->" + parameters);
 
                 //System.out.println("Data From Server " + jsonData);
                 return jsonData;
@@ -416,17 +423,17 @@ public class S_R_P_OrderList extends AppCompatActivity {
             loadingView.dismiss();
         }
     }
-    public class GetDisSalesData extends AsyncTask<Void,Void,String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
 
+    public class GetDisSalesData extends AsyncTask<Void,Void,String> {
+        public StringBuilder sb;
+        boolean status;
         Custom_ProgressDialog loadingView;
         Activity activity;
         //int distributor_id;
         String user_id;
         String jsonData="";
+        private String result;
+        private InputStream is;
 
         //        public GetDisSalesData(Activity activity,int distributor_id){
 //            this.activity=activity;
@@ -464,6 +471,8 @@ public class S_R_P_OrderList extends AppCompatActivity {
                 //Log.e("distributor id", "" + user_id+"");
 
                 jsonData = new ServiceHandler().makeServiceCall(Globals.server_link+"User/APP_Distributor_sales_person",ServiceHandler.POST,parameters);
+
+                Log.e("parameters", "--->" + parameters);
 
                 //System.out.println("Data From Server " + jsonData);
                 return jsonData;
@@ -519,15 +528,6 @@ public class S_R_P_OrderList extends AppCompatActivity {
             //refreshLayout.setRefreshing(false);
             loadingView.dismiss();
         }
-    }
-
-
-
-
-    public void onBackPressed() {
-        Intent intent=new Intent(getApplicationContext(),DisOrderListActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

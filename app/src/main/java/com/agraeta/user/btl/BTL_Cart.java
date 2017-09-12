@@ -232,15 +232,15 @@ public class BTL_Cart extends AppCompatActivity {
 
             if (role_id.equalsIgnoreCase("0")) {
 
-                txt_subtotal.setText("(GST will be added extra)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             } else if (role_id.equalsIgnoreCase("2")) {
 
-                txt_subtotal.setText("(GST Amount Inclusive)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             } else if (role_id.equalsIgnoreCase("10")) {
 
-                txt_subtotal.setText("(GST Amount Inclusive)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             } else {
-                txt_subtotal.setText("(GST will be added extra)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             }
         }
 
@@ -306,15 +306,15 @@ public class BTL_Cart extends AppCompatActivity {
 
                 if (role_id.equalsIgnoreCase("0")) {
 
-                    txt_subtotal.setText("(GST will be added extra)");
+                    txt_subtotal.setText("(Rates Are Inclusive Of GST)");
                 } else if (role_id.equalsIgnoreCase("2")) {
 
-                    txt_subtotal.setText("(GST Amount Inclusive)");
+                    txt_subtotal.setText("(Rates Are Inclusive Of GST)");
                 } else if (role_id.equalsIgnoreCase("10")) {
 
-                    txt_subtotal.setText("(GST Amount Inclusive)");
+                    txt_subtotal.setText("(Rates Are Inclusive Of GST)");
                 } else {
-                    txt_subtotal.setText("(GST will be added extra)");
+                    txt_subtotal.setText("(Rates Are Inclusive Of GST)");
                 }
 
 

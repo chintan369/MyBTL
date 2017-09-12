@@ -42,15 +42,16 @@
             android:title="Categories" />
 
         <item
-            android:id="@+id/menu_gst"
-            android:icon="@drawable/gst_128"
-            android:title="GST Information"/>
-
-        <item
             android:id="@+id/menu_comboOffer"
             android:icon="@drawable/combo_offer"
             android:theme="@style/textfont_theme"
             android:title="Combo Offers"/>
+
+
+        <item
+            android:id="@+id/menu_gst"
+            android:icon="@drawable/gst_128"
+            android:title="GST Information" />
 
         <item
             android:id="@+id/menu_videoGallery"
@@ -81,7 +82,7 @@
         <item android:id="@+id/bulkEnquiry"
               android:icon="@drawable/ic_bulkenquiry"
               android:theme="@style/textfont_theme"
-              android:title="Bulk Enquiry"
+            android:title="Bulk Order Enquiry"
               />
 
         <item android:id="@+id/becomeDealer"
@@ -89,18 +90,22 @@
               android:theme="@style/textfont_theme"
               android:title="Become A Dealer"/>
 
-
-
-        <!-- <item
+        <item
              android:id="@+id/career"
              android:icon="@drawable/ic_action_inquiry"
              android:theme="@style/textfont_theme"
-             android:title="Career" />-->
+            android:title="Career" />
         <item
             android:id="@+id/contact"
             android:icon="@drawable/ic_action_contactus"
             android:theme="@style/textfont_theme"
             android:title="Contact" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_action_social_share"
+            android:title="Share My APP" />
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/log_out"
@@ -110,17 +115,12 @@
     </group>
 
 
-    <item
-        android:id="@+id/menu_communicate"
-        android:title="Communicate">
-        <menu>
-            <item
+    <!-- <item
+         android:id="@+id/menu_communicate"
+         android:title="Communicate">
+         <menu>-->
 
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_action_social_share"
-                android:title="Share" />
-
-        </menu>
-    </item>
-
+    <!--</menu>
+</item>
+-->
 </menu>

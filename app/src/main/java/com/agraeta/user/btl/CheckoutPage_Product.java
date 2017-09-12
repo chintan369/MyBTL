@@ -340,7 +340,6 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 role_id = user_data.get(i).getUser_type().toString();
 
                 if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
-
                     app = new AppPrefs(CheckoutPage_Product.this);
                     role_id = app.getSubSalesId().toString();
                     u_id = app.getSalesPersonId().toString();
@@ -372,18 +371,18 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
             if (user_data.get(i).getUser_type().equalsIgnoreCase("0")) {
 
-                txt_subtotal.setText("(GST will be added extra)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             } else if (user_data.get(i).getUser_type().equalsIgnoreCase("2")) {
 
-                txt_subtotal.setText("(GST Amount Inclusive)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             } else if (user_data.get(i).getUser_type().equalsIgnoreCase("10")) {
 
-                txt_subtotal.setText("(GST Amount Inclusive)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             }/*else if(user_data.get(i).getUser_type().equalsIgnoreCase("5")) {
 
                 txt_subtotal.setText("(Tax Amount Inclusive)");
             }*/ else {
-                txt_subtotal.setText("(GST will be added extra)");
+                txt_subtotal.setText("(Rates Are Inclusive Of GST)");
             }
         }
 

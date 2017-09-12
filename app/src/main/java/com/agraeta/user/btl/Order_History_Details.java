@@ -204,15 +204,15 @@ public class Order_History_Details extends AppCompatActivity {
 
         if (role_id.equalsIgnoreCase("0")) {
 
-            sub_t.setText("Sub Total (GST will be added extra):");
+            sub_t.setText("Sub Total (Rates Are Inclusive Of GST):");
         } else if (role_id.equalsIgnoreCase("2")) {
 
-            sub_t.setText("Sub Total (GST Amount Inclusive):");
+            sub_t.setText("Sub Total (Rates Are Inclusive Of GST):");
         } else if (role_id.equalsIgnoreCase("10")) {
 
-            sub_t.setText("Sub Total (GST Amount Inclusive):");
+            sub_t.setText("Sub Total (Rates Are Inclusive Of GST):");
         } else {
-            sub_t.setText("Sub Total (GST will be added extra):");
+            sub_t.setText("Sub Total (Rates Are Inclusive Of GST):");
         }
 
         new get_cartdata().execute();

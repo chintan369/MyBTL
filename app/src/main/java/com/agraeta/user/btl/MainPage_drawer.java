@@ -370,7 +370,7 @@ public class MainPage_drawer extends AppCompatActivity
                 menu.findItem(R.id.bulkEnquiry).setVisible(false);
                 menu.findItem(R.id.becomeDealer).setVisible(false);
                 menu.findItem(R.id.contact).setVisible(false);
-                menu.findItem(R.id.menu_communicate).setVisible(false);
+                //  menu.findItem(R.id.menu_communicate).setVisible(false);
                 menu.findItem(R.id.menu_gst).setVisible(false);
             }
 
@@ -770,6 +770,10 @@ public class MainPage_drawer extends AppCompatActivity
 
         } else if (id == R.id.becomeDealer) {
             Intent i = new Intent(getApplicationContext(), BecomeSellerActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.career) {
+            Intent i = new Intent(getApplicationContext(), FinalCareersActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else if (id == R.id.contact) {

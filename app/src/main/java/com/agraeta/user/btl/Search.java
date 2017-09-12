@@ -2829,7 +2829,6 @@ public class Search extends AppCompatActivity {
                                 // product_id = tv_pop_pname.getTag().toString();
 
                                 progressDialog.show();
-
                                 Log.e("Data", att_array.get(position1).getOption_pro_id() + " - " + owner_id + " - " + u_id);
 
                                 Call<GetCartItemQuantityResponse> itemQuantityResponseCall = adminAPI.getCartItemQuantity(att_array.get(position1).getOption_pro_id(), owner_id, u_id);

@@ -36,6 +36,11 @@ public class S_R_P_OrderListAdapter extends BaseAdapter {
 
     }
 
+    @NonNull
+    public static String getStr(String value) {
+        return value;
+    }
+
     @Override
     public int getCount() {
         return srpList.size();
@@ -110,24 +115,20 @@ public class S_R_P_OrderListAdapter extends BaseAdapter {
         this.distCallback=distCallback;
     }
 
-    public interface DistCallback{
-        public void onOptionClick(int position, View view);
-        public void showInfoDialog(int position);
-    }
-
     public Bean_S_R_P getData(int position){
         return srpList.get(position);
     }
 
-    @NonNull
-    public static String getStr(String value){
-        return value;
-    }
-
-
     public void updateData(List<Bean_S_R_P> srpList) {
         this.srpList=srpList;
         notifyDataSetChanged();
+    }
+
+
+    public interface DistCallback {
+        void onOptionClick(int position, View view);
+
+        void showInfoDialog(int position);
     }
 
 }

@@ -102,8 +102,8 @@ public class Globals {
 
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
     //public static String server_link ="http://www.btlkart.com/";
-    //public static String server_link = "http://demo.btlindia.com/";
-    public static String server_link = "http://www.btlindia.com/";
+    public static String server_link = "http://demo.btlindia.com/";
+    // public static String server_link = "http://www.btlindia.com/";
 
     public static String IMAGE_LINK = server_link + "files/";
 
