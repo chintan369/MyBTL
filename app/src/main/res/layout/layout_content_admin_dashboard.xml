@@ -40,7 +40,7 @@
                         android:padding="5dp"
                         android:text="COMPANY SALES"
                         android:textColor="@color/white"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                             android:text="Today's Order"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                             android:text="Sales Amount"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -89,7 +89,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="20sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                             android:text="/"
                             android:textColor="@color/black_000"
                             android:textSize="35sp"
-                            android:textStyle="bold|italic"/>
+                            android:textStyle="bold|italic" />
 
 
                         <TextView
@@ -112,7 +112,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="20sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -142,7 +142,7 @@
                         android:padding="5dp"
                         android:text="DISTRIBUTOR SALES"
                         android:textColor="@color/white"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -160,7 +160,7 @@
                             android:text="Today's Order"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                             android:text="Sales Amount"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -191,7 +191,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
                             android:text="/"
                             android:textColor="@color/black_000"
                             android:textSize="35sp"
-                            android:textStyle="bold|italic"/>
+                            android:textStyle="bold|italic" />
 
 
                         <TextView
@@ -214,7 +214,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -251,7 +251,7 @@
                             android:text="Total Due"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -262,7 +262,7 @@
                             android:text="Due Amount"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -282,7 +282,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -292,7 +292,7 @@
                             android:text="/"
                             android:textColor="@color/black_000"
                             android:textSize="35sp"
-                            android:textStyle="bold|italic"/>
+                            android:textStyle="bold|italic" />
 
 
                         <TextView
@@ -305,7 +305,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -342,7 +342,7 @@
                             android:text="Today's New Customer"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txt_customerCount"
@@ -353,7 +353,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -383,7 +383,7 @@
                             android:text="Today's Enquiries"
                             android:textColor="@color/black_000"
                             android:textSize="16sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txt_enquiryCount"
@@ -395,7 +395,7 @@
                             android:text="0"
                             android:textColor="@color/grey_700"
                             android:textSize="22sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -420,7 +420,7 @@
                     android:elevation="5dp"
                     android:padding="2dp"
                     android:text="Users"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btn_viewOrders"
@@ -432,7 +432,7 @@
                     android:background="#01035A"
                     android:elevation="5dp"
                     android:padding="2dp"
-                    android:text="Orders"/>
+                    android:text="Orders" />
 
 
             </LinearLayout>
@@ -453,7 +453,7 @@
                     android:elevation="5dp"
                     android:padding="2dp"
                     android:text="Coupons"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btn_schemes"
@@ -465,7 +465,7 @@
                     android:background="#01035A"
                     android:elevation="5dp"
                     android:padding="2dp"
-                    android:text="Schemes"/>
+                    android:text="Schemes" />
 
             </LinearLayout>
 
@@ -485,7 +485,7 @@
                     android:elevation="5dp"
                     android:padding="2dp"
                     android:text="SERVICES"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btn_enquiries"
@@ -497,7 +497,7 @@
                     android:background="#01035A"
                     android:elevation="5dp"
                     android:padding="2dp"
-                    android:text="Enquiries"/>
+                    android:text="Enquiries" />
 
             </LinearLayout>
 
@@ -517,7 +517,7 @@
                     android:elevation="5dp"
                     android:padding="2dp"
                     android:text="Registered DSR"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
 
                 <Button
                     android:id="@+id/btn_unRegisteredDSR"
@@ -529,7 +529,7 @@
                     android:background="#01035A"
                     android:elevation="5dp"
                     android:padding="2dp"
-                    android:text="Un-Registered DSR"/>
+                    android:text="Un-Registered DSR" />
 
             </LinearLayout>
 
@@ -548,7 +548,7 @@
                     android:background="#01035A"
                     android:elevation="5dp"
                     android:padding="2dp"
-                    android:text="Product Stock Report"/>
+                    android:text="Product Stock Report" />
 
             </LinearLayout>
 

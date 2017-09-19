@@ -15,6 +15,10 @@ public class Bean_Product {
     String optionName = "";
     String optionValueID = "";
     String optionValueName = "";
+    String reOrderedoptionName = "";
+    String reorderOptionValueName = "";
+    String reorderOptionId = "";
+    String reOrderOptionValueID = "";
     List<ProductItem.ProductOption> ProductOption = new ArrayList<>();
     private int _id;
     @SerializedName("id")
@@ -253,6 +257,7 @@ public class Bean_Product {
 
     public String getOptionName() {
         return ProductOption.get(0).getOption().getName();
+
     }
 
     public void setOptionName(String optionName) {
@@ -273,5 +278,37 @@ public class Bean_Product {
 
     public void setOptionValueName(String optionValueName) {
         this.optionValueName = optionValueName;
+    }
+
+    public String getReOrderedoptionName() {
+        return reOrderedoptionName;
+    }
+
+    public void setReOrderedoptionName(String reOrderedoptionName) {
+        this.reOrderedoptionName = reOrderedoptionName;
+    }
+
+    public String getReorderOptionValueName() {
+        return reorderOptionValueName;
+    }
+
+    public void setReorderOptionValueName(String reorderOptionValueName) {
+        this.reorderOptionValueName = reorderOptionValueName;
+    }
+
+    public String getReorderOptionId() {
+        return reorderOptionId;
+    }
+
+    public void setReorderOptionId(String reorderOptionId) {
+        this.reorderOptionId = reorderOptionId;
+    }
+
+    public String getReOrderOptionValueID() {
+        return reOrderOptionValueID;
+    }
+
+    public void setReOrderOptionValueID(String reOrderOptionValueID) {
+        this.reOrderOptionValueID = reOrderOptionValueID;
     }
 }

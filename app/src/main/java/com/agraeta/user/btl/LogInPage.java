@@ -1,6 +1,5 @@
 package com.agraeta.user.btl;
 
-import android.*;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -11,10 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +24,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
+import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
 import com.agraeta.user.btl.admin.AdminDashboard;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -46,8 +46,6 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
-import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -62,6 +60,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogInPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private static final int RC_SIGN_IN = 0;
+    // Logcat tag
+    private static final String TAG = "MainActivity";
+    // Profile pic image size in pixels
+    private static final int PROFILE_PIC_SIZE = 400;
     EditText et_mobile, et_password;
     Button btn_login;
     TextView btn_forgot_password, btn_register;
@@ -73,34 +76,20 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
     AppPrefs apps;
     String email = new String();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
-    private static final int RC_SIGN_IN = 0;
-
-    // Logcat tag
-    private static final String TAG = "MainActivity";
-
-    // Profile pic image size in pixels
-    private static final int PROFILE_PIC_SIZE = 400;
-
     // Google client to interact with Google API
     GoogleApiClient mGoogleApiClient;
-
+    String social_login_id = new String();
+    DatabaseHandler db;
     /**
      * A flag indicating that a PendingIntent is in progress and prevents us
      * from starting further intents.
      */
     private boolean mIntentInProgress;
-
     private boolean mSignInClicked;
-
     private ConnectionResult mConnectionResult;
-
     private SignInButton btnSignIn;
-
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    String social_login_id = new String();
-    DatabaseHandler db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -366,7 +355,7 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
 
     @Override
     protected void onDestroy() {
-        if(mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting()){
+        if (mGoogleApiClient.isConnected() || mGoogleApiClient.isConnecting()) {
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             mGoogleApiClient.clearDefaultAccountAndReconnect();
             mGoogleApiClient.disconnect();
@@ -506,19 +495,19 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
 
                 String personName = currentPerson.getDisplayName();
                 String personPhotoUrl = currentPerson.getImage().getUrl();
-                String personGooglePlusProfile = "https://plus.google.com/"+ currentPerson.getId();
+                String personGooglePlusProfile = "https://plus.google.com/" + currentPerson.getId();
                 //Log.e("version",""+ Build.VERSION.SDK_INT);
                 if (Build.VERSION.SDK_INT >= 23) {
 
                     if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.GET_ACCOUNTS},1);
+                        requestPermissions(new String[]{Manifest.permission.GET_ACCOUNTS}, 1);
                         return;
                     }
                     email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                     //email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-                }else {
+                } else {
 
-                     email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+                    email = Plus.AccountApi.getAccountName(mGoogleApiClient);
                 }
                 //String email = "a@a.com";
                 //Log.e("1", "" + email);
@@ -546,19 +535,19 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                 apps = new AppPrefs(LogInPage.this);
                 apps.setUser_SocialReInfo(st_response);
 
-                String CurrentStr =personGooglePlusProfile;
+                String CurrentStr = personGooglePlusProfile;
 
-                Log.e("personProfile",personGooglePlusProfile);
+                Log.e("personProfile", personGooglePlusProfile);
 
                 //String[] separated1 = CurrentStr.split("/");
-                String cr =currentPerson.getId();
+                String cr = currentPerson.getId();
                 //Log.e("Social_Id",cr);
                 social_login_id = cr;
                 apps.setUser_SocialIdInfo(cr);
-                String CurrentString =currentPerson.getDisplayName();
+                String CurrentString = currentPerson.getDisplayName();
                 String[] separated = CurrentString.split(" ");
-                String fname =separated[0];
-                String lnam =separated[1];
+                String fname = separated[0];
+                String lnam = separated[1];
                 apps.setUser_SocialFirst(fname);
                 apps.setUser_Sociallast(lnam);
                 apps.setUser_Socialemail(email);
@@ -566,7 +555,6 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                 //Log.e("st_response", "" + st_response);
                 apps = new AppPrefs(LogInPage.this);
                 apps.setUser_LoginWith("2");
-
 
 
                 new send_LoginSocial_Data().execute();
@@ -592,36 +580,8 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                         "Person information is null", Toast.LENGTH_LONG).show();*/
             }
         } catch (Exception e) {
-            Log.e("G Exception",e.getMessage());
+            Log.e("G Exception", e.getMessage());
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Background Async task to load user profile picture from url
-     */
-    private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public LoadProfileImage(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                //Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
         }
     }
 
@@ -641,7 +601,7 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
         ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
 
-        FrameLayout frame = (FrameLayout)mCustomView.findViewById(R.id.unread);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
         frame.setVisibility(View.GONE);
       /*  TextView txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
         db = new DatabaseHandler(MainPage_drawer.this);
@@ -707,306 +667,6 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
 
     }
 
-    ;
-
-
-    public class send_Login_Data extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        LogInPage.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-                parameters.add(new BasicNameValuePair("email_id", loginid));
-                parameters.add(new BasicNameValuePair("password", password));
-                parameters.add(new BasicNameValuePair("device_id", FirebaseInstanceId.getInstance().getToken()));
-
-
-                //Log.e("2", "" + loginid);
-                //Log.e("3", "" + password);
-                //Log.e("4", "" + parameters);
-                Log.e("5", "" +FirebaseInstanceId.getInstance().getToken());
-
-                Globals.generateNoteOnSD(getApplicationContext(),parameters.toString());
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_Login", ServiceHandler.POST, parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-            Globals.generateNoteOnSD(getApplicationContext(),result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-                   /* Toast.makeText(LogInPage.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(LogInPage.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
-                        //Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
-                        loadingView.dismiss();
-                    } else {
-
-                        String Message = jObj.getString("message");
-                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
-                        // Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
-                        JSONObject jO = jObj.getJSONObject("data");
-                        JSONObject jU = jO.getJSONObject("User");
-
-                         String user_id = jU.getString("id");
-                         String email_id = jU.getString("email_id");
-                         String phone_no = jU.getString("phone_no");
-                         String f_name = jU.getString("first_name");
-                         String l_name = jU.getString("last_name");
-                         String passwod = jU.getString("password");
-                         String gender = jU.getString("gender");
-                         String user_type = jU.getString("role_id");
-                         String login_with = jU.getString("login_with");
-                         String str_rid = jU.getString("social_login_id");
-                         String str_response = jU.getString("social_login_response");
-
-                        Log.e("user",""+user_id);
-
-                        setRefershData();
-
-                        if(user_data.size() == 0) {
-                            db = new DatabaseHandler(LogInPage.this);
-                            db.Add_Contact(new Bean_User_data(user_id, email_id, phone_no, f_name, l_name, password, gender, user_type, login_with, str_rid, "", "", "", "", "", "", "", "", "", str_response));
-                            db.close();
-                        }
-
-                        apps = new AppPrefs(LogInPage.this);
-                        apps.setUser_LoginWith("0");
-
-                        //apps = new AppPrefs(LogInPage.this);
-                        apps.setUser_LoginInfo("1");
-                        apps.setUserRoleId(user_type);
-                        apps.setUserId(user_id);
-                        apps.setCsalesId(user_id);
-                        apps.setDsalesId(user_id);
-                        loadingView.dismiss();
-
-                        if(apps.getUserRoleId().equals(C.COMP_SALES_PERSON))
-                        {
-                                Intent i = new Intent(LogInPage.this, UserTypeActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
-
-                        }
-                        else if(apps.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON))
-                        {
-                            Intent i = new Intent(LogInPage.this, SalesTypeActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-
-                        }
-                        else if(apps.getUserRoleId().equals(C.ADMIN)){
-                            Intent intent=new Intent(getApplicationContext(), AdminDashboard.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-
-                            Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                            }
-                    }
-
-                    //LogInPage.this.finish();
-                }
-            } catch (JSONException j) {
-                j.printStackTrace();
-            }
-
-        }
-    }
-
-    public class  send_LoginSocial_Data extends AsyncTask<Void, Void, String> {
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(
-                        LogInPage.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-                //Log.e("11", "" + social_login_id);
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-
-                parameters.add(new BasicNameValuePair("social_login_id", social_login_id));
-
-                Globals.generateNoteOnSD(getApplicationContext(),"User/App_CheckSocialLogin"+"\n"+parameters.toString());
-
-
-
-                //Log.e("2", "" + social_login_id);
-
-             //   //Log.e("4", "" + parameters);
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_CheckSocialLogin", ServiceHandler.POST, parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("array: " + json);
-
-                return json;
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error1: " + e.toString());
-
-                return json;
-
-            }
-//            //Log.e("result",result);
-
-
-            //    return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            Globals.generateNoteOnSD(getApplicationContext(),result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-                   /* Toast.makeText(LogInPage.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
-                    Globals.CustomToast(LogInPage.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                      //  Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
-                        //Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
-                        loadingView.dismiss();
-                       // startActivity(new Intent(LogInPage.this, Business_Registration.class).putExtra("json", me.toString()));
-                        Intent i = new Intent(LogInPage.this, Business_Registration.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    } else {
-
-                        String Message = jObj.getString("message");
-                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
-
-                        JSONObject jO = jObj.getJSONObject("data");
-                        JSONObject jU = jO.getJSONObject("User");
-
-                        String user_id = jU.getString("id");
-                        String email_id = jU.getString("email_id");
-                        String phone_no = jU.getString("phone_no");
-                        String f_name = jU.getString("first_name");
-                        String l_name = jU.getString("last_name");
-                        String passwod = jU.getString("password");
-                        String gender = jU.getString("gender");
-                        String user_type = jU.getString("role_id");
-                        String login_with = jU.getString("login_with");
-                        String str_rid = jU.getString("social_login_id");
-                        String str_response = jU.getString("social_login_response");
-                        // Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
-                        setRefershData();
-
-                        if(user_data.size() == 0) {
-                            db = new DatabaseHandler(LogInPage.this);
-                            db.Add_Contact(new Bean_User_data(user_id, email_id, phone_no, f_name, l_name,passwod, gender, user_type, login_with, str_rid, "", "", "", "", "", "", "", "", "", str_response));
-                            db.close();
-                        }
-
-                        apps = new AppPrefs(LogInPage.this);
-                        apps.setUser_LoginInfo("1");
-                        loadingView.dismiss();
-                        Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    }
-                }
-            } catch (JSONException j) {
-                j.printStackTrace();
-            }
-
-        }
-    }
-
     public void getFbKeyHash(String packageName) {
 
         try {
@@ -1039,10 +699,10 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
 
         for (int i = 0; i < user_array_from_db.size(); i++) {
 
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
             String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
             String f_name = user_array_from_db.get(i).getF_name();
             String l_name = user_array_from_db.get(i).getL_name();
             String password = user_array_from_db.get(i).getPassword();
@@ -1104,6 +764,338 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
             /*Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
             mGoogleApiClient.clearDefaultAccountAndReconnect();*/
+        }
+    }
+
+    /**
+     * Background Async task to load user profile picture from url
+     */
+    private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public LoadProfileImage(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                //Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+    public class send_Login_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        LogInPage.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                parameters.add(new BasicNameValuePair("email_id", loginid));
+                parameters.add(new BasicNameValuePair("password", password));
+                parameters.add(new BasicNameValuePair("device_id", FirebaseInstanceId.getInstance().getToken()));
+
+
+                //Log.e("2", "" + loginid);
+                //Log.e("3", "" + password);
+                //Log.e("4", "" + parameters);
+                Log.e("5", "" + FirebaseInstanceId.getInstance().getToken());
+
+                Globals.generateNoteOnSD(getApplicationContext(), parameters.toString());
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_Login", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+            Globals.generateNoteOnSD(getApplicationContext(), result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                   /* Toast.makeText(LogInPage.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(LogInPage.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
+                        //Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+                        loadingView.dismiss();
+                    } else {
+
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
+                        // Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+                        JSONObject jO = jObj.getJSONObject("data");
+                        JSONObject jU = jO.getJSONObject("User");
+
+                        String user_id = jU.getString("id");
+                        String email_id = jU.getString("email_id");
+                        String phone_no = jU.getString("phone_no");
+                        String f_name = jU.getString("first_name");
+                        String l_name = jU.getString("last_name");
+                        String passwod = jU.getString("password");
+                        String gender = jU.getString("gender");
+                        String user_type = jU.getString("role_id");
+                        String login_with = jU.getString("login_with");
+                        String str_rid = jU.getString("social_login_id");
+                        String str_response = jU.getString("social_login_response");
+                        String gstNo = jU.getString("gst_no");
+
+                        Log.e("user", "" + user_id);
+
+                        setRefershData();
+
+                        if (user_data.size() == 0) {
+                            db = new DatabaseHandler(LogInPage.this);
+                            db.Add_Contact(new Bean_User_data(user_id, email_id, phone_no, f_name, l_name, password, gender, user_type, login_with, str_rid, "", "", "", "", "", "", "", "", "", str_response));
+                            db.close();
+                        }
+
+                        apps = new AppPrefs(LogInPage.this);
+                        apps.setUser_LoginWith("0");
+
+                        //apps = new AppPrefs(LogInPage.this);
+                        apps.setUser_LoginInfo("1");
+                        apps.setUserRoleId(user_type);
+                        apps.setUserId(user_id);
+                        apps.setCsalesId(user_id);
+                        apps.setDsalesId(user_id);
+                        loadingView.dismiss();
+
+                        if (apps.getUserRoleId().equals(C.COMP_SALES_PERSON)) {
+                            Intent i = new Intent(LogInPage.this, UserTypeActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+
+                        } else if (apps.getUserRoleId().equals(C.DISTRIBUTOR_SALES_PERSON)) {
+                            Intent i = new Intent(LogInPage.this, SalesTypeActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+
+                        } else if (apps.getUserRoleId().equals(C.ADMIN)) {
+                            Intent intent = new Intent(getApplicationContext(), AdminDashboard.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        } else if (apps.getUserRoleId().equals(C.DISTRIBUTOR) || apps.getUserRoleId().equals(C.DIRECT_DEALER) || apps.getUserRoleId().equals(C.PROFESSIONAL) || apps.getUserRoleId().equals(C.THIRD_TIER_RETAILER) || apps.getUserRoleId().equals(C.DISTRIBUTOR_PROFESSIONAL)) {
+
+                            if (gstNo.equalsIgnoreCase("0")) {
+                                Intent intent = new Intent(getApplicationContext(), GSTFormActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+
+                            } else {
+                                Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+                        } else {
+
+                            Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                        }
+                    }
+
+                    //LogInPage.this.finish();
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
+    }
+
+    public class send_LoginSocial_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(
+                        LogInPage.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+                //Log.e("11", "" + social_login_id);
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                parameters.add(new BasicNameValuePair("social_login_id", social_login_id));
+
+                Globals.generateNoteOnSD(getApplicationContext(), "User/App_CheckSocialLogin" + "\n" + parameters.toString());
+
+
+                //Log.e("2", "" + social_login_id);
+
+                //   //Log.e("4", "" + parameters);
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_CheckSocialLogin", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            Globals.generateNoteOnSD(getApplicationContext(), result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                   /* Toast.makeText(LogInPage.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(LogInPage.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        //  Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
+                        //Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+                        loadingView.dismiss();
+                        // startActivity(new Intent(LogInPage.this, Business_Registration.class).putExtra("json", me.toString()));
+                        Intent i = new Intent(LogInPage.this, Business_Registration.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    } else {
+
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(LogInPage.this, "" + Message, getLayoutInflater());
+
+                        JSONObject jO = jObj.getJSONObject("data");
+                        JSONObject jU = jO.getJSONObject("User");
+
+                        String user_id = jU.getString("id");
+                        String email_id = jU.getString("email_id");
+                        String phone_no = jU.getString("phone_no");
+                        String f_name = jU.getString("first_name");
+                        String l_name = jU.getString("last_name");
+                        String passwod = jU.getString("password");
+                        String gender = jU.getString("gender");
+                        String user_type = jU.getString("role_id");
+                        String login_with = jU.getString("login_with");
+                        String str_rid = jU.getString("social_login_id");
+                        String str_response = jU.getString("social_login_response");
+                        // Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+                        setRefershData();
+
+                        if (user_data.size() == 0) {
+                            db = new DatabaseHandler(LogInPage.this);
+                            db.Add_Contact(new Bean_User_data(user_id, email_id, phone_no, f_name, l_name, passwod, gender, user_type, login_with, str_rid, "", "", "", "", "", "", "", "", "", str_response));
+                            db.close();
+                        }
+
+                        apps = new AppPrefs(LogInPage.this);
+                        apps.setUser_LoginInfo("1");
+                        loadingView.dismiss();
+                        Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
         }
     }
 }

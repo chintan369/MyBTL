@@ -101,13 +101,13 @@ public class Globals {
     public static final String GET_ALL_PRODUCT = "Product/App_Get_Product_Details";
 
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
-    //public static String server_link ="http://www.btlkart.com/";
-    public static String server_link = "http://demo.btlindia.com/";
-    // public static String server_link = "http://www.btlindia.com/";
+    // public static String server_link ="http://www.btlkart.com/";
+    //public static String server_link = "http://demo.btlindia.com/";
+    public static String server_link = "http://www.btlindia.com/";
 
     public static String IMAGE_LINK = server_link + "files/";
 
-    //public static String server_link1 = "http://demo.btlindia.com";
+    // public static String server_link1 = "http://demo.btlindia.com";
     public static String server_link1 = "http://www.btlindia.com";
     static boolean connect = true;
     public static boolean isConnectingToInternet1(Context con){

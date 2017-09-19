@@ -5,20 +5,15 @@ package com.agraeta.user.btl;
  */
 public class Bean_WhereToBuy {
 
-    private String id;
-    private String branch_name;
-    private String pincode;
-    private String address_1;
-    private String address_2;
-    private String city;
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+    private String id = "";
+    private String branch_name = "";
+    private String pincode = "";
+    private String address_1 = "";
+    private String address_2 = "";
+    private String city = "";
+    private String state;
+    private String latitude;
+    private String longitude;
 
     public Bean_WhereToBuy(String id, String branch_name, String pincode, String address_1, String address_2, String city, String state, String latitude, String longitude) {
         this.id = id;
@@ -31,11 +26,6 @@ public class Bean_WhereToBuy {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
-    private String state;
-    private String latitude;
-    private String longitude;
-
     public Bean_WhereToBuy(String id, String branch_name, String pincode, String address_1, String address_2, String state, String latitude, String longitude) {
         this.id = id;
         this.branch_name = branch_name;
@@ -45,6 +35,17 @@ public class Bean_WhereToBuy {
         this.state = state;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public Bean_WhereToBuy() {
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getId() {
@@ -109,8 +110,5 @@ public class Bean_WhereToBuy {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public Bean_WhereToBuy() {
     }
 }

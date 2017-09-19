@@ -48,26 +48,31 @@ public class LRDetailActivity extends AppCompatActivity {
         img_download=(ImageView) findViewById(R.id.img_download);
 
         try{
-            final OrderInvoice.InvoiceLR invoiceLR=new Gson().fromJson(jsonLR, OrderInvoice.InvoiceLR.class);
-            txt_transportarName.setText(invoiceLR.getLrDetail().getTransporter_name());
-            txt_designation.setText(invoiceLR.getLrDetail().getDestination());
-            txt_LRNo.setText(invoiceLR.getLrDetail().getLr_no());
-            txt_LRDate.setText(invoiceLR.getLrDetail().getLr_date());
-            txt_bundels.setText(invoiceLR.getLrDetail().getNo_bundles());
-            txt_ccAttach.setText(invoiceLR.getLrDetail().getCc_attached());
-            txt_remarks.setText(invoiceLR.getLrDetail().getRemarks());
-            txt_invoiceNoDate.setText(invoiceLR.getLrDetail().getInvoice_no() + "\n\n" + invoiceLR.getLrDetail().getInvoice_date());
+            final OrderInvoice invoiceLR = new Gson().fromJson(jsonLR, OrderInvoice.class);
+
+            for (int i = 0; i < jsonLR.length(); i++) {
 
 
-            img_download.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.parse(Globals.server_link+invoiceLR.getLrDetail().getCourier_receipt_file()),"application/*");
-                    startActivity(intent);
-                }
-            });
+                txt_transportarName.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getTransporter_name());
+                txt_designation.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getDestination());
+                txt_LRNo.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getLr_no());
+                txt_LRDate.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getLr_date());
+                txt_bundels.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getNo_bundles());
+                txt_ccAttach.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getCc_attached());
+                txt_remarks.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getRemarks());
+                txt_invoiceNoDate.setText(invoiceLR.getInvoiceLr().get(i).getLrDetail().getInvoice_no() + "\n\n" + invoiceLR.getInvoiceLr().get(i).getLrDetail().getInvoice_date());
 
+
+                final int finalI = i;
+                img_download.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(Globals.server_link + invoiceLR.getInvoiceLr().get(finalI).getLrDetail().getCourier_receipt_file()), "application/*");
+                        startActivity(intent);
+                    }
+                });
+            }
         }catch (Exception e){
             Log.e("LR JSON Exception",e.getMessage());
         }

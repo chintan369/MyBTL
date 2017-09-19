@@ -471,8 +471,8 @@ public class AdminDashboard extends AppCompatActivity implements Callback<Dashbo
             startCountAnimation(Integer.parseInt(dashboard.getData().getDistributorOrder().getOrderCount()), txt_orderCountDistributor);
 
             if (!fromDate.isEmpty() && !toDate.isEmpty()) {
-                txt_companySalesTodayOrderLabel.setText("Total Order");
-                txt_distributorSalesTodayOrderLabel.setText("Total Order");
+                txt_companySalesTodayOrderLabel.setText("Date wise Order");
+                txt_distributorSalesTodayOrderLabel.setText("Date wise Order");
             } else {
                 txt_companySalesTodayOrderLabel.setText("Today's Order");
                 txt_distributorSalesTodayOrderLabel.setText("Today's Order");

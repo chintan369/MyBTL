@@ -32,6 +32,8 @@ public class OrderInvoiceActivity extends AppCompatActivity {
     AdminAPI adminAPI;
     Custom_ProgressDialog dialog;
 
+    ImageView btn_cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class OrderInvoiceActivity extends AppCompatActivity {
 
     private void fetchIDs() {
         listTracking=(ListView) findViewById(R.id.listTracking);
+        btn_cancel = (ImageView) findViewById(R.id.btn_cancel);
         invoiceAdapter=new OrderInvoiceAdapter(orderInvoiceList,this);
         listTracking.setAdapter(invoiceAdapter);
 
@@ -74,6 +77,12 @@ public class OrderInvoiceActivity extends AppCompatActivity {
             public void onFailure(Call<OrderInvoiceResponse> call, Throwable t) {
                 dialog.dismiss();
                 Globals.showError(t,getApplicationContext());
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

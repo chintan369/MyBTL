@@ -89,6 +89,7 @@ public class AppPrefs {
 
 
 
+
     public AppPrefs(Context context) {
         // TODO Auto-generated constructor stub
         this.appSharedPrefs = context.getSharedPreferences(USER_PREFS, Activity.MODE_PRIVATE);
@@ -110,8 +111,8 @@ public class AppPrefs {
         dSalesUserId=appSharedPrefs.getString("dSalesUserId","");
         SRP_Id=appSharedPrefs.getString("SRP_Id","");
         noticount = appSharedPrefs.getInt("noticount", 0);
-    }
 
+    }
 
     public int getNoticount() {
         return appSharedPrefs.getInt("noticount", 0);

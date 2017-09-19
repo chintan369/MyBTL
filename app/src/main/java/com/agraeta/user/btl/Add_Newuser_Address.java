@@ -482,7 +482,7 @@ public class Add_Newuser_Address extends AppCompatActivity {
         img_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Add_Newuser_Address.this,Cart.class);
+                Intent i = new Intent(Add_Newuser_Address.this, BTL_Cart.class);
                 startActivity(i);
             }
         });

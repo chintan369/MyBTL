@@ -1,9 +1,9 @@
 package com.agraeta.user.btl.admin;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class UserListSelectionActivity extends AppCompatActivity {
     ArrayAdapter<String> usersAdapter;
 
 
-    String[] usersRoleNameArray=new String[]{"CUSTOMER","DISTRIBUTOR","DIRECT DEALER","PROFESSIONAL","COMP. SALES PERSON","DISTRIBUTOR SALES PERSON","DISTRIBUTOR RETAILER","DISTRIBUTOR PROFESSIONAL","CARPENTER"};
+    String[] usersRoleNameArray = new String[]{"END CUSTOMER", "DISTRIBUTOR", "DIRECT DEALER", "PROFESSIONAL", "COMP. SALES PERSON", "DISTRIBUTOR SALES PERSON", "DISTRIBUTOR RETAILER", "DISTRIBUTOR PROFESSIONAL", "CARPENTER"};
     String[] userRoleIDArray=new String[]{"2","3","4","5","6","7","8","9","10"};
 
     ArrayList<String> usersRoleName=new ArrayList<>();

@@ -167,6 +167,17 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
             edt_mobile.setText(unregisteredUser.getMobile_no());
             edt_dealingBrand.setText(unregisteredUser.getDealing_in_brand());
             edt_jointVisitWith.setText(unregisteredUser.getJoint_visit_with());
+
+            edt_firmName.setEnabled(false);
+            edt_addrLine1.setEnabled(false);
+            edt_addrLine2.setEnabled(false);
+            edt_addrLine3.setEnabled(false);
+            edt_pincode.setEnabled(false);
+            edt_contactPerson.setEnabled(false);
+            edt_emailID.setEnabled(false);
+            edt_mobile.setEnabled(false);
+
+
         }
 
         spn_country = (Spinner) findViewById(R.id.spn_country);
@@ -228,8 +239,10 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(pos==0) isFirstTime=false;
+                    if (pos == 0)
+                        isFirstTime = false;
                     spn_country.setSelection(pos);
+                    spn_country.setEnabled(false);
                 } else if (!isInEditMode && isFirstTime) {
                     if (countryList.size() > 0)
                     {
@@ -327,6 +340,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                                 }
                                 if(pos==0) isFirstTime=false;
                                 spn_state.setSelection(pos);
+                                spn_state.setEnabled(false);
                             } else if (!isInEditMode && isFirstTime) {
                                 int pos = 0;
                                 for (int i = 0; i < stateList.size(); i++) {
@@ -602,8 +616,10 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(pos==0) isFirstTime=false;
+                    if (pos == 0)
+                        isFirstTime = false;
                     spn_city.setSelection(pos);
+                    spn_city.setEnabled(false);
                 }
 
                 if (cityID != null) {
@@ -665,6 +681,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     }
                     isFirstTime=false;
                     spn_area.setSelection(pos);
+                    spn_area.setEnabled(false);
                 }
 
                 if (areaID != null) {

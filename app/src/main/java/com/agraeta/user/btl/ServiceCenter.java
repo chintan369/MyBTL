@@ -1,38 +1,40 @@
 package com.agraeta.user.btl;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.v4.app.Fragment;
-        import android.view.Gravity;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.view.WindowManager;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.BaseAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.ListView;
-        import android.widget.Spinner;
-        import android.widget.TextView;
+import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.Gson;
 
-        import org.apache.http.NameValuePair;
-        import org.apache.http.message.BasicNameValuePair;
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.InputStream;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ServiceCenter extends Fragment {
@@ -262,11 +264,141 @@ public class ServiceCenter extends Fragment {
         mActionBar.setCustomView(mCustomView);
     }*/
 
+    private void setLayout(ArrayList<Bean_WhereToBuy> str) {
+        // TODO Auto-generated method stub
+
+        layout_display.removeAllViews();
+
+        //Log.e("str.size", "" + str.size());
+
+        for (int ij = 0; ij < str.size(); ij++) {
+
+            LinearLayout lmain = new LinearLayout(getActivity());
+            //  params.setMargins(7, 7, 7, 7);
+            lmain.setLayoutParams(params);
+            lmain.setOrientation(LinearLayout.HORIZONTAL);
+            lmain.setPadding(2, 2, 2, 2);
+
+            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
+            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
+            LinearLayout.LayoutParams vi = new LinearLayout.LayoutParams(
+                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
+                    200, 200, 1.0f);
+            LinearLayout l1 = new LinearLayout(getActivity());
+
+            l1.setLayoutParams(par1);
+            l1.setPadding(5, 5, 5, 5);
+            l1.setOrientation(LinearLayout.VERTICAL);
+            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
+
+            LinearLayout l3 = new LinearLayout(getActivity());
+            l3.setLayoutParams(par3);
+            l3.setOrientation(LinearLayout.VERTICAL);
+            l3.setPadding(5, 5, 5, 5);
+
+            final LinearLayout l2 = new LinearLayout(getActivity());
+            l2.setLayoutParams(par2);
+            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
+            l2.setOrientation(LinearLayout.HORIZONTAL);
+            l2.setPadding(5, 5, 5, 5);
+            l2.setVisibility(View.GONE);
+
+            count = ij;
+            final ImageView img_a = new ImageView(getActivity());
+            final TextView tv_brachname = new TextView(getActivity());
+            final TextView tv_address1 = new TextView(getActivity());
+            final TextView tvaddress2 = new TextView(getActivity());
+            final View viewline = new View(getActivity());
+
+            tv_brachname.setPadding(5, 5, 5, 5);
+            tv_address1.setPadding(5, 2, 5, 2);
+            tvaddress2.setPadding(5, 2, 2, 5);
+            tv_brachname.setTextColor(Color.BLACK);
+            tv_address1.setTextColor(Color.BLACK);
+            tvaddress2.setTextColor(Color.BLACK);
+            viewline.setLayoutParams(vi);
+            viewline.setBackgroundColor(Color.BLACK);
+
+            // img_a.setImageResource(str.get(count));
+            //Log.e("count", "" + count);
+            //Log.e("img", "" + str.get(count).getId());
+            try {
+
+
+                String branch_name = str.get(count).getBranch_name();
+                String address_1 = str.get(count).getAddress_1() + "," + str.get(count).getAddress_2();
+                String address_2 = str.get(count).getCity() + "," + str.get(count).getState() + "," + str.get(count).getPincode();
+
+                //Log.e("branchname", "" + branch_name);
+                //Log.e("address_1", "" + address_1);
+                //Log.e("address_2", "" + address_2);
+
+
+                tv_brachname.setText(branch_name);
+                tv_address1.setText(address_1);
+                tvaddress2.setText(address_2);
+            } catch (NullPointerException e) {
+                //Log.e("Error", "" + e);
+            }
+
+
+            par21.setMargins(5, 5, 5, 5);
+
+            img_a.setLayoutParams(par21);
+            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
+            //   l1.addView(img_a);
+            l1.addView(tv_brachname);
+            l1.addView(tv_address1);
+            l1.addView(tvaddress2);
+            l1.addView(viewline);
+
+
+
+
+           /* img_a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AppPrefs app= new AppPrefs(getActivity());
+
+                    //Log.e("url_tonext_page",url);
+                    Intent i = new Intent(getActivity(),Video_View_Activity.class);
+                    app.setyoutube_api(url);
+                    startActivity(i);
+                }
+            });*/
+            lmain.addView(l1);
+
+            layout_display.addView(lmain);
+
+        }
+
+    }
+
+    static class ResultHolder {
+
+
+        TextView tvaddress;
+
+        ImageView img_edit, img_delete;
+
+
+    }
+
     public class send_state_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -373,11 +505,12 @@ public class ServiceCenter extends Fragment {
 
         }
     }
+
     public class send_city_Data extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -484,9 +617,9 @@ public class ServiceCenter extends Fragment {
 
     public class get_wheretobuydetails extends AsyncTask<Void,Void,String>
     {
+        public StringBuilder sb;
         boolean status;
         private String result;
-        public StringBuilder sb;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -526,6 +659,9 @@ public class ServiceCenter extends Fragment {
                 json = new ServiceHandler().makeServiceCall(Globals.server_link+"ServiceCenter/App_GetServiceCenter",ServiceHandler.POST,parameters);
                 //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
+
+                Log.e("parameters", "---->" + parameters);
+                Log.e("json", json);
                 return json;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -540,7 +676,7 @@ public class ServiceCenter extends Fragment {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-
+            loadingView.dismiss();
             try {
 
                 //db = new DatabaseHandler(());
@@ -551,7 +687,7 @@ public class ServiceCenter extends Fragment {
                     /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
                             Toast.LENGTH_SHORT).show();*/
                     Globals.CustomToast(getActivity(), "SERVER ERRER", getActivity().getLayoutInflater());
-                    loadingView.dismiss();
+
 
                 } else {
                     JSONObject jObj = new JSONObject(result_1);
@@ -561,40 +697,50 @@ public class ServiceCenter extends Fragment {
                         String Message = jObj.getString("message");
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
                         Globals.CustomToast(getActivity(),""+Message, getActivity().getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-                        JSONObject jobj = new JSONObject(result_1);
 
-                        if (jobj != null) {
+                    } else {
+
+                        Log.e("Testing1", "Testing");
+
                             JSONArray categories = jObj.getJSONArray("data");
                             bean_wheretobuy.clear();
                             for (int i = 0; i < categories.length(); i++) {
-                                JSONObject catObj = (JSONObject) categories.get(i);
+                                JSONObject catObj = categories.getJSONObject(i);
 
-
+                                Log.e("Testing2", "Testing");
 
 
                                 Bean_WhereToBuy bean = new Bean_WhereToBuy();
                                 bean.setId(catObj.getString("id"));
+                                Log.e("id", "-->" + catObj.getString("id"));
+                                Log.e("id1", "-->" + bean.getId());
                                 bean.setBranch_name(catObj.getString("branch_name"));
                                 bean.setPincode(catObj.getString("pincode"));
                                 bean.setAddress_1(catObj.getString("address_1"));
-                                bean.setAddress_2(catObj.getString("address_2"));
+                                //  bean.setAddress_2(catObj.getString("address_2"));
                                 bean.setCity(catObj.getString("city"));
                                 bean.setState(catObj.getString("state"));
                                 bean.setLatitude(catObj.getString("latitude"));
                                 bean.setLongitude(catObj.getString("longitude"));
 
 
+
                                 bean_wheretobuy.add(bean);
 
+                                Log.e("getDatas", "--->" + new Gson().toJson(bean_wheretobuy));
 
 
                             }
-                        }
-                        loadingView.dismiss();
+
+                        Log.e("Testing3", "Testing");
+
                         layout_display.setVisibility(View.VISIBLE);
-                        layout_display.setAdapter(new CustomResultAdapterDoctor());
+                        CustomResultAdapterDoctor customResultAdapterDoctor = new CustomResultAdapterDoctor();
+                        layout_display.setAdapter(customResultAdapterDoctor);
+                        customResultAdapterDoctor.notifyDataSetChanged();
+                        Log.e("finally", "set");
+
+
                       //  setLayout(bean_wheretobuy);
                     }
                 }
@@ -641,6 +787,8 @@ public class ServiceCenter extends Fragment {
                 convertView = vi.inflate(R.layout.address_row, null);
 
             }
+
+            Log.e("weareHere", "weare");
 
             result_holder.tvaddress = (TextView) convertView
                     .findViewById(R.id.address);
@@ -729,135 +877,6 @@ public class ServiceCenter extends Fragment {
 
 
             return convertView;
-        }
-
-    }
-    static class ResultHolder {
-
-
-        TextView tvaddress;
-
-        ImageView img_edit, img_delete;
-
-
-    }
-    private void setLayout(ArrayList<Bean_WhereToBuy> str) {
-        // TODO Auto-generated method stub
-
-        layout_display.removeAllViews();
-
-        //Log.e("str.size", "" + str.size());
-
-        for (int ij = 0; ij < str.size(); ij++) {
-
-            LinearLayout lmain = new LinearLayout(getActivity());
-            //  params.setMargins(7, 7, 7, 7);
-            lmain.setLayoutParams(params);
-            lmain.setOrientation(LinearLayout.HORIZONTAL);
-            lmain.setPadding(2, 2, 2, 2);
-
-            LinearLayout.LayoutParams par1 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par2 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.MATCH_PARENT, 1.0f);
-            LinearLayout.LayoutParams par3 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par4 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams par5 = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 3);
-            LinearLayout.LayoutParams vi = new LinearLayout.LayoutParams(
-                    android.app.ActionBar.LayoutParams.MATCH_PARENT, 1);
-            LinearLayout.LayoutParams par21 = new LinearLayout.LayoutParams(
-                    200, 200, 1.0f);
-            LinearLayout l1 = new LinearLayout(getActivity());
-
-            l1.setLayoutParams(par1);
-            l1.setPadding(5, 5, 5, 5);
-            l1.setOrientation(LinearLayout.VERTICAL);
-            l1.setGravity(Gravity.LEFT | Gravity.CENTER);
-
-            LinearLayout l3 = new LinearLayout(getActivity());
-            l3.setLayoutParams(par3);
-            l3.setOrientation(LinearLayout.VERTICAL);
-            l3.setPadding(5, 5, 5, 5);
-
-            final LinearLayout l2 = new LinearLayout(getActivity());
-            l2.setLayoutParams(par2);
-            l2.setGravity(Gravity.LEFT | Gravity.CENTER);
-            l2.setOrientation(LinearLayout.HORIZONTAL);
-            l2.setPadding(5, 5, 5, 5);
-            l2.setVisibility(View.GONE);
-
-            count = ij;
-            final ImageView img_a = new ImageView(getActivity());
-            final TextView tv_brachname= new TextView(getActivity());
-            final TextView tv_address1= new TextView(getActivity());
-            final TextView tvaddress2= new TextView(getActivity());
-            final View  viewline= new View(getActivity());
-
-            tv_brachname.setPadding(5, 5, 5, 5);
-            tv_address1.setPadding(5, 2, 5, 2);
-            tvaddress2.setPadding(5, 2, 2, 5);
-            tv_brachname.setTextColor(Color.BLACK);
-            tv_address1.setTextColor(Color.BLACK);
-            tvaddress2.setTextColor(Color.BLACK);
-            viewline.setLayoutParams(vi);
-            viewline.setBackgroundColor(Color.BLACK);
-
-            // img_a.setImageResource(str.get(count));
-            //Log.e("count", "" + count);
-            //Log.e("img", "" + str.get(count).getId());
-            try {
-
-
-
-                String branch_name=str.get(count).getBranch_name();
-                String address_1=str.get(count).getAddress_1()+","+str.get(count).getAddress_2();
-                String address_2=str.get(count).getCity()+","+str.get(count).getState()+","+str.get(count).getPincode();
-
-                //Log.e("branchname", "" + branch_name);
-                //Log.e("address_1", "" + address_1);
-                //Log.e("address_2", "" + address_2);
-
-
-                tv_brachname.setText(branch_name);
-                tv_address1.setText(address_1);
-                tvaddress2.setText(address_2);
-            } catch (NullPointerException e) {
-                //Log.e("Error", "" + e);
-            }
-
-
-            par21.setMargins(5, 5, 5, 5);
-
-            img_a.setLayoutParams(par21);
-            img_a.setScaleType(ImageView.ScaleType.FIT_XY);
-            //   l1.addView(img_a);
-            l1.addView(tv_brachname);
-            l1.addView(tv_address1);
-            l1.addView(tvaddress2);
-            l1.addView(viewline);
-
-
-
-
-           /* img_a.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    AppPrefs app= new AppPrefs(getActivity());
-
-                    //Log.e("url_tonext_page",url);
-                    Intent i = new Intent(getActivity(),Video_View_Activity.class);
-                    app.setyoutube_api(url);
-                    startActivity(i);
-                }
-            });*/
-            lmain.addView(l1);
-
-            layout_display.addView(lmain);
-
         }
 
     }

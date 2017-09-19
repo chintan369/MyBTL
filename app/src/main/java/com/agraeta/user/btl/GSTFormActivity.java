@@ -625,6 +625,8 @@ public class GSTFormActivity extends AppCompatActivity {
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
         img_notification.setVisibility(View.GONE);
         FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        TextView txt_skip = (TextView) mCustomView.findViewById(R.id.txt_skip);
+        txt_skip.setVisibility(View.VISIBLE);
         frame.setVisibility(View.GONE);
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
 
@@ -632,6 +634,14 @@ public class GSTFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        txt_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(GSTFormActivity.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
         img_home.setVisibility(View.GONE);

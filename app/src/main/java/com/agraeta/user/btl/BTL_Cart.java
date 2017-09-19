@@ -362,9 +362,7 @@ public class BTL_Cart extends AppCompatActivity {
                     grand_total = grand_total + Double.parseDouble(bean_cart_data.get(i).getItem_total().replace("", ""));
                 }
             }
-
             //Log.e("grand Total", "" + grand_total);
-
         }
         //float t = Float.parseFloat(grand_total);
         String str = String.format("%.2f", grand_total);

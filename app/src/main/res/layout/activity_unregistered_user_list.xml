@@ -16,23 +16,23 @@
         app:contentPadding="5dp">
 
         <EditText
+            android:id="@+id/edt_search"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/border_slider"
             android:hint="Search Un-Registered User"
-            android:textSize="15sp"
+            android:imeOptions="actionSearch"
             android:padding="5dp"
             android:singleLine="true"
-            android:imeOptions="actionSearch"
             android:textColor="@color/black_000"
-            android:id="@+id/edt_search"/>
+            android:textSize="15sp" />
 
     </android.support.v7.widget.CardView>
 
     <ListView
+        android:id="@+id/list_unregisterUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:id="@+id/list_unregisterUser"/>
+        android:layout_margin="5dp" />
 
 </LinearLayout>

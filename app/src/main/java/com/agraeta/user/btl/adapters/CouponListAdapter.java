@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.coupons.CouponDetail;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +30,8 @@ public class CouponListAdapter extends BaseAdapter {
 
     AlertDialog.Builder builder;
     AlertDialog dialog;
+
+    Date date, date1;
 
     public CouponListAdapter(List<CouponDetail> couponDetailList, Activity activity) {
         this.couponDetailList = couponDetailList;
@@ -54,7 +59,7 @@ public class CouponListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if(convertView==null){
             convertView=inflater.inflate(R.layout.layout_coupon_listitem,null);
@@ -76,20 +81,47 @@ public class CouponListAdapter extends BaseAdapter {
         holder.txt_couponName.setText(couponDetailList.get(position).getCoupon().getCouponName());
         holder.txt_couponCode.setText("Code : " + couponDetailList.get(position).getCoupon().getCouponCode());
         holder.txt_couponType.setText(couponDetailList.get(position).getCoupon().getCouponType());
-        holder.txt_startDate.setText(couponDetailList.get(position).getCoupon().getStartDate());
-        holder.txt_expiryDate.setText(couponDetailList.get(position).getCoupon().getExpiryDate());
+
+        String getStartDate = couponDetailList.get(position).getCoupon().getStartDate();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
+
+        try {
+            date = simpleDateFormat.parse(getStartDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.txt_startDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(date));
+        // holder.txt_startDate.setText(couponDetailList.get(position).getCoupon().getStartDate());
+
+
+        String getEndDate = couponDetailList.get(position).getCoupon().getStartDate();
+        final SimpleDateFormat simpleDateFormats = new SimpleDateFormat("dd MMM yyyy");
+        try {
+            date1 = simpleDateFormats.parse(getEndDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        holder.txt_expiryDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(date1));
+        // holder.txt_expiryDate.setText(couponDetailList.get(position).getCoupon().getExpiryDate());
 
         holder.img_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInfoDialog(position);
+
+                String startDate = holder.txt_startDate.getText().toString();
+                String endDate = holder.txt_expiryDate.getText().toString();
+
+
+                showInfoDialog(position, startDate, endDate);
             }
         });
 
         return convertView;
     }
 
-    private void showInfoDialog(int position){
+    private void showInfoDialog(int position, String startDate, String endDate) {
         View dialogView=inflater.inflate(R.layout.layout_dialog_coupon_detail,null);
 
         ImageView img_close=(ImageView) dialogView.findViewById(R.id.img_close);
@@ -116,7 +148,9 @@ public class CouponListAdapter extends BaseAdapter {
         txt_maxDiscountValue.setText(couponDetailList.get(position).getCoupon().getMaxDiscount());
         txt_multipleUseTime.setText(couponDetailList.get(position).getCoupon().getMultipleTimeUses());
         txt_status.setText(couponDetailList.get(position).getCoupon().getStatus());
-        txt_validFromDate.setText(couponDetailList.get(position).getCoupon().getStartDate() + " To " + couponDetailList.get(position).getCoupon().getExpiryDate());
+        /*txt_validFromDate.setText(couponDetailList.get(position).getCoupon().getStartDate() + " To " + couponDetailList.get(position).getCoupon().getExpiryDate());
+*/
+        txt_validFromDate.setText(startDate + " To " + endDate);
 
         if (couponDetailList.get(position).getGroupCoupon().size() > 0) {
             String text = "";

@@ -17,6 +17,7 @@ import com.agraeta.user.btl.adapters.ReOrderGridAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.ServiceGenerator;
+import com.google.gson.Gson;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -74,6 +75,9 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
         productQtyArray = intent.getStringArrayListExtra("productQtys");
         productOptionIDArray = intent.getStringArrayListExtra("productOptionIDs");
         productOptionNameArray = intent.getStringArrayListExtra("productOptionNames");
+        Log.e("nameArray", "--->" + new Gson().toJson(productOptionNameArray));
+        Log.e("nameArrays", "--->" + productOptionNameArray.get(0).toString());
+        Log.e("size", "--->" + productOptionNameArray.size());
         productOptionValueIDArray = intent.getStringArrayListExtra("productOptionValueIDs");
         productOptionValueNameArray = intent.getStringArrayListExtra("productOptionValueNames");
 
@@ -295,6 +299,9 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
 
             String json = new ServiceHandler().makeServiceCall(Globals.server_link + Globals.REORDER_PRODUCTS, ServiceHandler.POST, pairList);
 
+
+            Log.e("json", json);
+
             return json;
         }
 
@@ -302,9 +309,10 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            Log.e("json", s);
             dialog.dismiss();
             productList.clear();
-            reOrderGridAdapter.notifyDataSetChanged();
+            //   reOrderGridAdapter.notifyDataSetChanged();
 
             int nonMRPProductCount=0;
             int totalProductCount=0;
@@ -315,6 +323,8 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
 
                 if (object.getBoolean("status")) {
                     JSONArray data = object.getJSONArray("data");
+
+                    Log.e("status", "status");
 
                     totalProductCount=data.length();
 
@@ -346,10 +356,15 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
                             for (int k = 0; k < productIDArray.size(); k++) {
                                 if (productIDArray.get(k).equals(product.getPro_id())) {
                                     productQty += Integer.parseInt(productQtyArray.get(k));
-                                    product.setOptionID(productOptionIDArray.get(k));
-                                    product.setOptionName(productOptionNameArray.get(k));
-                                    product.setOptionValueID(productOptionValueIDArray.get(k));
-                                    product.setOptionValueName(productOptionValueNameArray.get(k));
+                                    //   product.setOptionID(productOptionIDArray.get(k));
+                                    product.setReorderOptionId(productOptionIDArray.get(k));
+                                    // product.setOptionName(productOptionNameArray.get(k).toString());
+                                    product.setReOrderedoptionName(productOptionNameArray.get(k));
+
+                                    //  product.setOptionValueID(productOptionValueIDArray.get(k));
+                                    product.setReOrderOptionValueID(productOptionValueIDArray.get(k));
+                                    //product.setOptionValueName(productOptionValueNameArray.get(k));
+                                    product.setReorderOptionValueName(productOptionValueNameArray.get(k));
                                 }
                             }
 
@@ -374,14 +389,13 @@ public class ReOrderActivity extends AppCompatActivity implements Callback<AppMo
                             }
 
                             product.setSchemeList(schemeList);
-
                             productList.add(product);
-
                         }
                         else {
                             nonMRPProductCount++;
                         }
 
+                        reOrderGridAdapter.notifyDataSetChanged();
                     }
                 } else {
                     Globals.CustomToast(getApplicationContext(), object.getString("message"), getLayoutInflater());

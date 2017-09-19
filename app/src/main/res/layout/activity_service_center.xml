@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.agraeta.user.Boss.Where_toBuy"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 <ScrollView
     android:layout_width="match_parent"
@@ -13,11 +11,11 @@
     >
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
 
 
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -30,12 +28,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
 
+                android:layout_marginTop="5dp"
                 android:text="State"
-                android:id="@+id/tvstate"
                 android:textSize="16sp" />
             <Spinner
                 android:id="@+id/spnstate"
@@ -48,31 +46,31 @@
 
 
             <TextView
+                android:id="@+id/tvslectcity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
 
+                android:layout_marginTop="5dp"
                 android:text="City"
-                android:visibility="gone"
-                android:id="@+id/tvslectcity"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
             <Spinner
                 android:id="@+id/spncity"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/spinner_border"
                 android:padding="5dp"
-                android:visibility="gone"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                android:visibility="gone" />
             <TextView
+                android:id="@+id/tvpincode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:id="@+id/tvpincode"
-                android:visibility="gone"
-
                 android:text="Pin Code"
-                android:textSize="16sp" />
+
+                android:textSize="16sp"
+                android:visibility="gone" />
             <EditText
 
                 android:id="@+id/et_pincode"
@@ -83,38 +81,38 @@
                 android:drawablePadding="10dp"
                 android:inputType="number"
                 android:maxLength="6"
-                android:visibility="gone"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Search"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/btn_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:textSize="14sp"
                 android:layout_gravity="right"
-                android:text="Search"
                 android:layout_marginTop="5dp"
-                android:textColor="#FFFFFF"
                 android:background="@color/colorPrimaryDark"
-                android:id="@+id/btn_search"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:textSize="14sp"
-                android:layout_gravity="right"
                 android:text="Back"
-                android:layout_marginTop="5dp"
                 android:textColor="#FFFFFF"
-                android:visibility="gone"
-                android:background="@color/colorPrimaryDark"
-                android:id="@+id/btn_filter"/>
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <ListView
+                android:id="@+id/layout_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
 
-                android:id="@+id/layout_display"
+                android:layout_weight="1"
                 >
 
             </ListView>

@@ -106,12 +106,19 @@ public class ReOrderGridAdapter extends BaseAdapter {
         txt_mrpPrice.setText(context.getString(R.string.ruppe_name)+" "+productList.get(position).getPro_mrp());
         txt_sellingPrice.setText(context.getString(R.string.ruppe_name)+" "+productList.get(position).getPro_sellingprice());
         txt_packOf.setText(productList.get(position).getPro_label());
-        txt_optionName.setText(productList.get(position).getOptionName());
-        txt_optionValue.setText(productList.get(position).getOptionValueName());
+        //txt_optionName.setText(productList.get(position).getOptionName());
+        txt_optionName.setText(productList.get(position).getReOrderedoptionName());
+        //txt_optionValue.setText(productList.get(position).getOptionValueName());
+        txt_optionValue.setText(productList.get(position).getReorderOptionValueName());
 
-        if(productList.get(position).getOptionName().isEmpty() && productList.get(position).getOptionValueName().isEmpty()){
+        /*if(productList.get(position).getOptionName().isEmpty() && productList.get(position).getOptionValueName().isEmpty()){
+            txt_optionSeperator.setVisibility(View.GONE);
+        }*/
+
+        if (productList.get(position).getReOrderedoptionName().isEmpty() && productList.get(position).getReorderOptionValueName().isEmpty()) {
             txt_optionSeperator.setVisibility(View.GONE);
         }
+
 
         double mrpPrice= Double.parseDouble(productList.get(position).getPro_mrp());
         double spPrice= Double.parseDouble(productList.get(position).getPro_sellingprice());
@@ -414,12 +421,16 @@ public class ReOrderGridAdapter extends BaseAdapter {
             JSONObject object=new JSONObject();
             try {
                 object.put("category_id",productList.get(i).getPro_cat_id());
-                object.put("option_id",productList.get(i).getOptionID());
+                // object.put("option_id",productList.get(i).getOptionID());
+                object.put("option_id", productList.get(i).getReorderOptionId());
                 object.put("pack_of",productList.get(i).getPro_label());
-                object.put("option_name",productList.get(i).getOptionName());
+                // object.put("option_name",productList.get(i).getOptionName());
+                object.put("option_name", productList.get(i).getReOrderedoptionName());
                 object.put("pro_code",productList.get(i).getPro_code());
-                object.put("option_value_id",productList.get(i).getOptionValueID());
-                object.put("option_value_name",productList.get(i).getOptionValueName());
+                //    object.put("option_value_id",productList.get(i).getOptionValueID());
+                object.put("option_value_id", productList.get(i).getReOrderOptionValueID());
+                //  object.put("option_value_name",productList.get(i).getOptionValueName());
+                object.put("option_value_name", productList.get(i).getReorderOptionValueName());
                 object.put("prod_img",productList.get(i).getPro_image());
                 object.put("name",productList.get(i).getPro_name());
                 object.put("id",productList.get(i).getPro_id());
