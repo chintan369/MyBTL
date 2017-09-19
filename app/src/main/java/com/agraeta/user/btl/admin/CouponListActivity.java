@@ -2,10 +2,12 @@ package com.agraeta.user.btl.admin;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -54,6 +56,7 @@ public class CouponListActivity extends AppCompatActivity implements Callback<Co
     String labelName="";
 
     Custom_ProgressDialog progressDialog;
+    EditText edt_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,6 +263,7 @@ public class CouponListActivity extends AppCompatActivity implements Callback<Co
     }
 
     private void fetchIDs() {
+        edt_search = (EditText) findViewById(R.id.edt_search);
         progressDialog=new Custom_ProgressDialog(this,"");
         progressDialog.setCancelable(false);
         txt_labelName=(TextView) findViewById(R.id.txt_labelName);
@@ -274,6 +278,41 @@ public class CouponListActivity extends AppCompatActivity implements Callback<Co
         progressDialog.show();
         couponDataCall=adminAPI.couponDataCall(null,null,page);
         couponDataCall.enqueue(this);
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchKey = edt_search.getText().toString().trim().toLowerCase();
+
+                List<CouponDetail> searchedUserList = new ArrayList<>();
+
+                if (searchKey.isEmpty()) {
+                    searchedUserList = couponDetailList;
+                } else {
+                    for (int i = 0; i < couponDetailList.size(); i++) {
+                        if (couponDetailList.get(i).getCoupon().getCouponName().toLowerCase().contains(searchKey)) {
+                            searchedUserList.add(couponDetailList.get(i));
+                        }
+                    }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
+                }
+
+                couponListAdapter.updateData(searchedUserList);
+            }
+        });
 
     }
 

@@ -888,12 +888,13 @@ public class Order_history extends ActionBarActivity {
                 parameters.add(new BasicNameValuePair("page", String.valueOf(currentPage)));
 
 
-                //Log.e("4", "" + parameters);
+                Log.e("4", "" + parameters);
 
                 //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Get_Order", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
+                Log.e("4", "" + parameters);
                 return json;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1146,6 +1147,7 @@ public class Order_history extends ActionBarActivity {
                                 bean.setPro_Option_id(jobject_OrderProduct.getString("option_id"));
                                 bean.setPro_Option_value_id(jobject_OrderProduct.getString("option_value_id"));
                                 bean.setOrder_schme(jobject_OrderProduct.getString("pro_scheme"));
+                                bean.setCombo_name(jobject_OrderProduct.getString("combo_name"));
                                 //Log.e("ABCSLKJFKLS",""+jobject_OrderProduct.getString("pro_scheme"));
                                 bean.setPack_of(jobject_OrderProduct.getString("pack_of"));
                                 //Log.e("asasaassaassas",""+jobject_OrderProduct.getString("pack_of"));

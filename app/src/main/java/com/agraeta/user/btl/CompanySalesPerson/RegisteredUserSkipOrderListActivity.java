@@ -3,8 +3,11 @@ package com.agraeta.user.btl.CompanySalesPerson;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -37,6 +40,8 @@ public class RegisteredUserSkipOrderListActivity extends AppCompatActivity {
 
     Custom_ProgressDialog dialog;
 
+    EditText edt_search;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,8 @@ public class RegisteredUserSkipOrderListActivity extends AppCompatActivity {
     private void fetchIDs() {
 
         adminAPI= ServiceGenerator.getAPIServiceClass();
+
+        edt_search = (EditText) findViewById(R.id.edt_search);
 
         listSkipOrders=(ListView) findViewById(R.id.listSkipOrders);
         adapter=new RegisteredUserDSRAdapter(userList,this);
@@ -94,6 +101,42 @@ public class RegisteredUserSkipOrderListActivity extends AppCompatActivity {
             public void onFailure(Call<RegisteredUserData> call, Throwable t) {
                 dialog.dismiss();
                 Globals.showError(t,getApplicationContext());
+            }
+        });
+
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchKey = edt_search.getText().toString().trim().toLowerCase();
+
+                List<RegisteredUserData.RegisteredUser> searchedUserList = new ArrayList<>();
+
+                if (searchKey.isEmpty()) {
+                    searchedUserList = userList;
+                } else {
+                    for (int i = 0; i < userList.size(); i++) {
+                        if (userList.get(i).getOrderUser().getFirst_name().toLowerCase().contains(searchKey)) {
+                            searchedUserList.add(userList.get(i));
+                        }
+                    }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
+                }
+
+                adapter.updateData(searchedUserList);
             }
         });
 

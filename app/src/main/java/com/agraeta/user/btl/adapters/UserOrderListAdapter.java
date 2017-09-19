@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agraeta.user.btl.R;
 import com.agraeta.user.btl.model.OrderListItem;
-import com.agraeta.user.btl.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,11 +95,17 @@ public class UserOrderListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public String getOrderID(int position) {
+        return orderListItems.get(position).order.getId();
+    }
+
+    public void updateData(List<OrderListItem> searchedUserList) {
+        this.orderListItems = searchedUserList;
+        notifyDataSetChanged();
+    }
+
     private class OrderHolder{
         TextView txt_orderID,txt_orderedFor,txt_orderedBy,txt_orderAmount,txt_orderDate,txt_orderStatus;
     }
 
-    public String getOrderID(int position){
-        return orderListItems.get(position).order.getId();
-    }
 }

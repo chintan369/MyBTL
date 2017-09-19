@@ -1334,11 +1334,13 @@ public class CheckoutPage_Product extends AppCompatActivity {
                 float sellingPrice = Float.parseFloat(bean_cart_data.get(position).getComboCart().getTotal_selling_price());
 
                 if (mrpPrice > sellingPrice) {
-                    double discount = (sellingPrice * 100) / mrpPrice;
-                    discount = 100 - discount;
+                    double discount = (mrpPrice - sellingPrice) * 100 / mrpPrice;
+                    //  double discount = (sellingPrice * 100) / mrpPrice;
+                    //  discount = 100 - discount;
                     if (discount >= 1) {
                         txt_discount.setVisibility(View.VISIBLE);
-                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
+                        // txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
+                        txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.1f", discount) + " % OFF");
                     }
                 }
 

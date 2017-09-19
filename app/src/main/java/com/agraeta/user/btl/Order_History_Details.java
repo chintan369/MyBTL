@@ -110,6 +110,7 @@ public class Order_History_Details extends AppCompatActivity {
     TextView txt_couponname, txt_couponamount, sub_t;
     ListView lst_en;
 
+    boolean isReorderTimes = false;
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
@@ -168,6 +169,7 @@ public class Order_History_Details extends AppCompatActivity {
         // roleID=appPrefs.getUserRoleId();
         Intent intent = getIntent();
         history = (Bean_Order_history) intent.getSerializableExtra("order");
+        isReorderTimes = intent.getBooleanExtra("isReorderTimes", false);
         lnr_coupon = (LinearLayout) findViewById(R.id.lnr_coupon);
         txt_couponname = (TextView) findViewById(R.id.txt_coupon_name);
         txt_couponamount = (TextView) findViewById(R.id.tv_coupondiscount);
@@ -176,6 +178,7 @@ public class Order_History_Details extends AppCompatActivity {
 
         db = new DatabaseHandler(Order_History_Details.this);
         bean_cart = db.get_order_history(appPrefs.getOrder_history_id());
+
 
         setRefershData();
 
@@ -1588,8 +1591,10 @@ public class Order_History_Details extends AppCompatActivity {
 
         tv_address_billing.setText(final_full_address);*/
 
-        if (history != null) {
+        if (history != null || isReorderTimes) {
+            Log.e("test", "test");
             if (history.isHasCouponApplied()) {
+                Log.e("test1", "test1");
                 lnr_coupon.setVisibility(View.VISIBLE);
             }
         }
@@ -1622,7 +1627,8 @@ public class Order_History_Details extends AppCompatActivity {
                 txt_couponamount.setText(history.getDiscount_amount());
 
                 tv_subtotal.setText(String.format(Locale.getDefault(), "%.2f", (float) subTotal));
-                tv_order_total.setText(String.valueOf(total));
+                tv_order_total.setText(String.format(Locale.getDefault(), "%.2f", (float) total));
+                // tv_order_total.setText(String.valueOf(total));
             } else {
                 tv_order_total.setText("" + bean_cart.get(0).getTotal());
                 tv_subtotal.setText("" + bean_cart.get(0).getTotal());
@@ -1798,6 +1804,8 @@ public class Order_History_Details extends AppCompatActivity {
                 appPrefs = new AppPrefs(Order_History_Details.this);
                 appPrefs.setUser_notification("Order_History_Details");
                 Intent i = new Intent(Order_History_Details.this, BTL_Cart.class);
+                i.putExtra("isReorderTimes", true);
+                i.putExtra("order", history);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
@@ -2376,6 +2384,7 @@ public class Order_History_Details extends AppCompatActivity {
             final TextView tv_product_selling_price = (TextView) convertView.findViewById(R.id.tv_product_selling_price);
             final TextView tv_product_qty = (TextView) convertView.findViewById(R.id.tv_product_qty);
             final TextView txt_schme = (TextView) convertView.findViewById(R.id.txt_schme);
+            final TextView txt_combo = (TextView) convertView.findViewById(R.id.txt_combo);
             final ImageView reorder = (ImageView) convertView.findViewById(R.id.reorder_img);
             final LinearLayout lcal = (LinearLayout) convertView.findViewById(R.id.l_cal);
             final LinearLayout l_pack = (LinearLayout) convertView.findViewById(R.id.l_pack);
@@ -2396,13 +2405,26 @@ public class Order_History_Details extends AppCompatActivity {
 
             final TextView tv_product_total_cost = (TextView) convertView.findViewById(R.id.tv_product_total_cost);
 
-
+            Log.e("getNamessss", "---->" + bean_cart.get(position).getOrder_schme());
             if (bean_cart.get(position).getOrder_schme().equalsIgnoreCase(" ") || bean_cart.get(position).getOrder_schme().equalsIgnoreCase("") || bean_cart.get(position).getOrder_schme().equalsIgnoreCase("null")) {
                 txt_schme.setVisibility(View.GONE);
             } else {
                 txt_schme.setVisibility(View.VISIBLE);
                 txt_schme.setText(" Scheme : " + bean_cart.get(position).getOrder_schme().toString());
             }
+
+
+            Log.e("getNamessss", "---->" + bean_cart.get(position).getCombo_name());
+            if (history.getCombo_name().equalsIgnoreCase(" ") || history.getCombo_name().equalsIgnoreCase("") || history.getCombo_name().equalsIgnoreCase("null")) {
+                txt_combo.setVisibility(View.GONE);
+            } else {
+                txt_combo.setVisibility(View.VISIBLE);
+                txt_combo.setText(" Combo Offer : " + history.getCombo_name().toString());
+            }
+
+
+
+
 
             tv_product_name.setText(bean_cart.get(position).getProduct_name());
             tv_product_code.setText("(" + bean_cart.get(position).getProduct_code() + ")");

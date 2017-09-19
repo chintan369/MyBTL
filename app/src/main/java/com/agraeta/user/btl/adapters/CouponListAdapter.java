@@ -205,8 +205,14 @@ public class CouponListAdapter extends BaseAdapter {
         dialog.show();
     }
 
+    public void updateData(List<CouponDetail> searchedUserList) {
+        this.couponDetailList = searchedUserList;
+        notifyDataSetChanged();
+    }
+
     class ViewHolder {
         TextView txt_couponName, txt_couponCode, txt_couponType, txt_startDate, txt_expiryDate;
         ImageView img_info;
     }
+
 }

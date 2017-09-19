@@ -2447,7 +2447,6 @@ public class Dist_Sales_Order_History_Details extends AppCompatActivity {
                 txt_schme.setVisibility(View.VISIBLE);
                 txt_schme.setText(" Scheme : "+bean_cart.get(position).getOrder_schme().toString());
             }
-
             final TextView tv_product_total_cost = (TextView) convertView.findViewById(R.id.tv_product_total_cost);
             if(bean_cart.get(position).getPack_of()==null || bean_cart.get(position).getPack_of().equalsIgnoreCase("null") ||bean_cart.get(position).getPack_of().trim().isEmpty()) {
                 tv_pack_of.setVisibility(View.GONE);

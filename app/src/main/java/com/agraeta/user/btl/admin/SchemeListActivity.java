@@ -2,10 +2,12 @@ package com.agraeta.user.btl.admin;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -58,6 +60,8 @@ public class SchemeListActivity extends AppCompatActivity implements Callback<Sc
 
     List<SchemeDetail> schemeDetailList=new ArrayList<>();
 
+    EditText edt_search;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,8 @@ public class SchemeListActivity extends AppCompatActivity implements Callback<Sc
     }
 
     private void fetchIDs() {
+        edt_search = (EditText) findViewById(R.id.edt_search);
+        edt_search.setHint("Search Schemes");
         progressDialog=new Custom_ProgressDialog(this,"");
         progressDialog.setCancelable(false);
         txt_labelName=(TextView) findViewById(R.id.txt_labelName);
@@ -85,6 +91,40 @@ public class SchemeListActivity extends AppCompatActivity implements Callback<Sc
         progressDialog.show();
         schemeDataCall=adminAPI.schemeDataCall(null,null,page);
         schemeDataCall.enqueue(this);
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchKey = edt_search.getText().toString().trim().toLowerCase();
+
+                List<SchemeDetail> searchedUserList = new ArrayList<>();
+
+                if (searchKey.isEmpty()) {
+                    searchedUserList = schemeDetailList;
+                } else {
+                    for (int i = 0; i < schemeDetailList.size(); i++) {
+                        if (schemeDetailList.get(i).getScheme().getSchemeName().toLowerCase().contains(searchKey)) {
+                            searchedUserList.add(schemeDetailList.get(i));
+                        }
+                    }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
+                }
+
+                schemeListAdapter.updateData(searchedUserList);
+            }
+        });
     }
 
     private void setActionBar() {

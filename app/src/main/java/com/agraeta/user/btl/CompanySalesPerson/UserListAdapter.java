@@ -42,7 +42,6 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
         this.context = context;
         this.companySalesUserList = companySalesUserList;
         this.activity = activity;
-
     }
 
     @NonNull
@@ -166,6 +165,4 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
 
         void showInfoDialog(int position);
     }
-
-
 }

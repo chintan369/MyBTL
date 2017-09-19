@@ -37,7 +37,7 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
     EditText edt_firstName,edt_lastName,edt_emailAddress,edt_mobile,edt_query;
     Button btn_submit;
     LinearLayout layout_attachment;
-    TextView txt_add_attachment;
+    TextView txt_add_attachment, txt_title;
 
     String productName="";
     String productID="";
@@ -77,6 +77,9 @@ public class NonMRPProductEnquiry extends AppCompatActivity implements Callback<
         btn_submit=(Button) findViewById(R.id.btn_submit);
         layout_attachment= (LinearLayout) findViewById(R.id.layout_attachment);
         txt_add_attachment= (TextView) findViewById(R.id.txt_add_attachment);
+        txt_title = (TextView) findViewById(R.id.txt_title);
+
+        txt_title.setText("Ask Quote");
 
         if (prefs.getUser_LoginInfo().equals("1")) {
             edt_firstName.setText(BTL.user.getName());

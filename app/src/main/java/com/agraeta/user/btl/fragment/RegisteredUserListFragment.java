@@ -103,6 +103,10 @@ public class RegisteredUserListFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+
+                // LINE NO 1267 AREA'S OBJECT WILL ARRAY SO IT WAS JUST THAT KIND OF EXCEPTION
+
+                //  http://www.btlindia.com/User/APP_Sales_Person_StateWise  state_id:49  search_term:
             }
 
             @Override

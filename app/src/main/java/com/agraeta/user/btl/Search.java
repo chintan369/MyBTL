@@ -6082,9 +6082,16 @@ public class Search extends AppCompatActivity {
                 double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
                 int a = (int) o;*/
 
-                float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
+                /*float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
 
-                result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
+                result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");*/
+
+                double percent = (Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice())) * 100 / Double.parseDouble(bean_product1.get(position)
+                        .getPro_mrp());
+
+
+                result_holder.off_tag.setText(String.format("%.1f", percent) + "% OFF");
+
 
                 result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position).getPro_mrp());
 
@@ -6137,9 +6144,16 @@ public class Search extends AppCompatActivity {
                     double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
                     int a = (int) o;*/
 
-                    float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
+                    /*float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
 
-                    result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");
+                    result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");*/
+
+                    double percent = (Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice())) * 100 / Double.parseDouble(bean_product1.get(position)
+                            .getPro_mrp());
+
+
+                    result_holder.off_tag.setText(String.format("%.1f", percent) + "% OFF");
+
                     result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                             .getPro_mrp());
                     result_holder.tv_product_sellingprice.setText(bean_product1.get(position)
@@ -6172,9 +6186,14 @@ public class Search extends AppCompatActivity {
                         double o1 = offa1 / Double.parseDouble(bean_product1.get(position).getPro_mrp());
                         int a1 = (int) o1;*/
 
-                        float percent1 = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
+                        /*float percent1 = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
 
-                        result_holder.off_tag.setText(String.format("%.0f", percent1) + "% OFF");
+                        result_holder.off_tag.setText(String.format("%.0f", percent1) + "% OFF");*/
+                        double percent1 = (Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice())) * 100 / Double.parseDouble(bean_product1.get(position)
+                                .getPro_mrp());
+
+
+                        result_holder.off_tag.setText(String.format("%.1f", percent1) + "% OFF");
                         result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                                 .getPro_mrp());
 

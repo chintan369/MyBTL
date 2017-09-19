@@ -1,12 +1,15 @@
 package com.agraeta.user.btl.admin;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,7 +18,6 @@ import android.widget.TextView;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.adapters.UserListAdapter;
 import com.agraeta.user.btl.adapters.UserOrderListAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.OrderData;
@@ -34,22 +36,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserOrderListActivity extends AppCompatActivity implements Callback<OrderData> {
 
-    private String roleID="";
-    private String roleName="";
-    private boolean isSpecificUser=false;
     String userID="";
-    private int page=1;
-
     ListView list_orders;
     List<OrderListItem> orderListItems=new ArrayList<>();
     UserOrderListAdapter orderListAdapter;
-
     Call<OrderData> orderDataCall;
-
+    EditText edt_search;
+    private String roleID = "";
+    private String roleName = "";
+    private boolean isSpecificUser = false;
+    private int page = 1;
     private AdminAPI adminAPI;
-
     private View footerLoadingView;
-
     private Custom_ProgressDialog progressDialog;
 
     @Override
@@ -100,12 +98,14 @@ public class UserOrderListActivity extends AppCompatActivity implements Callback
 
     private void fetchIDs() {
 
+        edt_search = (EditText) findViewById(R.id.edt_search);
         TextView txt_roleName = (TextView) findViewById(R.id.txt_roleName);
         list_orders=(ListView) findViewById(R.id.list_orders);
         orderListAdapter=new UserOrderListAdapter(orderListItems,this);
         list_orders.setAdapter(orderListAdapter);
 
         txt_roleName.setText(roleName);
+        edt_search.setHint("SEARCH " + roleName);
 
         list_orders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,6 +136,41 @@ public class UserOrderListActivity extends AppCompatActivity implements Callback
         else orderDataCall=adminAPI.orderData(null,roleID,page);
 
         orderDataCall.enqueue(this);
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchKey = edt_search.getText().toString().trim().toLowerCase();
+
+                List<OrderListItem> searchedUserList = new ArrayList<>();
+
+                if (searchKey.isEmpty()) {
+                    searchedUserList = orderListItems;
+                } else {
+                    for (int i = 0; i < orderListItems.size(); i++) {
+                        if (orderListItems.get(i).order.getName().toLowerCase().contains(searchKey)) {
+                            searchedUserList.add(orderListItems.get(i));
+                        }
+                    }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
+                }
+
+                orderListAdapter.updateData(searchedUserList);
+            }
+        });
     }
 
     @Override

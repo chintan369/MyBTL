@@ -13,6 +13,7 @@ public class AppPrefs {
     private static final String USER_PREFS = "USER_PREFS";
     String currentPage = "";
     String selectedUserType = "";
+    boolean isBulkOrder = false;
     private SharedPreferences appSharedPrefs;
     private SharedPreferences.Editor prefsEditor;
     private String user_notification = "user_email_prefs";
@@ -78,13 +79,11 @@ public class AppPrefs {
     private String disSubSalesID="0";
     private String statusPR="";
     private String statusPR22="";
-
     private String DsalesId="";
     private String dSalesUserId="";
     private String SRP_Id="";
     private String quo="equo";
     private String qutation_id="qutation_id";
-
     private String userName="";
 
 
@@ -111,6 +110,7 @@ public class AppPrefs {
         dSalesUserId=appSharedPrefs.getString("dSalesUserId","");
         SRP_Id=appSharedPrefs.getString("SRP_Id","");
         noticount = appSharedPrefs.getInt("noticount", 0);
+        isBulkOrder = appSharedPrefs.getBoolean("isBulkOrder", false);
 
     }
 
@@ -840,5 +840,14 @@ public class AppPrefs {
         // TODO Auto-generated method stub
         prefsEditor.putString(PT, PT_1).commit();
 
+    }
+
+    public boolean isBulkOrder() {
+        return appSharedPrefs.getBoolean("isBulkOrder", false);
+    }
+
+    public void setBulkOrder(boolean bulkOrder) {
+        isBulkOrder = bulkOrder;
+        prefsEditor.putBoolean("isBulkOrder", bulkOrder).commit();
     }
 }

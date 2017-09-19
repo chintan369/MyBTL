@@ -22,6 +22,7 @@ import com.agraeta.user.btl.ServiceHandler;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -208,8 +209,6 @@ public class DisRetailerAdapter extends BaseAdapter {
         final TextView serviceTaxNo=(TextView)dialogView.findViewById(R.id.d_servicetaxno);
         final TextView phoneNO=(TextView)dialogView.findViewById(R.id.d_mobile);
         final ImageView cancel=(ImageView)dialogView.findViewById(R.id.btn_cancel);
-
-
 
 //        if(disRetList.get(0).getFirstName().toString().equalsIgnoreCase("") || disRetList.get(0).getFirstName().toString().equalsIgnoreCase(null)){
 //            fname.setText("N/A");
@@ -491,6 +490,10 @@ public class DisRetailerAdapter extends BaseAdapter {
 
                 jsonData = new ServiceHandler().makeServiceCall(Globals.server_link+"User/APP_User_Info",ServiceHandler.POST,parameters);
 
+
+                Log.e("parameters", "--->" + parameters);
+                Log.e("json", jsonData);
+
                 //System.out.println("Data From Server " + jsonData);
                 return jsonData;
             } catch (Exception e) {
@@ -509,23 +512,39 @@ public class DisRetailerAdapter extends BaseAdapter {
             int position=0;
 
             if(!jsonData.equalsIgnoreCase("")){
-                //Log.e("mmmmmmmmm","mmmmmmm");
+
                 try {
                     JSONObject mainObject=new JSONObject(jsonData);
                     if(mainObject.getBoolean("status")){
 
-                        //Log.e("lllllllllllll","llllllllllll");
+
                         JSONObject dataObject=mainObject.getJSONObject("data");
                         JSONObject userObject=dataObject.getJSONObject("User");
                         JSONObject disObject=dataObject.getJSONObject("Distributor");
-                        JSONObject addressObject=dataObject.getJSONObject("Address");
-                        //JSONArray addressArray=dataObject.getJSONArray("Address");
-                        JSONObject countryObject=addressObject.getJSONObject("Country");
-                        JSONObject stateObject=addressObject.getJSONObject("State");
-                        JSONObject cityObject=addressObject.getJSONObject("City");
-                        JSONObject areaObject=addressObject.getJSONObject("Area");
+                        //  JSONObject addressObject=dataObject.getJSONObject("Address");
+                        JSONArray addressArray = dataObject.getJSONArray("Address");
+                        JSONObject object = new JSONObject();
+                        JSONObject countryObject = new JSONObject();
+                        JSONObject stateObject = new JSONObject();
+                        JSONObject cityObject = new JSONObject();
+                        JSONObject areaObject = new JSONObject();
+
+                        for (int i = 0; i < addressArray.length(); i++) {
+
+                            object = addressArray.getJSONObject(i);
+
+                            countryObject = object.getJSONObject("Country");
+                            stateObject = object.getJSONObject("State");
+                            cityObject = object.getJSONObject("City");
+                            areaObject = object.getJSONObject("Area");
+
+
+                        }
+
+
 
                         for(int i=0; i<disRetList.size(); i++){
+
                             if(String.valueOf(disRetList.get(i).getRetailer_id()).equals(userObject.getString("id"))){
                                 position=i;
 
@@ -545,17 +564,15 @@ public class DisRetailerAdapter extends BaseAdapter {
                                 disRetList.get(i).setServiceTaxNo(disObject.getString("tally_service_tax_reg_no"));
 
 
-
-
-
-                                disRetList.get(i).setAddress1(addressObject.getString("address_1"));
-                                disRetList.get(i).setAddress2(addressObject.getString("address_2"));
-                                disRetList.get(i).setAddress3(addressObject.getString("address_3"));
+                                disRetList.get(i).setAddress1(object.getString("address_1"));
+                                disRetList.get(i).setAddress2(object.getString("address_2"));
+                                disRetList.get(i).setAddress3(object.getString("address_3"));
 
                                 disRetList.get(i).setCountry(countryObject.getString("name"));
                                 disRetList.get(i).setState(stateObject.getString("name"));
                                 disRetList.get(i).setCity(cityObject.getString("name"));
                                 disRetList.get(i).setArea(areaObject.getString("name"));
+
 
                                 break;
                             }
@@ -591,13 +608,16 @@ public class DisRetailerAdapter extends BaseAdapter {
 
 
                         }
-                        notifyDataSetChanged();
+
+
+                    notifyDataSetChanged();
                         //Log.e("Size",disRetList.size()+"");
 //                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
 
             //refreshLayout.setRefreshing(false);
             loadingView.dismiss();

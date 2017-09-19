@@ -130,6 +130,8 @@ public class BTL_Cart extends AppCompatActivity {
 
     AdminAPI adminAPI;
     LinearLayout layout_main;
+    boolean isReorderTimes = false;
+    Bean_Order_history history;
     private String quotationID = "";
 
     protected void onResume() {
@@ -144,6 +146,11 @@ public class BTL_Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btl__cart);
+
+        Intent intent = getIntent();
+        isReorderTimes = intent.getBooleanExtra("isReorderTimes", false);
+        history = (Bean_Order_history) intent.getSerializableExtra("order");
+
         layout_main = (LinearLayout) findViewById(R.id.layout_main);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -611,6 +618,8 @@ public class BTL_Cart extends AppCompatActivity {
                     startActivity(i);
                 } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Details")) {
                     Intent i = new Intent(BTL_Cart.this, Order_History_Details.class);
+                    i.putExtra("isReorderTimes", true);
+                    i.putExtra("order", history);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Filter")) {
@@ -955,6 +964,8 @@ public class BTL_Cart extends AppCompatActivity {
             startActivity(i);
         } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Details")) {
             Intent i = new Intent(BTL_Cart.this, Order_History_Details.class);
+            i.putExtra("isReorderTimes", true);
+            i.putExtra("order", history);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else if (app.getUser_notification().toString().equalsIgnoreCase("Order_History_Filter")) {
@@ -2640,13 +2651,14 @@ public class BTL_Cart extends AppCompatActivity {
                         Log.e("Prices", mrp + " - " + sellingprice);
 
 
-                        float percent = (sellingprice * 100) / mrp;
+                        /*float percent = (sellingprice * 100) / mrp;
                         percent = 100 - percent;
 
                         int perc = (int) percent;
 
                         Log.e("Percent", "--" + (int) percent);
-
+*/
+                        double perc = (mrp - sellingprice) * 100 / mrp;
                         /*float off = mrp - sellingprice;
                         float o = off / mrp;
                         float offa = o * 100;
@@ -2668,10 +2680,13 @@ public class BTL_Cart extends AppCompatActivity {
                         }
                         if (role_id.equalsIgnoreCase("3") && role.equalsIgnoreCase("6")) {
 
-                            off_tag.setText(String.valueOf(perc) + "% OFF");
+                            //off_tag.setText(String.valueOf(perc) + "% OFF");
+                            off_tag.setText(String.format("%.1f", perc) + "% OFF");
+
                             off_tag.setVisibility(View.INVISIBLE);
                         } else {
-                            off_tag.setText(String.valueOf(perc) + "% OFF");
+                            //off_tag.setText(String.valueOf(perc) + "% OFF");
+                            off_tag.setText(String.format("%.1f", perc) + "% OFF");
                             off_tag.setVisibility(View.VISIBLE);
                         }
                         //Log.e("111111111", "" + mrp);
@@ -2815,7 +2830,7 @@ public class BTL_Cart extends AppCompatActivity {
 
                                     if (itemQuantityResponse != null) {
                                         if (itemQuantityResponse.isStatus()) {
-                                            showAddToCartProductDialog(0, 1, itemQuantityResponse.getData().get(0).getQuantity());
+                                            showAddToCartProductDialog(position, 1, itemQuantityResponse.getData().get(0).getQuantity());
                                         } else {
                                             showAddToCartProductDialog(0, 0, "1");
                                         }
@@ -3027,10 +3042,11 @@ public class BTL_Cart extends AppCompatActivity {
                 //Log.e("user_id_main", "" + u_id);
                 //  Log.e("owner_id", "" + owner_id);
 
-                // Log.e("", "" + parameters);
+
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartData", ServiceHandler.POST, parameters);
 
+                Log.e("blank", "-->" + parameters);
                 //System.out.println("array: " + json);
                 return json;
             } catch (Exception e) {

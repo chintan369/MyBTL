@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,21 +9,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:text="Un-Registered User"
         android:textColor="@color/black"
-        android:textSize="17sp"
-        android:padding="5dp"/>
+        android:textSize="17sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/strip_bg"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:background="@color/strip_bg" />
 
     <ScrollView
+        android:id="@+id/layout_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_scroll"
         android:fillViewport="true">
 
         <LinearLayout
@@ -34,383 +32,401 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:id="@+id/txt_firmName"
-                android:textSize="15sp"
-                android:text="Firm Name"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textPersonName"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_firmName"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="Firm Name"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_firmName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_addrLine1"
-                android:textSize="15sp"
-                android:text="Address Line 1"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textPersonName"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_addrLine1"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="Address Line 1"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_addrLine1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_addrLine2"
-                android:textSize="15sp"
-                android:text="Address Line 2"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_addrLine2"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="Address Line 2"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_addrLine2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_addrLine3"
-                android:textSize="15sp"
-                android:text="Address Line 3"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textPersonName"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_addrLine3"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="Address Line 3"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_addrLine3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_country"
-                android:textSize="15sp"
-                android:text="Country"/>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:background="@drawable/spinner_border"
-                android:id="@+id/spn_country"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="Country"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spn_country"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/spinner_border"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_state"
-                android:textSize="15sp"
-                android:text="State"/>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:background="@drawable/spinner_border"
-                android:id="@+id/spn_state"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="State"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spn_state"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/spinner_border"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_city"
-                android:textSize="15sp"
-                android:text="City"/>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:background="@drawable/spinner_border"
-                android:id="@+id/spn_city"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:text="City"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spn_city"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/spinner_border"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_area"
-                android:textSize="15sp"
-                android:text="Area"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Area"
+                android:textSize="14sp" />
 
             <Spinner
+                android:id="@+id/spn_area"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
                 android:background="@drawable/spinner_border"
-                android:id="@+id/spn_area"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:id="@+id/txt_pincode"
-                android:textSize="15sp"
-                android:text="Pin Code"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Pin Code"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_pincode"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
-                android:maxLength="6"
+                android:background="@drawable/background_gradiant"
                 android:inputType="number"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_pincode"/>
+                android:maxLength="6"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:id="@+id/txt_contactPerson"
-                android:textSize="15sp"
-                android:text="Contact Person Name"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Contact Person Name"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_contactPerson"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
+                android:background="@drawable/background_gradiant"
                 android:inputType="textPersonName"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_contactPerson"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:id="@+id/txt_emailID"
-                android:textSize="15sp"
-                android:text="Email"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_emailID"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_mobile"
-                android:textSize="15sp"
-                android:text="Mobile No"/>
+                android:text="Email"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_emailID"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
+                android:inputType="textEmailAddress"
                 android:padding="5dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Mobile No"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/background_gradiant"
                 android:inputType="number"
                 android:maxLength="10"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_mobile"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/txt_partyReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_partyReport"
-                android:textSize="15sp"
-                android:text="Party Report / Market Ref."/>
+                android:text="Party Report / Market Ref."
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_partyReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:padding="5dp"
+                android:background="@drawable/background_gradiant"
                 android:inputType="textMultiLine"
                 android:lines="4"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_partyReport"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <Button
+                android:id="@+id/btn_addVisitingFront"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/strip_bg"
-                android:textColor="@color/white"
-                android:id="@+id/btn_addVisitingFront"
                 android:layout_margin="5dp"
-                android:text="Visiting Card (Front Side)"/>
+                android:background="@color/strip_bg"
+                android:text="Visiting Card (Front Side)"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
             
             <FrameLayout
+                android:id="@+id/layout_visitngFront"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:visibility="gone"
-                android:id="@+id/layout_visitngFront">
+                android:visibility="gone">
 
                 <ImageView
+                    android:id="@+id/img_visitingFront"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/img_visitingFront"/>
+                    android:layout_height="100dp" />
 
                 <ImageView
+                    android:id="@+id/img_removeVisitingFront"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end"
-                    android:id="@+id/img_removeVisitingFront"
                     android:src="@drawable/com_facebook_close"/>
 
                 <TextView
+                    android:id="@+id/txt_visitingFrontPath"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/txt_visitingFrontPath"/>
+                    android:visibility="gone" />
 
             </FrameLayout>
 
             <Button
+                android:id="@+id/btn_addVisitingBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/strip_bg"
-                android:textColor="@color/white"
-                android:id="@+id/btn_addVisitingBack"
                 android:layout_margin="5dp"
-                android:text="Visiting Card (Back Side)"/>
+                android:background="@color/strip_bg"
+                android:text="Visiting Card (Back Side)"
+                android:textColor="@color/white" />
 
             <FrameLayout
+                android:id="@+id/layout_visitngBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:visibility="gone"
-                android:id="@+id/layout_visitngBack">
+                android:visibility="gone">
 
                 <ImageView
+                    android:id="@+id/img_visitingBack"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/img_visitingBack"/>
+                    android:layout_height="100dp" />
 
                 <ImageView
+                    android:id="@+id/img_removeVisitingBack"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end"
-                    android:id="@+id/img_removeVisitingBack"
                     android:src="@drawable/com_facebook_close"/>
 
                 <TextView
+                    android:id="@+id/txt_visitingBackPath"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/txt_visitingBackPath"/>
+                    android:visibility="gone" />
 
             </FrameLayout>
 
             <TextView
+                android:id="@+id/txt_dealingBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_dealingBrand"
-                android:textSize="15sp"
-                android:text="Dealing In Brand"/>
+                android:text="Dealing In Brand"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_dealingBrand"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textPersonName"
                 android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_dealingBrand"/>
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/txt_customerType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_customerType"
-                android:textSize="15sp"
-                android:text="Type of Customer"/>
+                android:text="Type of Customer"
+                android:textSize="14sp" />
 
             <Spinner
+                android:id="@+id/spn_customerType"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
                 android:background="@drawable/spinner_border"
-                android:id="@+id/spn_customerType"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/txt_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_comment"
-                android:textSize="15sp"
-                android:text="Comment"/>
+                android:text="Comment"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:padding="5dp"
+                android:background="@drawable/background_gradiant"
                 android:inputType="textMultiLine"
                 android:lines="4"
-                android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_comment"/>
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/txt_jointVisitWith"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/txt_jointVisitWith"
-                android:textSize="15sp"
-                android:text="Joint Visit With"/>
+                android:text="Joint Visit With"
+                android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/edt_jointVisitWith"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:padding="5dp"
-                android:inputType="textPersonName"
                 android:background="@drawable/background_gradiant"
-                android:id="@+id/edt_jointVisitWith"/>
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/layout_attachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/layout_attachment"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
             </LinearLayout>
 
 
             <TextView
+                android:id="@+id/txt_add_attachment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:id="@+id/txt_add_attachment"
-                android:textColor="@color/strip_bg"
+                android:padding="5dp"
                 android:text="Add Attachment"
-                android:padding="5dp"/>
+                android:textColor="@color/strip_bg" />
 
             <Button
                 android:id="@+id/btn_submit"
@@ -422,7 +438,7 @@
                 android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 

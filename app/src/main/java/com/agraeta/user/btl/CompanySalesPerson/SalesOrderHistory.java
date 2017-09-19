@@ -157,6 +157,8 @@ public class SalesOrderHistory extends AppCompatActivity {
         db = new DatabaseHandler(SalesOrderHistory.this);
         db.Delete_Order_histroy();
         appPrefs = new AppPrefs(SalesOrderHistory.this);
+
+        Log.e("getRoleIds", "--->" + appPrefs.getUserRoleId());
         fetchID();
         setActionBar();
 
@@ -188,6 +190,11 @@ public class SalesOrderHistory extends AppCompatActivity {
     {
         lst_orderhistory=(ListView)findViewById(R.id.lst_orderhistory);
         lin_filter = (LinearLayout) findViewById(R.id.lin_filter);
+        TextView txtAmt = (TextView) findViewById(R.id.txt_orderAmount);
+
+        if (appPrefs.getSubSalesId().equalsIgnoreCase(C.DISTRIBUTOR)) {
+            txtAmt.setVisibility(View.GONE);
+        }
 
         lst_orderhistory.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -607,6 +614,9 @@ public class SalesOrderHistory extends AppCompatActivity {
             txt_orderStatus.setText(array_remove_duplicate.get(position).getOrder_status_is());
             txt_orderAmount.setText(getResources().getString(R.string.ruppe_name)+" "+array_remove_duplicate.get(position).getTotal());
 
+            if (appPrefs.getSubSalesId().equalsIgnoreCase(C.DISTRIBUTOR)) {
+                txt_orderAmount.setVisibility(View.GONE);
+            }
 
             tv_total.setText("Total: "+getResources().getString(R.string.Rs)+array_remove_duplicate.get(position).getTotal());
             tv_order_date.setText("Date: "+array_remove_duplicate.get(position).getOrder_date());

@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,18 +36,15 @@ import static com.agraeta.user.btl.Globals.showError;
 public class UsersListActivity extends AppCompatActivity implements Callback<UserList> {
 
     private final List<User> userList = new ArrayList<>();
+    EditText edt_search;
     private ListView list_users;
     private UserListAdapter userListAdapter;
-
     private String roleID = "";
     private String roleName = "";
     private int page = 1;
-
     private AdminAPI adminAPI;
     private Call<UserList> userListCallback;
-
     private View footerLoadingView;
-
     private Custom_ProgressDialog progressDialog;
 
     @Override
@@ -91,12 +91,14 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
 
     private void fetchIDs() {
 
+        edt_search = (EditText) findViewById(R.id.edt_search);
         TextView txt_roleName = (TextView) findViewById(R.id.txt_roleName);
         list_users = (ListView) findViewById(R.id.list_users);
         userListAdapter = new UserListAdapter(userList, this);
         list_users.setAdapter(userListAdapter);
 
         txt_roleName.setText(roleName);
+        edt_search.setHint("SEARCH " + roleName);
 
         footerLoadingView = getLayoutInflater().inflate(R.layout.list_footer_loading, null);
 
@@ -117,6 +119,43 @@ public class UsersListActivity extends AppCompatActivity implements Callback<Use
         Log.e("page", "" + page);
 
         userListCallback.enqueue(this);
+
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchKey = edt_search.getText().toString().trim().toLowerCase();
+
+                List<User> searchedUserList = new ArrayList<>();
+
+                if (searchKey.isEmpty()) {
+                    searchedUserList = userList;
+                } else {
+                    for (int i = 0; i < userList.size(); i++) {
+                        if (userList.get(i).getFirst_name().toLowerCase().contains(searchKey) || userList.get(i).getLast_name().toLowerCase().contains(searchKey)) {
+                            searchedUserList.add(userList.get(i));
+                        }
+                    }
+                }
+
+                if (searchedUserList.size() == 0) {
+                    Globals.Toast2(getApplicationContext(), "No User Found!");
+                }
+
+                userListAdapter.updateData(searchedUserList);
+            }
+        });
+
     }
 
     @Override

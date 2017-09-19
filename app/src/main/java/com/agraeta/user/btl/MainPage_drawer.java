@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,6 +46,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
 import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
@@ -78,6 +81,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -390,6 +394,8 @@ public class MainPage_drawer extends AppCompatActivity
 
             bed1MenuItem.setVisible(false);
         }
+
+        getCompleteAddressString(22.1887561, 73.18714);
     }
 
     private void showSupportCallDialog() {
@@ -927,6 +933,7 @@ public class MainPage_drawer extends AppCompatActivity
             }
         } else if (id == R.id.bulkEnquiry) {
             Intent intent = new Intent(getApplicationContext(), BulkEnquiryActivity.class);
+            app.setBulkOrder(true);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             //intent.putExtra("flag","1");
             startActivity(intent);
@@ -1845,6 +1852,43 @@ public class MainPage_drawer extends AppCompatActivity
 
             layout_comboPacks.addView(lmain);
         }
+    }
+
+    public void getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+
+
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("");
+
+                }
+                //strAdd = strReturnedAddress.toString();
+
+
+                Log.e("getAddress", "---->" + strReturnedAddress.toString().trim());
+                //txt_address.setText(strAdd);
+
+            } else {
+
+                Toast.makeText(this, "No Address returned!", Toast.LENGTH_SHORT).show();
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Toast.makeText(this, "Canont get Address!", Toast.LENGTH_SHORT).show();
+
+
+        }
+
     }
 
     private class GetVersionCode extends AsyncTask<Void, String, String> {

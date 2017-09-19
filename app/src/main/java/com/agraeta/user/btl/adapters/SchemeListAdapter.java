@@ -173,8 +173,14 @@ public class SchemeListAdapter extends BaseAdapter {
         diallog.show();
     }
 
+    public void updateData(List<SchemeDetail> searchedUserList) {
+        this.schemeDetailList = searchedUserList;
+        notifyDataSetChanged();
+    }
+
     private class ViewHolder {
         TextView txt_schemeTitle, txt_schemeType, txt_buyProduct, txt_freeProduct, txt_startDate, txt_expiryDate;
         ImageView img_info;
     }
+
 }

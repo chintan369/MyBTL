@@ -8,24 +8,45 @@
     android:orientation="vertical"
     tools:context="com.agraeta.user.btl.admin.UsersListActivity">
 
-    <TextView
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        app:cardElevation="5dp"
+        app:contentPadding="5dp">
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_slider"
+            android:hint="Search Registered User"
+            android:imeOptions="actionSearch"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="@color/black_000"
+            android:textSize="15sp" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/txt_roleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:textColor="@color/black_000"
         android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/black_000"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:id="@+id/txt_roleName"
         />
 
     <ListView
+        android:id="@+id/list_users"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_users"
-        tools:listitem="@layout/layout_userlist_admin"
         android:divider="@android:color/transparent"
-        android:dividerHeight="3dp"/>
+        android:dividerHeight="3dp"
+        tools:listitem="@layout/layout_userlist_admin" />
 
 </LinearLayout>

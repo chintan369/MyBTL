@@ -37,9 +37,9 @@ public class Bussiness_enquiry extends Fragment {
 
     ArrayList<String> business_array = new ArrayList<String>();
 
-    EditText e_fname,e_lname,e_email,e_mobile,e_companyname,e_tinno,e_othertype,e_convenient,e_enquiry;
+    EditText e_fname, e_lname, e_email, e_mobile, e_companyname, e_tinno, e_othertype, e_convenient, e_enquiry;
 
-    Spinner sp_city,sp_state,sp_business_name;
+    Spinner sp_city, sp_state, sp_business_name;
 
     Button btn_save;
 
@@ -92,7 +92,19 @@ public class Bussiness_enquiry extends Fragment {
 
         txt_title = (TextView) rootView.findViewById(R.id.txt_title);
 
+
         prefs = new AppPrefs(getContext());
+
+
+        if (prefs.isBulkOrder()) {
+
+            txt_title.setText("Bulk Order Enquiry");
+
+        } else {
+
+            txt_title.setText("Business Enquiry");
+        }
+
 
         business_array.add("Dealer");
         business_array.add("Distributor");
@@ -106,7 +118,7 @@ public class Bussiness_enquiry extends Fragment {
 
         fetchId();
 
-        return  rootView;
+        return rootView;
     }
 
     private void fetchId() {
@@ -115,10 +127,10 @@ public class Bussiness_enquiry extends Fragment {
         cityid.clear();
         cityname.clear();
 
-        e_fname =(EditText)rootView.findViewById(R.id.etfirst_name_Cust_com);
-        e_lname =(EditText)rootView.findViewById(R.id.etlast_name_Cust_com);
-        e_email =(EditText)rootView.findViewById(R.id.Et_Emailid);
-        e_mobile =(EditText)rootView.findViewById(R.id.etmobile);
+        e_fname = (EditText) rootView.findViewById(R.id.etfirst_name_Cust_com);
+        e_lname = (EditText) rootView.findViewById(R.id.etlast_name_Cust_com);
+        e_email = (EditText) rootView.findViewById(R.id.Et_Emailid);
+        e_mobile = (EditText) rootView.findViewById(R.id.etmobile);
         e_mobile.setText("+91-");
         Selection.setSelection(e_mobile.getText(), e_mobile.getText().length());
         e_mobile.addTextChangedListener(new TextWatcher() {
@@ -145,41 +157,41 @@ public class Bussiness_enquiry extends Fragment {
 
             }
         });
-        e_companyname =(EditText)rootView.findViewById(R.id.etProname_Cust_com);
-        e_tinno =(EditText)rootView.findViewById(R.id.et_tinno);
-        e_othertype =(EditText)rootView.findViewById(R.id.e_otherbussiness);
-        e_convenient =(EditText)rootView.findViewById(R.id.et_convenienttime);
-        e_enquiry =(EditText)rootView.findViewById(R.id.et_yourenquiry);
+        e_companyname = (EditText) rootView.findViewById(R.id.etProname_Cust_com);
+        e_tinno = (EditText) rootView.findViewById(R.id.et_tinno);
+        e_othertype = (EditText) rootView.findViewById(R.id.e_otherbussiness);
+        e_convenient = (EditText) rootView.findViewById(R.id.et_convenienttime);
+        e_enquiry = (EditText) rootView.findViewById(R.id.et_yourenquiry);
 
-        sp_city=(Spinner)rootView.findViewById(R.id.spn_select_city);
-        sp_state=(Spinner)rootView.findViewById(R.id.spn_select_state);
-        sp_business_name =(Spinner)rootView.findViewById(R.id.business_spinner);
+        sp_city = (Spinner) rootView.findViewById(R.id.spn_select_city);
+        sp_state = (Spinner) rootView.findViewById(R.id.spn_select_state);
+        sp_business_name = (Spinner) rootView.findViewById(R.id.business_spinner);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, business_array); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_business_name.setAdapter(spinnerArrayAdapter);
 
         setRefershData();
 
-        if(user_data.size() == 0){
+        if (user_data.size() == 0) {
 
-        }else{
+        } else {
             for (int i = 0; i < user_data.size(); i++) {
 
                 e_fname.setText(user_data.get(i).getF_name());
                 e_lname.setText(user_data.get(i).getL_name());
-               // e_mobile.setText(user_data.get(i).getPhone_no());
-                e_mobile.setText("+91-"+user_data.get(i).getPhone_no());
+                // e_mobile.setText(user_data.get(i).getPhone_no());
+                e_mobile.setText("+91-" + user_data.get(i).getPhone_no());
                 e_email.setText(user_data.get(i).getEmail_id());
 
             }
         }
 
-        btn_save=(Button)rootView.findViewById(R.id.btn_Cust_com_sub);
+        btn_save = (Button) rootView.findViewById(R.id.btn_Cust_com_sub);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                smobile = e_mobile.getText().toString().trim().replace("+91-","");
+                smobile = e_mobile.getText().toString().trim().replace("+91-", "");
 
 
                 //Log.e("ssssss",""+smobile);
@@ -192,11 +204,11 @@ public class Bussiness_enquiry extends Fragment {
                     // Toast.makeText(Business_Registration.this,"Please enter first name",Toast.LENGTH_LONG).show();
                     Globals.CustomToast(getActivity(), "Please Enter Atleast 2 character", getActivity().getLayoutInflater());
                     e_fname.requestFocus();
-                }else if (e_lname.getText().toString().trim().equalsIgnoreCase("")) {
+                } else if (e_lname.getText().toString().trim().equalsIgnoreCase("")) {
                     e_lname.requestFocus();
                     Globals.CustomToast(getActivity(), "Please Enter Last Name", getActivity().getLayoutInflater());
                     // Toast.makeText(Business_Registration.this,"Please enter last name",Toast.LENGTH_LONG).show();
-                }else if (e_lname.length() < 2) {
+                } else if (e_lname.length() < 2) {
                     Globals.CustomToast(getActivity(), "Please Enter Atleast 2 Character", getActivity().getLayoutInflater());
                     e_lname.requestFocus();
                     // Toast.makeText(Business_Registration.this,"Please enter last name",Toast.LENGTH_LONG).show();
@@ -208,7 +220,7 @@ public class Bussiness_enquiry extends Fragment {
                     e_email.requestFocus();
                     // Toast.makeText(Business_Registration.this,"Please enter valid email address",Toast.LENGTH_LONG).show();
                     Globals.CustomToast(getActivity(), "Please enter a valid email address", getActivity().getLayoutInflater());
-                }  else if (e_mobile.length() < 14 && !smobile.equalsIgnoreCase("")) {
+                } else if (e_mobile.length() < 14 && !smobile.equalsIgnoreCase("")) {
                     e_mobile.requestFocus();
                     // Toast.makeText(Business_Registration.this,"Please enter valid mobile no",Toast.LENGTH_LONG).show();
                     Globals.CustomToast(getActivity(), "Mobile Number is Compulsory 10 Digit", getActivity().getLayoutInflater());
@@ -221,7 +233,7 @@ public class Bussiness_enquiry extends Fragment {
                 } else if (e_enquiry.getText().toString().trim().equalsIgnoreCase("")) {
                     e_enquiry.requestFocus();
                     Globals.CustomToast(getActivity(), "Please Enter your Enquiry Details", getActivity().getLayoutInflater());
-                }else if (e_enquiry.length() < 10) {
+                } else if (e_enquiry.length() < 10) {
                     Globals.CustomToast(getActivity(), "Please Enter Enquiry Atleast 10 Character", getActivity().getLayoutInflater());
                     e_enquiry.requestFocus();
                 } else if (e_companyname.getText().toString().trim().equalsIgnoreCase("")) {
@@ -232,7 +244,7 @@ public class Bussiness_enquiry extends Fragment {
                     s_fname = e_fname.getText().toString().trim();
                     s_lname = e_lname.getText().toString().trim();
                     s_email = e_email.getText().toString().trim();
-                    s_mobile = e_mobile.getText().toString().trim().replace("+91-","");
+                    s_mobile = e_mobile.getText().toString().trim().replace("+91-", "");
                     s_companyname = e_companyname.getText().toString().trim();
                     s_tinno = e_tinno.getText().toString().trim();
                     s_othertype = e_othertype.getText().toString().trim();
@@ -322,9 +334,8 @@ public class Bussiness_enquiry extends Fragment {
         });
 
 
-
-
     }
+
     private boolean validateEmail1(String email) {
         // TODO Auto-generated method stub
 
@@ -336,6 +347,7 @@ public class Bussiness_enquiry extends Fragment {
         return matcher.matches();
 
     }
+
     private void setRefershData() {
         // TODO Auto-generated method stub
         user_data.clear();
@@ -347,10 +359,10 @@ public class Bussiness_enquiry extends Fragment {
 
         for (int i = 0; i < user_array_from_db.size(); i++) {
 
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
             String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
             String f_name = user_array_from_db.get(i).getF_name();
             String l_name = user_array_from_db.get(i).getL_name();
             String password = user_array_from_db.get(i).getPassword();
@@ -403,8 +415,7 @@ public class Bussiness_enquiry extends Fragment {
 
     }
 
-    public class send_state_Data extends AsyncTask<Void,Void,String>
-    {
+    public class send_state_Data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
         private String result;
@@ -436,10 +447,9 @@ public class Bussiness_enquiry extends Fragment {
                 parameters.add(new BasicNameValuePair("country_id", "1"));
 
 
-
                 //Log.e("", "" + parameters);
 
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"State/App_GetState",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "State/App_GetState", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
                 return json;
@@ -479,13 +489,13 @@ public class Bussiness_enquiry extends Fragment {
                     if (date.equalsIgnoreCase("false")) {
                         String Message = jObj.getString("message");
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(getActivity(),""+Message, getActivity().getLayoutInflater());
+                        Globals.CustomToast(getActivity(), "" + Message, getActivity().getLayoutInflater());
                         loadingView.dismiss();
                     } else {
                         JSONObject jobj = new JSONObject(result_1);
 
                         if (jobj != null) {
-                                               JSONArray categories = jObj.getJSONArray("data");
+                            JSONArray categories = jObj.getJSONArray("data");
                             statename.add("Select State");
                             stateid.add("0");
                             for (int i = 0; i < categories.length(); i++) {
@@ -523,15 +533,14 @@ public class Bussiness_enquiry extends Fragment {
 
                     }
                 }
-            }catch(JSONException j){
+            } catch (JSONException j) {
                 j.printStackTrace();
             }
 
         }
     }
 
-    public class send_city_Data extends AsyncTask<Void,Void,String>
-    {
+    public class send_city_Data extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
         private String result;
@@ -564,10 +573,9 @@ public class Bussiness_enquiry extends Fragment {
                 parameters.add(new BasicNameValuePair("state_id", position_state));
 
 
-
                 //Log.e("",""+parameters);
 
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"City/App_GetCity",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "City/App_GetCity", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
                 return json;
@@ -607,7 +615,7 @@ public class Bussiness_enquiry extends Fragment {
                     if (date.equalsIgnoreCase("false")) {
                         String Message = jObj.getString("message");
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
-                        Globals.CustomToast(getActivity(),""+Message, getActivity().getLayoutInflater());
+                        Globals.CustomToast(getActivity(), "" + Message, getActivity().getLayoutInflater());
                         loadingView.dismiss();
                     } else {
                         JSONObject jobj = new JSONObject(result_1);
@@ -647,7 +655,7 @@ public class Bussiness_enquiry extends Fragment {
 
                     }
                 }
-            }catch(JSONException j){
+            } catch (JSONException j) {
                 j.printStackTrace();
             }
 
@@ -703,7 +711,7 @@ public class Bussiness_enquiry extends Fragment {
                 //Log.e("4",""+parameters);
 
                 //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"BusinessEnquiry/App_AddBusinessEnquiry",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "BusinessEnquiry/App_AddBusinessEnquiry", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
                 return json;
@@ -748,6 +756,8 @@ public class Bussiness_enquiry extends Fragment {
                     } else {
 
                         String Message = jObj.getString("message");
+                        if (prefs.isBulkOrder())
+                            prefs.setBulkOrder(false);
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
                         Globals.CustomToast(getActivity(), "" + Message, getActivity().getLayoutInflater());
                         loadingView.dismiss();
@@ -755,7 +765,8 @@ public class Bussiness_enquiry extends Fragment {
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                     }
-                }}catch(JSONException j){
+                }
+            } catch (JSONException j) {
                 j.printStackTrace();
             }
 

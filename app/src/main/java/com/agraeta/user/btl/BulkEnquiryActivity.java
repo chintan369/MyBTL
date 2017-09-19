@@ -1,6 +1,5 @@
 package com.agraeta.user.btl;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,11 +12,15 @@ public class BulkEnquiryActivity extends AppCompatActivity {
     TextView txt,titletext;
     String string="";
 
+    AppPrefs appPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bulk_enquiry);
+
+        appPrefs = new AppPrefs(getApplicationContext());
 
 
         setActionBar();
@@ -66,6 +69,8 @@ public class BulkEnquiryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (appPrefs.isBulkOrder())
+            appPrefs.setBulkOrder(false);
         finish();
     }
 }

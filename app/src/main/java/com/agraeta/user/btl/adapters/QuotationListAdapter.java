@@ -1,7 +1,6 @@
 package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +82,7 @@ public class QuotationListAdapter extends BaseAdapter {
         double sellingPrice = Double.parseDouble(quotationList.get(position).getSelling_price());
 
         if (mrpPrice > sellingPrice) {
-            double offPrice = mrpPrice - sellingPrice;
+            /*double offPrice = mrpPrice - sellingPrice;
 
             double offPercent = (offPrice * 100);
             double percent =offPercent / mrpPrice;
@@ -94,7 +93,13 @@ public class QuotationListAdapter extends BaseAdapter {
 
             Log.e("Discount",discount+" %");
 
-            if (discount >= 1) txt_discount.setText("Discount : " + discount + " % OFF");
+            if (discount >= 1) txt_discount.setText("Discount : " + discount + " % OFF");*/
+
+            double offPrice = mrpPrice - sellingPrice;
+            double offPercent = (offPrice * 100);
+            double discount = offPercent / mrpPrice;
+            if (discount >= 1)
+                txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
         }
 
         if (totalPrice == 0) {

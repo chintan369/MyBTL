@@ -6640,8 +6640,9 @@ public class Btl_WishList extends AppCompatActivity {
                 int a = (int) o;
 
 
-                result_holder.off_tag.setText(String.valueOf(a) + "% OFF");
+                // result_holder.off_tag.setText(String.valueOf(a) + "% OFF");
 
+                result_holder.off_tag.setText(String.format("%.1f", o) + "% OFF");
                 result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position).getPro_mrp());
                 result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_sellingprice());
@@ -6696,7 +6697,8 @@ public class Btl_WishList extends AppCompatActivity {
                 int a = (int) o;
 
 
-                result_holder.off_tag.setText(String.valueOf(a) + "% OFF");
+                //  result_holder.off_tag.setText(String.valueOf(a) + "% OFF");
+                result_holder.off_tag.setText(String.format("%.1f", o) + "% OFF");
                 result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_mrp());
                 result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
@@ -6718,7 +6720,8 @@ public class Btl_WishList extends AppCompatActivity {
                     int a1 = (int) o1;
 
 
-                    result_holder.off_tag.setText(String.valueOf(a1) + "% OFF");
+                    // result_holder.off_tag.setText(String.valueOf(a1) + "% OFF");
+                    result_holder.off_tag.setText(String.format("%.1", o1) + "% OFF");
                     result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                             .getPro_mrp());
                     result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)

@@ -900,7 +900,7 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                         String login_with = jU.getString("login_with");
                         String str_rid = jU.getString("social_login_id");
                         String str_response = jU.getString("social_login_response");
-                        String gstNo = jU.getString("gst_no");
+                        //  String gstNo = jU.getString("gst_no");
 
                         Log.e("user", "" + user_id);
 
@@ -940,16 +940,16 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                             finish();
                         } else if (apps.getUserRoleId().equals(C.DISTRIBUTOR) || apps.getUserRoleId().equals(C.DIRECT_DEALER) || apps.getUserRoleId().equals(C.PROFESSIONAL) || apps.getUserRoleId().equals(C.THIRD_TIER_RETAILER) || apps.getUserRoleId().equals(C.DISTRIBUTOR_PROFESSIONAL)) {
 
-                            if (gstNo.equalsIgnoreCase("0")) {
+                            /*if (gstNo.equalsIgnoreCase("0")) {
                                 Intent intent = new Intent(getApplicationContext(), GSTFormActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
-                            } else {
+                            } else {*/
                                 Intent i = new Intent(LogInPage.this, MainPage_drawer.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
-                            }
+                            //}
                         } else {
 
                             Intent i = new Intent(LogInPage.this, MainPage_drawer.class);

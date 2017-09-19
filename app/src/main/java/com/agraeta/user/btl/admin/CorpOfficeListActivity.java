@@ -2,10 +2,10 @@ package com.agraeta.user.btl.admin;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -20,13 +20,11 @@ import android.widget.TextView;
 import com.agraeta.user.btl.Custom_ProgressDialog;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.adapters.CareerListAdapter;
 import com.agraeta.user.btl.adapters.CorpOfficeListAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.enquiries.CorporateOfficeData;
 import com.agraeta.user.btl.model.enquiries.CorporateOfficeDetail;
-import com.agraeta.user.btl.model.enquiries.CustomerComplaintData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -283,6 +281,7 @@ public class CorpOfficeListActivity extends AppCompatActivity implements Callbac
             officeDetailList.addAll(data.getOfficeDetailList());
             officeListAdapter.notifyDataSetChanged();
             if(page<=data.getTotalPage()){
+                officeDataCall = adminAPI.officeDataCall(null, null, page);
                 officeDataCall.enqueue(this);
             }
         }

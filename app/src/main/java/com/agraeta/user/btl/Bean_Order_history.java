@@ -52,6 +52,7 @@ public class Bean_Order_history implements Serializable{
     String coupon_code="";
     String coupon_name="";
     String discount_amount="";
+    String combo_name = "";
 
     List<Bean_Order_history> productList=new ArrayList<>();
 
@@ -717,5 +718,13 @@ public class Bean_Order_history implements Serializable{
 
     public void setProductList(List<Bean_Order_history> productList) {
         this.productList = productList;
+    }
+
+    public String getCombo_name() {
+        return combo_name;
+    }
+
+    public void setCombo_name(String combo_name) {
+        this.combo_name = combo_name;
     }
 }

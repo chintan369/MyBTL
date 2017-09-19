@@ -68,7 +68,7 @@ public class Where_To_Buy extends AppCompatActivity {
     ArrayList<String> statename = new ArrayList<String>();
     Custom_ProgressDialog loadingView;
     ArrayList<Bean_WhereToBuy> bean_wheretobuy = new ArrayList<Bean_WhereToBuy>();
-    String pincode_final;
+    String pincode_final = "";
     AppPrefs apps;
     ImageView mapImg;
     LinearLayout.LayoutParams params;
@@ -247,7 +247,7 @@ public class Where_To_Buy extends AppCompatActivity {
         cityname.clear();
 
 
-        new send_state_Data().execute();
+
 
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,23 +337,25 @@ public class Where_To_Buy extends AppCompatActivity {
                 }*/ else {
                     pincode_final = et_pincode.getText().toString();
 
-                    btn_filter.setVisibility(View.VISIBLE);
-                    spnstate.setVisibility(View.GONE);
+                    //btn_filter.setVisibility(View.VISIBLE);
+                    //spnstate.setVisibility(View.GONE);
                     spncity.setVisibility(View.GONE);
-                    btn_search.setVisibility(View.GONE);
+                    //btn_search.setVisibility(View.GONE);
                     et_pincode.setVisibility(View.GONE);
 
                     tvslectcity.setVisibility(View.GONE);
                     tvstate.setVisibility(View.GONE);
                     tvpincode.setVisibility(View.GONE);
 
-                    new get_wheretobuydetails().execute();
+                    new get_wheretobuydetails(false).execute();
                     // mapImg.setVisibility(View.VISIBLE);
                 }
 
 
             }
         });
+
+        new get_wheretobuydetails(true).execute();
     }
 
   /*  private void setActionBar() {
@@ -641,7 +643,7 @@ public class Where_To_Buy extends AppCompatActivity {
         private String result;
         private InputStream is;
 
-        protected void onPreExecute() {
+        /*protected void onPreExecute() {
             super.onPreExecute();
             try {
                 loadingView = new Custom_ProgressDialog(
@@ -655,7 +657,7 @@ public class Where_To_Buy extends AppCompatActivity {
             }
 
         }
-
+*/
 
         @Override
         protected String doInBackground(Void... params) {
@@ -702,7 +704,7 @@ public class Where_To_Buy extends AppCompatActivity {
                     /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
                             Toast.LENGTH_SHORT).show();*/
                     Globals.CustomToast(Where_To_Buy.this, "SERVER ERROR", Where_To_Buy.this.getLayoutInflater());
-                    loadingView.dismiss();
+                    //  loadingView.dismiss();
 
                 } else {
                     JSONObject jObj = new JSONObject(result_1);
@@ -712,7 +714,7 @@ public class Where_To_Buy extends AppCompatActivity {
                         String Message = jObj.getString("message");
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
                         // Globals.CustomToast(Where_To_Buy.this,""+Message, Where_To_Buy.this.getLayoutInflater());
-                        loadingView.dismiss();
+                        //  loadingView.dismiss();
                     } else {
                         JSONObject jobj = new JSONObject(result_1);
 
@@ -735,7 +737,7 @@ public class Where_To_Buy extends AppCompatActivity {
 
                             }
                         }
-                        loadingView.dismiss();
+                        //  loadingView.dismiss();
                         // new send_city_Data().execute();
                     }
                 }
@@ -859,8 +861,13 @@ public class Where_To_Buy extends AppCompatActivity {
     {
         public StringBuilder sb;
         boolean status;
+        boolean isDirectCome = false;
         private String result;
         private InputStream is;
+
+        public get_wheretobuydetails(boolean isDirectCome) {
+            this.isDirectCome = isDirectCome;
+        }
 
         protected void onPreExecute() {
             super.onPreExecute();
@@ -885,17 +892,25 @@ public class Where_To_Buy extends AppCompatActivity {
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 
-                parameters.add(new BasicNameValuePair("state_id",""+ position_state));
-                parameters.add(new BasicNameValuePair("city_id",""+ position_city));
-                //parameters.add(new BasicNameValuePair("pincode",""+ pincode_final));
-                parameters.add(new BasicNameValuePair("pincode",""+ pincode_final));
+                if (isDirectCome) {
 
-                Log.e("params",parameters.toString());
+                    parameters.add(new BasicNameValuePair("state_id", ""));
+                    parameters.add(new BasicNameValuePair("city_id", ""));
+                    parameters.add(new BasicNameValuePair("pincode", ""));
+
+                } else {
+                    parameters.add(new BasicNameValuePair("state_id", "" + position_state));
+                    parameters.add(new BasicNameValuePair("city_id", "" + position_city));
+                    parameters.add(new BasicNameValuePair("pincode", "" + pincode_final));
+                }
 
 
                 //Log.e("where to buy web", "" + parameters);
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link+"ServiceCenter/App_GetServiceCenter",ServiceHandler.POST,parameters);
+
+                Log.e("params", "--->" + parameters);
+                Log.e("json", json);
                 //String json = new ServiceHandler.makeServiceCall(Globals.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
                 return json;
@@ -912,7 +927,7 @@ public class Where_To_Buy extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
-
+            loadingView.dismiss();
             try {
 
                 //db = new DatabaseHandler(());
@@ -923,26 +938,29 @@ public class Where_To_Buy extends AppCompatActivity {
                     /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
                             Toast.LENGTH_SHORT).show();*/
                     Globals.CustomToast(Where_To_Buy.this, "SERVER ERROR", Where_To_Buy.this.getLayoutInflater());
-                    loadingView.dismiss();
-
                 } else {
                     JSONObject jObj = new JSONObject(result_1);
 
+                    Log.e("result", "1");
                     String date = jObj.getString("status");
                     if (date.equalsIgnoreCase("false")) {
+                        Log.e("result", "2");
                         String Message = jObj.getString("message");
                         //Toast.makeText(Business_Registration.this,""+Message,Toast.LENGTH_LONG).show();
                         Globals.CustomToast(Where_To_Buy.this,""+Message, Where_To_Buy.this.getLayoutInflater());
-                        loadingView.dismiss();
+
                     } else {
                         JSONObject jobj = new JSONObject(result_1);
+                        Log.e("result", "3");
 
                         if (jobj != null) {
+                            Log.e("result", "4");
                             JSONArray categories = jObj.getJSONArray("data");
                             bean_wheretobuy.clear();
                             for (int i = 0; i < categories.length(); i++) {
                                 JSONObject catObj = (JSONObject) categories.get(i);
 
+                                Log.e("result", "5");
 
 
 
@@ -958,15 +976,24 @@ public class Where_To_Buy extends AppCompatActivity {
                                 bean.setLongitude(catObj.getString("longitude"));
 
 
+                                Log.e("result", "6");
+
                                 bean_wheretobuy.add(bean);
 
 
-
+                                Log.e("result", "7");
                             }
                         }
-                        loadingView.dismiss();
+
+                        Log.e("result", "8");
                         layout_display.setVisibility(View.VISIBLE);
                         layout_display.setAdapter(new CustomResultAdapterDoctor());
+
+                        if (isDirectCome)
+                            new send_state_Data().execute();
+                        else
+                            spnstate.setSelection(0);
+
                         //  setLayout(bean_wheretobuy);
                     }
                 }

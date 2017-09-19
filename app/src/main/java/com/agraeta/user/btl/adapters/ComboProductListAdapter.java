@@ -132,12 +132,14 @@ public class ComboProductListAdapter extends BaseAdapter {
         float sellingPrice = Float.parseFloat(comboProductList.get(position).getProduct().getSellingPrice());
 
         if (mrpPrice > sellingPrice) {
-            double discount = (sellingPrice * 100) / mrpPrice;
-            discount = 100 - discount;
+            double discount = (mrpPrice - sellingPrice * 100) / mrpPrice;
+            // double discount = (sellingPrice * 100) / mrpPrice;
+            //   discount = 100 - discount;
 
             if (discount >= 1) {
                 holder.txt_discount.setVisibility(View.VISIBLE);
-                holder.txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
+                //     holder.txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
+                holder.txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
             }
         }
 

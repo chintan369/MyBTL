@@ -262,4 +262,10 @@ public class UserListAdapter extends BaseAdapter {
 
         dialog.show();
     }
+
+    public void updateData(List<User> searchedUserList) {
+        this.userList = searchedUserList;
+        notifyDataSetChanged();
+    }
+
 }

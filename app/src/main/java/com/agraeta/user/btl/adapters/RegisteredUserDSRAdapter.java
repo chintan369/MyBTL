@@ -88,4 +88,9 @@ public class RegisteredUserDSRAdapter extends BaseAdapter {
         return view;
     }
 
+    public void updateData(List<RegisteredUserData.RegisteredUser> searchedUserList) {
+        this.userList = searchedUserList;
+        notifyDataSetChanged();
+    }
+
 }

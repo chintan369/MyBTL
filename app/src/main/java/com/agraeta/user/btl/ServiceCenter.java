@@ -266,10 +266,8 @@ public class ServiceCenter extends Fragment {
 
     private void setLayout(ArrayList<Bean_WhereToBuy> str) {
         // TODO Auto-generated method stub
-
         layout_display.removeAllViews();
 
-        //Log.e("str.size", "" + str.size());
 
         for (int ij = 0; ij < str.size(); ij++) {
 
@@ -385,13 +383,8 @@ public class ServiceCenter extends Fragment {
     }
 
     static class ResultHolder {
-
-
         TextView tvaddress;
-
         ImageView img_edit, img_delete;
-
-
     }
 
     public class send_state_Data extends AsyncTask<Void,Void,String>
@@ -619,6 +612,7 @@ public class ServiceCenter extends Fragment {
     {
         public StringBuilder sb;
         boolean status;
+        boolean isDirectCome = false;
         private String result;
         private InputStream is;
 
@@ -646,11 +640,10 @@ public class ServiceCenter extends Fragment {
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 
-                parameters.add(new BasicNameValuePair("state_id",""+ position_state));
-                parameters.add(new BasicNameValuePair("city_id",""+ position_city));
-                //parameters.add(new BasicNameValuePair("pincode",""+ pincode_final));
-                parameters.add(new BasicNameValuePair("pincode",""+ pincode_final));
 
+                parameters.add(new BasicNameValuePair("state_id", "" + position_state));
+                parameters.add(new BasicNameValuePair("city_id", "" + position_city));
+                parameters.add(new BasicNameValuePair("pincode", "" + pincode_final));
 
 
 

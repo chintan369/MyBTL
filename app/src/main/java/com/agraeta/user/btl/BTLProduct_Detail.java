@@ -4323,7 +4323,12 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     double o = offa / Double.parseDouble(bean_product1.get(ik).getPro_mrp());
                     int a = (int)o;*/
 
+/*
                     float percent1 = 100 - (Float.parseFloat(bean_product1.get(ik).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(ik).getPro_mrp()));
+*/
+
+                    double percent1 = (Double.parseDouble(bean_product1.get(ik).getPro_mrp()) - Double.parseDouble(bean_product1.get(ik).getPro_sellingprice())) * 100 / Double.parseDouble(bean_product1.get(ik).getPro_mrp());
+
 
                     off_tag.setText(String.format("%.0f", percent1) + "% OFF");
 
