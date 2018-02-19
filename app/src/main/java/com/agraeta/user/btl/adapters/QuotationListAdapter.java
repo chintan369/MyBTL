@@ -98,12 +98,13 @@ public class QuotationListAdapter extends BaseAdapter {
             double offPrice = mrpPrice - sellingPrice;
             double offPercent = (offPrice * 100);
             double discount = offPercent / mrpPrice;
-            if (discount >= 1)
-                txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
+            if (discount >= 1) {
+                //   txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
+            }
         }
 
         if (totalPrice == 0) {
-            txt_discount.setText("FREE");
+            //   txt_discount.setText("FREE");
         }
 
 

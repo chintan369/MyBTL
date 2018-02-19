@@ -2,8 +2,6 @@ package com.agraeta.user.btl.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.agraeta.user.btl.BufferVideoActivity;
 import com.agraeta.user.btl.C;
-import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.R;
-import com.agraeta.user.btl.VideoGalleryDetailActivity;
 import com.agraeta.user.btl.model.VideoResponse;
 import com.agraeta.user.btl.utils.BlurTransformation;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +69,7 @@ public class VideoGalleryAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(activity, VideoGalleryDetailActivity.class);
+                Intent intent = new Intent(activity, BufferVideoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("video",videoList.get(position));
                 activity.startActivity(intent);

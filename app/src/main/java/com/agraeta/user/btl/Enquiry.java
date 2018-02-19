@@ -235,7 +235,7 @@ public class Enquiry extends AppCompatActivity {
             mSectionsPagerAdapter.addFragement(new ProductRegistration(),"Product Registration");
         }
 
-        mSectionsPagerAdapter.addFragement(new Careers(), "Careers");
+        //    mSectionsPagerAdapter.addFragement(new Careers(), "Careers");
 
 
         mViewPager = (ViewPager) findViewById(R.id.container);

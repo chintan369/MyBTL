@@ -37,6 +37,7 @@ import com.agraeta.user.btl.adapters.ExpandableSchemeAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.GetCartItemQuantityResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -98,7 +99,7 @@ public class Shopping_Product_view extends AppCompatActivity {
     String user_id_main = new String();
     ArrayList<String> list_of_images = new ArrayList<String>();
     AppPrefs app;
-    String List_ID;
+    String List_ID = "";
     DatabaseHandler db;
     ArrayList<Bean_Value_Selected_Detail> array_value = new ArrayList<Bean_Value_Selected_Detail>();
     String option_name = "";
@@ -474,10 +475,10 @@ public class Shopping_Product_view extends AppCompatActivity {
 
                     String json = jsonData; //GetProductDetailByQty(para);
 
-                    try {
-
 
                         //System.out.println(json);
+                    try {
+
 
                         if (json == null
                                 || (json.equalsIgnoreCase(""))) {
@@ -1200,6 +1201,7 @@ public class Shopping_Product_view extends AppCompatActivity {
         l_spinner_text = (LinearLayout) dialog.findViewById(R.id.l_spinnertext);
         tv_pop_pname.setText(bean_product1.get(position).getPro_name().toString());
         tv_pop_code.setText(" ( " + bean_product1.get(position).getPro_code().toString() + " )");
+        Log.e("productCode", "--->" + bean_product1.get(position).getPro_code().toString());
         tv_pop_packof.setText(bean_product1.get(position).getPro_label().toString());
         tv_pop_mrp.setText(bean_product1.get(position).getPro_mrp().toString());
         tv_pop_sellingprice.setText(bean_product1.get(position).getPro_sellingprice().toString());
@@ -1258,7 +1260,7 @@ public class Shopping_Product_view extends AppCompatActivity {
         if (role_id.equalsIgnoreCase("3") && role.equalsIgnoreCase("6")) {
             //if (role_id.equalsIgnoreCase("3")) {
             l_mrp.setVisibility(View.GONE);
-            tv_txt_mrp.setVisibility(View.GONE);
+            //  tv_txt_mrp.setVisibility(View.GONE);
             tv_pop_sellingprice.setVisibility(View.GONE);
             l_sell.setVisibility(View.GONE);
             l_total.setVisibility(View.GONE);
@@ -1277,11 +1279,11 @@ public class Shopping_Product_view extends AppCompatActivity {
                 l_mrp.setVisibility(View.VISIBLE);
                 tv_pop_mrp.setPaintFlags(tv_pop_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            } else {
-                tv_pop_mrp.setVisibility(View.GONE);
-                tv_txt_mrp.setVisibility(View.GONE);
-                l_mrp.setVisibility(View.GONE);
-            }
+            } /*else {
+                //tv_pop_mrp.setVisibility(View.GONE);
+                //tv_txt_mrp.setVisibility(View.GONE);
+               // l_mrp.setVisibility(View.GONE);
+            }*/
         }
                        /* if(mrp > sellingprice){
                             tv_pop_mrp.setVisibility(View.VISIBLE);
@@ -1330,6 +1332,9 @@ public class Shopping_Product_view extends AppCompatActivity {
                     bean_attribute.setValue_selling_price(bean_productOprtions.get(c).getPro_Option_selling_price());
                     bean_attribute.setOption_pro_id(bean_productOprtions.get(c).getOption_pro_id());
 
+                    Log.e("proIds", "-->" + bean_productOprtions.get(c).getOption_pro_id());
+
+                    Log.e("beanProductOption", "-->" + new Gson().toJson(bean_productOprtions));
                     //Log.e("Product ID", "------" + bean_attribute.getOption_pro_id());
 
                     //Log.e("Product ID11", "------" + bean_productOprtions.get(c).getOption_pro_id());
@@ -1388,6 +1393,8 @@ public class Shopping_Product_view extends AppCompatActivity {
                             //Log.e("bean_demo_images",""+array_attributes.get(s).getValue_image());
 
                             bean_demo.setOption_pro_id(array_attributes.get(s).getOption_pro_id());
+
+                            Log.e("proIds1", "-->" + array_attributes.get(s).getOption_pro_id());
                             array_attribute.add(bean_demo);
                         }
                     }
@@ -1484,6 +1491,9 @@ public class Shopping_Product_view extends AppCompatActivity {
                                 }
                             }
 
+                            Log.e("Has Scheme", selectedProductID[0] + " -->" + foundScheme);
+                            Log.e("getSchemeData", "--->" + new Gson().toJson(bean_Schme_data));
+                            Log.e("foundScheme", "---->" + foundScheme);
                             if (foundScheme) img_offerDialog.setVisibility(View.VISIBLE);
                             else img_offerDialog.setVisibility(View.GONE);
 
@@ -1604,11 +1614,13 @@ public class Shopping_Product_view extends AppCompatActivity {
                                         tv_pop_pname.setTag("" + finalAtt_array.get(position1).getOption_pro_id());
                                         if (finalAtt_array.get(position1).getValue_product_code().equalsIgnoreCase("null") || finalAtt_array.get(position1).getValue_product_code().equalsIgnoreCase("")) {
                                             //Log.e("121212",""+att_array.get(position1).getValue_product_code().toString());
-                                            tv_pop_code.setText(" (" + p_code + ")");
+                                            tv_pop_code.setText(" (" + bean_product1.get(position).getPro_code().toString() + ")");
+                                            Log.e("productCode2", "--->" + bean_product1.get(position).getPro_code().toString());
 
                                         } else {
                                             //Log.e("131313",""+att_array.get(position1).getValue_product_code().toString());
                                             tv_pop_code.setText(" (" + finalAtt_array.get(position1).getValue_product_code().toString() + ")");
+                                            Log.e("productCode3", "--->" + finalAtt_array.get(position1).getValue_product_code().toString());
                                             ArrayList<Bean_ProductCart> array_product_cart1 = new ArrayList<Bean_ProductCart>();
                                             array_product_cart1 = db.is_product_in_cart(tv_pop_code.getText().toString());
 
@@ -1842,16 +1854,17 @@ public class Shopping_Product_view extends AppCompatActivity {
                 if (s == 0) {
                     s = s + minPackOfQty[0];
                 } else if (s > 0) {
-
                     int remainder = C.modOf(minPackOfQty[0], s);
 
                     if (s < minPackOfQty[0]) {
 
-                        if (remainder > 0) {
                             s = s + (minPackOfQty[0] - s);
-                        } else {
-                            s = s + minPackOfQty[0];
-                        }
+
+                            /*if (remainder > 0) {
+                                s = s + (minPackOfQty[0] - s);
+                            } else {
+                                s = s + minPackOfQty[0];
+                            }*/
                     } else if (s >= minPackOfQty[0]) {
                         if (remainder > 0) {
                             s = s - remainder + minPackOfQty[0];
@@ -1859,6 +1872,7 @@ public class Shopping_Product_view extends AppCompatActivity {
                             s = s + minPackOfQty[0];
                         }
                     }
+                    // }
                 }
                 //s = s + 1;
                 edt_count.setText(String.valueOf(s));
@@ -2888,6 +2902,8 @@ public class Shopping_Product_view extends AppCompatActivity {
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "ShoppingListProduct/App_GetShoppingListProduct", ServiceHandler.POST, parameters);
 
+
+                Log.e("parameters", "--->" + parameters);
                 //System.out.println("array: " + json);
                 return json;
             } catch (Exception e) {
@@ -3080,6 +3096,7 @@ public class Shopping_Product_view extends AppCompatActivity {
                                     //  //Log.e("ABABABABBABBA", "" + jProductOptiono.getString("product_id"));
                                     //beanoption.setPro_id(jProductOptiono.getString("parent_product_id"));
                                     beanoption.setPro_id(jProductOptiono.getString("product_id"));
+                                    beanoption.setOption_pro_id(jProductOptiono.getString("product_id"));
                                     beanoption.setPro_Option_mrp(jProductOptiono.getString("mrp"));
                                     beanoption.setPro_Option_selling_price(jProductOptiono.getString("selling_price"));
 
@@ -3357,6 +3374,7 @@ public class Shopping_Product_view extends AppCompatActivity {
             result_holder.tvproduct_code.setText("(" + bean_product1.get(position).getPro_code().toString() + ")");
 
 
+
             if (bean_status.get(position).getPro_status().equalsIgnoreCase("0")) {
                 result_holder.btn_buyonline.setVisibility(View.GONE);
             } else {
@@ -3524,6 +3542,8 @@ public class Shopping_Product_view extends AppCompatActivity {
 
                     loadingView.show();
                     Call<GetCartItemQuantityResponse> itemQuantityResponseCall = adminAPI.getCartItemQuantity(bean_product1.get(position).getPro_id(), owner_id, user_id_main);
+
+                    Log.e("catrParameters", "---->" + bean_product1.get(position).getPro_id() + "---->" + owner_id + "---->" + user_id_main);
 
                     itemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                         @Override
@@ -5857,8 +5877,8 @@ public class Shopping_Product_view extends AppCompatActivity {
                                             array_value.clear();
 
 
-                                           *//* Globals.CustomToast(Search.this, "Item insert in cart", getLayoutInflater());
-                                            Intent i = new Intent(Search.this, Search.class);
+                                           *//* Globals.CustomToast(Shopping_Product_view.this, "Item insert in cart", getLayoutInflater());
+                                            Intent i = new Intent(Shopping_Product_view.this, Search.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(i);*//*
                                         }else if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("3")){
@@ -6006,7 +6026,7 @@ public class Shopping_Product_view extends AppCompatActivity {
 			 */
 
             result_holder.img_offer.setTag(bean_product1.get(position).getScheme().toString());
-            //Log.e("asdsadsadasd",""+bean_product1.get(position).getScheme().toString());
+            Log.e("asdsadsadasd", "---->" + bean_product1.get(position).getScheme().toString());
             if (bean_product1.get(position).getScheme().toString().equalsIgnoreCase("") || bean_product1.get(position).getScheme().toString().equalsIgnoreCase(null) || bean_product1.get(position).getScheme().toString().equalsIgnoreCase("null")) {
 
                 result_holder.img_offer.setVisibility(View.GONE);
@@ -6655,7 +6675,7 @@ public class Shopping_Product_view extends AppCompatActivity {
             result_holder.txt_mrp.setVisibility(View.VISIBLE);
             result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
             result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-            result_holder.off_tag.setVisibility(View.VISIBLE);
+            //  result_holder.off_tag.setVisibility(View.VISIBLE);
             result_holder.txt_selling.setVisibility(View.VISIBLE);
 
             result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
@@ -6672,7 +6692,7 @@ public class Shopping_Product_view extends AppCompatActivity {
             if (mrp1 > sellingprice1) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 /*double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                 double offa = off * 100;
                 double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6703,6 +6723,7 @@ public class Shopping_Product_view extends AppCompatActivity {
             //Log.e("3333", "33333");
             //p_code = bean_product1.get(position).getPro_code().toString();
             p_code = result_holder.btn_buyonline.getTag().toString();
+            Log.e("codesssss", "---->" + result_holder.btn_buyonline.getTag().toString());
             setRefershData();
             if (user_data.size() != 0) {
                 for (int ii = 0; ii < user_data.size(); ii++) {
@@ -6729,7 +6750,7 @@ public class Shopping_Product_view extends AppCompatActivity {
                         .getPro_code() + ")");
                /* //Log.e("tvproduct_code",""+bean_product1.get(position)
                         .getPro_code());*/
-                result_holder.tv_product_mrp.setText(bean_product1.get(position)
+                result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_mrp());
                 result_holder.tv_product_sellingprice.setText(bean_product1.get(position)
                         .getPro_sellingprice());
@@ -6738,7 +6759,7 @@ public class Shopping_Product_view extends AppCompatActivity {
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 /*double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                 double offa = off * 100;
                 double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6753,18 +6774,19 @@ public class Shopping_Product_view extends AppCompatActivity {
 
 
                 result_holder.off_tag.setText(String.format("%.1f", percent1) + "% OFF");
-                result_holder.tv_product_mrp.setText(bean_product1.get(position)
+                result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_mrp());
-                result_holder.tv_product_sellingprice.setText(bean_product1.get(position)
+                result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                         .getPro_sellingprice());
                 // p_code = result_holder.btn_buyonline.getTag().toString();
                 //Log.e("23232323",""+p_code);
-                double mrp = Double.parseDouble(result_holder.tv_product_mrp.getText().toString());
-                double sellingprice = Double.parseDouble(result_holder.tv_product_sellingprice.getText().toString());
+                double mrp = Double.parseDouble(bean_product1.get(position)
+                        .getPro_mrp());
+                double sellingprice = Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                 if (mrp > sellingprice) {
                     result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                     result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                    result_holder.off_tag.setVisibility(View.VISIBLE);
+                    //   result_holder.off_tag.setVisibility(View.VISIBLE);
                     double off1 = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                     double offa1 = off1 * 100;
                     double o1 = offa1 / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6781,8 +6803,8 @@ public class Shopping_Product_view extends AppCompatActivity {
 
 
                 } else {
-                    result_holder.tv_product_mrp.setVisibility(View.GONE);
-                    result_holder.txt_mrp.setVisibility(View.GONE);
+                    //  result_holder.tv_product_mrp.setVisibility(View.GONE);
+                    //   result_holder.txt_mrp.setVisibility(View.GONE);
                     result_holder.off_tag.setVisibility(View.GONE);
                     result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                             .getPro_sellingprice());
@@ -6803,6 +6825,7 @@ public class Shopping_Product_view extends AppCompatActivity {
                     .into(result_holder.img_photo);
 
             int mrpPrice=(int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
+            Log.e("getMRPPrice", "--->" + bean_product1.get(position).getPro_mrp());
 
             if(mrpPrice<=0){
                 result_holder.btn_enquiry.setVisibility(View.VISIBLE);

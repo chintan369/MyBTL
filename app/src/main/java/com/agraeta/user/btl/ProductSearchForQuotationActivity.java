@@ -1894,7 +1894,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //    result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 // result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -1914,7 +1914,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 //  result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -4317,7 +4317,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
             p_code = bean_product1.get(position).getPro_code();
             if (mrp1 > sellingprice1) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
 
                 /*float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
@@ -4376,7 +4376,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                     result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                     result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                     result_holder.txt_selling.setVisibility(View.VISIBLE);
-                    result_holder.off_tag.setVisibility(View.VISIBLE);
+                    //   result_holder.off_tag.setVisibility(View.VISIBLE);
                     /*float percent = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
 
                     result_holder.off_tag.setText(String.format("%.0f", percent) + "% OFF");*/
@@ -4414,7 +4414,7 @@ public class ProductSearchForQuotationActivity extends AppCompatActivity {
                     if (mrp > sellingprice) {
                         result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                         result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                        result_holder.off_tag.setVisibility(View.VISIBLE);
+                        //   result_holder.off_tag.setVisibility(View.VISIBLE);
 
                         /*float percent1 = 100 - (Float.parseFloat(bean_product1.get(position).getPro_sellingprice()) * 100 / Float.parseFloat(bean_product1.get(position).getPro_mrp()));
 

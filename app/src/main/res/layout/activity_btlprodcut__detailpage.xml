@@ -206,6 +206,7 @@
                     android:padding="3dp"
                     android:text="10%off"
                     android:textColor="#fff"
+                    android:visibility="gone"
                     />
 
                 <ImageView

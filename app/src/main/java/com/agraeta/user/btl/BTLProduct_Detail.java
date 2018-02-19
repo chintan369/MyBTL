@@ -603,6 +603,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     loadingView.show();
                     Call<GetCartItemQuantityResponse> getCartItemQuantityResponseCall = adminAPI.getCartItemQuantity(bean_product1.get(0).getPro_id(), owner_id, u_id);
 
+                    // Log.e("WEB PARA------->",bean_product1.get(0).getPro_id()+"****"+owner_id+"****"+u_id);
                     getCartItemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                         @Override
                         public void onResponse(Call<GetCartItemQuantityResponse> call, Response<GetCartItemQuantityResponse> response) {
@@ -1081,7 +1082,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             //Log.e("", "Product Code :- " + att_array.get(position1).getValue_product_code().toString());
                             tv_pop_pname.setTag(att_array.get(position1).getOption_pro_id());
                             //  tv_pop_code.setText(" ( " + att_array.get(position1).getValue_product_code().toString() + " )");
-
+                            // tv_pop_pname.setText(att_array.get(position1).getOption_name());
                             if (att_array.get(position1).getValue_image().equalsIgnoreCase("") || att_array.get(position1).getValue_image().equalsIgnoreCase("null")) {
 
 
@@ -1171,6 +1172,9 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         } else {
                                             edt_count.setText(String.valueOf(minPackOfQty[0]));
                                         }
+                                        // change the product name here in pop
+                                        // tv_pop_pname.setText(finalAtt_array.get(position1).value_name);
+                                        Log.e("WEB PARA------->", finalAtt_array.get(position1).getOption_pro_id() + "****" + owner_id + "****" + u_id + "" + finalAtt_array.get(position1).getOption_name());
                                         tv_pop_mrp.setText("" + finalAtt_array.get(position1).getValue_mrp());
                                         tv_pop_sellingprice.setText("" + finalAtt_array.get(position1).getValue_selling_price());
 
@@ -1180,10 +1184,10 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
                                         } else {
                                             //Log.e("131313", "" + att_array.get(position1).getValue_product_code().toString());
-                                            tv_pop_code.setText(" (" + finalAtt_array.get(position1).getValue_product_code() + ")");
                                             //result_holder.tvproduct_code.setText("ABC");
 
                                         }
+                                        tv_pop_code.setText(" (" + finalAtt_array.get(position1).getValue_product_code() + ")");
                                         tv_pop_sellingprice.setTag(finalAtt_array.get(position1).getValue_selling_price());
                                         if (edt_count.getText().toString().equalsIgnoreCase("1")) {
                                             double t = Double.parseDouble(finalAtt_array.get(position1).getValue_selling_price());
@@ -3366,12 +3370,20 @@ public class BTLProduct_Detail extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        String ic = "<html><body><b>Item Code :</b></body></html>";
+        String in = "<html><body><b>Item Name :</b></body></html>";
+        String id = "<html><body><b>Item Description :</b></body></html>";
         Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/*");
+        share.setType("image/*|text/html");
         //share.setAction(Intent.ACTION_SEND_MULTIPLE);
         share.putExtra(Intent.EXTRA_SUBJECT, "" + ImgProcode + "(" + ImgProName + ")");
-        share.putExtra(Intent.EXTRA_TEXT, "Item Code : " + "(" + ImgProcode + ")" + "\nItem Name : " + ImgProName);
+        //share.putExtra(Intent.EXTRA_TEXT,Html.fromHtml("<html><body><b>Item Code :</b></body></html>")  + "(" + ImgProcode + ")" + "\n\n"+Html.fromHtml("<b>Item Name :\t</b>") + ImgProName+"\n\n"+Html.fromHtml("<b>Item Description :\t</b>")+Html.fromHtml(Html.fromHtml(s_description).toString()));
+
+        share.putExtra(Intent.EXTRA_TEXT, "Item Code :  " + "(" + ImgProcode + ")" + "\n\nItem Name :  " + ImgProName + "\n\nItem Description :  " + Html.fromHtml(Html.fromHtml(s_description).toString()));
         share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
+        // share.putExtra(Intent.EXTRA_STREAM,)
+
+
         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(share, "Share via"));
 
@@ -4330,7 +4342,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     double percent1 = (Double.parseDouble(bean_product1.get(ik).getPro_mrp()) - Double.parseDouble(bean_product1.get(ik).getPro_sellingprice())) * 100 / Double.parseDouble(bean_product1.get(ik).getPro_mrp());
 
 
-                    off_tag.setText(String.format("%.0f", percent1) + "% OFF");
+                    off_tag.setText(String.format("%.1f", percent1) + "% OFF");
 
                     //Log.e("sellngprice", pid + bean_product1.get(i).getPro_sellingprice());
                     tv_packof.setText(bean_product1.get(ik).getPro_label());
@@ -4361,7 +4373,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         l_mrprs.setVisibility(View.VISIBLE);
                         tv_product_mrp.setVisibility(View.VISIBLE);
                         txt_mrp.setVisibility(View.VISIBLE);
-                        off_tag.setVisibility(View.VISIBLE);
+                        //  off_tag.setVisibility(View.VISIBLE);
                         //Log.e("22222", "22222");
                         tv_product_mrp.setPaintFlags(tv_product_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -4399,7 +4411,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         l_sellrs.setVisibility(View.VISIBLE);
                         txt_mrp.setVisibility(View.VISIBLE);
                         txt_sell.setVisibility(View.VISIBLE);
-                        off_tag.setVisibility(View.VISIBLE);
+                        //  off_tag.setVisibility(View.VISIBLE);
 
                         //Log.e("111111", "" + tv_product_mrp.getText().toString());
                         //Log.e("111111", "" + tv_product_selling_price.getText().toString());
@@ -4409,7 +4421,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                             l_mrprs.setVisibility(View.VISIBLE);
                             tv_product_mrp.setVisibility(View.VISIBLE);
                             txt_mrp.setVisibility(View.VISIBLE);
-                            off_tag.setVisibility(View.VISIBLE);
+                            //  off_tag.setVisibility(View.VISIBLE);
                             //Log.e("22222", "22222");
                             tv_product_mrp.setPaintFlags(tv_product_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 

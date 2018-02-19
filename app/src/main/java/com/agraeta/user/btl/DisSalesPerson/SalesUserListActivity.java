@@ -94,6 +94,7 @@ public class SalesUserListActivity extends AppCompatActivity {
         getId();
 
     }
+
     private void setActionBar() {
 
         // TODO Auto-generated method stub
@@ -287,6 +288,7 @@ public class SalesUserListActivity extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
+
     private void getId() {
         txt_nodata=(TextView) findViewById(R.id.txt_nodata);
         search_name=(EditText) findViewById(R.id.search_name);
@@ -702,3 +704,6 @@ public class SalesUserListActivity extends AppCompatActivity {
         }
     }
 }
+
+
+// 9448246644

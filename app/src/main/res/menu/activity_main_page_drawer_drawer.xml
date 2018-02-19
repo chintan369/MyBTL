@@ -88,7 +88,8 @@
         <item android:id="@+id/becomeDealer"
               android:icon="@drawable/becomedealer"
               android:theme="@style/textfont_theme"
-              android:title="Become A Dealer"/>
+            android:title="Become A Dealer"
+            android:visible="false" />
 
         <item
              android:id="@+id/career"

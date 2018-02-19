@@ -2606,6 +2606,8 @@ public class Search extends AppCompatActivity {
                     bean_attribute.setValue_selling_price(bean_productOprtions.get(c).getPro_Option_selling_price());
                     bean_attribute.setOption_pro_id(bean_productOprtions.get(c).getOption_pro_id());
 
+                    Log.e("proIds", "-->" + bean_productOprtions.get(c).getOption_pro_id());
+
                     //Log.e("Product ID", "------" + bean_attribute.getOption_pro_id());
 
                     //Log.e("Product ID11", "------" + bean_productOprtions.get(c).getOption_pro_id());
@@ -2664,6 +2666,11 @@ public class Search extends AppCompatActivity {
                             //Log.e("bean_demo_images",""+array_attributes.get(s).getValue_image());
 
                             bean_demo.setOption_pro_id(array_attributes.get(s).getOption_pro_id());
+
+
+                            Log.e("proIds1", "-->" + array_attributes.get(s).getOption_pro_id());
+
+
                             array_attribute.add(bean_demo);
                         }
                     }
@@ -5061,7 +5068,7 @@ public class Search extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 // result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -5123,7 +5130,7 @@ public class Search extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 //  result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -5359,7 +5366,7 @@ public class Search extends AppCompatActivity {
 
 
             result_holder.img_offer.setTag(bean_product1.get(position).getScheme());
-            //Log.e("asdsadsadasd",""+bean_product1.get(position).getScheme().toString());
+            Log.e("asdsadsadasd", "---->" + bean_product1.get(position).getScheme().toString());
             if (bean_product1.get(position).getScheme().equalsIgnoreCase("") || bean_product1.get(position).getScheme().equalsIgnoreCase(null) || bean_product1.get(position).getScheme().equalsIgnoreCase("null")) {
 
                 result_holder.img_offer.setVisibility(View.GONE);
@@ -6074,7 +6081,7 @@ public class Search extends AppCompatActivity {
             p_code = bean_product1.get(position).getPro_code();
             if (mrp1 > sellingprice1) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
 
                 /*double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
@@ -6138,7 +6145,7 @@ public class Search extends AppCompatActivity {
                     result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                     result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                     result_holder.txt_selling.setVisibility(View.VISIBLE);
-                    result_holder.off_tag.setVisibility(View.VISIBLE);
+                    //    result_holder.off_tag.setVisibility(View.VISIBLE);
                     /*double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                     double offa = off * 100;
                     double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6180,7 +6187,7 @@ public class Search extends AppCompatActivity {
                     if (mrp > sellingprice) {
                         result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                         result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                        result_holder.off_tag.setVisibility(View.VISIBLE);
+                        //     result_holder.off_tag.setVisibility(View.VISIBLE);
                         /*double off1 = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                         double offa1 = off1 * 100;
                         double o1 = offa1 / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6250,6 +6257,7 @@ public class Search extends AppCompatActivity {
                 current_color = 0;*/
 
             int mrpPrice=(int) Float.parseFloat(bean_product1.get(position).getPro_mrp());
+            Log.e("getMRPPrice", "--->" + bean_product1.get(position).getPro_mrp());
 
             if(mrpPrice<=0){
                 result_holder.btn_enquiry.setVisibility(View.VISIBLE);

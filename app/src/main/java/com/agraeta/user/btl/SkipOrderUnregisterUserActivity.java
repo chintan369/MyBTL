@@ -760,7 +760,8 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 if (totalAttachment < 4) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    intent.setType("image/*|application/*|text/*|video/*");
+                   /* intent.setType("image*//*|application*//*|text*//*|video*//*");*/
+                    intent.setType("*/*");
                     startActivityForResult(intent, PICK_ATTACHMENT);
                 } else {
                     Globals.Toast2(getApplicationContext(), "You can attach max 4 attachment only!");
@@ -812,7 +813,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                 if(!mobileNo.isEmpty() && !isValidated(edt_mobile,"Mobile No","Please Enter Valid Mobile No",10,false)) return;
                 if(!isValidated(edt_partyReport,"Party Report","Please Enter Party Report",3,false)) return;
 
-                if (txt_visitingFrontPath.getText().toString().isEmpty()) {
+                /*if (txt_visitingFrontPath.getText().toString().isEmpty()) {
                     Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Front Image");
                     return;
                 }
@@ -821,7 +822,7 @@ public class SkipOrderUnregisterUserActivity extends AppCompatActivity {
                     Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Back Image");
                     return;
                 }
-
+*/
                 if(spn_customerType.getSelectedItemPosition()==0){
                     Globals.Toast2(getApplicationContext(),"Please Select Customer Type");
                     return;

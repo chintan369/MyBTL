@@ -1,10 +1,13 @@
 package com.agraeta.user.btl;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,20 +19,27 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Technical_Gallery extends AppCompatActivity {
 
-    String cartJSON="";
-    boolean hasCartCallFinish=true;
-
+    final File myDir = new File("/sdcard/BTL/Gallery");
+    String cartJSON = "";
+    boolean hasCartCallFinish = true;
     TextView txt;
-    String productCode="";
-    String productName="";
-
-
+    String productCode = "";
+    String productName = "";
+    ProgressDialog pDialog;
     ArrayList<Bean_texhnicalImages> bean_technical = new ArrayList<Bean_texhnicalImages>();
+    ArrayList<String> getImagePath = new ArrayList<String>();
     GridView grid;
     Grid_ImageAdpter imgadpter;
     AppPrefs app;
@@ -38,6 +48,9 @@ public class Technical_Gallery extends AppCompatActivity {
     String u_id = new String();
     String role_id = new String();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
+    ImageView im_share;
+    String filesToSend = "";
+
     protected void onResume() {
         System.runFinalization();
         Runtime.getRuntime().gc();
@@ -53,22 +66,33 @@ public class Technical_Gallery extends AppCompatActivity {
 
         setActionBar();
 
-        Intent intent=getIntent();
-        bean_technical=(ArrayList<Bean_texhnicalImages>)intent.getSerializableExtra("FILES_TO_SEND");
-        productCode=intent.getStringExtra("productCode");
-        productName=intent.getStringExtra("productName");
-        Log.e("131313131313",""+bean_technical.size());
+        Intent intent = getIntent();
+        bean_technical = (ArrayList<Bean_texhnicalImages>) intent.getSerializableExtra("FILES_TO_SEND");
+        productCode = intent.getStringExtra("productCode");
+        productName = intent.getStringExtra("productName");
+        Log.e("131313131313", "" + bean_technical.size());
 
-       // bean_technical =   (ArrayList<Bean_texhnicalImages>)getIntent().getSerializableExtra("FILES_TO_SEND");
+        im_share = (ImageView) findViewById(R.id.im_share);
+        grid = (GridView) findViewById(R.id.grid_technical);
 
-        grid = (GridView)findViewById(R.id.grid_technical);
 
-        imgadpter = new Grid_ImageAdpter(Technical_Gallery.this,bean_technical,getLayoutInflater(),Technical_Gallery.this);
-        imgadpter.setCodeAndName(productCode,productName);
+        imgadpter = new Grid_ImageAdpter(Technical_Gallery.this, bean_technical, getLayoutInflater(), Technical_Gallery.this);
+        imgadpter.setCodeAndName(productCode, productName);
         imgadpter.notifyDataSetChanged();
         grid.setAdapter(imgadpter);
 
+
+        im_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                fetch_image_for_share(0);
+            }
+        });
+
+
     }
+
 
     private void setActionBar() {
 
@@ -86,61 +110,60 @@ public class Technical_Gallery extends AppCompatActivity {
 
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
         img_notification.setVisibility(View.GONE);
-        FrameLayout frame = (FrameLayout)mCustomView.findViewById(R.id.unread);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
         frame.setVisibility(View.GONE);
 
         ImageView img_cart = (ImageView) mCustomView.findViewById(R.id.img_cart);
         img_cart.setVisibility(View.VISIBLE);
         frame.setVisibility(View.VISIBLE);
-         txt = (TextView)mCustomView.findViewById(R.id.menu_message_tv);
+        txt = (TextView) mCustomView.findViewById(R.id.menu_message_tv);
         img_notification.setVisibility(View.GONE);
         app = new AppPrefs(Technical_Gallery.this);
-        String qun =app.getCart_QTy();
+        String qun = app.getCart_QTy();
 
         setRefershData();
 
-        if(user_data.size() != 0){
+        if (user_data.size() != 0) {
             for (int i = 0; i < user_data.size(); i++) {
 
-                owner_id =user_data.get(i).getUser_id().toString();
+                owner_id = user_data.get(i).getUser_id().toString();
 
-                role_id=user_data.get(i).getUser_type().toString();
+                role_id = user_data.get(i).getUser_type().toString();
 
                 if (role_id.equals(C.ADMIN) || role_id.equals(C.COMP_SALES_PERSON) || role_id.equals(C.DISTRIBUTOR_SALES_PERSON)) {
                     app = new AppPrefs(Technical_Gallery.this);
                     role_id = app.getSubSalesId().toString();
                     u_id = app.getSalesPersonId().toString();
-                }else{
-                    u_id=owner_id;
+                } else {
+                    u_id = owner_id;
                 }
 
 
             }
 
-            List<NameValuePair> para=new ArrayList<NameValuePair>();
+            List<NameValuePair> para = new ArrayList<NameValuePair>();
 
             para.add(new BasicNameValuePair("owner_id", owner_id));
-            para.add(new BasicNameValuePair("user_id",u_id));
+            para.add(new BasicNameValuePair("user_id", u_id));
 
             new GetCartByQty(para).execute();
 
 
-
-        }else{
+        } else {
             app = new AppPrefs(Technical_Gallery.this);
             app.setCart_QTy("");
         }
 
         app = new AppPrefs(Technical_Gallery.this);
         String qu1 = app.getCart_QTy();
-        if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
+        if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
             txt.setVisibility(View.GONE);
             txt.setText("");
-        }else{
-            if(Integer.parseInt(qu1) > 999){
+        } else {
+            if (Integer.parseInt(qu1) > 999) {
                 txt.setText("999+");
                 txt.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 txt.setText(qu1 + "");
                 txt.setVisibility(View.VISIBLE);
             }
@@ -193,6 +216,7 @@ public class Technical_Gallery extends AppCompatActivity {
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
+
     public void onBackPressed() {
         // TODO Auto-generated method stub
 
@@ -200,7 +224,7 @@ public class Technical_Gallery extends AppCompatActivity {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
 
-    };
+    }
 
     private void setRefershData() {
         // TODO Auto-generated method stub
@@ -213,10 +237,10 @@ public class Technical_Gallery extends AppCompatActivity {
 
         for (int i = 0; i < user_array_from_db.size(); i++) {
 
-            int uid =user_array_from_db.get(i).getId();
-            String user_id =user_array_from_db.get(i).getUser_id();
+            int uid = user_array_from_db.get(i).getId();
+            String user_id = user_array_from_db.get(i).getUser_id();
             String email_id = user_array_from_db.get(i).getEmail_id();
-            String phone_no =user_array_from_db.get(i).getPhone_no();
+            String phone_no = user_array_from_db.get(i).getPhone_no();
             String f_name = user_array_from_db.get(i).getF_name();
             String l_name = user_array_from_db.get(i).getL_name();
             String password = user_array_from_db.get(i).getPassword();
@@ -266,52 +290,60 @@ public class Technical_Gallery extends AppCompatActivity {
     }
 
 
-    public String GetCartByQty(final List<NameValuePair> params){
+    public String GetCartByQty(final List<NameValuePair> params) {
 
         final String[] json = new String[1];
         final boolean[] notDone = {true};
 
-        Thread thread=new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
 
-                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
+                    json[0] = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
 
                     //System.out.println("array: " + json[0]);
-                    notDone[0] =false;
+                    notDone[0] = false;
                 } catch (Exception e) {
                     e.printStackTrace();
                     //  System.out.println("error1: " + e.toString());
-                    notDone[0]=false;
+                    notDone[0] = false;
 
                 }
             }
         });
         thread.start();
-        while (notDone[0]){
+        while (notDone[0]) {
 
         }
         //Log.e("my json",json[0]);
         return json[0];
     }
+
+    private void fetch_image_for_share(int index) {
+
+
+        new DownloadFileFromURL().execute("" + index);
+
+
+    }
+
     public class GetCartByQty extends AsyncTask<Void, Void, String> {
 
-        List<NameValuePair> params=new ArrayList<>();
+        List<NameValuePair> params = new ArrayList<>();
 
-        public GetCartByQty(List<NameValuePair> params){
-            hasCartCallFinish=true;
-            this.params=params;
+        public GetCartByQty(List<NameValuePair> params) {
+            hasCartCallFinish = true;
+            this.params = params;
         }
 
         @Override
         protected String doInBackground(Void... param) {
 
 
+            Globals.generateNoteOnSD(getApplicationContext(), "CartData/App_GetCartQty" + "\n" + params.toString());
 
-            Globals.generateNoteOnSD(getApplicationContext(),"CartData/App_GetCartQty"+"\n"+params.toString());
-
-            String json=new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
 
             return json;
         }
@@ -320,14 +352,14 @@ public class Technical_Gallery extends AppCompatActivity {
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
 
-            cartJSON=json;
-            Globals.generateNoteOnSD(getApplicationContext(),cartJSON);
+            cartJSON = json;
+            Globals.generateNoteOnSD(getApplicationContext(), cartJSON);
             try {
 
 
                 //System.out.println(json);
 
-                if (json==null
+                if (json == null
                         || (json.equalsIgnoreCase(""))) {
 
                     Globals.CustomToast(Technical_Gallery.this, "SERVER ERRER", getLayoutInflater());
@@ -351,7 +383,7 @@ public class Technical_Gallery extends AppCompatActivity {
 
                         int qu = jObj.getInt("data");
                         app = new AppPrefs(Technical_Gallery.this);
-                        app.setCart_QTy(""+qu);
+                        app.setCart_QTy("" + qu);
 
 
                     }
@@ -359,24 +391,132 @@ public class Technical_Gallery extends AppCompatActivity {
                 }
 
 
-            }catch(Exception j){
+            } catch (Exception j) {
                 j.printStackTrace();
                 //Log.e("json exce",j.getMessage());
             }
 
             String qu1 = app.getCart_QTy();
-            if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
+            if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
                 txt.setVisibility(View.GONE);
                 txt.setText("");
-            }else{
-                if(Integer.parseInt(qu1) > 999){
+            } else {
+                if (Integer.parseInt(qu1) > 999) {
                     txt.setText("999+");
                     txt.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     txt.setText(qu1 + "");
                     txt.setVisibility(View.VISIBLE);
                 }
             }
         }
     }
+
+    public class DownloadFileFromURL extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Technical_Gallery.this);
+            pDialog.setMessage("Please Wait Downloading Image");
+            pDialog.setIndeterminate(false);
+            pDialog.setMax(100);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... i) {
+            getImagePath.clear();
+            try {
+
+                for (int k = 0; k < bean_technical.size(); k++) {
+                    File temp_dir = new File(myDir + "/" + bean_technical.get(k).getId() + ".png");
+
+                    Log.e("test", "-->" + temp_dir);
+
+                    if (temp_dir.exists()) {
+                        filesToSend = myDir + "/" + bean_technical.get(k).getId() + ".png";
+                    } else {
+                        File dir = new File(myDir + "");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+
+
+                        URL url = new URL(Globals.server_link + "files/" + bean_technical.get(k).getImg());
+                        Log.e("test", "-->" + url);
+                        URLConnection connection = url.openConnection();
+                        connection.connect();
+                        long fileLength = connection.getContentLength();
+                        InputStream input = new BufferedInputStream(url.openStream());
+                        OutputStream output = new FileOutputStream(new File(dir + "/" + bean_technical.get(k).getId() + ".png"));
+                        Log.e("stream", "-->" + output);
+
+                        filesToSend = dir + "/" + bean_technical.get(k).getId() + ".png";
+
+                        byte data[] = new byte[1024];
+                        long total = 0;
+
+
+                        int count;
+
+                        while ((count = input.read(data)) != -1) {
+                            total += count;
+                            long total1 = (total * 100) / fileLength;
+                            publishProgress(total1 + "");
+                            output.write(data, 0, count);
+                        }
+
+                        output.flush();
+                        output.close();
+                        input.close();
+                    }
+
+
+                    getImagePath.add(filesToSend);
+                }
+            } catch (Exception e) {
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String file_url) {
+            pDialog.dismiss();
+
+            String message = "Item Code : " + productCode + "\n" + "Item Name : " + productName;
+            try {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "" + productCode + "(" + productName + ")");
+                intent.putExtra(Intent.EXTRA_TEXT, "Item Code : " + "(" + productCode + ")" + "\nItem Name : " + productName);
+                intent.setType("image/*");  //This example is sharing jpeg images.
+
+                ArrayList<Uri> files = new ArrayList<Uri>();
+
+
+                for (String path : getImagePath) {
+                    File file = new File(path);
+                    Uri uri = Uri.fromFile(file);
+                    files.add(uri);
+                }
+
+                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, files);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent);
+
+
+                String imagePath = Environment.getExternalStorageDirectory().toString() + "/downloadedfile.jpg";
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }

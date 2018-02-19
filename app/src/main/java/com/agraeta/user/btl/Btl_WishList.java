@@ -3437,7 +3437,7 @@ public class Btl_WishList extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 // result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
@@ -3455,7 +3455,7 @@ public class Btl_WishList extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 //  result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
@@ -6615,7 +6615,7 @@ public class Btl_WishList extends AppCompatActivity {
             result_holder.txt_mrp.setVisibility(View.VISIBLE);
             result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
             result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-            result_holder.off_tag.setVisibility(View.VISIBLE);
+            //  result_holder.off_tag.setVisibility(View.VISIBLE);
             result_holder.txt_selling.setVisibility(View.VISIBLE);
 
             result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
@@ -6632,7 +6632,7 @@ public class Btl_WishList extends AppCompatActivity {
             if (mrp1 > sellingprice1) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
 
                 double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                 double offa = off * 100;
@@ -6690,7 +6690,7 @@ public class Btl_WishList extends AppCompatActivity {
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                // result_holder.off_tag.setVisibility(View.VISIBLE);
                 double off = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                 double offa = off * 100;
                 double o = offa / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6713,7 +6713,7 @@ public class Btl_WishList extends AppCompatActivity {
                 if (mrp > sellingprice) {
                     result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                     result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                    result_holder.off_tag.setVisibility(View.VISIBLE);
+                    //   result_holder.off_tag.setVisibility(View.VISIBLE);
                     double off1 = Double.parseDouble(bean_product1.get(position).getPro_mrp()) - Double.parseDouble(bean_product1.get(position).getPro_sellingprice());
                     double offa1 = off1 * 100;
                     double o1 = offa1 / Double.parseDouble(bean_product1.get(position).getPro_mrp());
@@ -6721,7 +6721,7 @@ public class Btl_WishList extends AppCompatActivity {
 
 
                     // result_holder.off_tag.setText(String.valueOf(a1) + "% OFF");
-                    result_holder.off_tag.setText(String.format("%.1", o1) + "% OFF");
+                    result_holder.off_tag.setText(String.format("%.1f", o1) + "% OFF");
                     result_holder.tv_product_mrp.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)
                             .getPro_mrp());
                     result_holder.tv_product_sellingprice.setText(getResources().getString(R.string.Rs) + bean_product1.get(position)

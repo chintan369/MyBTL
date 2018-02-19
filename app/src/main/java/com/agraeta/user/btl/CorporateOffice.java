@@ -78,6 +78,11 @@ public class CorporateOffice extends Fragment {
                 e_mobile.setText("+91-"+user_data.get(i).getPhone_no());
                 e_email.setText(user_data.get(i).getEmail_id());
 
+                e_fname.setEnabled(false);
+                e_lname.setEnabled(false);
+                e_mobile.setEnabled(false);
+                e_email.setEnabled(false);
+
             }
         }
         e_mobile.addTextChangedListener(new TextWatcher() {

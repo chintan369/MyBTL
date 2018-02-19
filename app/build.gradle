@@ -23,8 +23,8 @@ android {
         applicationId "com.agraeta.user.btl"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 18
-        versionName "1.17"
+        versionCode 21
+        versionName "1.20"
         multiDexEnabled true
 
 //        jackOptions {

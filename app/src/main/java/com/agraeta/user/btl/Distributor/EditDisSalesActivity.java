@@ -3,9 +3,9 @@ package com.agraeta.user.btl.Distributor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
@@ -135,6 +135,12 @@ public class EditDisSalesActivity extends AppCompatActivity {
         spn_status=(Spinner)findViewById(R.id.spn_select);
         et_emailid_dis_sal.setEnabled(false);
 
+        et_first_name_dis_sal.setText(disSalesList.getFirstName());
+        et_last_name_dis_sal.setText(disSalesList.getLastName());
+        et_mobile_dis_sal1.setText("+91-" + disSalesList.getPhone_no());
+
+
+
         spn_status.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -164,8 +170,6 @@ public class EditDisSalesActivity extends AppCompatActivity {
             }
         });
 
-        et_mobile_dis_sal1.setText("+91-");
-        Selection.setSelection(et_mobile_dis_sal1.getText(), et_mobile_dis_sal1.getText().length());
 
         et_mobile_dis_sal1.addTextChangedListener(new TextWatcher() {
 
@@ -239,9 +243,6 @@ public class EditDisSalesActivity extends AppCompatActivity {
         }
 
 
-        et_first_name_dis_sal.setText(disSalesList.getFirstName());
-        et_last_name_dis_sal.setText(disSalesList.getLastName());
-        et_mobile_dis_sal1.setText(disSalesList.getPhone_no());
 
         et_mobile_dis_sal1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -331,12 +332,7 @@ public class EditDisSalesActivity extends AppCompatActivity {
                     try{
                         hasMobileChecked=true;
                         JSONObject object=new JSONObject(json);
-                        if(object.getBoolean("status")){
-                            mobileavailable=true;
-                        }
-                        else {
-                            mobileavailable=false;
-                        }
+                        mobileavailable = object.getBoolean("status");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -356,12 +352,7 @@ public class EditDisSalesActivity extends AppCompatActivity {
                     try{
                         hasAltMobileChecked=true;
                         JSONObject object=new JSONObject(json);
-                        if(object.getBoolean("status")){
-                            altMobileavailable=true;
-                        }
-                        else {
-                            altMobileavailable=false;
-                        }
+                        altMobileavailable = object.getBoolean("status");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -523,113 +514,6 @@ public class EditDisSalesActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    public class Update_DisSalesData extends AsyncTask<Void, Void, String> {
-
-        boolean status;
-        private String result;
-        public StringBuilder sb;
-        private InputStream is;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(EditDisSalesActivity.this, "");
-
-                loadingView.setCancelable(false);
-                loadingView.show();
-
-            } catch (Exception e) {
-
-            }
-
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            try {
-
-                JSONArray jArray=new JSONArray(profile_array);
-                JSONObject profile=jArray.getJSONObject(0);
-
-
-                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-                //parameters.add(new BasicNameValuePair("sales_person_id",profile_array));
-                parameters.add(new BasicNameValuePair("sales_person_id", profile.getString("sales_person_id")));
-                parameters.add(new BasicNameValuePair("first_name", profile.getString("first_name")));
-                parameters.add(new BasicNameValuePair("last_name", profile.getString("last_name")));
-                parameters.add(new BasicNameValuePair("email_id", profile.getString("email_id")));
-                parameters.add(new BasicNameValuePair("phone_no", profile.getString("phone_no")));
-                parameters.add(new BasicNameValuePair("status", profile.getString("status")));
-                //Log.e("STATUS EDITED",""+profile.getString("status"));
-                parameters.add(new BasicNameValuePair("pancard_sales", profile.getString("pancard_sales")));
-                parameters.add(new BasicNameValuePair("alternate_no", profile.getString("alternate_no")));
-                parameters.add(new BasicNameValuePair("aadhar_card_sales", profile.getString("aadhar_card_sales")));
-
-                //Log.e("","" + profile_array);
-
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"User/App_Edit_Distributor_Sales_Person",ServiceHandler.POST,parameters);
-                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
-                //System.out.println("arrayedited: " + json);
-                return json;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                //System.out.println("error: " + e.toString());
-
-            }
-
-            return json;
-
-        }
-
-        @Override
-        protected void onPostExecute(String result_1) {
-            super.onPostExecute(result_1);
-
-            try {
-
-                //db = new DatabaseHandler(());
-                //System.out.println(result_1);
-
-                if (result_1.equalsIgnoreCase("")
-                        || (result_1.equalsIgnoreCase(""))) {
-                    Globals.CustomToast(getApplicationContext(), "SERVER ERRER", getLayoutInflater());
-                  //  Toast.makeText(EditDisSalesActivity.this,"SERVER ERRER",Toast.LENGTH_LONG).show();
-                    //Global.CustomToast(Activity_Login.this, "SERVER ERRER", getLayoutInflater());
-                    loadingView.dismiss();
-
-                } else {
-                    JSONObject jObj = new JSONObject(result_1);
-
-                    String date = jObj.getString("status");
-                    if (date.equalsIgnoreCase("false")) {
-                        String Message = jObj.getString("message");
-                        Globals.CustomToast(getApplicationContext(),""+Message, getLayoutInflater());
-                        //Toast.makeText(EditDisSalesActivity.this,""+Message,Toast.LENGTH_LONG).show();
-                        // Global.CustomToast(Activity_Login.this,""+Message, getLayoutInflater());
-                        loadingView.dismiss();
-                    } else {
-
-
-                        //  String VERIFY = jObj.getString("true");
-                        String Message = jObj.getString("message");
-                        Toast.makeText(EditDisSalesActivity.this,""+Message,Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(EditDisSalesActivity.this, DisSalesListActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                        finish();
-
-                    }
-                }}catch(JSONException j){
-                j.printStackTrace();
-            }
-
-        }
-
-    }
-
     private void setActionBar() {
 
         // TODO Auto-generated method stub
@@ -767,11 +651,126 @@ public class EditDisSalesActivity extends AppCompatActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    public class send_Uni_Mobile_Data_A extends AsyncTask<Void,Void,String>
-    {
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), DisSalesListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    public class Update_DisSalesData extends AsyncTask<Void, Void, String> {
+
+        public StringBuilder sb;
         boolean status;
         private String result;
+        private InputStream is;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            try {
+                loadingView = new Custom_ProgressDialog(EditDisSalesActivity.this, "");
+
+                loadingView.setCancelable(false);
+                loadingView.show();
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+                JSONArray jArray = new JSONArray(profile_array);
+                JSONObject profile = jArray.getJSONObject(0);
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+                //parameters.add(new BasicNameValuePair("sales_person_id",profile_array));
+                parameters.add(new BasicNameValuePair("sales_person_id", profile.getString("sales_person_id")));
+                parameters.add(new BasicNameValuePair("first_name", profile.getString("first_name")));
+                parameters.add(new BasicNameValuePair("last_name", profile.getString("last_name")));
+                parameters.add(new BasicNameValuePair("email_id", profile.getString("email_id")));
+                parameters.add(new BasicNameValuePair("phone_no", profile.getString("phone_no")));
+                parameters.add(new BasicNameValuePair("status", profile.getString("status")));
+                //Log.e("STATUS EDITED",""+profile.getString("status"));
+                parameters.add(new BasicNameValuePair("pancard_sales", profile.getString("pancard_sales")));
+                parameters.add(new BasicNameValuePair("alternate_no", profile.getString("alternate_no")));
+                parameters.add(new BasicNameValuePair("aadhar_card_sales", profile.getString("aadhar_card_sales")));
+
+                //Log.e("","" + profile_array);
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_Edit_Distributor_Sales_Person", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("arrayedited: " + json);
+                return json;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error: " + e.toString());
+
+            }
+
+            return json;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                    Globals.CustomToast(getApplicationContext(), "SERVER ERRER", getLayoutInflater());
+                    //  Toast.makeText(EditDisSalesActivity.this,"SERVER ERRER",Toast.LENGTH_LONG).show();
+                    //Global.CustomToast(Activity_Login.this, "SERVER ERRER", getLayoutInflater());
+                    loadingView.dismiss();
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(getApplicationContext(), "" + Message, getLayoutInflater());
+                        //Toast.makeText(EditDisSalesActivity.this,""+Message,Toast.LENGTH_LONG).show();
+                        // Global.CustomToast(Activity_Login.this,""+Message, getLayoutInflater());
+                        loadingView.dismiss();
+                    } else {
+
+
+                        //  String VERIFY = jObj.getString("true");
+                        String Message = jObj.getString("message");
+                        Toast.makeText(EditDisSalesActivity.this, "" + Message, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(EditDisSalesActivity.this, DisSalesListActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
+
+                    }
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
+        }
+
+    }
+
+    public class send_Uni_Mobile_Data_A extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
+        boolean status;
+        private String result;
         private InputStream is;
 
         protected void onPreExecute() {
@@ -823,7 +822,7 @@ public class EditDisSalesActivity extends AppCompatActivity {
                 return json;
             } catch (Exception e) {
                 e.printStackTrace();
-               // System.out.println("error1: " + e.toString());
+                // System.out.println("error1: " + e.toString());
 
                 return json;
 
@@ -879,12 +878,5 @@ public class EditDisSalesActivity extends AppCompatActivity {
             }
 
         }
-    }
-    @Override
-    public void onBackPressed() {
-        Intent intent=new Intent(getApplicationContext(), DisSalesListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
     }
 }

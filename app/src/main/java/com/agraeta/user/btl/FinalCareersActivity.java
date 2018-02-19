@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +56,48 @@ public class FinalCareersActivity extends AppCompatActivity {
         lst = (ListView) findViewById(R.id.lst);
         new get_Vacancies().execute();
         setRefershData();
+        setActionBar();
+    }
+
+    private void setActionBar() {
+
+
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        mActionBar.setCustomView(R.layout.actionbar_design);
+
+
+        View mCustomView = mActionBar.getCustomView();
+        ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
+        ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        img_notification.setVisibility(View.GONE);
+        FrameLayout frame = (FrameLayout) mCustomView.findViewById(R.id.unread);
+        TextView txt_skip = (TextView) mCustomView.findViewById(R.id.txt_skip);
+        txt_skip.setVisibility(View.GONE);
+        frame.setVisibility(View.GONE);
+        image_drawer.setImageResource(R.drawable.ic_action_btl_back);
+
+        image_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        txt_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FinalCareersActivity.this, MainPage_drawer.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+        img_home.setVisibility(View.GONE);
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+
+
     }
 
     private void setRefershData() {

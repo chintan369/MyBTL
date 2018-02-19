@@ -222,6 +222,7 @@ public class Product_Enquiry extends Fragment {
 
         sp_state =(Spinner)rootView.findViewById(R.id.spn_select_state);
         sp_city =(Spinner)rootView.findViewById(R.id.spn_select_city);
+
         sp_product_name =(Spinner)rootView.findViewById(R.id.product_spinner);
 
         purchase_date=(TextView)rootView.findViewById(R.id.txt_date);
@@ -616,6 +617,9 @@ public class Product_Enquiry extends Fragment {
                                 }
                                 if (pos == 0) isFirstTime = false;
                                 sp_state.setSelection(pos);
+
+                                if (prefs.getUserRoleId().isEmpty())
+                                    sp_state.setSelection(0);
 
                             }
                         }

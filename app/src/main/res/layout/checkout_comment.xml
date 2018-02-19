@@ -68,7 +68,6 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/border_slider"
             android:gravity="top"
-            android:hint="Enter Comment"
             android:inputType="textMultiLine"
             android:minLines="4"
             android:padding="5dp"
@@ -80,11 +79,11 @@
         <!--android:layout_height="50dp"-->
         <!--android:background="@drawable/border_slider"-->
 
-        <!--android:inputType="text"-->
+        <!--android:inputType="text"android:editable="false"-->
+        <!--android:layout_marginTop="5dp"-->-->
         <!--android:singleLine="true"-->
-        <!--android:editable="false"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginBottom="5dp"-->
+        <!--
+        <!-android:layout_marginBottom="5dp"-->
         <!--android:focusableInTouchMode="false"-->
         <!--android:textSize="14sp" />-->
         <!--android:drawableRight="@drawable/upload_img"-->
@@ -140,8 +139,7 @@
             android:layout_marginTop="5dp"
             android:drawableRight="@drawable/star"
             android:text="Transportation"
-            android:textSize="16sp"
-            android:visibility="gone"/>
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edt_transportation"

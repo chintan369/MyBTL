@@ -825,16 +825,16 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
 
                 if(!isValidated(edt_partyReport,"Party Report","Please Enter Party Report",3,false)) return;
 
-                if (txt_visitingFrontPath.getText().toString().isEmpty()) {
+                /*if (txt_visitingFrontPath.getText().toString().isEmpty()) {
                     Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Front Image");
                     return;
                 }
-
-                if (txt_visitingBackPath.getText().toString().isEmpty()) {
+*/
+                /*if (txt_visitingBackPath.getText().toString().isEmpty()) {
                     Globals.Toast2(getApplicationContext(), "Please Select Visiting Card Back Image");
                     return;
                 }
-
+*/
                 if(switch_isPastOrder.isChecked() && !(orderIDInt>0)){
                     Globals.Toast2(getApplicationContext(),"Please Enter Valid Order ID");
                     edt_orderID.requestFocus();

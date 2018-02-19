@@ -137,9 +137,9 @@ public class ComboProductListAdapter extends BaseAdapter {
             //   discount = 100 - discount;
 
             if (discount >= 1) {
-                holder.txt_discount.setVisibility(View.VISIBLE);
+                //   holder.txt_discount.setVisibility(View.VISIBLE);
                 //     holder.txt_discount.setText("Discount : " + String.format(Locale.getDefault(), "%.2f", discount) + " % OFF");
-                holder.txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
+                //   holder.txt_discount.setText("Discount : " + String.format("%.1f", discount) + " % OFF");
             }
         }
 

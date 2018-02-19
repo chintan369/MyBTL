@@ -882,7 +882,7 @@ public class D_OrderHistory extends AppCompatActivity {
                 } else {
                     parameters.add(new BasicNameValuePair("user_id", user_id_main));
                     parameters.add(new BasicNameValuePair("role_id", appPrefs.getUserRoleId()));
-                    parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
+                    //  parameters.add(new BasicNameValuePair("owner_id", appPrefs.getUserId()));
                 }
 
 

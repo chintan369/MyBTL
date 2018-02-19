@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#fff"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="end">
+
+        <ImageView
+
+            android:id="@+id/im_share"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity=""
+            android:background="@drawable/share_this"
+            android:scaleType="fitXY" />
+
+
+    </LinearLayout>
 
     <GridView
         android:id="@+id/grid_technical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="3dp"
         android:layout_weight="1"
         android:numColumns="3"
-        ></GridView>
+        android:padding="3dp"></GridView>
 </LinearLayout>

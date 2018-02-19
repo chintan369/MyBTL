@@ -62,6 +62,8 @@ public class C {
             return value1 % value2;
         else
             return value2 % value1;
+
+
     }
 
     public static boolean validEmail(String email) {

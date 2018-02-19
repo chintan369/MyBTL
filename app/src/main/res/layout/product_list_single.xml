@@ -45,9 +45,9 @@
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="10%off"
-
-
                         android:textColor="#fff"
+                        android:visibility="gone"
+
                         />
                 </LinearLayout>
             <ImageView

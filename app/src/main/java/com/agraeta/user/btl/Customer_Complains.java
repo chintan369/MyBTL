@@ -1215,6 +1215,9 @@ public class Customer_Complains extends Fragment {
                                 }
                                 if (pos == 0) isFirstTime = false;
                                 sp_state.setSelection(pos);
+
+                                if (prefs.getUserRoleId().isEmpty())
+                                    sp_state.setSelection(0);
                             }
                         }
                         loadingView.dismiss();

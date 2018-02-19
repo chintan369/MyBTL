@@ -1,10 +1,18 @@
 [
     {
-        "merged": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
-        "source": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+        "merged": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
+        "source": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
     },
     {
-        "merged": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
-        "source": "C:\\Users\\NWSPL-17\\Desktop\\BTL\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
+        "merged": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
+        "source": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
+        "source": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
+        "source": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
     }
 ]

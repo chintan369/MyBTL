@@ -134,7 +134,7 @@ public class ReOrderGridAdapter extends BaseAdapter {
         discountPercent = discountPercent / mrpPrice;
         int percent = (int) discountPercent;
 
-        txt_discountName.setText(percent+" % OFF");
+        //   txt_discountName.setText(percent+" % OFF");
 
         int currentQty = Integer.parseInt(productList.get(position).getPro_qty());
 

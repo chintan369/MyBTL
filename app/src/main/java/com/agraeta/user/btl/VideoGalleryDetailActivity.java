@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +21,9 @@ public class VideoGalleryDetailActivity extends AppCompatActivity {
 
     VideoResponse.Video videoDetail;
     AppPrefs prefs;
+
+
+    private WebChromeClient.CustomViewCallback customViewCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class VideoGalleryDetailActivity extends AppCompatActivity {
         View mCustomView = mActionBar.getCustomView();
         ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
         FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
 
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
@@ -56,6 +61,16 @@ public class VideoGalleryDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoGalleryDetailActivity.this, MainPage_drawer.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
@@ -75,6 +90,7 @@ public class VideoGalleryDetailActivity extends AppCompatActivity {
         web_videoGallery.getSettings().setAllowContentAccess(true);
         web_videoGallery.getSettings().setJavaScriptEnabled(true);
         web_videoGallery.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        web_videoGallery.getSettings().setBuiltInZoomControls(true);
 
         web_videoGallery.loadUrl(videoUrl);
 

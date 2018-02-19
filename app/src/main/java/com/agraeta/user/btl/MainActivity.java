@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     if(prefs.getCurrentPage().equalsIgnoreCase("MainPageDrawer"))
                     {
                         Intent iGo = new Intent(MainActivity.this,
-                                MainPage_drawer.class);
+                                UserTypeActivity.class);
                         iGo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(iGo);
                         finish();
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     if(prefs.getCurrentPage().equalsIgnoreCase("MainPageDrawer"))
                     {
                         Intent iGo = new Intent(MainActivity.this,
-                                MainPage_drawer.class);
+                                SalesTypeActivity.class);
                         iGo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(iGo);
                         finish();
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                                 SalesTypeActivity.class);
                         iGo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(iGo);
+
                         finish();
                     }
 

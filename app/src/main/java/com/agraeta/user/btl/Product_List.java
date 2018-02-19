@@ -46,6 +46,7 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.GetCartItemQuantityResponse;
 import com.agraeta.user.btl.model.GetSchemeDetailResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -2110,12 +2111,14 @@ public class Product_List extends AppCompatActivity {
                                 loadingView.show();
 
                                 Call<GetCartItemQuantityResponse> itemQuantityResponseCall = adminAPI.getCartItemQuantity(att_array.get(position1).getOption_pro_id(), owner_id, u_id);
+
                                 final ArrayList<Bean_Attribute> finalAtt_array = att_array;
                                 itemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                                     @Override
                                     public void onResponse(Call<GetCartItemQuantityResponse> call, Response<GetCartItemQuantityResponse> response) {
                                         loadingView.dismiss();
                                         GetCartItemQuantityResponse itemQuantityResponse = response.body();
+                                        Log.e("gson", "--->" + new Gson().toJson(itemQuantityResponse));
                                         if (itemQuantityResponse != null) {
                                             if (itemQuantityResponse.isStatus()) {
                                                 qun[0] = itemQuantityResponse.getData().get(0).getQuantity();
@@ -2570,7 +2573,7 @@ public class Product_List extends AppCompatActivity {
                                 GetSchemeDetailResponse schemeDetailResponse = response.body();
                                 if (schemeDetailResponse != null) {
                                     if (schemeDetailResponse.isStatus()) {
-
+                                        bean_product_schme.add(schemeDetailResponse.getData().getGetProduct());
                                         for (int i = 0; i < schemeDetailResponse.getData().getGetProduct().getProductOption().size(); i++) {
                                             Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
                                             // arrOptionType=new ArrayList<String>();
@@ -2606,6 +2609,8 @@ public class Product_List extends AppCompatActivity {
                             }
 
                             void proceedForNextStepAfterScheme() {
+
+                                Log.e("proceed", "-->" + bean_product_schme.size());
 
                                 if (bean_product_schme.size() == 0) {
                                     //Log.e("555555555",""+bean_product_schme.size());
@@ -3675,7 +3680,7 @@ public class Product_List extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 // result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -3717,7 +3722,7 @@ public class Product_List extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 //  result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -5124,7 +5129,7 @@ public class Product_List extends AppCompatActivity {
             if (mrp > sellingprice) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
 
 
                 /*double off = mrp - sellingprice;
@@ -5180,7 +5185,7 @@ public class Product_List extends AppCompatActivity {
                     if (mrp > sellingprice) {
                         result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                         result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                        result_holder.off_tag.setVisibility(View.VISIBLE);
+                        //   result_holder.off_tag.setVisibility(View.VISIBLE);
                         /*double off = mrp - sellingprice;
                         double offa = off * 100;
                         double o = offa / mrp;
@@ -5602,7 +5607,7 @@ public class Product_List extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //   result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 // result_holder.BTN_wheretobuy_list.setVisibility(View.VISIBLE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -5643,7 +5648,7 @@ public class Product_List extends AppCompatActivity {
                 result_holder.tvproduct_packof.setVisibility(View.VISIBLE);
                 result_holder.tv_product_sellingprice.setVisibility(View.VISIBLE);
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //  result_holder.off_tag.setVisibility(View.VISIBLE);
                 result_holder.txt_selling.setVisibility(View.VISIBLE);
                 //  result_holder.BTN_wheretobuy_list.setVisibility(View.GONE);
                 result_holder.txt_pack.setVisibility(View.VISIBLE);
@@ -6252,7 +6257,7 @@ public class Product_List extends AppCompatActivity {
 
                                                     edt_count.setText(String.valueOf(k));
                                                 } else {
-                                                    edt_count.setText(String.valueOf(minPackOfQty));
+                                                    edt_count.setText(String.valueOf(minPackOfQty[0]));
                                                 }
 
                                                 tv_pop_mrp.setText("" + att_array.get(position1).getValue_mrp());
@@ -8017,7 +8022,7 @@ public class Product_List extends AppCompatActivity {
             if (mrp > sellingprice) {
                 result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                 result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                result_holder.off_tag.setVisibility(View.VISIBLE);
+                //    result_holder.off_tag.setVisibility(View.VISIBLE);
 
 
                /* double off = mrp - sellingprice;
@@ -8080,7 +8085,7 @@ public class Product_List extends AppCompatActivity {
                     if (mrp > sellingprice) {
                         result_holder.tv_product_mrp.setVisibility(View.VISIBLE);
                         result_holder.txt_mrp.setVisibility(View.VISIBLE);
-                        result_holder.off_tag.setVisibility(View.VISIBLE);
+                        //    result_holder.off_tag.setVisibility(View.VISIBLE);
                         /*double off = mrp - sellingprice;
                         double offa = off * 100;
                         double o = offa / mrp;

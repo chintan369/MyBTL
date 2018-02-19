@@ -1,8 +1,8 @@
 package com.agraeta.user.btl;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -50,6 +50,7 @@ public class VideoGalleryActivity extends AppCompatActivity {
         View mCustomView = mActionBar.getCustomView();
         ImageView image_drawer = (ImageView) mCustomView.findViewById(R.id.image_drawer);
         ImageView img_notification = (ImageView) mCustomView.findViewById(R.id.img_notification);
+        ImageView img_home = (ImageView) mCustomView.findViewById(R.id.img_home);
         FrameLayout unread = (FrameLayout) mCustomView.findViewById(R.id.unread);
 
         image_drawer.setImageResource(R.drawable.ic_action_btl_back);
@@ -59,6 +60,14 @@ public class VideoGalleryActivity extends AppCompatActivity {
         image_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        img_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
                 onBackPressed();
             }
         });

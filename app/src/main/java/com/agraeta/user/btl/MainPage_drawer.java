@@ -10,14 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -46,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
 import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
@@ -81,7 +77,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -203,7 +198,7 @@ public class MainPage_drawer extends AppCompatActivity
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public static boolean isPermissionRequestRequired(Activity activity, @NonNull String[] permissions, int requestCode) {
+    public static boolean isPermissionRequestRequired(Activity activity, String[] permissions, int requestCode) {
         if (isMarshmallowPlusDevice() && permissions.length > 0) {
             List<String> newPermissionList = new ArrayList<>();
             for (String permission : permissions) {
@@ -395,7 +390,7 @@ public class MainPage_drawer extends AppCompatActivity
             bed1MenuItem.setVisible(false);
         }
 
-        getCompleteAddressString(22.1887561, 73.18714);
+
     }
 
     private void showSupportCallDialog() {
@@ -427,16 +422,17 @@ public class MainPage_drawer extends AppCompatActivity
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     if (prefs.getUserRoleId().equals(C.CUSTOMER) || prefs.getUserRoleId().equals(C.CARPENTER) || prefs.getUserRoleId().isEmpty()) {
-                        Intent intent = new Intent(Intent.ACTION_CALL);
-                        intent.setData(Uri.parse("tel:" + callInfoList.get(position).getContact()));
-                        if (ActivityCompat.checkSelfPermission(MainPage_drawer.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE);
-                            }
-                            return;
-                        }
-                        startActivity(intent);
+                        /*Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_EMAIL, callInfoList.get(position).getContact());
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                        startActivity(intent);*/
+
+                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                        emailIntent.setData(Uri.parse("mailto:" + callInfoList.get(position).getContact()));
+                        startActivity(Intent.createChooser(emailIntent, "Support"));
                     } else {
+
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_EMAIL, callInfoList.get(position).getContact());
@@ -445,12 +441,70 @@ public class MainPage_drawer extends AppCompatActivity
                     }
                     dialog.dismiss();
                 }
+
+
             });
 
             dialog.show();
         } else {
             Globals.Toast2(this, "No Number Available for Support");
         }
+    }
+
+    private void AskForTask(final String contactDetails) {
+
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+
+        View view = getLayoutInflater().inflate(R.layout.layout_ask, null);
+        TextView txt_share = (TextView) view.findViewById(R.id.txt_share);
+        TextView txt_call = (TextView) view.findViewById(R.id.txt_call);
+        ImageView img_close = (ImageView) view.findViewById(R.id.img_close);
+
+
+        builder.setView(view);
+
+        final android.support.v7.app.AlertDialog dialog = builder.create();
+
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        txt_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + contactDetails));
+                Log.e("details", "---->" + contactDetails);
+                if (ActivityCompat.checkSelfPermission(MainPage_drawer.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE);
+                    }
+                    return;
+                }
+                startActivity(intent);
+            }
+        });
+
+        txt_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, contactDetails);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                startActivity(intent);
+
+
+            }
+        });
+
+        dialog.show();
+
     }
 
     private void setActionBar() {
@@ -1854,42 +1908,7 @@ public class MainPage_drawer extends AppCompatActivity
         }
     }
 
-    public void getCompleteAddressString(double LATITUDE, double LONGITUDE) {
 
-
-        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-
-        try {
-            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
-            if (addresses != null) {
-                Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder("");
-
-                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
-                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("");
-
-                }
-                //strAdd = strReturnedAddress.toString();
-
-
-                Log.e("getAddress", "---->" + strReturnedAddress.toString().trim());
-                //txt_address.setText(strAdd);
-
-            } else {
-
-                Toast.makeText(this, "No Address returned!", Toast.LENGTH_SHORT).show();
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            Toast.makeText(this, "Canont get Address!", Toast.LENGTH_SHORT).show();
-
-
-        }
-
-    }
 
     private class GetVersionCode extends AsyncTask<Void, String, String> {
         @Override
