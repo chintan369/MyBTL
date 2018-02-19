@@ -77,6 +77,7 @@ import retrofit2.Response;
  * Created by chaitalee on 7/15/2016.
  */
 public class BTLProduct_Detail extends AppCompatActivity {
+
     public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
     // public static ArrayList<String> arrOptionTypeID =new ArrayList<String>();
     public static ArrayList<String> moreinfo_arry = new ArrayList<String>();
@@ -219,7 +220,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         layout_detail = (LinearLayout) findViewById(R.id.layout_detail);
-
+        Log.e("VCS Checking", "-->");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.WRAP_CONTENT);
