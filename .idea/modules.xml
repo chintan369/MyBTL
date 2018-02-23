@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyApplication2.iml" filepath="$PROJECT_DIR$/MyApplication2.iml" />
       <module fileurl="file://E:\Dharti-Backup\BTL\MyBTL\MyApplication2.iml" filepath="E:\Dharti-Backup\BTL\MyBTL\MyApplication2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MyBTL.iml" filepath="$PROJECT_DIR$/MyBTL.iml" />
       <module fileurl="file://C:\Users\NWSPL5\Desktop\MyApplication2\MyBTL.iml" filepath="C:\Users\NWSPL5\Desktop\MyApplication2\MyBTL.iml" />
+      <module fileurl="file://D:\Keval\MyAndroidStudioProjects\MyApplication2\MyBTL.iml" filepath="D:\Keval\MyAndroidStudioProjects\MyApplication2\MyBTL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />

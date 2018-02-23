@@ -212,6 +212,8 @@ public class Product_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list);
 
+        Log.e("Yess i am category page", "->");
+
         adminAPI = ServiceGenerator.getAPIServiceClass();
 
         getWindow().setSoftInputMode(

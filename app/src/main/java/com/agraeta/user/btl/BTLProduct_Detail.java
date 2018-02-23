@@ -3110,7 +3110,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
         System.runFinalization();
         Runtime.getRuntime().gc();
         System.gc();
-        //Log.e("System GC", "Called");
+        Log.e("System GC", "Called");
     }
 
     private void fetchID() {

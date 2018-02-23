@@ -82,6 +82,9 @@ public class Main_CategoryPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__category_page);
+
+        Log.e("Yess i am category page", "--->");
+
         // lmain1 = (LinearLayout)findViewById(R.id.grid_1);
         lmain2 = (LinearLayout) findViewById(R.id.grid_3);
         params = new LinearLayout.LayoutParams(android.app.ActionBar.LayoutParams.MATCH_PARENT,

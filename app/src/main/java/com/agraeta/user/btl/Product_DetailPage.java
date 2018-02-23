@@ -3,8 +3,8 @@ package com.agraeta.user.btl;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +22,10 @@ import java.util.ArrayList;
 public class Product_DetailPage extends AppCompatActivity {
 
 
+    public static int display_width = 0;
     Button btn_buynow_productdetail,btn_addtocart_productdetail;
     ListView lst_prodct_grid_img;
     ImageView img_Prodct;
-    public static int display_width = 0;
     ArrayList<Integer> Categoryimg = new ArrayList<Integer>();
 
     protected void onResume() {
@@ -40,6 +40,11 @@ public class Product_DetailPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__detail_page);
+
+
+        Log.e("Yes i am at right place", "--->");
+
+
         fetchId();
         Categoryimg.add(R.drawable.door);
         Categoryimg.add(R.drawable.door_new);

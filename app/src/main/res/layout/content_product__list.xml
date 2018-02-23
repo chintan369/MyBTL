@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_productList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-              android:id="@+id/layout_productList"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_product__list">
@@ -12,65 +12,66 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:orientation="vertical"
+
         android:weightSum="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:visibility="gone"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <ImageView
-                android:layout_weight="4"
-                android:padding="8dp"
-                android:background="@drawable/black_underline"
-                android:src="@drawable/search"
-                android:layout_width="match_parent"
-
-                android:layout_height="match_parent" />
-            <View
-                android:layout_width="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D4D4D4"
-                android:layout_height="match_parent" />
-            <EditText
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:id="@+id/et_search"
-                android:textColor="#000000"
-                android:background="@drawable/black_underline"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="false"
-                android:textSize="16sp"
+                android:layout_weight="4"
+                android:background="@drawable/black_underline"
+                android:padding="8dp"
 
-                android:hint="Search"/>
+                android:src="@drawable/search" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#D4D4D4" />
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/black_underline"
+                android:focusable="false"
+                android:hint="Search"
+                android:padding="5dp"
+                android:textColor="#000000"
+
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-
             android:background="@color/yellow"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp">
             <TextView
-                android:text=""
                 android:id="@+id/tvmarquee"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:ellipsize="marquee"
-                android:textSize="14sp"
+                android:focusable="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
-                android:focusable="true"
+                android:singleLine="true"
+                android:text=""
                 android:textColor="#FFFFFF"
+                android:textSize="14sp"
 
                 >
             </TextView>
@@ -80,60 +81,60 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="start"
-            android:visibility="gone"
+            android:background="#FFFFFF"
             android:orientation="horizontal"
-            android:background="#FFFFFF">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:background="@drawable/sline"
 
 
-                android:background="@drawable/sline">
+                android:orientation="horizontal">
                 <ImageView
-                    android:padding="5dp"
-                    android:layout_gravity="center"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
                     android:src="@drawable/cart"
                     android:visibility="gone"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="\u20B90 CR"
-                    android:textSize="16sp"
-
-                    android:gravity="center_horizontal|center"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"/>
+                    android:gravity="center_horizontal|center"
+
+                    android:text="\u20B90 CR"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
                 android:gravity="center"
-                android:background="#FFFFFF">
+                android:orientation="horizontal">
                 <ImageView
-                    android:padding="5dp"
-                    android:layout_gravity="center"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:padding="5dp"
                     android:src="@drawable/cart"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="\u20B9100.00"
-                    android:textSize="18sp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:gravity="left|center"
-                    android:layout_gravity="center"
-                    android:textColor="#000000"/>
+                    android:text="\u20B9100.00"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
         <View
@@ -148,17 +149,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="10dp"
             android:orientation="horizontal"
+            android:padding="10dp"
             >
             <LinearLayout
+                android:id="@+id/lin_filter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="left|center"
-                android:id="@+id/lin_filter"
-                android:layout_weight="1">
+                android:orientation="horizontal">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -168,53 +169,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
               android:gravity="left|center"
-               android:textColor="#000000"
+                    android:text="Filter"
 
-                android:text="Filter"/>
+                    android:textColor="#000000" />
 
                 <View
-                    android:layout_marginLeft="40dp"
                     android:layout_width="1dp"
-                    android:gravity="left|center"
-                    android:visibility="invisible"
                     android:layout_height="match_parent"
-                    android:background="#d4d4d4"></View>
+                    android:layout_marginLeft="40dp"
+                    android:background="#d4d4d4"
+                    android:gravity="left|center"
+                    android:visibility="invisible"></View>
 
           </LinearLayout>
             <LinearLayout
+                android:id="@+id/sort"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="left|center"
-android:id="@+id/sort"
-                android:layout_weight="1">
+                android:orientation="horizontal">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:visibility="invisible"
-                    android:src="@drawable/ic_action_sort"/>
+                    android:src="@drawable/ic_action_sort"
+                    android:visibility="invisible" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:visibility="invisible"
-                    android:textColor="#000000"
                     android:gravity="left|center"
-                    android:text="Sort "/>
+                    android:text="Sort "
+                    android:textColor="#000000"
+                    android:visibility="invisible" />
 
                 <View
-                    android:layout_marginLeft="40dp"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
                     android:background="#d4d4d4"></View>
 
             </LinearLayout>
 
                 <ImageView
 
+                    android:id="@+id/grid_ic"
                     android:layout_width="60dp"
                     android:layout_height="50dp"
-                    android:id="@+id/grid_ic"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_action_grid"/>
 
@@ -224,16 +225,16 @@ android:id="@+id/sort"
             android:layout_height="1dp"
             android:background="@drawable/black_underline"/>
         <GridView
+            android:id="@+id/gridView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/gridView3"
             android:visibility="visible"/>
 
         <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
             android:id="@+id/listView_product"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
             android:visibility="gone"/>
 
     </LinearLayout>

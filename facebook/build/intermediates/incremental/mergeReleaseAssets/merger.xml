@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\Dharti-Backup\BTL\MyBTL\facebook\src\main\assets"/><source path="E:\Dharti-Backup\BTL\MyBTL\facebook\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="E:\Dharti-Backup\BTL\MyBTL\facebook\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Keval\MyAndroidStudioProjects\MyApplication2\facebook\src\main\assets"/><source path="D:\Keval\MyAndroidStudioProjects\MyApplication2\facebook\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\Keval\MyAndroidStudioProjects\MyApplication2\facebook\src\release\assets"/></dataSet></merger>
