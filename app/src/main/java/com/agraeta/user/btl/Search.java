@@ -1220,9 +1220,9 @@ public class Search extends AppCompatActivity {
                     para.add(new BasicNameValuePair("product_id", bean_product1.get(position).getPro_id()));
                     para.add(new BasicNameValuePair("owner_id", owner_id));
                     para.add(new BasicNameValuePair("user_id", user_id_main));
-                    Log.e("111111111", "" + bean_product1.get(position).getPro_id());
-                    Log.e("222222222", "" + owner_id);
-                    Log.e("333333333", "" + user_id_main);
+                    Log.e("aaaaa", "" + bean_product1.get(position).getPro_id());
+                    Log.e("bbbbb", "" + owner_id);
+                    Log.e("ccccc", "" + user_id_main);
 
                     isNotDone = true;
                     new GetProductDetailQty(para).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1298,9 +1298,10 @@ public class Search extends AppCompatActivity {
                     params.add(new BasicNameValuePair("user_id", user_id_main));
                     params.add(new BasicNameValuePair("product_buy_qty", qty));
                     params.add(new BasicNameValuePair("scheme_id",selectedSchemeID));
-                    Log.e("111111111", "" + product_id);
-                    Log.e("222222222", "" + user_id_main);
-                    Log.e("333333333", "" + qty);
+                    Log.e("1111search", "" + product_id);
+                    Log.e("2222search", "" + user_id_main);
+                    Log.e("3333search", "" + qty);
+                    Log.e("schemeidsearch",""+selectedSchemeID);
 
                     isNotDone = true;
                     new GetProductDetailCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1523,7 +1524,7 @@ public class Search extends AppCompatActivity {
                                         //   bean.setPro_Images(list_of_images.get(0).toString());
                                     }
 
-
+                                    Log.e("cartarray1", "" + bean_product1.get(position).getPro_cat_id());
                                     jarray_cart.put(jobject);
                                 } catch (JSONException e) {
                                     Globals.generateNoteOnSD(getApplicationContext(), e.getMessage());
@@ -1594,7 +1595,7 @@ public class Search extends AppCompatActivity {
                                     jobject.put("prod_img", list_of_images.get(0));
                                     //   bean.setPro_Images(list_of_images.get(0).toString());
                                 }
-
+                                Log.e("cartarray2", "" + bean_product1.get(position).getPro_cat_id());
 
                                 jarray_cart.put(jobject);
                             } catch (JSONException e) {
@@ -1648,7 +1649,7 @@ public class Search extends AppCompatActivity {
                                 jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
                                 jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
 
-
+                                Log.e("cartarray3", "" +bean_product_schme.get(0).getPro_cat_id());
                                 jarray_cart.put(jobject);
                             } catch (JSONException e) {
 
@@ -1740,7 +1741,7 @@ public class Search extends AppCompatActivity {
                                         //   bean.setPro_Images(list_of_images.get(0).toString());
                                     }
 
-
+                                    Log.e("cartarray4", "" +bean_product1.get(position).getPro_cat_id());
                                     jarray_cart.put(jobject);
                                 } catch (JSONException e) {
 
@@ -3376,7 +3377,7 @@ public class Search extends AppCompatActivity {
                                                 //   bean.setPro_Images(list_of_images.get(0).toString());
                                             }
 
-
+                                            Log.e("cartarray5", "" +bean_product1.get(position).getPro_cat_id().toString());
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
 
@@ -3544,7 +3545,7 @@ public class Search extends AppCompatActivity {
                                                     //   bean.setPro_Images(list_of_images.get(0).toString());
                                                 }
 
-
+                                                Log.e("cartarray6", "" + bean_product1.get(position).getPro_cat_id().toString());
                                                 jarray_cart.put(jobject);
                                             } catch (JSONException e) {
 
@@ -3623,7 +3624,7 @@ public class Search extends AppCompatActivity {
                                         bean.setPro_schme_name("");
                                         //db.Add_Product_cart(bean);
 
-                                            /*for (int i = 0; i < 1; i++) {*/
+                                          //  for (int i = 0; i < 1; i++) {
                                         try {
                                             JSONObject jobject = new JSONObject();
 
@@ -3658,14 +3659,14 @@ public class Search extends AppCompatActivity {
                                                 //   bean.setPro_Images(list_of_images.get(0).toString());
                                             }
 
-
+                                            Log.e("cartarray7", "" +bean_product1.get(position).getPro_cat_id().toString());
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
 
                                         }
 
 
-                                        //}
+                                       // }
                                         //  array_value.clear();
                                            /* if(kkk == 1) {
 
@@ -3766,7 +3767,9 @@ public class Search extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                           // jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id", bean_product1.get(position).getPro_cat_id().toString()
+                                            );
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -3784,7 +3787,7 @@ public class Search extends AppCompatActivity {
                                             jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
                                             jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
 
-
+                                            Log.e("cartarray8", "" +bean_product_schme.get(0).getPro_cat_id());
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
 
@@ -3940,7 +3943,7 @@ public class Search extends AppCompatActivity {
                                                     //   bean.setPro_Images(list_of_images.get(0).toString());
                                                 }
 
-
+                                                Log.e("cartarray9", "" + bean_product1.get(position).getPro_cat_id().toString());
                                                 jarray_cart.put(jobject);
                                             } catch (JSONException e) {
 
@@ -5789,7 +5792,7 @@ public class Search extends AppCompatActivity {
                                                     //   bean.setPro_Images(list_of_images.get(0).toString());
                                                 }
 
-
+                                                Log.e("cartarray10", "" + bean_product1.get(position).getPro_cat_id());
                                                 jarray_cart.put(jobject);
                                             } catch (JSONException e) {
                                                 Globals.generateNoteOnSD(getApplicationContext(), e.getMessage());
@@ -5855,7 +5858,7 @@ public class Search extends AppCompatActivity {
                                                 jobject.put("prod_img", list_of_images.get(0));
                                                 //   bean.setPro_Images(list_of_images.get(0).toString());
                                             }
-
+                                            Log.e("cartarray11", "" +bean_product1.get(position).getPro_cat_id());
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
 
@@ -5908,7 +5911,7 @@ public class Search extends AppCompatActivity {
                                             jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
                                             jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
 
-
+                                            Log.e("cartarray12", "" + bean_product_schme.get(0).getPro_cat_id());
                                             jarray_cart.put(jobject);
                                         } catch (JSONException e) {
 
@@ -6003,7 +6006,7 @@ public class Search extends AppCompatActivity {
                                                     //   bean.setPro_Images(list_of_images.get(0).toString());
                                                 }
 
-
+                                                Log.e("cartarray13", "" + bean_product1.get(position).getPro_cat_id());
                                                 jarray_cart.put(jobject);
                                             } catch (JSONException e) {
 
@@ -6586,6 +6589,7 @@ public class Search extends AppCompatActivity {
             jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, pairList);
 
             Log.e("params", "Scheme/App_Get_Scheme_Details" + "\n" + pairList.toString());
+            Log.e("responsesearchscheme","--->"+jsonData);
 
             isNotDone = false;
 
@@ -6607,6 +6611,7 @@ public class Search extends AppCompatActivity {
             jsonData = "";
 
             jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetItemQty", ServiceHandler.POST, pairList);
+            Log.e("responsesearch","--->"+jsonData);
 
             isNotDone = false;
             return jsonData;

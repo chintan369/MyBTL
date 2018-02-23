@@ -257,7 +257,7 @@ public class Product_List extends AppCompatActivity {
 
         app = new AppPrefs(Product_List.this);
         Catid = app.getUser_CatId();
-        //Log.e("CatId",Catid);
+        Log.e("CatId",Catid);
 
         page_id = 1;
 
@@ -279,6 +279,7 @@ public class Product_List extends AppCompatActivity {
         flagscroll = "2";
         pro_listed = (ListView) findViewById(R.id.listView_product);
         l_filter = (LinearLayout) findViewById(R.id.lin_filter);
+        Log.e("hello","111111");
 
         /*search_edit=(EditText)findViewById(R.id.edit_search_pro);
         search=(ImageView)findViewById(R.id.Image_search_pro);*/
@@ -1369,12 +1370,13 @@ public class Product_List extends AppCompatActivity {
                             Log.e("Data 3217", jarray_cart.toString());
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
-
+                                Log.e("01","-->");
                                 new Edit_Product().execute();
 
                             } else {
 
                                 new Add_Product().execute();
+                                Log.e("1","-->");
                             }
 
 
@@ -1448,7 +1450,7 @@ public class Product_List extends AppCompatActivity {
                                 jobject.put("role_id", role_id);
                                 jobject.put("owner_id", owner_id);
                                 jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                jobject.put("category_id",Catid);
                                 jobject.put("name", bean_product_schme.get(0).getPro_name());
                                 jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                 jobject.put("quantity", String.valueOf(b));
@@ -1483,12 +1485,13 @@ public class Product_List extends AppCompatActivity {
                             //dialogOffer.dismiss();
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
-
+                                Log.e("02","-->");
                                 new Edit_Product().execute();
 
                             } else {
 
                                 new Add_Product().execute();
+                                Log.e("2","-->");
                             }
 
                         } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -1566,12 +1569,13 @@ public class Product_List extends AppCompatActivity {
                             Log.e("Data 3414", jarray_cart.toString());
                             Log.e("kkkkkkk", "" + kkk);
                             if (kkk == 1) {
-
+                                Log.e("03","-->");
                                 new Edit_Product().execute();
 
                             } else {
 
                                 new Add_Product().execute();
+                                Log.e("3","-->");
                             }
                         }
                     }
@@ -2716,12 +2720,13 @@ public class Product_List extends AppCompatActivity {
                                     Log.e("Data 2224", jarray_cart.toString());
                                     array_value.clear();
                                     if (kkk[0] == 1) {
-
+                                        Log.e("04","-->");
                                         new Edit_Product().execute();
 
                                     } else {
 
                                         new Add_Product().execute();
+                                        Log.e("4","-->");
                                     }
 
                                     //db.Add_Product_cart(bean);
@@ -2883,12 +2888,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 2391", jarray_cart.toString());
                                         array_value.clear();
                                         if (kkk[0] == 1) {
-
+                                            Log.e("05","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("5","-->");
                                         }
 
 
@@ -3094,7 +3100,7 @@ public class Product_List extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id",Catid);
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -3128,12 +3134,13 @@ public class Product_List extends AppCompatActivity {
 
                                         array_value.clear();
                                         if (kkk[0] == 1) {
-
+                                            Log.e("06","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("6","-->");
                                         }
 
                                     } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -3284,12 +3291,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 2692", jarray_cart.toString());
                                         array_value.clear();
                                         if (kkk[0] == 1) {
-
+                                            Log.e("07","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("7","-->");
                                         }
                                     }
 
@@ -4337,12 +4345,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 3217", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("08","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("8","-->");
                                         }
 
 
@@ -4415,7 +4424,7 @@ public class Product_List extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id", Catid);
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -4450,12 +4459,13 @@ public class Product_List extends AppCompatActivity {
                                         //dialogOffer.dismiss();
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("09","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("9","-->");
                                         }
 
                                     } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -4532,12 +4542,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 3414", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("010","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("10","-->");
                                         }
                                     }
                                 }
@@ -4884,12 +4895,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 3217", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("011","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("11","-->");
                                         }
 
 
@@ -4962,7 +4974,7 @@ public class Product_List extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id", Catid);
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -4997,12 +5009,13 @@ public class Product_List extends AppCompatActivity {
                                         //dialogOffer.dismiss();
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("012","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("12","-->");
                                         }
 
                                     } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -5079,12 +5092,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 3414", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("013","-->");
                                             new Edit_Product().execute();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("13","-->");
                                         }
                                     }
                                 }
@@ -5742,9 +5756,9 @@ public class Product_List extends AppCompatActivity {
                         para.add(new BasicNameValuePair("product_id", bean_product1.get(position).getPro_id()));
                         para.add(new BasicNameValuePair("owner_id", owner_id));
                         para.add(new BasicNameValuePair("user_id", u_id));
-                        //Log.e("111111111",""+product_id);
-                        //Log.e("222222222",""+owner_id);
-                        //Log.e("333333333",""+u_id);
+                        Log.e("111111111",""+product_id);
+                        Log.e("222222222",""+owner_id);
+                        Log.e("333333333",""+u_id);
                         isNotDone = true;
                         new GetProductDetailQty(para).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         while (isNotDone) {
@@ -6545,9 +6559,9 @@ public class Product_List extends AppCompatActivity {
                                         params.add(new BasicNameValuePair("product_id", product_id));
                                         params.add(new BasicNameValuePair("user_id", user_id_main));
                                         params.add(new BasicNameValuePair("product_buy_qty", qty));
-                                        //Log.e("111111111",""+product_id);
-                                        //Log.e("222222222",""+user_id_main);
-                                        //Log.e("333333333",""+qty);
+                                        Log.e("111111111",""+product_id);
+                                        Log.e("222222222",""+user_id_main);
+                                        Log.e("333333333",""+qty);
 
                                         isNotDone = true;
                                         new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -6769,12 +6783,13 @@ public class Product_List extends AppCompatActivity {
                                             Log.e("Data 4898", jarray_cart.toString());
                                             array_value.clear();
                                             if (kkk == 1) {
-
+                                                Log.e("014","-->");
                                                 new Edit_Product().execute();
 
                                             } else {
 
                                                 new Add_Product().execute();
+                                                Log.e("14","-->");
                                             }
 
                                             //db.Add_Product_cart(bean);
@@ -6936,12 +6951,13 @@ public class Product_List extends AppCompatActivity {
                                                 Log.e("Data 5065", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
-
+                                                    Log.e("015","-->");
                                                     new Edit_Product().execute();
 
                                                 } else {
 
                                                     new Add_Product().execute();
+                                                    Log.e("15","-->");
                                                 }
 
 
@@ -7134,7 +7150,7 @@ public class Product_List extends AppCompatActivity {
                                                     jobject.put("role_id", role_id);
                                                     jobject.put("owner_id", owner_id);
                                                     jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                                    jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                                    jobject.put("category_id", Catid);
                                                     jobject.put("name", bean_product_schme.get(0).getPro_name());
                                                     jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                                     jobject.put("quantity", String.valueOf(b));
@@ -7166,12 +7182,14 @@ public class Product_List extends AppCompatActivity {
                                                 Log.e("Data 5297", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
-
+                                                    Log.e("016","-->");
                                                     new Edit_Product().execute();
 
                                                 } else {
 
                                                     new Add_Product().execute();
+                                                    Log.e("16","-->");
+
                                                 }
 
                                             } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
@@ -7321,12 +7339,13 @@ public class Product_List extends AppCompatActivity {
                                                 Log.e("Data 5452", jarray_cart.toString());
                                                 array_value.clear();
                                                 if (kkk == 1) {
-
+                                                    Log.e("017","-->");
                                                     new Edit_Product().execute();
 
                                                 } else {
 
                                                     new Add_Product().execute();
+                                                    Log.e("17","-->");
                                                 }
                                             }
 
@@ -7773,13 +7792,14 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 5868", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("018","-->");
                                             new Edit_Product().execute();
                                             dialogOffer.dismiss();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("18","-->");
                                             dialogOffer.dismiss();
                                         }
 
@@ -7854,7 +7874,7 @@ public class Product_List extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id", Catid);
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -7888,13 +7908,14 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 5983", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("019","-->");
                                             new Edit_Product().execute();
                                             dialogOffer.dismiss();
 
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("19","-->");
                                             dialogOffer.dismiss();
                                         }
 
@@ -7972,12 +7993,13 @@ public class Product_List extends AppCompatActivity {
                                         Log.e("Data 6067", jarray_cart.toString());
                                         Log.e("kkkkkkk", "" + kkk);
                                         if (kkk == 1) {
-
+                                            Log.e("020","-->");
                                             new Edit_Product().execute();
                                             dialogOffer.dismiss();
                                         } else {
 
                                             new Add_Product().execute();
+                                            Log.e("20","-->");
                                             dialogOffer.dismiss();
                                         }
                                     }

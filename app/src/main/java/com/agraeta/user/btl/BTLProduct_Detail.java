@@ -281,6 +281,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
 
         CategoryID = app.getUser_CatId();
+        Log.e("cat1","--->"+CategoryID);
         imageloader = new ImageLoader(BTLProduct_Detail.this);
         setRefershData();
         if (user_data.size() != 0) {
@@ -604,7 +605,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     loadingView.show();
                     Call<GetCartItemQuantityResponse> getCartItemQuantityResponseCall = adminAPI.getCartItemQuantity(bean_product1.get(0).getPro_id(), owner_id, u_id);
 
-                    // Log.e("WEB PARA------->",bean_product1.get(0).getPro_id()+"****"+owner_id+"****"+u_id);
+                     Log.e("WEB PARA------->",bean_product1.get(0).getPro_id()+"****"+owner_id+"****"+u_id);
                     getCartItemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                         @Override
                         public void onResponse(Call<GetCartItemQuantityResponse> call, Response<GetCartItemQuantityResponse> response) {
@@ -1524,6 +1525,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         String qty = edt_count.getText().toString();
 
                         Call<GetSchemeDetailResponse> schemeDetailResponseCall = adminAPI.getSchemeDetailResponse(product_id, user_id_main, qty);
+                        Log.e("id","-->"+product_id+"-"+user_id_main+"-"+qty);
                         schemeDetailResponseCall.enqueue(new Callback<GetSchemeDetailResponse>() {
                             @Override
                             public void onResponse(Call<GetSchemeDetailResponse> call, Response<GetSchemeDetailResponse> response) {
@@ -1532,6 +1534,8 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 if (schemeDetailResponse != null) {
                                     if (schemeDetailResponse.isStatus()) {
                                         bean_product_schme.add(schemeDetailResponse.getData().getGetProduct());
+                                        Log.e("1","--->add"+schemeDetailResponse.getData().getGetProduct());
+                                        Log.e("1string","--->addstring"+schemeDetailResponse.getData().getGetProduct().toString());
                                         for (int i = 0; i < schemeDetailResponse.getData().getGetProduct().getProductOption().size(); i++) {
                                             Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
                                             // arrOptionType=new ArrayList<String>();
@@ -1633,6 +1637,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", tv_pop_pname.getTag().toString());
                                             jobject.put("category_id", CategoryID);
+                                            Log.e("cat2","---->"+CategoryID);
                                             jobject.put("name", tv_pop_pname.getText().toString());
                                             String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                             String aString = newString.toString().trim().replace(")", "");
@@ -1794,6 +1799,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("owner_id", owner_id);
                                                 jobject.put("product_id", tv_pop_pname.getTag().toString());
                                                 jobject.put("category_id", CategoryID);
+                                                Log.e("cat3","--->"+CategoryID);
                                                 jobject.put("name", tv_pop_pname.getText().toString());
                                                 String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                 String aString = newString.toString().trim().replace(")", "");
@@ -1870,7 +1876,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
                                         // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
                                         bean.setPro_cat_id(CategoryID);
-                                        //Log.e("Cat_ID....", "" + CategoryID);
+                                        Log.e("Cat_ID....", "" + CategoryID);
                                         if (list_of_images.size() == 0) {
                                             bean.setPro_Images(bean_product1.get(0).getPro_image().toString());
                                         } else {
@@ -1911,6 +1917,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", tv_pop_pname.getTag().toString());
                                             jobject.put("category_id", CategoryID);
+                                            Log.e("cat4","----->"+CategoryID);
                                             jobject.put("name", tv_pop_pname.getText().toString());
                                             String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                             String aString = newString.toString().trim().replace(")", "");
@@ -2044,7 +2051,11 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             jobject.put("role_id", role_id);
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                            jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                           // jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                            jobject.put("category_id", CategoryID);
+
+                                           // Log.e("cat5","--->"+bean_product_schme.get(0).getPro_cat_id());
+                                            Log.e("cat5","--->"+CategoryID);
                                             jobject.put("name", bean_product_schme.get(0).getPro_name());
                                             jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                             jobject.put("quantity", String.valueOf(b));
@@ -2189,6 +2200,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("owner_id", owner_id);
                                                 jobject.put("product_id", tv_pop_pname.getTag().toString());
                                                 jobject.put("category_id", CategoryID);
+                                                Log.e("cat6","---->"+CategoryID);
                                                 jobject.put("name", tv_pop_pname.getText().toString());
                                                 String newString = tv_pop_code.getText().toString().trim().replace("(", "");
                                                 String aString = newString.trim().replace(")", "");
@@ -2446,6 +2458,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                     Log.e("name", "" + bean_Schme_data.get(i).getSchme_name());
                     beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
                     beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
+                    Log.e("cat7","--->"+bean_Schme_data.get(i).getCategory_id());
                     beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
                     beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
                     beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
@@ -2668,6 +2681,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     //Log.e("44444444",""+jproduct.getString("id"));
 
                                     bean.setPro_cat_id(jproduct.getString("category_id"));
+                                   Log.e("cat8","--->"+jproduct.getString("category_id"));
                                     bean.setPro_code(jproduct.getString("product_code"));
                                     bean.setPro_name(jproduct.getString("product_name"));
                                     // bean.setPro_label(jproduct.getString("label_id"));
@@ -2790,6 +2804,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("owner_id", owner_id);
                                         jobject.put("product_id", pid);
                                         jobject.put("category_id", CategoryID);
+                                        Log.e("cat9","--->"+CategoryID);
                                         jobject.put("name", tv_product_name.getText().toString());
 
                                         String newString = tv_product_code.getText().toString().trim().replace("(", "");
@@ -2859,6 +2874,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     jobject.put("owner_id", owner_id);
                                     jobject.put("product_id", pid);
                                     jobject.put("category_id", CategoryID);
+                                    Log.e("cat10","--->"+CategoryID);
                                     jobject.put("name", tv_product_name.getText().toString());
                                     String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                     String aString = newString.trim().replace(")", "");
@@ -2920,6 +2936,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                     jobject.put("owner_id", owner_id);
                                     jobject.put("product_id", bean_product_schme.get(0).getPro_id());
                                     jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                    Log.e("cat11","--->"+ bean_product_schme.get(0).getPro_cat_id());
                                     jobject.put("name", bean_product_schme.get(0).getPro_name());
                                     jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                     jobject.put("quantity", String.valueOf(b));
@@ -3003,6 +3020,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("owner_id", owner_id);
                                         jobject.put("product_id", pid);
                                         jobject.put("category_id", CategoryID);
+                                        Log.e("cat12","---->"+CategoryID);
                                         jobject.put("name", tv_product_name.getText().toString());
                                         String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                         String aString = newString.trim().replace(")", "");
@@ -4468,6 +4486,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 Log.e("name", "" + bean_Schme_data.get(ij).getSchme_name());
                                 beans.setSchme_name(bean_Schme_data.get(ij).getSchme_name());
                                 beans.setCategory_id(bean_Schme_data.get(ij).getCategory_id());
+                                Log.e("cat13","---->"+bean_Schme_data.get(ij).getCategory_id());
                                 beans.setSchme_qty(bean_Schme_data.get(ij).getSchme_qty());
                                 beans.setSchme_buy_prod_id(bean_Schme_data.get(ij).getSchme_buy_prod_id());
                                 beans.setSchme_prod_id(bean_Schme_data.get(ij).getSchme_prod_id());
@@ -4685,6 +4704,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 //Log.e("44444444",""+jproduct.getString("id"));
 
                                                 bean.setPro_cat_id(jproduct.getString("category_id"));
+                                                Log.e("cat13","--->"+jproduct.getString("category_id"));
                                                 bean.setPro_code(jproduct.getString("product_code"));
                                                 bean.setPro_name(jproduct.getString("product_name"));
                                                 // bean.setPro_label(jproduct.getString("label_id"));
@@ -4803,6 +4823,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                     jobject.put("owner_id", owner_id);
                                                     jobject.put("product_id", pid);
                                                     jobject.put("category_id", CategoryID);
+                                                    Log.e("cat14","----->"+CategoryID);
                                                     jobject.put("name", tv_product_name.getText().toString());
 
                                                     String newString = tv_product_code.getText().toString().trim().replace("(", "");
@@ -4871,6 +4892,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("owner_id", owner_id);
                                                 jobject.put("product_id", pid);
                                                 jobject.put("category_id", CategoryID);
+                                               Log.e("cat15","---->"+CategoryID);
                                                 jobject.put("name", tv_product_name.getText().toString());
                                                 String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                                 String aString = newString.toString().trim().replace(")", "");
@@ -4932,6 +4954,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                 jobject.put("owner_id", owner_id);
                                                 jobject.put("product_id", bean_product_schme.get(0).getPro_id());
                                                 jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                                Log.e("cat16"," bean_product_schme.get(0).getPro_cat_id()");
                                                 jobject.put("name", bean_product_schme.get(0).getPro_name());
                                                 jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                                 jobject.put("quantity", String.valueOf(b));
@@ -5015,6 +5038,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                                     jobject.put("owner_id", owner_id);
                                                     jobject.put("product_id", pid);
                                                     jobject.put("category_id", CategoryID);
+                                                   Log.e("cat17","---->"+CategoryID);
                                                     jobject.put("name", tv_product_name.getText().toString());
                                                     String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                                     String aString = newString.toString().trim().replace(")", "");
@@ -5152,6 +5176,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                         Log.e("name", "" + bean_Schme_data.get(i).getSchme_name());
                         beans.setSchme_name(bean_Schme_data.get(i).getSchme_name());
                         beans.setCategory_id(bean_Schme_data.get(i).getCategory_id());
+                        Log.e("cat18","bean_Schme_data.get(i).getCategory_id()");
                         beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
                         beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
                         beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
@@ -5371,6 +5396,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         //Log.e("44444444",""+jproduct.getString("id"));
 
                                         bean.setPro_cat_id(jproduct.getString("category_id"));
+                                        Log.e("cat19","--->"+jproduct.getString("category_id"));
                                         bean.setPro_code(jproduct.getString("product_code"));
                                         bean.setPro_name(jproduct.getString("product_name"));
                                         // bean.setPro_label(jproduct.getString("label_id"));
@@ -5493,6 +5519,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", pid);
                                             jobject.put("category_id", CategoryID);
+                                            Log.e("cat20","--->"+CategoryID);
                                             jobject.put("name", tv_product_name.getText().toString());
 
                                             String newString = tv_product_code.getText().toString().trim().replace("(", "");
@@ -5562,6 +5589,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("owner_id", owner_id);
                                         jobject.put("product_id", pid);
                                         jobject.put("category_id", CategoryID);
+                                        Log.e("cat21","--->"+CategoryID);
                                         jobject.put("name", tv_product_name.getText().toString());
                                         String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                         String aString = newString.trim().replace(")", "");
@@ -5623,6 +5651,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                         jobject.put("owner_id", owner_id);
                                         jobject.put("product_id", bean_product_schme.get(0).getPro_id());
                                         jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
+                                        Log.e("cat22","--->"+bean_product_schme.get(0).getPro_cat_id());
                                         jobject.put("name", bean_product_schme.get(0).getPro_name());
                                         jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
                                         jobject.put("quantity", String.valueOf(b));
@@ -5706,6 +5735,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                             jobject.put("owner_id", owner_id);
                                             jobject.put("product_id", pid);
                                             jobject.put("category_id", CategoryID);
+                                            Log.e("cat23","---->"+CategoryID);
                                             jobject.put("name", tv_product_name.getText().toString());
                                             String newString = tv_product_code.getText().toString().trim().replace("(", "");
                                             String aString = newString.trim().replace(")", "");
@@ -7090,6 +7120,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
 
 
                         bean.setPro_cat_id(jproduct.getString("category_id"));
+                        Log.e("cat24","---->"+jproduct.getString("category_id"));
                         bean.setPro_code(jproduct.getString("product_code"));
                         bean.setPro_name(jproduct.getString("product_name"));
                         // bean.setPro_label(jproduct.getString("label_id"));
@@ -7175,6 +7206,7 @@ public class BTLProduct_Detail extends AppCompatActivity {
                                 beans.setSchme_name(schemeObj.getString("scheme_name"));
                                 beans.setSchme_qty(schemeObj.getString("buy_prod_qty"));
                                 beans.setCategory_id(schemeObj.getString("category_id"));
+                                Log.e("cat25","---->"+schemeObj.getString("category_id"));
                                 beans.setSchme_buy_prod_id(schemeObj.getString("buy_prod_id"));
                                 beans.setSchme_prod_id(jProductOptiono.getString("product_id"));
 

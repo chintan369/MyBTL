@@ -725,6 +725,11 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             final EditText edt_comment = (EditText) dialog.findViewById(R.id.edt_comment);
                             final EditText edt_transportation = (EditText) dialog.findViewById(R.id.edt_transportation);
+                            if(appPrefs.getTransportation() == null || appPrefs.getTransportation().equalsIgnoreCase("null") || appPrefs.getTransportation().equalsIgnoreCase("")) {
+                                edt_transportation.setText("");
+                            }else {
+                                edt_transportation.setText(appPrefs.getTransportation());
+                            }
                             // edt_transportation.setVisibility(View.GONE);
                             btn_continue = (Button) dialog.findViewById(R.id.btn_send);
                             Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
@@ -765,10 +770,10 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                 public void onClick(View v) {
 
                                     transportationText = edt_transportation.getText().toString().trim();
-                                    if (transportationText.isEmpty()) {
-                                        Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
-                                        return;
-                                    } else {
+//                                    if (transportationText.isEmpty()) {
+//                                        Globals.Toast2(getApplicationContext(), "Please Enter Transportation");
+//                                        return;
+//                                    } else {
 
                                         btn_continue.setEnabled(false);
                                         try {
@@ -839,7 +844,7 @@ public class CheckoutPage_Product extends AppCompatActivity {
                                             }
                                         }
 
-                                    }
+                                  //  }
                                     try {
                                         JSONObject jobject_OrderTotalData = new JSONObject();
                                         //jobject_OrderUserData.put("user_id", user_array_from_db.get(0).getUser_id());

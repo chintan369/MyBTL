@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-vi\\values-vi.xml",
+        "outputFile": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-vi\\values-vi.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 185
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 38,
                         "startColumn": 4,
-                        "startOffset": 2543,
+                        "startOffset": 2581,
                         "endColumn": 134,
-                        "endOffset": 2673
+                        "endOffset": 2711
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 286
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
-                        "startOffset": 2313,
+                        "startOffset": 2348,
                         "endColumn": 100,
-                        "endOffset": 2409
+                        "endOffset": 2444
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 405
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
-                        "startOffset": 2048,
+                        "startOffset": 2081,
                         "endColumn": 118,
-                        "endOffset": 2162
+                        "endOffset": 2195
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 498
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
-                        "startOffset": 1955,
+                        "startOffset": 1987,
                         "endColumn": 92,
-                        "endOffset": 2043
+                        "endOffset": 2075
                     }
                 }
             },
@@ -87,13 +87,13 @@
                     "endOffset": 566
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 1235,
+                        "startOffset": 1258,
                         "endColumn": 67,
-                        "endOffset": 1298
+                        "endOffset": 1321
                     }
                 }
             },
@@ -106,13 +106,13 @@
                     "endOffset": 635
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
-                        "startOffset": 1166,
+                        "startOffset": 1188,
                         "endColumn": 68,
-                        "endOffset": 1230
+                        "endOffset": 1252
                     }
                 }
             },
@@ -125,13 +125,13 @@
                     "endOffset": 696
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
-                        "startOffset": 1894,
+                        "startOffset": 1925,
                         "endColumn": 60,
-                        "endOffset": 1950
+                        "endOffset": 1981
                     }
                 }
             },
@@ -144,13 +144,13 @@
                     "endOffset": 765
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
-                        "startOffset": 1825,
+                        "startOffset": 1855,
                         "endColumn": 68,
-                        "endOffset": 1889
+                        "endOffset": 1919
                     }
                 }
             },
@@ -163,13 +163,13 @@
                     "endOffset": 840
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 1379,
+                        "startOffset": 1404,
                         "endColumn": 74,
-                        "endOffset": 1449
+                        "endOffset": 1474
                     }
                 }
             },
@@ -182,13 +182,13 @@
                     "endOffset": 934
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
-                        "startOffset": 1454,
+                        "startOffset": 1480,
                         "endColumn": 93,
-                        "endOffset": 1543
+                        "endOffset": 1569
                     }
                 }
             },
@@ -201,13 +201,13 @@
                     "endOffset": 1010
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
-                        "startOffset": 1749,
+                        "startOffset": 1778,
                         "endColumn": 75,
-                        "endOffset": 1820
+                        "endOffset": 1849
                     }
                 }
             },
@@ -220,13 +220,13 @@
                     "endOffset": 1086
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 1303,
+                        "startOffset": 1327,
                         "endColumn": 75,
-                        "endOffset": 1374
+                        "endOffset": 1398
                     }
                 }
             },
@@ -239,13 +239,13 @@
                     "endOffset": 1184
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
-                        "startOffset": 1548,
+                        "startOffset": 1575,
                         "endColumn": 97,
-                        "endOffset": 1641
+                        "endOffset": 1668
                     }
                 }
             },
@@ -258,13 +258,13 @@
                     "endOffset": 1287
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1646,
+                        "startOffset": 1674,
                         "endColumn": 102,
-                        "endOffset": 1744
+                        "endOffset": 1772
                     }
                 }
             },
@@ -277,13 +277,13 @@
                     "endOffset": 1349
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 4,
-                        "startOffset": 2481,
+                        "startOffset": 2518,
                         "endColumn": 61,
-                        "endOffset": 2538
+                        "endOffset": 2575
                     }
                 }
             },
@@ -296,13 +296,13 @@
                     "endOffset": 1416
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
-                        "startOffset": 2414,
+                        "startOffset": 2450,
                         "endColumn": 66,
-                        "endOffset": 2476
+                        "endOffset": 2512
                     }
                 }
             },
@@ -315,13 +315,13 @@
                     "endOffset": 1562
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
-                        "startOffset": 2167,
+                        "startOffset": 2201,
                         "endColumn": 145,
-                        "endOffset": 2308
+                        "endOffset": 2342
                     }
                 }
             },
@@ -334,360 +334,13 @@
                     "endOffset": 1621
                 },
                 "from": {
-                    "file": "C:\\Users\\NWSPL5\\Desktop\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\messenger_button_strings.xml",
+                    "file": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\values-vi\\messenger_button_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 2,
-                        "startOffset": 1164,
+                        "startOffset": 1186,
                         "endColumn": 56,
-                        "endOffset": 1218
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-vi\\values-vi.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 134,
-                    "endOffset": 185
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 38,
-                        "startColumn": 4,
-                        "startOffset": 2543,
-                        "endColumn": 134,
-                        "endOffset": 2673
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 190,
-                    "endColumn": 100,
-                    "endOffset": 286
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 35,
-                        "startColumn": 4,
-                        "startOffset": 2313,
-                        "endColumn": 100,
-                        "endOffset": 2409
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 291,
-                    "endColumn": 118,
-                    "endOffset": 405
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 33,
-                        "startColumn": 4,
-                        "startOffset": 2048,
-                        "endColumn": 118,
-                        "endOffset": 2162
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 410,
-                    "endColumn": 92,
-                    "endOffset": 498
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 32,
-                        "startColumn": 4,
-                        "startOffset": 1955,
-                        "endColumn": 92,
-                        "endOffset": 2043
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 503,
-                    "endColumn": 67,
-                    "endOffset": 566
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 1235,
-                        "endColumn": 67,
-                        "endOffset": 1298
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 571,
-                    "endColumn": 68,
-                    "endOffset": 635
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 1166,
-                        "endColumn": 68,
-                        "endOffset": 1230
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 640,
-                    "endColumn": 60,
-                    "endOffset": 696
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 31,
-                        "startColumn": 4,
-                        "startOffset": 1894,
-                        "endColumn": 60,
-                        "endOffset": 1950
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 701,
-                    "endColumn": 68,
-                    "endOffset": 765
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 30,
-                        "startColumn": 4,
-                        "startOffset": 1825,
-                        "endColumn": 68,
-                        "endOffset": 1889
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 770,
-                    "endColumn": 74,
-                    "endOffset": 840
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 1379,
-                        "endColumn": 74,
-                        "endOffset": 1449
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 845,
-                    "endColumn": 93,
-                    "endOffset": 934
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1454,
-                        "endColumn": 93,
-                        "endOffset": 1543
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 939,
-                    "endColumn": 75,
-                    "endOffset": 1010
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1749,
-                        "endColumn": 75,
-                        "endOffset": 1820
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1015,
-                    "endColumn": 75,
-                    "endOffset": 1086
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 1303,
-                        "endColumn": 75,
-                        "endOffset": 1374
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 14,
-                    "startColumn": 4,
-                    "startOffset": 1091,
-                    "endColumn": 97,
-                    "endOffset": 1184
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1548,
-                        "endColumn": 97,
-                        "endOffset": 1641
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 15,
-                    "startColumn": 4,
-                    "startOffset": 1189,
-                    "endColumn": 102,
-                    "endOffset": 1287
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1646,
-                        "endColumn": 102,
-                        "endOffset": 1744
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 16,
-                    "startColumn": 4,
-                    "startOffset": 1292,
-                    "endColumn": 61,
-                    "endOffset": 1349
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 37,
-                        "startColumn": 4,
-                        "startOffset": 2481,
-                        "endColumn": 61,
-                        "endOffset": 2538
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 17,
-                    "startColumn": 4,
-                    "startOffset": 1354,
-                    "endColumn": 66,
-                    "endOffset": 1416
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 36,
-                        "startColumn": 4,
-                        "startOffset": 2414,
-                        "endColumn": 66,
-                        "endOffset": 2476
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 18,
-                    "startColumn": 4,
-                    "startOffset": 1421,
-                    "endColumn": 145,
-                    "endOffset": 1562
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\strings.xml",
-                    "position": {
-                        "startLine": 34,
-                        "startColumn": 4,
-                        "startOffset": 2167,
-                        "endColumn": 145,
-                        "endOffset": 2308
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 19,
-                    "startColumn": 4,
-                    "startOffset": 1567,
-                    "endColumn": 58,
-                    "endOffset": 1621
-                },
-                "from": {
-                    "file": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\values-vi\\messenger_button_strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 2,
-                        "startOffset": 1164,
-                        "endColumn": 56,
-                        "endOffset": 1218
+                        "endOffset": 1240
                     }
                 }
             }

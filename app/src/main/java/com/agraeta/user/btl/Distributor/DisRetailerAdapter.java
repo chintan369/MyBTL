@@ -91,7 +91,7 @@ public class DisRetailerAdapter extends BaseAdapter {
         //txtName.setText(salesPerson.getFirstName());
         //txtName.setText(disSalesList.get(position).getFirstName());
 //        String txtname=dis_sales_b.getFirstName();
-//        txtName.setText(""+txtname);
+//        txtName.setText(""+txtname);l
         prefs=new AppPrefs(context);
         userID=prefs.getUserId();
         //disUserID=prefs.getDisUserId();

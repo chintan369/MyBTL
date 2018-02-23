@@ -56,6 +56,7 @@ public class AppPrefs {
     private String SalesPersonId="SalesPersonId";
     private String DisSalesUserId="DisSalesUserId";
     private String userRoleId="2";
+    private String transportation="";
     private String userId="0";
     private String csalesId="0";
     private String subSalesId="";
@@ -94,6 +95,7 @@ public class AppPrefs {
         this.appSharedPrefs = context.getSharedPreferences(USER_PREFS, Activity.MODE_PRIVATE);
         this.prefsEditor = appSharedPrefs.edit();
         userRoleId=appSharedPrefs.getString("userRoleId","");
+        transportation=appSharedPrefs.getString("transportation","");
         userId=appSharedPrefs.getString("userId","");
         csalesId=appSharedPrefs.getString("csalesId","");
         subSalesId=appSharedPrefs.getString("subSalesId","");
@@ -658,6 +660,15 @@ public class AppPrefs {
     public void setUserRoleId(String userRoleId) {
         this.userRoleId = userRoleId;
         prefsEditor.putString("userRoleId",userRoleId).commit();
+    }
+
+    public String getTransportation() {
+        return appSharedPrefs.getString("transportation","");
+    }
+
+    public void setTransportation(String transportation) {
+        this.transportation=transportation;
+      prefsEditor.putString("transportation",transportation).commit();
     }
 
     public String getUserId() {

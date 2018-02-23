@@ -253,4 +253,10 @@ public interface AdminAPI {
     Call<ProductOrderResponse> getProductsData(@Field(C.PRODUCT_ID) String productId, @Field(C.USER_ID) String userId, @Field("role_id") String roleId);
 
 
+
+    @FormUrlEncoded
+    @POST(Globals.GET_SCHEME_DETAILS_WISHLIST)
+    Call<GetSchemeDetailswishlist> getSchemewishlist(@Field(C.PRODUCT_ID) String productID,@Field(C.USER_ID) String userID,@Field("product_buy_qty") String buyQty,@Field("scheme_id") String scheme_id);
+
+
 }

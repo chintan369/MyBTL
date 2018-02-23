@@ -99,6 +99,7 @@ public class Globals {
     public static final String GET_CART_ITEM_QTY = "CartData/App_GetItemQty";
     public static final String GET_SCHEME_DETAILS = "Scheme/App_Get_Scheme_Details";
     public static final String GET_ALL_PRODUCT = "Product/App_Get_Product_Details";
+    public static final String GET_SCHEME_DETAILS_WISHLIST="Scheme/App_Get_Scheme_Details";
 
     public static String share = "https://play.google.com/store/apps/details?id=com.agraeta.user.btl&hl=en";
     // public static String server_link ="http://www.btlkart.com/";

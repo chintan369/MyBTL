@@ -513,6 +513,7 @@ public class UserListActivity extends AppCompatActivity {
                 parameters.add(new BasicNameValuePair("user_id", csalesID));
                 parameters.add(new BasicNameValuePair("user_type_id", subSalesID));
                 parameters.add(new BasicNameValuePair("role_id", csRole_ID));
+                Log.e("paramuserlist","-->"+csalesID+"--->"+subSalesID+"--->"+csRole_ID);
 
 
 
@@ -562,12 +563,12 @@ public class UserListActivity extends AppCompatActivity {
 
                             companySales.getUserData().setDistributor(gson.fromJson(Distributor.toString(), RegisteredUserTourResponse.Distributor.class));
 
-                            Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
+                            /*Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
                             }.getType();
                             List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
 
                             companySales.getUserData().setAddress(addressList);
-
+*/
                             companySalesUserList.add(companySales);
                         }
                         areaList.clear();

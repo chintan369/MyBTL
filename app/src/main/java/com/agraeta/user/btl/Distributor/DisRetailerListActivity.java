@@ -340,8 +340,8 @@ public class DisRetailerListActivity extends AppCompatActivity  {
                 parameters.add(new BasicNameValuePair("role_id",role_id));
 
                 //Log.e("distributor id", "" + distributor_id+"");
-                //Log.e("user id", "" + user_id+"");
-                //Log.e("role id", "" + role_id+"");
+                Log.e("user id", "" + user_id+"");
+                Log.e("role id", "" + role_id+"");
 
 
                 jsonData = new ServiceHandler().makeServiceCall(Globals.server_link+"User/APP_Distributor_User_Details",ServiceHandler.POST,parameters);

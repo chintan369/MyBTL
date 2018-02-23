@@ -7,7 +7,6 @@
               android:id="@+id/layout_productList"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="nivida.com.bosssample.Product_List"
     tools:showIn="@layout/activity_product__list">
 
 
@@ -45,7 +44,7 @@
                 android:background="@drawable/black_underline"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="False"
+                android:focusable="false"
                 android:textSize="16sp"
 
                 android:hint="Search"/>

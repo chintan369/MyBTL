@@ -900,6 +900,7 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                         String login_with = jU.getString("login_with");
                         String str_rid = jU.getString("social_login_id");
                         String str_response = jU.getString("social_login_response");
+                        String transportation=jU.getString("transportation");
                         //  String gstNo = jU.getString("gst_no");
 
                         Log.e("user", "" + user_id);
@@ -918,6 +919,7 @@ public class LogInPage extends AppCompatActivity implements GoogleApiClient.Conn
                         //apps = new AppPrefs(LogInPage.this);
                         apps.setUser_LoginInfo("1");
                         apps.setUserRoleId(user_type);
+                        apps.setTransportation(transportation);
                         apps.setUserId(user_id);
                         apps.setCsalesId(user_id);
                         apps.setDsalesId(user_id);

@@ -36,7 +36,9 @@ import android.widget.TextView;
 import com.agraeta.user.btl.adapters.ExpandableSchemeAdapter;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.GetCartItemQuantityResponse;
+import com.agraeta.user.btl.model.GetSchemeDetailResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -444,8 +446,10 @@ public class Btl_WishList extends AppCompatActivity {
         listSchemes.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, final int groupPosition, final int childPosition, long id) {
-                final String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+
                 setRefershData();
+                final String selectedSchemeID = ((Bean_schemeData) schemeAdapter.getChild(groupPosition, childPosition)).getSchme_id();
+
 
                 if (user_data.size() != 0) {
                     for (int i = 0; i < user_data.size(); i++) {
@@ -467,6 +471,7 @@ public class Btl_WishList extends AppCompatActivity {
                     // product_id = tv_pop_pname.getTag().toString();
 
                     Call<GetCartItemQuantityResponse> itemQuantityResponseCall = adminAPI.getCartItemQuantity(bean_product1.get(position).getPro_id(), owner_id, user_id_main);
+                    Log.e("parambtlwishlist","-->"+bean_product1.get(position).getPro_id()+"-"+owner_id+"-"+user_id_main);
 
                     itemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                         @Override
@@ -474,14 +479,18 @@ public class Btl_WishList extends AppCompatActivity {
                             loadingView.dismiss();
 
                             GetCartItemQuantityResponse itemQuantityResponse = response.body();
+                            Log.e("responsebtlwishlist","---->"+response.toString()+"--->"+new Gson().toJson(itemQuantityResponse));
 
                             if (itemQuantityResponse != null) {
                                 if (itemQuantityResponse.isStatus()) {
+                                    kkk = 1;
                                     showAddToOfferDialog(position, 1, itemQuantityResponse.getData().get(0).getQuantity(), schemeChildList, schemeHeaders, groupPosition, childPosition, selectedSchemeID);
                                 } else {
+                                    kkk = 0;
                                     showAddToOfferDialog(position, 0, "1", schemeChildList, schemeHeaders, groupPosition, childPosition, selectedSchemeID);
                                 }
                             } else {
+                                kkk = 0;
                                 Globals.defaultError(getApplicationContext());
                                 showAddToOfferDialog(position, 0, "1", schemeChildList, schemeHeaders, groupPosition, childPosition, selectedSchemeID);
                             }
@@ -492,6 +501,7 @@ public class Btl_WishList extends AppCompatActivity {
                         public void onFailure(Call<GetCartItemQuantityResponse> call, Throwable t) {
                             loadingView.dismiss();
                             Globals.showError(t, getApplicationContext());
+                            kkk = 0;
                             showAddToOfferDialog(position, 0, "1", schemeChildList, schemeHeaders, groupPosition, childPosition, selectedSchemeID);
                         }
                     });
@@ -595,9 +605,10 @@ public class Btl_WishList extends AppCompatActivity {
         params.add(new BasicNameValuePair("user_id", user_id_main));
         params.add(new BasicNameValuePair("product_buy_qty", qty));
         params.add(new BasicNameValuePair("scheme_id", selectedSchemeID));
-        Log.e("111111111", "" + product_id);
-        Log.e("222222222", "" + user_id_main);
-        Log.e("333333333", "" + qty);
+        Log.e("1111wishlist", "" + product_id);
+        Log.e("2222wishlist", "" + user_id_main);
+        Log.e("3333wishlist", "" + qty);
+        Log.e("wishlistscheme",""+selectedSchemeID);
 
         isNotDone = true;
         new GetProductDetailByCode(params).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -741,7 +752,7 @@ public class Btl_WishList extends AppCompatActivity {
             Log.e("1111111111111", "" + qty);
         } else {
             Log.e("2222222222222222", "" + qty);
-            //Log.e("Type ID : ",""+bean_schme.get(0).getType_id().toString());
+            Log.e("Type ID Wish : ","-->"+bean_schme.get(0).getType_id().toString());
             if (bean_schme.get(0).getType_id().equalsIgnoreCase("1")) {
 
                 jarray_cart = new JSONArray();
@@ -871,7 +882,9 @@ public class Btl_WishList extends AppCompatActivity {
                     }
 
 
+
                     jarray_cart.put(jobject);
+                    Log.e("checkPosition1" , "--->" + jarray_cart.toString());
                 } catch (JSONException e) {
 
                 }
@@ -925,6 +938,9 @@ public class Btl_WishList extends AppCompatActivity {
 
 
                     jarray_cart.put(jobject);
+
+                    Log.e("checkPosition1" , "--->" + jarray_cart.toString());
+
                 } catch (JSONException e) {
 
                 }
@@ -2037,7 +2053,8 @@ public class Btl_WishList extends AppCompatActivity {
                         product_id = tv_pop_pname.getTag().toString();
                         String qty = edt_count.getText().toString();
 
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+                        /*List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("product_id", product_id));
                         params.add(new BasicNameValuePair("user_id", user_id_main));
                         params.add(new BasicNameValuePair("product_buy_qty", qty));
@@ -2061,8 +2078,8 @@ public class Btl_WishList extends AppCompatActivity {
 
                             if (json == null
                                     || (json.equalsIgnoreCase(""))) {
-                    /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
-                            Toast.LENGTH_SHORT).show();*/
+                    *//*Toast.makeText(Business_Registration.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*//*
                                 Globals.CustomToast(Btl_WishList.this, "SERVER ERRER", getLayoutInflater());
                                 // loadingView.dismiss();
 
@@ -2082,11 +2099,11 @@ public class Btl_WishList extends AppCompatActivity {
 
                                     JSONObject jobj = new JSONObject(json);
                                     // //Log.e("22222222222",""+product_id);
-                          /*  bean_product1.clear();
+                          *//*  bean_product1.clear();
                             bean_productTechSpecs.clear();
                             bean_productOprtions.clear();
                             bean_productFeatures.clear();
-                            bean_productStdSpecs.clear();*/
+                            bean_productStdSpecs.clear();*//*
 
                                     bean_product_schme.clear();
                                     bean_schme.clear();
@@ -2185,117 +2202,166 @@ public class Btl_WishList extends AppCompatActivity {
                             ////Log.e("json exce",j.getMessage());
                         }
                         ////Log.e("45454545",""+bean_product_schme.size());
-                        if (bean_product_schme.size() == 0) {
-                            ////Log.e("555555555",""+bean_product_schme.size());
-                            Bean_ProductCart bean = new Bean_ProductCart();
-                            String value_id = "";
-                            String value_name = "";
+*/
 
 
-                            for (int i = 0; i < array_value.size(); i++) {
-                                if (i == 0) {
-                                    value_name = array_value.get(i).getValue_name();
-                                    value_id = array_value.get(i).getValue_id();
-                                } else {
-                                    value_id = value_id + ", " + array_value.get(i).getValue_id();
-                                    value_name = value_name + ", " + array_value.get(i).getValue_name();
+                        Call<GetSchemeDetailResponse> schemeDetailResponseCall = adminAPI.getSchemeDetailResponse(product_id, user_id_main, qty);
+                        schemeDetailResponseCall.enqueue(new Callback<GetSchemeDetailResponse>() {
+                            @Override
+                            public void onResponse(Call<GetSchemeDetailResponse> call, Response<GetSchemeDetailResponse> response) {
+                                loadingView.dismiss();
+                                GetSchemeDetailResponse schemeDetailResponse = response.body();
+                                if (schemeDetailResponse != null) {
+                                    if (schemeDetailResponse.isStatus()) {
+                                        bean_product_schme.add(schemeDetailResponse.getData().getGetProduct());
+                                        for (int i = 0; i < schemeDetailResponse.getData().getGetProduct().getProductOption().size(); i++) {
+                                            Bean_ProductOprtion beanoption = new Bean_ProductOprtion();
+                                            // arrOptionType=new ArrayList<String>();
 
+
+                                            //Option
+                                            beanoption.setPro_Option_id(schemeDetailResponse.getData().getGetProduct().getOptionID());
+                                            beanoption.setPro_Option_name(schemeDetailResponse.getData().getGetProduct().getOptionName());
+
+
+                                            //OptionValue
+                                            beanoption.setPro_Option_value_name(schemeDetailResponse.getData().getGetProduct().getOptionValueName());
+                                            beanoption.setPro_Option_value_id(schemeDetailResponse.getData().getGetProduct().getOptionValueID());
+
+
+                                            bean_Oprtions.add(beanoption);
+                                        }
+                                        bean_schme.add(schemeDetailResponse.getData().getScheme());
+
+
+                                    }
                                 }
+                                proceedForNextStepAfterScheme();
+
                             }
+
+                            @Override
+                            public void onFailure(Call<GetSchemeDetailResponse> call, Throwable t) {
+                                loadingView.dismiss();
+                                dialog.dismiss();
+                                Globals.showError(t, getApplicationContext());
+
+                            }
+
+                            void proceedForNextStepAfterScheme() {
+
+                                if (bean_product_schme.size() == 0) {
+                                    ////Log.e("555555555",""+bean_product_schme.size());
+                                    Bean_ProductCart bean = new Bean_ProductCart();
+                                    String value_id = "";
+                                    String value_name = "";
+
+
+                                    for (int i = 0; i < array_value.size(); i++) {
+                                        if (i == 0) {
+                                            value_name = array_value.get(i).getValue_name();
+                                            value_id = array_value.get(i).getValue_id();
+                                        } else {
+                                            value_id = value_id + ", " + array_value.get(i).getValue_id();
+                                            value_name = value_name + ", " + array_value.get(i).getValue_name();
+
+                                        }
+                                    }
 
 
                             /*option_id_array = new HashSet<String>(Arrays.asList(option_id_array)).toArray(new String[option_id_array.length]);
                             option_name_array = new HashSet<String>(Arrays.asList(option_name_array)).toArray(new String[option_id_array.length]);*/
 
 
-                            bean.setPro_id(tv_pop_pname.getTag().toString());
-                            ////Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
-                            // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
-                            bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
-                            ////Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
-                            if (list_of_images.size() == 0) {
-                                bean.setPro_Images(bean_product1.get(position).getPro_image());
-                            } else {
-                                bean.setPro_Images(list_of_images.get(0));
-                            }
-                            // bean.setPro_Images(list_of_images.get(position));
-                            //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
-                            bean.setPro_code(tv_pop_code.getText().toString().trim());
-                            ////Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
-                            bean.setPro_name(tv_pop_pname.getText().toString());
-                            bean.setPro_qty(edt_count.getText().toString());
-                            bean.setPro_mrp(tv_pop_mrp.getText().toString());
-                            bean.setPro_sellingprice(tv_pop_sellingprice.getText().toString());
-                            bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
-                            bean.setPro_Option_id(option_id);
-                            ////Log.e("-- ", "Option Id " + option_id);
-
-                            bean.setPro_Option_name(option_name);
-                            ////Log.e("-- ", "Option Name " + option_name);
-
-                            bean.setPro_Option_value_id(value_id);
-
-                            ////Log.e("", "Value Name " + value_id);
-                            bean.setPro_Option_value_name(value_name);
-                            ////Log.e("", "Value Name " + value_name);
-
-                            bean.setPro_total(tv_total.getText().toString());
-                            bean.setPro_schme("");
-
-                            for (int i = 0; i < 1; i++) {
-                                try {
-                                    JSONObject jobject = new JSONObject();
-
-                                    jobject.put("user_id", user_id_main);
-                                    jobject.put("role_id", role_id);
-                                    jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", tv_pop_pname.getTag().toString());
-                                    jobject.put("category_id", bean_product1.get(position).getPro_cat_id().toString());
-                                    jobject.put("name", tv_pop_pname.getText().toString());
-                                    String newString = tv_pop_code.getText().toString().trim().replace("(", "");
-                                    String aString = newString.toString().trim().replace(")", "");
-                                    jobject.put("pro_code", aString.toString().trim());
-                                    jobject.put("quantity", edt_count.getText().toString());
-                                    jobject.put("mrp", tv_pop_mrp.getText().toString());
-                                    jobject.put("selling_price", tv_pop_sellingprice.getText().toString());
-                                    jobject.put("option_id", option_id);
-                                    jobject.put("option_name", option_name);
-                                    jobject.put("option_value_id", value_id);
-                                    jobject.put("option_value_name", value_name);
-                                    jobject.put("item_total", tv_total.getText().toString());
-                                    jobject.put("pro_scheme", " ");
-                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                    jobject.put("scheme_id", " ");
-                                    jobject.put("scheme_title", " ");
-                                    jobject.put("scheme_pack_id", " ");
-
+                                    bean.setPro_id(tv_pop_pname.getTag().toString());
+                                    ////Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
+                                    // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
+                                    bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
+                                    ////Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
                                     if (list_of_images.size() == 0) {
-                                        jobject.put("prod_img", bean_product1.get(position).getPro_image());
-                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                        bean.setPro_Images(bean_product1.get(position).getPro_image());
                                     } else {
-                                        jobject.put("prod_img", list_of_images.get(0));
-                                        //   bean.setPro_Images(list_of_images.get(0).toString());
+                                        bean.setPro_Images(list_of_images.get(0));
+                                    }
+                                    // bean.setPro_Images(list_of_images.get(position));
+                                    //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
+                                    bean.setPro_code(tv_pop_code.getText().toString().trim());
+                                    ////Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
+                                    bean.setPro_name(tv_pop_pname.getText().toString());
+                                    bean.setPro_qty(edt_count.getText().toString());
+                                    bean.setPro_mrp(tv_pop_mrp.getText().toString());
+                                    bean.setPro_sellingprice(tv_pop_sellingprice.getText().toString());
+                                    bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
+                                    bean.setPro_Option_id(option_id);
+                                    ////Log.e("-- ", "Option Id " + option_id);
+
+                                    bean.setPro_Option_name(option_name);
+                                    ////Log.e("-- ", "Option Name " + option_name);
+
+                                    bean.setPro_Option_value_id(value_id);
+
+                                    ////Log.e("", "Value Name " + value_id);
+                                    bean.setPro_Option_value_name(value_name);
+                                    ////Log.e("", "Value Name " + value_name);
+
+                                    bean.setPro_total(tv_total.getText().toString());
+                                    bean.setPro_schme("");
+
+                                    for (int i = 0; i < 1; i++) {
+                                        try {
+                                            JSONObject jobject = new JSONObject();
+
+                                            jobject.put("user_id", user_id_main);
+                                            jobject.put("role_id", role_id);
+                                            jobject.put("owner_id", owner_id);
+                                            jobject.put("product_id", tv_pop_pname.getTag().toString());
+                                            jobject.put("category_id", bean_product1.get(position).getPro_cat_id().toString());
+                                            Log.e("catid1","--->"+bean_product1.get(position).getPro_cat_id().toString());
+                                            jobject.put("name", tv_pop_pname.getText().toString());
+                                            String newString = tv_pop_code.getText().toString().trim().replace("(", "");
+                                            String aString = newString.toString().trim().replace(")", "");
+                                            jobject.put("pro_code", aString.toString().trim());
+                                            jobject.put("quantity", edt_count.getText().toString());
+                                            jobject.put("mrp", tv_pop_mrp.getText().toString());
+                                            jobject.put("selling_price", tv_pop_sellingprice.getText().toString());
+                                            jobject.put("option_id", option_id);
+                                            jobject.put("option_name", option_name);
+                                            jobject.put("option_value_id", value_id);
+                                            jobject.put("option_value_name", value_name);
+                                            jobject.put("item_total", tv_total.getText().toString());
+                                            jobject.put("pro_scheme", " ");
+                                            jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                            jobject.put("scheme_id", " ");
+                                            jobject.put("scheme_title", " ");
+                                            jobject.put("scheme_pack_id", " ");
+
+                                            if (list_of_images.size() == 0) {
+                                                jobject.put("prod_img", bean_product1.get(position).getPro_image());
+                                                // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                            } else {
+                                                jobject.put("prod_img", list_of_images.get(0));
+                                                //   bean.setPro_Images(list_of_images.get(0).toString());
+                                            }
+
+
+                                            jarray_cart.put(jobject);
+                                        } catch (JSONException e) {
+
+                                        }
+
+
+                                    }
+                                    array_value.clear();
+                                    if (kkk[0] == 1) {
+
+                                        new Edit_Product().execute();
+
+                                    } else {
+
+                                        new Add_Product().execute();
                                     }
 
-
-                                    jarray_cart.put(jobject);
-                                } catch (JSONException e) {
-
-                                }
-
-
-                            }
-                            array_value.clear();
-                            if (kkk[0] == 1) {
-
-                                new Edit_Product().execute();
-
-                            } else {
-
-                                new Add_Product().execute();
-                            }
-
-                            //db.Add_Product_cart(bean);
+                                    //db.Add_Product_cart(bean);
 
 
 
@@ -2306,56 +2372,56 @@ public class Btl_WishList extends AppCompatActivity {
                                         startActivity(i);*/
 
 
-                        } else {
-                            ////Log.e("Type ID : ",""+bean_schme.get(0).getType_id().toString());
-                            if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("1")) {
+                                } else {
+                                    ////Log.e("Type ID : ",""+bean_schme.get(0).getType_id().toString());
+                                    if (bean_schme.get(0).getType_id().toString().equalsIgnoreCase("1")) {
 
-                                //Log.e("66666666666", "" + bean_product_schme.size());
-                                Bean_ProductCart bean = new Bean_ProductCart();
-                                String value_id = "";
-                                String value_name = "";
+                                        //Log.e("66666666666", "" + bean_product_schme.size());
+                                        Bean_ProductCart bean = new Bean_ProductCart();
+                                        String value_id = "";
+                                        String value_name = "";
 
 
-                                for (int i = 0; i < array_value.size(); i++) {
-                                    if (i == 0) {
-                                        value_name = array_value.get(i).getValue_name();
-                                        value_id = array_value.get(i).getValue_id();
-                                    } else {
-                                        value_id = value_id + ", " + array_value.get(i).getValue_id();
-                                        value_name = value_name + ", " + array_value.get(i).getValue_name();
+                                        for (int i = 0; i < array_value.size(); i++) {
+                                            if (i == 0) {
+                                                value_name = array_value.get(i).getValue_name();
+                                                value_id = array_value.get(i).getValue_id();
+                                            } else {
+                                                value_id = value_id + ", " + array_value.get(i).getValue_id();
+                                                value_name = value_name + ", " + array_value.get(i).getValue_name();
 
-                                    }
-                                }
+                                            }
+                                        }
 
 
                             /*option_id_array = new HashSet<String>(Arrays.asList(option_id_array)).toArray(new String[option_id_array.length]);
                             option_name_array = new HashSet<String>(Arrays.asList(option_name_array)).toArray(new String[option_id_array.length]);*/
 
 
-                                bean.setPro_id(tv_pop_pname.getTag().toString());
-                                //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
-                                // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
-                                bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id().toString());
-                                //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
-                                if (list_of_images.size() == 0) {
-                                    bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                } else {
-                                    bean.setPro_Images(list_of_images.get(0).toString());
-                                }
-                                // bean.setPro_Images(list_of_images.get(position));
-                                //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
-                                bean.setPro_code(tv_pop_code.getText().toString().trim());
-                                //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
-                                bean.setPro_name(tv_pop_pname.getText().toString());
+                                        bean.setPro_id(tv_pop_pname.getTag().toString());
+                                        //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
+                                        // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
+                                        bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id().toString());
+                                        //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
+                                        if (list_of_images.size() == 0) {
+                                            bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                        } else {
+                                            bean.setPro_Images(list_of_images.get(0).toString());
+                                        }
+                                        // bean.setPro_Images(list_of_images.get(position));
+                                        //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
+                                        bean.setPro_code(tv_pop_code.getText().toString().trim());
+                                        //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
+                                        bean.setPro_name(tv_pop_pname.getText().toString());
 
-                                String getq = bean_schme.get(0).getGet_qty();
-                                String buyq = bean_schme.get(0).getBuy_qty();
-                                String maxq = bean_schme.get(0).getMax_qty();
+                                        String getq = bean_schme.get(0).getGet_qty();
+                                        String buyq = bean_schme.get(0).getBuy_qty();
+                                        String maxq = bean_schme.get(0).getMax_qty();
 
-                                double getqu = Double.parseDouble(getq);
-                                double buyqu = Double.parseDouble(buyq);
-                                double maxqu = Double.parseDouble(maxq);
-                                int qu = Integer.parseInt(edt_count.getText().toString());
+                                        double getqu = Double.parseDouble(getq);
+                                        double buyqu = Double.parseDouble(buyq);
+                                        double maxqu = Double.parseDouble(maxq);
+                                        int qu = Integer.parseInt(edt_count.getText().toString());
 
                                            /* float a = qu / buyqu;
                                             float b = a * getqu;
@@ -2368,205 +2434,208 @@ public class Btl_WishList extends AppCompatActivity {
 
                                             bean_s.setPro_qty(String.valueOf((int) b));
                                             */
-                                String sell = tv_pop_sellingprice.getText().toString();
+                                        String sell = tv_pop_sellingprice.getText().toString();
 
-                                double se = Double.parseDouble(tv_pop_sellingprice.getText().toString()) * buyqu;
+                                        double se = Double.parseDouble(tv_pop_sellingprice.getText().toString()) * buyqu;
 
-                                double se1 = buyqu + getqu;
+                                        double se1 = buyqu + getqu;
 
-                                double fse = se / se1;
-                                double w = round(fse, 2);
-                                sell = String.format("%.2f", w);
-                                //sell = String.valueOf(fse);
+                                        double fse = se / se1;
+                                        double w = round(fse, 2);
+                                        sell = String.format("%.2f", w);
+                                        //sell = String.valueOf(fse);
 
-                                int fqu = qu + (int) getqu;
+                                        int fqu = qu + (int) getqu;
 
-                                bean.setPro_qty(String.valueOf(fqu));
-                                bean.setPro_mrp(tv_pop_mrp.getText().toString());
-                                bean.setPro_sellingprice(sell);
-                                bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
-                                bean.setPro_Option_id(option_id);
-                                //Log.e("-- ", "Option Id " + option_id);
+                                        bean.setPro_qty(String.valueOf(fqu));
+                                        bean.setPro_mrp(tv_pop_mrp.getText().toString());
+                                        bean.setPro_sellingprice(sell);
+                                        bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
+                                        bean.setPro_Option_id(option_id);
+                                        //Log.e("-- ", "Option Id " + option_id);
 
-                                bean.setPro_Option_name(option_name);
-                                //Log.e("-- ", "Option Name " + option_name);
+                                        bean.setPro_Option_name(option_name);
+                                        //Log.e("-- ", "Option Name " + option_name);
 
-                                bean.setPro_Option_value_id(value_id);
+                                        bean.setPro_Option_value_id(value_id);
 
-                                //Log.e("", "Value Name " + value_id);
-                                bean.setPro_Option_value_name(value_name);
-                                //Log.e("", "Value Name " + value_name);
+                                        //Log.e("", "Value Name " + value_id);
+                                        bean.setPro_Option_value_name(value_name);
+                                        //Log.e("", "Value Name " + value_name);
 
-                                bean.setPro_total(tv_total.getText().toString());
-                                bean.setPro_schme("");
-                                bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
-                                // db.Add_Product_cart(bean);
+                                        bean.setPro_total(tv_total.getText().toString());
+                                        bean.setPro_schme("");
+                                        bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
+                                        // db.Add_Product_cart(bean);
 
 
-                                // db.Add_Product_cart_scheme(bean_s);
+                                        // db.Add_Product_cart_scheme(bean_s);
 
-                                // array_value.clear();
+                                        // array_value.clear();
 
-                                for (int i = 0; i < 1; i++) {
-                                    try {
-                                        JSONObject jobject = new JSONObject();
+                                        for (int i = 0; i < 1; i++) {
+                                            try {
+                                                JSONObject jobject = new JSONObject();
 
-                                        jobject.put("user_id", user_id_main);
-                                        jobject.put("role_id", role_id);
-                                        jobject.put("owner_id", owner_id);
-                                        jobject.put("product_id", tv_pop_pname.getTag().toString());
-                                        jobject.put("category_id", bean_product1.get(position).getPro_cat_id().toString());
-                                        jobject.put("name", tv_pop_pname.getText().toString());
-                                        String newString = tv_pop_code.getText().toString().trim().replace("(", "");
-                                        String aString = newString.toString().trim().replace(")", "");
-                                        jobject.put("pro_code", aString.toString().trim());
-                                        jobject.put("quantity", String.valueOf(fqu));
-                                        jobject.put("mrp", tv_pop_mrp.getText().toString());
-                                        jobject.put("selling_price", sell);
-                                        jobject.put("option_id", option_id);
-                                        jobject.put("option_name", option_name);
-                                        jobject.put("option_value_id", value_id);
-                                        jobject.put("option_value_name", value_name);
-                                        double f = fqu * Double.parseDouble(sell);
-                                        double w1 = round(f, 2);
-                                        String str = String.format("%.2f", w1);
-                                        jobject.put("item_total", str);
+                                                jobject.put("user_id", user_id_main);
+                                                jobject.put("role_id", role_id);
+                                                jobject.put("owner_id", owner_id);
+                                                jobject.put("product_id", tv_pop_pname.getTag().toString());
+                                                jobject.put("category_id", bean_product1.get(position).getPro_cat_id().toString());
+                                                Log.e("cat2","--->"+bean_product1.get(position).getPro_cat_id().toString());
+                                                jobject.put("name", tv_pop_pname.getText().toString());
+                                                String newString = tv_pop_code.getText().toString().trim().replace("(", "");
+                                                String aString = newString.toString().trim().replace(")", "");
+                                                jobject.put("pro_code", aString.toString().trim());
+                                                jobject.put("quantity", String.valueOf(fqu));
+                                                jobject.put("mrp", tv_pop_mrp.getText().toString());
+                                                jobject.put("selling_price", sell);
+                                                jobject.put("option_id", option_id);
+                                                jobject.put("option_name", option_name);
+                                                jobject.put("option_value_id", value_id);
+                                                jobject.put("option_value_name", value_name);
+                                                double f = fqu * Double.parseDouble(sell);
+                                                double w1 = round(f, 2);
+                                                String str = String.format("%.2f", w1);
+                                                jobject.put("item_total", str);
 
-                                        jobject.put("pro_scheme", " ");
-                                        jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                        jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                        jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                        jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                        if (list_of_images.size() == 0) {
-                                            jobject.put("prod_img", bean_product1.get(position).getPro_image());
-                                            // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                                jobject.put("pro_scheme", " ");
+                                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                                jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                                jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                                jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                                if (list_of_images.size() == 0) {
+                                                    jobject.put("prod_img", bean_product1.get(position).getPro_image());
+                                                    // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                                } else {
+                                                    jobject.put("prod_img", list_of_images.get(0));
+                                                    //   bean.setPro_Images(list_of_images.get(0).toString());
+                                                }
+
+
+                                                jarray_cart.put(jobject);
+                                            } catch (JSONException e) {
+
+                                            }
+
+
+                                        }
+                                        array_value.clear();
+                                        if (kkk[0] == 1) {
+
+                                            new Edit_Product().execute();
+
                                         } else {
-                                            jobject.put("prod_img", list_of_images.get(0));
-                                            //   bean.setPro_Images(list_of_images.get(0).toString());
+
+                                            new Add_Product().execute();
                                         }
 
 
-                                        jarray_cart.put(jobject);
-                                    } catch (JSONException e) {
+                                    } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
 
-                                    }
-
-
-                                }
-                                array_value.clear();
-                                if (kkk[0] == 1) {
-
-                                    new Edit_Product().execute();
-
-                                } else {
-
-                                    new Add_Product().execute();
-                                }
+                                        //Log.e("66666666666", "" + bean_product_schme.size());
+                                        Bean_ProductCart bean = new Bean_ProductCart();
+                                        String value_id = "";
+                                        String value_name = "";
 
 
-                            } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("2")) {
+                                        for (int i = 0; i < array_value.size(); i++) {
+                                            if (i == 0) {
+                                                value_name = array_value.get(i).getValue_name();
+                                                value_id = array_value.get(i).getValue_id();
+                                            } else {
+                                                value_id = value_id + ", " + array_value.get(i).getValue_id();
+                                                value_name = value_name + ", " + array_value.get(i).getValue_name();
 
-                                //Log.e("66666666666", "" + bean_product_schme.size());
-                                Bean_ProductCart bean = new Bean_ProductCart();
-                                String value_id = "";
-                                String value_name = "";
-
-
-                                for (int i = 0; i < array_value.size(); i++) {
-                                    if (i == 0) {
-                                        value_name = array_value.get(i).getValue_name();
-                                        value_id = array_value.get(i).getValue_id();
-                                    } else {
-                                        value_id = value_id + ", " + array_value.get(i).getValue_id();
-                                        value_name = value_name + ", " + array_value.get(i).getValue_name();
-
-                                    }
-                                }
+                                            }
+                                        }
 
 
                             /*option_id_array = new HashSet<String>(Arrays.asList(option_id_array)).toArray(new String[option_id_array.length]);
                             option_name_array = new HashSet<String>(Arrays.asList(option_name_array)).toArray(new String[option_id_array.length]);*/
 
 
-                                bean.setPro_id(tv_pop_pname.getTag().toString());
-                                //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
-                                // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
-                                bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
-                                //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
-                                if (list_of_images.size() == 0) {
-                                    bean.setPro_Images(bean_product1.get(position).getPro_image());
-                                } else {
-                                    bean.setPro_Images(list_of_images.get(0));
-                                }
-                                // bean.setPro_Images(list_of_images.get(position));
-                                //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
-                                bean.setPro_code(tv_pop_code.getText().toString().trim());
-                                //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
-                                bean.setPro_name(tv_pop_pname.getText().toString());
-                                bean.setPro_qty(edt_count.getText().toString());
-                                bean.setPro_mrp(tv_pop_mrp.getText().toString());
-                                bean.setPro_sellingprice(tv_pop_sellingprice.getText().toString());
-                                bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
-                                bean.setPro_Option_id(option_id);
-                                //Log.e("-- ", "Option Id " + option_id);
+                                        bean.setPro_id(tv_pop_pname.getTag().toString());
+                                        //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
+                                        // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
+                                        bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
+                                        //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
+                                        if (list_of_images.size() == 0) {
+                                            bean.setPro_Images(bean_product1.get(position).getPro_image());
+                                        } else {
+                                            bean.setPro_Images(list_of_images.get(0));
+                                        }
+                                        // bean.setPro_Images(list_of_images.get(position));
+                                        //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
+                                        bean.setPro_code(tv_pop_code.getText().toString().trim());
+                                        //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
+                                        bean.setPro_name(tv_pop_pname.getText().toString());
+                                        bean.setPro_qty(edt_count.getText().toString());
+                                        bean.setPro_mrp(tv_pop_mrp.getText().toString());
+                                        bean.setPro_sellingprice(tv_pop_sellingprice.getText().toString());
+                                        bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
+                                        bean.setPro_Option_id(option_id);
+                                        //Log.e("-- ", "Option Id " + option_id);
 
-                                bean.setPro_Option_name(option_name);
-                                //Log.e("-- ", "Option Name " + option_name);
+                                        bean.setPro_Option_name(option_name);
+                                        //Log.e("-- ", "Option Name " + option_name);
 
-                                bean.setPro_Option_value_id(value_id);
+                                        bean.setPro_Option_value_id(value_id);
 
-                                //Log.e("", "Value Name " + value_id);
-                                bean.setPro_Option_value_name(value_name);
-                                //Log.e("", "Value Name " + value_name);
+                                        //Log.e("", "Value Name " + value_id);
+                                        bean.setPro_Option_value_name(value_name);
+                                        //Log.e("", "Value Name " + value_name);
 
-                                bean.setPro_total(tv_total.getText().toString());
-                                bean.setPro_schme("");
-                                bean.setPro_schme_name("");
-                                //db.Add_Product_cart(bean);
+                                        bean.setPro_total(tv_total.getText().toString());
+                                        bean.setPro_schme("");
+                                        bean.setPro_schme_name("");
+                                        //db.Add_Product_cart(bean);
 
                                             /*for (int i = 0; i < 1; i++) {*/
-                                try {
-                                    JSONObject jobject = new JSONObject();
+                                        try {
+                                            JSONObject jobject = new JSONObject();
 
-                                    jobject.put("user_id", user_id_main);
-                                    jobject.put("role_id", role_id);
-                                    jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", tv_pop_pname.getTag().toString());
-                                    jobject.put("category_id", bean_product1.get(position).getPro_cat_id());
-                                    jobject.put("name", tv_pop_pname.getText().toString());
-                                    String newString = tv_pop_code.getText().toString().trim().replace("(", "");
-                                    String aString = newString.trim().replace(")", "");
-                                    jobject.put("pro_code", aString.trim());
-                                    jobject.put("quantity", edt_count.getText().toString());
-                                    jobject.put("mrp", tv_pop_mrp.getText().toString());
-                                    jobject.put("selling_price", tv_pop_sellingprice.getText().toString());
-                                    jobject.put("option_id", option_id);
-                                    jobject.put("option_name", option_name);
-                                    jobject.put("option_value_id", value_id);
-                                    jobject.put("option_value_name", value_name);
-                                    jobject.put("item_total", tv_total.getText().toString());
-                                    jobject.put("pro_scheme", " ");
-                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                    jobject.put("scheme_id", " ");
-                                    jobject.put("scheme_title", " ");
-                                    jobject.put("scheme_pack_id", " ");
-                                    if (list_of_images.size() == 0) {
-                                        jobject.put("prod_img", bean_product1.get(position).getPro_image().toString());
-                                        // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                    } else {
-                                        jobject.put("prod_img", list_of_images.get(0).toString());
-                                        //   bean.setPro_Images(list_of_images.get(0).toString());
-                                    }
-
-
-                                    jarray_cart.put(jobject);
-                                } catch (JSONException e) {
-
-                                }
+                                            jobject.put("user_id", user_id_main);
+                                            jobject.put("role_id", role_id);
+                                            jobject.put("owner_id", owner_id);
+                                            jobject.put("product_id", tv_pop_pname.getTag().toString());
+                                            jobject.put("category_id", bean_product1.get(position).getPro_cat_id());
+                                            Log.e("cat3","---->"+bean_product1.get(position).getPro_cat_id());
+                                            jobject.put("name", tv_pop_pname.getText().toString());
+                                            String newString = tv_pop_code.getText().toString().trim().replace("(", "");
+                                            String aString = newString.trim().replace(")", "");
+                                            jobject.put("pro_code", aString.trim());
+                                            jobject.put("quantity", edt_count.getText().toString());
+                                            jobject.put("mrp", tv_pop_mrp.getText().toString());
+                                            jobject.put("selling_price", tv_pop_sellingprice.getText().toString());
+                                            jobject.put("option_id", option_id);
+                                            jobject.put("option_name", option_name);
+                                            jobject.put("option_value_id", value_id);
+                                            jobject.put("option_value_name", value_name);
+                                            jobject.put("item_total", tv_total.getText().toString());
+                                            jobject.put("pro_scheme", " ");
+                                            jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                            jobject.put("scheme_id", " ");
+                                            jobject.put("scheme_title", " ");
+                                            jobject.put("scheme_pack_id", " ");
+                                            if (list_of_images.size() == 0) {
+                                                jobject.put("prod_img", bean_product1.get(position).getPro_image().toString());
+                                                // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                            } else {
+                                                jobject.put("prod_img", list_of_images.get(0).toString());
+                                                //   bean.setPro_Images(list_of_images.get(0).toString());
+                                            }
 
 
-                                //}
-                                //  array_value.clear();
+                                            jarray_cart.put(jobject);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+
+                                        }
+
+
+                                        //}
+                                        //  array_value.clear();
                                            /* if(kkk == 1) {
 
                                                 new Edit_Product().execute();
@@ -2576,55 +2645,55 @@ public class Btl_WishList extends AppCompatActivity {
                                                 new Add_Product().execute();
                                             }*/
 
-                                Bean_ProductCart bean_s = new Bean_ProductCart();
-                                String value_id1 = "";
-                                String value_name1 = "";
+                                        Bean_ProductCart bean_s = new Bean_ProductCart();
+                                        String value_id1 = "";
+                                        String value_name1 = "";
 
 
-                                for (int i = 0; i < array_value.size(); i++) {
-                                    if (i == 0) {
-                                        value_name1 = array_value.get(i).getValue_name();
-                                        value_id1 = array_value.get(i).getValue_id();
-                                    } else {
-                                        value_id1 = value_id1 + ", " + array_value.get(i).getValue_id();
-                                        value_name1 = value_name1 + ", " + array_value.get(i).getValue_name();
+                                        for (int i = 0; i < array_value.size(); i++) {
+                                            if (i == 0) {
+                                                value_name1 = array_value.get(i).getValue_name();
+                                                value_id1 = array_value.get(i).getValue_id();
+                                            } else {
+                                                value_id1 = value_id1 + ", " + array_value.get(i).getValue_id();
+                                                value_name1 = value_name1 + ", " + array_value.get(i).getValue_name();
 
-                                    }
-                                }
+                                            }
+                                        }
 
 
                             /*option_id_array = new HashSet<String>(Arrays.asList(option_id_array)).toArray(new String[option_id_array.length]);
                             option_name_array = new HashSet<String>(Arrays.asList(option_name_array)).toArray(new String[option_id_array.length]);*/
 
 
-                                bean_s.setPro_id(bean_product_schme.get(0).getPro_id());
-                                //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
-                                // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
-                                bean_s.setPro_cat_id(bean_product_schme.get(0).getPro_cat_id());
-                                //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
+                                        bean_s.setPro_id(bean_product_schme.get(0).getPro_id());
+                                        //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
+                                        // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
+                                        bean_s.setPro_cat_id(bean_product_schme.get(0).getPro_cat_id());
+                                        //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
                                         /*if (list_of_images.size() == 0) {
                                             bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
                                         } else {
                                             bean.setPro_Images(list_of_images.get(0).toString());
                                         }*/
-                                bean_s.setPro_Images(bean_product_schme.get(0).getPro_image());
-                                // bean.setPro_Images(list_of_images.get(position));
-                                //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
-                                bean_s.setPro_code(bean_product_schme.get(0).getPro_code());
-                                //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
-                                bean_s.setPro_name(bean_product_schme.get(0).getPro_name());
+                                        bean_s.setPro_Images(bean_product_schme.get(0).getPro_image());
+                                        // bean.setPro_Images(list_of_images.get(position));
+                                        //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
+                                        bean_s.setPro_code(bean_product_schme.get(0).getPro_code());
+                                        //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
+                                        bean_s.setPro_name(bean_product_schme.get(0).getPro_name());
 
-                                String getq = bean_schme.get(0).getGet_qty();
-                                String buyq = bean_schme.get(0).getBuy_qty();
-                                String maxq = bean_schme.get(0).getMax_qty();
+                                        String getq = bean_schme.get(0).getGet_qty();
+                                        String buyq = bean_schme.get(0).getBuy_qty();
+                                        String maxq = bean_schme.get(0).getMax_qty();
 
-                                double getqu = Double.parseDouble(getq);
-                                double buyqu = Double.parseDouble(buyq);
-                                //double maxqu = Double.parseDouble(maxq);
-                                int qu = Integer.parseInt(edt_count.getText().toString());
+                                        double getqu = Double.parseDouble(getq);
+                                        double buyqu = Double.parseDouble(buyq);
+                                        //double maxqu = Double.parseDouble(maxq);
+                                        int qu = Integer.parseInt(edt_count.getText().toString());
 
-                                int a = (int) (qu / buyqu);
-                                int b = (int) (a * getqu);
+                                        int a = (int) (qu / buyqu);
+                                        int b = (int) (a * getqu);
                                             /*if (b > maxqu) {
                                                 b = maxqu;
                                             } else {
@@ -2632,26 +2701,26 @@ public class Btl_WishList extends AppCompatActivity {
                                             }*/
 
 
-                                bean_s.setPro_qty(String.valueOf(b));
+                                        bean_s.setPro_qty(String.valueOf(b));
 
 
-                                bean_s.setPro_mrp("0");
-                                bean_s.setPro_sellingprice("0");
-                                bean_s.setPro_shortdesc(bean_product_schme.get(0).getPro_label());
-                                bean_s.setPro_Option_id(option_id);
-                                //Log.e("-- ", "Option Id " + option_id);
+                                        bean_s.setPro_mrp("0");
+                                        bean_s.setPro_sellingprice("0");
+                                        bean_s.setPro_shortdesc(bean_product_schme.get(0).getPro_label());
+                                        bean_s.setPro_Option_id(option_id);
+                                        //Log.e("-- ", "Option Id " + option_id);
 
-                                bean_s.setPro_Option_name(option_name);
-                                //Log.e("-- ", "Option Name " + option_name);
+                                        bean_s.setPro_Option_name(option_name);
+                                        //Log.e("-- ", "Option Name " + option_name);
 
-                                bean_s.setPro_Option_value_id(value_id);
+                                        bean_s.setPro_Option_value_id(value_id);
 
-                                //Log.e("", "Value Name " + value_id);
-                                bean_s.setPro_Option_value_name(value_name);
-                                //Log.e("", "Value Name " + value_name);
-                                bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
-                                bean_s.setPro_total("0");
-                                bean_s.setPro_schme("" + tv_pop_pname.getTag().toString());
+                                        //Log.e("", "Value Name " + value_id);
+                                        bean_s.setPro_Option_value_name(value_name);
+                                        //Log.e("", "Value Name " + value_name);
+                                        bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
+                                        bean_s.setPro_total("0");
+                                        bean_s.setPro_schme("" + tv_pop_pname.getTag().toString());
                                            /* if (String.valueOf((int) b).toString().equalsIgnoreCase("0")) {
                                                 db.delete_product_from_cart_list_schme(tv_pop_pname.getTag().toString());
                                             } else {
@@ -2659,98 +2728,100 @@ public class Btl_WishList extends AppCompatActivity {
                                                 db.update_product_from_Schme(tv_pop_pname.getTag().toString(), String.valueOf(b));
                                             }*/
 
-                                try {
-                                    JSONObject jobject = new JSONObject();
+                                        try {
+                                            JSONObject jobject = new JSONObject();
 
-                                    jobject.put("user_id", user_id_main);
-                                    jobject.put("role_id", role_id);
-                                    jobject.put("owner_id", owner_id);
-                                    jobject.put("product_id", bean_product_schme.get(0).getPro_id());
-                                    jobject.put("category_id", bean_product_schme.get(0).getPro_cat_id());
-                                    jobject.put("name", bean_product_schme.get(0).getPro_name());
-                                    jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
-                                    jobject.put("quantity", String.valueOf(b));
-                                    jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
-                                    jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
-                                    jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id());
-                                    jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name());
-                                    jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id());
-                                    jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name());
-                                    jobject.put("item_total", "0");
-                                    jobject.put("pro_scheme", "" + tv_pop_pname.getTag().toString());
-                                    jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                    jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                    jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                    jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                    jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
-
-
-                                    jarray_cart.put(jobject);
-                                } catch (JSONException e) {
-
-                                }
+                                            jobject.put("user_id", user_id_main);
+                                            jobject.put("role_id", role_id);
+                                            jobject.put("owner_id", owner_id);
+                                            jobject.put("product_id", bean_product_schme.get(0).getPro_id());
+                                            jobject.put("category_id", bean_product1.get(position).getPro_cat_id());
+                                            Log.e("cat4","---->"+bean_product1.get(position).getPro_cat_id());
+                                            jobject.put("name", bean_product_schme.get(0).getPro_name());
+                                            jobject.put("pro_code", bean_product_schme.get(0).getPro_code());
+                                            jobject.put("quantity", String.valueOf(b));
+                                            jobject.put("mrp", bean_product_schme.get(0).getPro_mrp());
+                                            jobject.put("selling_price", bean_product_schme.get(0).getPro_sellingprice());
+                                            jobject.put("option_id", bean_Oprtions.get(0).getPro_Option_id());
+                                            jobject.put("option_name", bean_Oprtions.get(0).getPro_Option_name());
+                                            jobject.put("option_value_id", bean_Oprtions.get(0).getPro_Option_value_id());
+                                            jobject.put("option_value_name", bean_Oprtions.get(0).getPro_Option_value_name());
+                                            jobject.put("item_total", "0");
+                                            jobject.put("pro_scheme", "" + tv_pop_pname.getTag().toString());
+                                            jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                            jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                            jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                            jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                            jobject.put("prod_img", bean_product_schme.get(0).getPro_image());
 
 
-                                // db.Add_Product_cart_scheme(bean_s);
+                                            jarray_cart.put(jobject);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
 
-                                array_value.clear();
-                                if (kkk[0] == 1) {
-
-                                    new Edit_Product().execute();
-
-                                } else {
-
-                                    new Add_Product().execute();
-                                }
-
-                            } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
-
-                                //Log.e("66666666666", "" + bean_product_schme.size());
-                                Bean_ProductCart bean = new Bean_ProductCart();
-                                String value_id = "";
-                                String value_name = "";
+                                        }
 
 
-                                for (int i = 0; i < array_value.size(); i++) {
-                                    if (i == 0) {
-                                        value_name = array_value.get(i).getValue_name();
-                                        value_id = array_value.get(i).getValue_id();
-                                    } else {
-                                        value_id = value_id + ", " + array_value.get(i).getValue_id();
-                                        value_name = value_name + ", " + array_value.get(i).getValue_name();
+                                        // db.Add_Product_cart_scheme(bean_s);
 
-                                    }
-                                }
+                                        array_value.clear();
+                                        if (kkk[0] == 1) {
+
+                                            new Edit_Product().execute();
+
+                                        } else {
+
+                                            new Add_Product().execute();
+                                        }
+
+                                    } else if (bean_schme.get(0).getType_id().equalsIgnoreCase("3")) {
+
+                                        //Log.e("66666666666", "" + bean_product_schme.size());
+                                        Bean_ProductCart bean = new Bean_ProductCart();
+                                        String value_id = "";
+                                        String value_name = "";
+
+
+                                        for (int i = 0; i < array_value.size(); i++) {
+                                            if (i == 0) {
+                                                value_name = array_value.get(i).getValue_name();
+                                                value_id = array_value.get(i).getValue_id();
+                                            } else {
+                                                value_id = value_id + ", " + array_value.get(i).getValue_id();
+                                                value_name = value_name + ", " + array_value.get(i).getValue_name();
+
+                                            }
+                                        }
 
 
                             /*option_id_array = new HashSet<String>(Arrays.asList(option_id_array)).toArray(new String[option_id_array.length]);
                             option_name_array = new HashSet<String>(Arrays.asList(option_name_array)).toArray(new String[option_id_array.length]);*/
 
 
-                                bean.setPro_id(tv_pop_pname.getTag().toString());
-                                //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
-                                // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
-                                bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
-                                //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
-                                if (list_of_images.size() == 0) {
-                                    bean.setPro_Images(bean_product1.get(position).getPro_image());
-                                } else {
-                                    bean.setPro_Images(list_of_images.get(0));
-                                }
-                                // bean.setPro_Images(list_of_images.get(position));
-                                //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
-                                bean.setPro_code(tv_pop_code.getText().toString().trim());
-                                //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
-                                bean.setPro_name(tv_pop_pname.getText().toString());
+                                        bean.setPro_id(tv_pop_pname.getTag().toString());
+                                        //Log.e("-- ", "producttt Id " + tv_pop_pname.getTag().toString());
+                                        // Toast.makeText(getApplicationContext(),"Product ID "+bean_product1.get(position).getPro_id(), Toast.LENGTH_LONG).show();
+                                        bean.setPro_cat_id(bean_product1.get(position).getPro_cat_id());
+                                        //Log.e("Cat_ID....", "" + bean_product1.get(position).getPro_cat_id().toString());
+                                        if (list_of_images.size() == 0) {
+                                            bean.setPro_Images(bean_product1.get(position).getPro_image());
+                                        } else {
+                                            bean.setPro_Images(list_of_images.get(0));
+                                        }
+                                        // bean.setPro_Images(list_of_images.get(position));
+                                        //bean.setPro_code(result_holder.tvproduct_code.getText().toString());
+                                        bean.setPro_code(tv_pop_code.getText().toString().trim());
+                                        //Log.e("-- ", "pro_code " + tv_pop_code.getText().toString());
+                                        bean.setPro_name(tv_pop_pname.getText().toString());
 
-                                String getq = bean_schme.get(0).getGet_qty();
-                                String buyq = bean_schme.get(0).getBuy_qty();
-                                String maxq = bean_schme.get(0).getMax_qty();
+                                        String getq = bean_schme.get(0).getGet_qty();
+                                        String buyq = bean_schme.get(0).getBuy_qty();
+                                        String maxq = bean_schme.get(0).getMax_qty();
 
-                                double getqu = Double.parseDouble(getq);
-                                double buyqu = Double.parseDouble(buyq);
-                                double maxqu = Double.parseDouble(maxq);
-                                int qu = Integer.parseInt(edt_count.getText().toString());
+                                        double getqu = Double.parseDouble(getq);
+                                        double buyqu = Double.parseDouble(buyq);
+                                        double maxqu = Double.parseDouble(maxq);
+                                        int qu = Integer.parseInt(edt_count.getText().toString());
 
                                            /* float a = qu / buyqu;
                                             float b = a * getqu;
@@ -2763,107 +2834,125 @@ public class Btl_WishList extends AppCompatActivity {
 
                                             bean_s.setPro_qty(String.valueOf((int) b));
                                             */
-                                String sell = tv_pop_sellingprice.getText().toString();
+                                        String sell = tv_pop_sellingprice.getText().toString();
 
-                                String disc = bean_schme.get(0).getDisc_per();
+                                        String disc = bean_schme.get(0).getDisc_per();
 
-                                double se = Double.parseDouble(tv_pop_sellingprice.getText().toString()) * Double.parseDouble(bean_schme.get(0).getDisc_per());
+                                        double se = Double.parseDouble(tv_pop_sellingprice.getText().toString()) * Double.parseDouble(bean_schme.get(0).getDisc_per());
 
-                                double se1 = se / 100;
+                                        double se1 = se / 100;
 
-                                double fse = Double.parseDouble(tv_pop_sellingprice.getText().toString()) - se1;
-                                double w1 = round(fse, 2);
-                                sell = String.format("%.2f", w1);
-                                //  sell = String.valueOf(fse);
+                                        double fse = Double.parseDouble(tv_pop_sellingprice.getText().toString()) - se1;
+                                        double w1 = round(fse, 2);
+                                        sell = String.format("%.2f", w1);
+                                        //  sell = String.valueOf(fse);
 
-                                //  int fqu = qu +Math.round(getqu);
+                                        //  int fqu = qu +Math.round(getqu);
 
-                                bean.setPro_qty(edt_count.getText().toString());
-                                bean.setPro_mrp(tv_pop_mrp.getText().toString());
-                                bean.setPro_sellingprice(sell);
-                                bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
-                                bean.setPro_Option_id(option_id);
-                                //Log.e("-- ", "Option Id " + option_id);
+                                        bean.setPro_qty(edt_count.getText().toString());
+                                        bean.setPro_mrp(tv_pop_mrp.getText().toString());
+                                        bean.setPro_sellingprice(sell);
+                                        bean.setPro_shortdesc(bean_product1.get(position).getPro_label());
+                                        bean.setPro_Option_id(option_id);
+                                        //Log.e("-- ", "Option Id " + option_id);
 
-                                bean.setPro_Option_name(option_name);
-                                //Log.e("-- ", "Option Name " + option_name);
+                                        bean.setPro_Option_name(option_name);
+                                        //Log.e("-- ", "Option Name " + option_name);
 
-                                bean.setPro_Option_value_id(value_id);
+                                        bean.setPro_Option_value_id(value_id);
 
-                                //Log.e("", "Value Name " + value_id);
-                                bean.setPro_Option_value_name(value_name);
-                                //Log.e("", "Value Name " + value_name);
+                                        //Log.e("", "Value Name " + value_id);
+                                        bean.setPro_Option_value_name(value_name);
+                                        //Log.e("", "Value Name " + value_name);
 
-                                bean.setPro_total(tv_total.getText().toString());
-                                bean.setPro_schme("");
-                                bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
-                                // db.Add_Product_cart(bean);
+                                        bean.setPro_total(tv_total.getText().toString());
+                                        bean.setPro_schme("");
+                                        bean.setPro_schme_name(bean_schme.get(0).getScheme_name());
+                                        // db.Add_Product_cart(bean);
 
 
-                                // db.Add_Product_cart_scheme(bean_s);
+                                        // db.Add_Product_cart_scheme(bean_s);
 
-                                for (int i = 0; i < 1; i++) {
-                                    try {
-                                        JSONObject jobject = new JSONObject();
+                                        for (int i = 0; i < 1; i++) {
+                                            try {
+                                                JSONObject jobject = new JSONObject();
 
-                                        jobject.put("user_id", u_id);
-                                        jobject.put("role_id", role_id);
-                                        jobject.put("owner_id", owner_id);
-                                        jobject.put("product_id", tv_pop_pname.getTag().toString());
-                                        jobject.put("category_id", bean_product1.get(position).getPro_cat_id());
-                                        jobject.put("name", tv_pop_pname.getText().toString());
-                                        String newString = tv_pop_code.getText().toString().trim().replace("(", "");
-                                        String aString = newString.trim().replace(")", "");
-                                        jobject.put("pro_code", aString.trim());
-                                        jobject.put("quantity", edt_count.getText().toString());
-                                        jobject.put("mrp", tv_pop_mrp.getText().toString());
-                                        jobject.put("selling_price", sell);
-                                        jobject.put("option_id", option_id);
-                                        jobject.put("option_name", option_name);
-                                        jobject.put("option_value_id", value_id);
-                                        jobject.put("option_value_name", value_name);
-                                        double f = Double.parseDouble(edt_count.getText().toString()) * Double.parseDouble(sell);
-                                        double w = round(f, 2);
-                                        String str = String.format("%.2f", w);
-                                        jobject.put("item_total", str);
-                                        jobject.put("pro_scheme", " ");
-                                        jobject.put("pack_of", bean_product1.get(position).getPro_label());
-                                        jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
-                                        jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
-                                        jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
-                                        if (list_of_images.size() == 0) {
-                                            jobject.put("prod_img", bean_product1.get(position).getPro_image().toString());
-                                            // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
-                                        } else {
-                                            jobject.put("prod_img", list_of_images.get(0).toString());
-                                            //   bean.setPro_Images(list_of_images.get(0).toString());
+                                                jobject.put("user_id", u_id);
+                                                jobject.put("role_id", role_id);
+                                                jobject.put("owner_id", owner_id);
+                                                jobject.put("product_id", tv_pop_pname.getTag().toString());
+                                                jobject.put("category_id", bean_product1.get(position).getPro_cat_id());
+                                                Log.e("cat5","---->"+bean_product_schme.get(position).getPro_cat_id());
+                                                jobject.put("name", tv_pop_pname.getText().toString());
+                                                String newString = tv_pop_code.getText().toString().trim().replace("(", "");
+                                                String aString = newString.trim().replace(")", "");
+                                                jobject.put("pro_code", aString.trim());
+                                                jobject.put("quantity", edt_count.getText().toString());
+                                                jobject.put("mrp", tv_pop_mrp.getText().toString());
+                                                jobject.put("selling_price", sell);
+                                                jobject.put("option_id", option_id);
+                                                jobject.put("option_name", option_name);
+                                                jobject.put("option_value_id", value_id);
+                                                jobject.put("option_value_name", value_name);
+                                                double f = Double.parseDouble(edt_count.getText().toString()) * Double.parseDouble(sell);
+                                                double w = round(f, 2);
+                                                String str = String.format("%.2f", w);
+                                                jobject.put("item_total", str);
+                                                jobject.put("pro_scheme", " ");
+                                                jobject.put("pack_of", bean_product1.get(position).getPro_label());
+                                                jobject.put("scheme_id", bean_schme.get(0).getScheme_id());
+                                                jobject.put("scheme_title", bean_schme.get(0).getScheme_name());
+                                                jobject.put("scheme_pack_id", bean_schme.get(0).getScheme_id());
+                                                if (list_of_images.size() == 0) {
+                                                    jobject.put("prod_img", bean_product1.get(position).getPro_image().toString());
+                                                    // bean.setPro_Images(bean_product1.get(position).getPro_image().toString());
+                                                } else {
+                                                    jobject.put("prod_img", list_of_images.get(0).toString());
+                                                    //   bean.setPro_Images(list_of_images.get(0).toString());
+                                                }
+
+
+                                                jarray_cart.put(jobject);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+
                                         }
+                                        array_value.clear();
+                                        if (kkk[0] == 1) {
 
+                                            new Edit_Product().execute();
 
-                                        jarray_cart.put(jobject);
-                                    } catch (JSONException e) {
+                                        } else {
 
+                                            new Add_Product().execute();
+                                        }
                                     }
-
-
-                                }
-                                array_value.clear();
-                                if (kkk[0] == 1) {
-
-                                    new Edit_Product().execute();
-
-                                } else {
-
-                                    new Add_Product().execute();
-                                }
-                            }
 
 
                                        /* Globals.CustomToast(Product_List.this, "Item insert in cart", getLayoutInflater());
                                         Intent i = new Intent(Product_List.this, Product_List.class);
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(i);*/
-                        }
+                                }
+
+
+
+
+
+
+                            }
+
+                        });
+
+
+
+
+
+
+
+
 
 
                         dialog.dismiss();
@@ -6843,6 +6932,7 @@ public class Btl_WishList extends AppCompatActivity {
 
         public GetProductDetailByCode(List<NameValuePair> pairList) {
             this.pairList = pairList;
+            Log.e("parameters code", pairList.toString());
         }
 
         @Override
@@ -6851,10 +6941,17 @@ public class Btl_WishList extends AppCompatActivity {
             jsonData = "";
 
             jsonData = new ServiceHandler().makeServiceCall(Globals.server_link + "Scheme/App_Get_Scheme_Details", ServiceHandler.POST, pairList);
+            Log.e("jsonwishlist","--->"+jsonData);
 
             isNotDone = false;
 
             return jsonData;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            isNotDone = false;
         }
     }
 
@@ -6991,7 +7088,7 @@ public class Btl_WishList extends AppCompatActivity {
                 loadingView.show();
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
 
         }
@@ -7006,6 +7103,8 @@ public class Btl_WishList extends AppCompatActivity {
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 
                 parameters.add(new BasicNameValuePair("CartData", "" + jarray_cart));
+                Log.e("CartData","---->"+jarray_cart);
+                Log.e("CartData1","---->"+jarray_cart.toString());
 
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_EditCartData", ServiceHandler.POST, parameters);
