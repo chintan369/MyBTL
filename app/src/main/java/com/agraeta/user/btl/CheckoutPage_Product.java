@@ -893,7 +893,12 @@ public class CheckoutPage_Product extends AppCompatActivity {
 
                             final EditText edt_comment = (EditText) dialog.findViewById(R.id.edt_comment);
                             final EditText edt_transportation = (EditText) dialog.findViewById(R.id.edt_transportation);
-                            edt_transportation.setVisibility(View.GONE);
+                            if(appPrefs.getTransportation() == null || appPrefs.getTransportation().equalsIgnoreCase("null") || appPrefs.getTransportation().equalsIgnoreCase("")) {
+                                edt_transportation.setText("");
+                            }else {
+                                edt_transportation.setText(appPrefs.getTransportation());
+                            }
+                          //  edt_transportation.setVisibility(View.GONE);
                             Button btn_continue = (Button) dialog.findViewById(R.id.btn_send);
                             Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
                             Button btn_upload_photo2 = (Button) dialog.findViewById(R.id.btn_upload_photo2);

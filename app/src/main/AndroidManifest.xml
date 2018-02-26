@@ -541,7 +541,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ComboOfferListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+           />
         <activity
             android:name=".SkipOrderUnregisterUserActivity"
             android:screenOrientation="portrait" />

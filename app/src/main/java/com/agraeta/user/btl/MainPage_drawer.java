@@ -433,11 +433,29 @@ public class MainPage_drawer extends AppCompatActivity
                         startActivity(Intent.createChooser(emailIntent, "Support"));
                     } else {
 
-                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        /*Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_EMAIL, callInfoList.get(position).getContact());
                         intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
-                        startActivity(intent);
+                        startActivity(intent);*/
+
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + callInfoList.get(position).getContact()));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        startActivity(callIntent);
+
+
+
                     }
                     dialog.dismiss();
                 }
@@ -1564,6 +1582,7 @@ public class MainPage_drawer extends AppCompatActivity
             builder.setMessage("Are you sure want to Exit?")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
 
@@ -1571,7 +1590,9 @@ public class MainPage_drawer extends AppCompatActivity
                                 MainPage_Slider.class);
 						main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(main);*/
-                            System.exit(0);
+						finishAffinity();
+
+                           // System.exit(0);
                         }
                     })
                     .setNegativeButton("Cancel",

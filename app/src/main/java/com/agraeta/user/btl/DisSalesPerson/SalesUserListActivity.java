@@ -627,11 +627,11 @@ public class SalesUserListActivity extends AppCompatActivity {
 
                             distributor_Sales.getUserData().setDistributor(gson.fromJson(Distributor.toString(), RegisteredUserTourResponse.Distributor.class));
 
-                            Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
+                          /*  Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
                             }.getType();
                             List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
 
-                            distributor_Sales.getUserData().setAddress(addressList);
+                            distributor_Sales.getUserData().setAddress(addressList);*/
 
                             distributorSalesUserList.add(distributor_Sales);
                         }

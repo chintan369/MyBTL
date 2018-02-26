@@ -6,5 +6,13 @@
     {
         "merged": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
         "source": "D:\\Keval\\MyAndroidStudioProjects\\MyApplication2\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
+    },
+    {
+        "merged": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
+        "source": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\color\\com_facebook_send_button_text_color.xml"
+    },
+    {
+        "merged": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
+        "source": "E:\\Dharti-Backup\\BTL\\MyBTL\\facebook\\src\\main\\res\\color\\com_facebook_button_text_color.xml"
     }
 ]

@@ -157,6 +157,9 @@ public class Search extends AppCompatActivity {
     LinearLayout layout_main;
     private ArrayList<Integer> image_product = new ArrayList<Integer>();
     private String jsonData = "";
+    //  List_search.setAdapter(new CustomResultAdapterDoctor());
+
+    CustomResultAdapterDoctor customResultAdapterDoctor;
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
@@ -217,6 +220,10 @@ public class Search extends AppCompatActivity {
         } else {
             user_id_main = "";
         }
+
+
+
+
 
         setActionBar();
         fetchId();
@@ -939,6 +946,8 @@ public class Search extends AppCompatActivity {
     }*/
 
     private void fetchId() {
+
+
         Search_actv = (AutoCompleteTextView) findViewById(R.id.Search_Actv);
         Search_actv.setThreshold(1);
         searchItemAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.auto_textview, searchItemNames);
@@ -982,6 +991,9 @@ public class Search extends AppCompatActivity {
         });
 
         List_search = (ListView) findViewById(R.id.List_search);
+        customResultAdapterDoctor = new CustomResultAdapterDoctor();
+        List_search.setAdapter(customResultAdapterDoctor);
+
         Search_image = (ImageView) findViewById(R.id.image_search_pro);
         List_search.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -993,7 +1005,7 @@ public class Search extends AppCompatActivity {
                 if (lastVisiblePosition == (totalListItems - 1)) {
                     if (page_id < Integer.parseInt(page_limit)) {
                         page_id++;
-                        List_search.addFooterView(footerLoading);
+                      //  List_search.addFooterView(footerLoading);
                         new get_Product(false).execute();
                     }
                 }
@@ -4232,8 +4244,8 @@ public class Search extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            if (isFirstTime) {
-                try {
+           /* if (isFirstTime) {
+*/                try {
                     loadingView = new Custom_ProgressDialog(
                             Search.this, "");
 
@@ -4243,7 +4255,7 @@ public class Search extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
-            }
+  //          }
 
         }
 
@@ -4290,6 +4302,7 @@ public class Search extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
+            loadingView.dismiss();
 
             if (isFirstTime) {
                 bean_product1.clear();
@@ -4314,11 +4327,11 @@ public class Search extends AppCompatActivity {
                     Globals.CustomToast(Search.this, "SERVER ERROR", getLayoutInflater());
 
 
-                    if (!isFirstTime) {
+                    /*if (!isFirstTime) {
                         List_search.removeFooterView(footerLoading);
                     } else {
                         loadingView.dismiss();
-                    }
+                    }*/
 
 
                 } else {
@@ -4331,11 +4344,11 @@ public class Search extends AppCompatActivity {
 
                         Globals.CustomToast(Search.this, "" + Message, getLayoutInflater());
 
-                        if (!isFirstTime) {
+                        /*if (!isFirstTime) {
                             List_search.removeFooterView(footerLoading);
                         } else {
                             loadingView.dismiss();
-                        }
+                        }*/
                     } else {
 
 
@@ -4797,14 +4810,17 @@ public class Search extends AppCompatActivity {
                         int firstVisPos = List_search.getFirstVisiblePosition();
                         //  List_search.setSelection(firstVisPos);
                         List_search.setVisibility(View.VISIBLE);
-                        if (!isFirstTime) {
+                        /*if (!isFirstTime) {
                             List_search.removeFooterView(footerLoading);
                         } else {
                             loadingView.dismiss();
-                        }
+                        }*/
 
-                        List_search.setAdapter(new CustomResultAdapterDoctor());
-                        List_search.setSelection(current_record);
+                      //  List_search.setAdapter(new CustomResultAdapterDoctor());
+
+                        customResultAdapterDoctor.notifyDataSetChanged();
+
+                        //List_search.setSelection(current_record);
 /*                        list_product.setSelection(current_record);
 
                         if(flagscroll.equalsIgnoreCase("2")) {

@@ -570,7 +570,7 @@ public class Btl_Edit_profile extends AppCompatActivity {
                 //Log.e("1", "" + firstname + "- " + lastname + "- " + gender + "- " + mobile);
                 //Log.e("2", "" + email);
 
-                // Log.e("4",""+parameters);
+                Log.e("4",""+parameters);
 
                 json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/App_EditProfile", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);

@@ -1,13 +1,19 @@
 package com.agraeta.user.btl;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -149,6 +155,28 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
         productListAdapter = new ComboProductListAdapter(comboProductList, this, this);
         productListAdapter.setRoleID(roleID);
         list_comboOffer.setAdapter(productListAdapter);
+
+
+
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ComboOfferActivity.this);
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.custom_promocode_dialog, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle("Apply Coupon");
+
+        //edt_couponcode = (EditText) dialogView.findViewById(R.id.edt_couponcode);
+        final Button btn_cancel = (Button) dialogView.findViewById(R.id.btn_cancel);
+        Button btn_apply = (Button) dialogView.findViewById(R.id.btn_apply);
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+
+        Globals.Toast2(getApplicationContext(), "Minimum Quantity:6");
+
+
 
         btn_addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

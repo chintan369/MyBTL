@@ -34,14 +34,17 @@ import android.widget.Toast;
 import com.agraeta.user.btl.CompanySalesPerson.SalesOrderHistory;
 import com.agraeta.user.btl.CompanySalesPerson.Sales_Order_History_Details;
 import com.agraeta.user.btl.CompanySalesPerson.Sales_Order_History_Filter;
+import com.agraeta.user.btl.CompanySalesPerson.UserTypeActivity;
 import com.agraeta.user.btl.DisSalesPerson.Dist_SalesOrderHistory;
 import com.agraeta.user.btl.DisSalesPerson.Dist_Sales_Order_History_Details;
 import com.agraeta.user.btl.DisSalesPerson.Dist_Sales_Order_History_Filter;
+import com.agraeta.user.btl.DisSalesPerson.SalesTypeActivity;
 import com.agraeta.user.btl.Distributor.D_OrderHistory;
 import com.agraeta.user.btl.Distributor.D_OrderHistoryDetails;
 import com.agraeta.user.btl.Distributor.D_OrderHistoryFilter;
 import com.agraeta.user.btl.Distributor.DisMyOrders;
 import com.agraeta.user.btl.Distributor.DisOrderListActivity;
+import com.agraeta.user.btl.admin.AdminDashboard;
 import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.AppModel;
 import com.agraeta.user.btl.model.GetCartItemQuantityResponse;
@@ -50,6 +53,7 @@ import com.agraeta.user.btl.model.ServiceGenerator;
 import com.agraeta.user.btl.model.combooffer.ComboCart;
 import com.agraeta.user.btl.model.combooffer.ComboOfferItem;
 import com.agraeta.user.btl.model.combooffer.ProductItem;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -95,6 +99,7 @@ public class BTL_Cart extends AppCompatActivity {
     ArrayList<Double> array_total_price = new ArrayList<Double>();
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     double amount1;
+    AppPrefs apps;
     ImageView minuss, plus;
     Button buy_cart, cancel;
     String json = new String();
@@ -156,7 +161,7 @@ public class BTL_Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btl__cart);
-
+        apps = new AppPrefs(BTL_Cart.this);
         Intent intent = getIntent();
         isReorderTimes = intent.getBooleanExtra("isReorderTimes", false);
         history = (Bean_Order_history) intent.getSerializableExtra("order");
@@ -412,10 +417,8 @@ public class BTL_Cart extends AppCompatActivity {
                     if (grand_total < minOrderValue) {
                         Globals.CustomToast(BTL_Cart.this, "Please Make Order of Min " + getString(R.string.ruppe_name) + " " + minOrderValue, getLayoutInflater());
                     } else {
-                        appPrefs.setCart_Grand_total(tv_grand_total.getText().toString());
-                        Intent i = new Intent(BTL_Cart.this, CheckoutPage_Product.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
+                        new send_Login_Data().execute();
+
                     }
 
 
@@ -3724,6 +3727,106 @@ public class BTL_Cart extends AppCompatActivity {
                     Log.e("Exception", e.getMessage());
                 }
             }
+        }
+    }
+
+
+    public class send_Login_Data extends AsyncTask<Void, Void, String> {
+        public StringBuilder sb;
+        boolean status;
+        private String result;
+        private InputStream is;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+
+
+                List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+                parameters.add(new BasicNameValuePair("user_id", apps.getUserId()));
+                Log.e("userid","--->"+parameters);
+
+
+                Globals.generateNoteOnSD(getApplicationContext(), parameters.toString());
+
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "User/APP_User_Info", ServiceHandler.POST, parameters);
+                //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
+                //System.out.println("array: " + json);
+
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+                //System.out.println("error1: " + e.toString());
+
+                return json;
+
+            }
+//            //Log.e("result",result);
+
+
+            //    return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result_1) {
+            super.onPostExecute(result_1);
+            Globals.generateNoteOnSD(getApplicationContext(), result_1);
+
+            try {
+
+                //db = new DatabaseHandler(());
+                //System.out.println(result_1);
+
+                if (result_1.equalsIgnoreCase("")
+                        || (result_1.equalsIgnoreCase(""))) {
+                   /* Toast.makeText(LogInPage.this, "SERVER ERRER",
+                            Toast.LENGTH_SHORT).show();*/
+                    Globals.CustomToast(BTL_Cart.this, "SERVER ERRER", getLayoutInflater());
+
+                } else {
+                    JSONObject jObj = new JSONObject(result_1);
+
+                    String date = jObj.getString("status");
+                    if (date.equalsIgnoreCase("false")) {
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(BTL_Cart.this, "" + Message, getLayoutInflater());
+                        //Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        String Message = jObj.getString("message");
+                        Globals.CustomToast(BTL_Cart.this, "" + Message, getLayoutInflater());
+                        // Toast.makeText(LogInPage.this,""+Message,Toast.LENGTH_LONG).show();
+                        JSONObject jO = jObj.getJSONObject("data");
+                        JSONObject jU = jO.getJSONObject("User");
+
+
+                        String transportation=jU.getString("transportation");
+                        //  String gstNo = jU.getString("gst_no");
+
+                        apps.setTransportation(transportation);
+                    }
+
+
+                    appPrefs.setCart_Grand_total(tv_grand_total.getText().toString());
+                    Intent i = new Intent(BTL_Cart.this, CheckoutPage_Product.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    //LogInPage.this.finish();
+                }
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+
         }
     }
 }

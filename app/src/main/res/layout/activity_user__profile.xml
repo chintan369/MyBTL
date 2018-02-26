@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="com.agraeta.agreata.User_Profile"
     tools:showIn="@layout/activity_demo">
 
 
