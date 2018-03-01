@@ -555,6 +555,9 @@ public class UserListActivity extends AppCompatActivity {
 
                             if (AddressArray.length() > 0) {
                                 companySales.setAreaId(((JSONObject) AddressArray.get(0)).getString("area_id"));
+                                companySales.setCountryId(((JSONObject) AddressArray.get(0)).getString("country_id"));
+
+
                             }
 
                             Gson gson = new Gson();
@@ -563,12 +566,12 @@ public class UserListActivity extends AppCompatActivity {
 
                             companySales.getUserData().setDistributor(gson.fromJson(Distributor.toString(), RegisteredUserTourResponse.Distributor.class));
 
-                            /*Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
+                            Type listType = new TypeToken<List<RegisteredUserTourResponse.Address>>() {
                             }.getType();
                             List<RegisteredUserTourResponse.Address> addressList = gson.fromJson(AddressArray.toString(), listType);
 
                             companySales.getUserData().setAddress(addressList);
-*/
+
                             companySalesUserList.add(companySales);
                         }
                         areaList.clear();

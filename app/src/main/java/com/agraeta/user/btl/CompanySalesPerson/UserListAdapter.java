@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.agraeta.user.btl.DatabaseHandler;
 import com.agraeta.user.btl.Globals;
 import com.agraeta.user.btl.MainPage_drawer;
 import com.agraeta.user.btl.R;
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.List;
@@ -113,6 +115,7 @@ public class UserListAdapter extends BaseAdapter implements Serializable {
                                 intent.putExtra("firmName", companySalesUserList.get(position).getUserData().getDistributor().getFirm_name());
                                 intent.putExtra("userRoleID", subUserID);
                                 intent.putExtra("userData", companySalesUserList.get(position).getUserData());
+                                Log.e("userdata","--->"+new Gson().toJson(companySalesUserList.get(position).getUserData()));
                                 context.startActivity(intent);
                                 break;
                             case R.id.order:

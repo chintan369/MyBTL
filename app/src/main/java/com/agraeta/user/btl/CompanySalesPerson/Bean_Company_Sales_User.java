@@ -19,7 +19,9 @@ public class Bean_Company_Sales_User implements Serializable {
     String areaId = "";
     String areaNameId = "";
     String areaName = "";
-
+    String countryId = "";
+    String countryNameId = "";
+    String countryName = "";
     SalesSubUserData UserData = new SalesSubUserData();
 
     public Bean_Company_Sales_User() {
@@ -138,6 +140,30 @@ public class Bean_Company_Sales_User implements Serializable {
 
     public void setAreaNameId(String areaNameId) {
         this.areaNameId = areaNameId;
+    }
+
+    public String getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(String countryId) {
+        this.countryId = countryId;
+    }
+
+    public String getCountryNameId() {
+        return countryNameId;
+    }
+
+    public void setCountryNameId(String countryNameId) {
+        this.countryNameId = countryNameId;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public SalesSubUserData getUserData() {

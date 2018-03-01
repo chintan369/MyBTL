@@ -1,11 +1,14 @@
 package com.agraeta.user.btl;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,8 +63,13 @@ public class ComboOfferListActivity extends AppCompatActivity implements Callbac
 
     private void fetchIDs() {
         list_comboOffers=(ListView) findViewById(R.id.list_comboOffers);
-        offerListAdapter=new ComboOfferListAdapter(offerItemList,this);
+        offerListAdapter=new ComboOfferListAdapter(offerItemList,ComboOfferListActivity.this);
         list_comboOffers.setAdapter(offerListAdapter);
+        list_comboOffers.setCacheColorHint(Color.TRANSPARENT);
+        list_comboOffers.requestFocus(0);
+        list_comboOffers.setScrollingCacheEnabled(false);
+
+
 
 
 

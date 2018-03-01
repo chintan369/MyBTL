@@ -138,14 +138,15 @@ public class DisRetailerListActivity extends AppCompatActivity  {
                     else {
                         List<Bean_Dis_Retailer> retailerPersonListForSearch=new ArrayList<Bean_Dis_Retailer>();
 
-                        for(int i=0; i<disRetList.size(); i++){
-                            if(disRetList.get(i).getFirstName().toLowerCase().startsWith(name.toLowerCase()) ||
-                                    disRetList.get(i).getLastName().toLowerCase().startsWith(name.toLowerCase())){
+                        for(int i=0; i<disRetList.size(); i++) {
+                            if (disRetList.get(i).getFirstName().toLowerCase().startsWith(name.toLowerCase()) ||
+                                    disRetList.get(i).getLastName().toLowerCase().startsWith(name.toLowerCase())) {
                                 retailerPersonListForSearch.add(disRetList.get(i));
                             }
 
+
                             if(retailerPersonListForSearch.size() == 0){
-                                Globals.CustomToast(DisRetailerListActivity.this,"No data Found",getLayoutInflater());
+                                //Globals.CustomToast(DisRetailerListActivity.this,"No data Found",getLayoutInflater());
                             }
                             disRetAdapter.updateData(retailerPersonListForSearch);
                     }

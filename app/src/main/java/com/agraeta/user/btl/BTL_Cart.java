@@ -417,7 +417,8 @@ public class BTL_Cart extends AppCompatActivity {
                     if (grand_total < minOrderValue) {
                         Globals.CustomToast(BTL_Cart.this, "Please Make Order of Min " + getString(R.string.ruppe_name) + " " + minOrderValue, getLayoutInflater());
                     } else {
-                        new send_Login_Data().execute();
+
+                        new send_Login_Data(u_id).execute();
 
                     }
 
@@ -3736,13 +3737,15 @@ public class BTL_Cart extends AppCompatActivity {
         boolean status;
         private String result;
         private InputStream is;
+        String userIds = "";
 
         protected void onPreExecute() {
             super.onPreExecute();
-
-
         }
 
+        public send_Login_Data(String userId) {
+            this.userIds = userId;
+        }
 
         @Override
         protected String doInBackground(Void... params) {
@@ -3752,7 +3755,7 @@ public class BTL_Cart extends AppCompatActivity {
 
                 List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 
-                parameters.add(new BasicNameValuePair("user_id", apps.getUserId()));
+                parameters.add(new BasicNameValuePair("user_id", userIds));
                 Log.e("userid","--->"+parameters);
 
 

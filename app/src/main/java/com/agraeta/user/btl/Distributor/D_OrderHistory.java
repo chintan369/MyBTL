@@ -72,7 +72,7 @@ public class D_OrderHistory extends AppCompatActivity {
     ArrayList<Bean_User_data> user_data = new ArrayList<Bean_User_data>();
     ArrayList<Bean_Order_history> array_order = new ArrayList<Bean_Order_history>();
     ArrayList<Bean_Order_history> array_remove_duplicate = new ArrayList<Bean_Order_history>();
-    int current_position1 =-1;
+    int current_position1 = -1;
     Custom_ProgressDialog loadingView;
     String json;
     ArrayList<Bean_invoice> bean_invoice = new ArrayList<Bean_invoice>();
@@ -93,14 +93,15 @@ public class D_OrderHistory extends AppCompatActivity {
     String owner_id = new String();
     String u_id = new String();
     String role_id = new String();
-    String cartJSON="";
-    boolean hasCartCallFinish=true;
+    String cartJSON = "";
+    boolean hasCartCallFinish = true;
 
     TextView txt;
 
     int currentPage = 1;
     int totalPages = 1;
 
+    boolean scrollTimes = false;
 
     protected void onResume() {
         System.runFinalization();
@@ -147,6 +148,7 @@ public class D_OrderHistory extends AppCompatActivity {
         }
         super.onResume();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,22 +158,20 @@ public class D_OrderHistory extends AppCompatActivity {
         db.Delete_Order_histroy();
         appPrefs = new AppPrefs(D_OrderHistory.this);
 
-        Log.e("IDs for Distb",appPrefs.getSRP_Id()+" - - "+appPrefs.getUserId());
+        Log.e("IDs for Distb", appPrefs.getSRP_Id() + " - - " + appPrefs.getUserId());
 
 
-        if(appPrefs.getUserRoleId().equalsIgnoreCase("3"))
-        {
-            if(appPrefs.getCurrentPage().equalsIgnoreCase("OrderList1"))
-                user_id_main=appPrefs.getSRP_Id();
+        if (appPrefs.getUserRoleId().equalsIgnoreCase("3")) {
+            if (appPrefs.getCurrentPage().equalsIgnoreCase("OrderList1"))
+                user_id_main = appPrefs.getSRP_Id();
 
-            if(appPrefs.getCurrentPage().equalsIgnoreCase("OrderList2"))
-                user_id_main=appPrefs.getUserId();
-        }
-        else {
-            user_id_main=appPrefs.getUserId();
+            if (appPrefs.getCurrentPage().equalsIgnoreCase("OrderList2"))
+                user_id_main = appPrefs.getUserId();
+        } else {
+            user_id_main = appPrefs.getUserId();
         }
 
-        if(user_id_main.isEmpty()) user_id_main=appPrefs.getUserId();
+        if (user_id_main.isEmpty()) user_id_main = appPrefs.getUserId();
 
 
         setRefershData();
@@ -181,9 +181,8 @@ public class D_OrderHistory extends AppCompatActivity {
         new get_order_history().execute();
     }
 
-    private void fetchID()
-    {
-        lst_orderhistory=(ListView)findViewById(R.id.lst_orderhistory);
+    private void fetchID() {
+        lst_orderhistory = (ListView) findViewById(R.id.lst_orderhistory);
         lin_filter = (LinearLayout) findViewById(R.id.lin_filter);
 
 
@@ -195,7 +194,8 @@ public class D_OrderHistory extends AppCompatActivity {
 
                 if (currentLastVisiblePos == totalItems && currentPage < totalPages) {
                     currentPage++;
-                    new get_order_history().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    scrollTimes = true;
+                    new get_order_history().execute();
                 }
             }
 
@@ -205,11 +205,11 @@ public class D_OrderHistory extends AppCompatActivity {
             }
         });
 
-        btn_back= (Button) findViewById(R.id.btn_back);
+        btn_back = (Button) findViewById(R.id.btn_back);
         appPrefs = new AppPrefs(D_OrderHistory.this);
-        if(!appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_predefine().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_to_date().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_from_date().equalsIgnoreCase("")){
+        if (!appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_predefine().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_to_date().equalsIgnoreCase("") || !appPrefs.getOrder_history_filter_from_date().equalsIgnoreCase("")) {
             btn_back.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             btn_back.setVisibility(View.GONE);
         }
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +221,7 @@ public class D_OrderHistory extends AppCompatActivity {
                 appPrefs.setOrder_history_filter_from_date("");
 
                 db.Delete_Order_histroy();
-                Intent i = new Intent(D_OrderHistory.this,D_OrderHistory.class);
+                Intent i = new Intent(D_OrderHistory.this, D_OrderHistory.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
@@ -231,7 +231,7 @@ public class D_OrderHistory extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(D_OrderHistory.this,D_OrderHistoryFilter.class);
+                Intent intent = new Intent(D_OrderHistory.this, D_OrderHistoryFilter.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -514,11 +514,11 @@ public class D_OrderHistory extends AppCompatActivity {
         return json[0];
     }
 
-    public class CustomAdapterOrderHistory extends BaseAdapter
-    {
+    public class CustomAdapterOrderHistory extends BaseAdapter {
         int current_position = -1;
-        LayoutInflater vi = (LayoutInflater)getSystemService(
+        LayoutInflater vi = (LayoutInflater) getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
+
         @Override
         public int getCount() {
             return array_remove_duplicate.size();
@@ -543,16 +543,16 @@ public class D_OrderHistory extends AppCompatActivity {
 
             }
 
-            LinearLayout layout_order_history =(LinearLayout) convertView.findViewById(R.id.layout_order_history);
+            LinearLayout layout_order_history = (LinearLayout) convertView.findViewById(R.id.layout_order_history);
 
             TextView order_customer_name = (TextView) convertView.findViewById(R.id.order_customer_name);
             TextView tv_order_status = (TextView) convertView.findViewById(R.id.tv_order_status);
             TextView tv_order_date = (TextView) convertView.findViewById(R.id.tv_order_date);
             TextView tv_order_id = (TextView) convertView.findViewById(R.id.order_id);
 
-            CardView layout_cardView=(CardView) convertView.findViewById(R.id.layout_cardView);
+            CardView layout_cardView = (CardView) convertView.findViewById(R.id.layout_cardView);
 
-            if(array_remove_duplicate.get(position).isOdd())
+            if (array_remove_duplicate.get(position).isOdd())
                 layout_cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             else
                 layout_cardView.setCardBackgroundColor(Color.parseColor("#FFE0B2"));
@@ -566,8 +566,8 @@ public class D_OrderHistory extends AppCompatActivity {
                     appPrefs.setAttachment(array_remove_duplicate.get(position).getInvoice_prefix());
                     db = new DatabaseHandler(D_OrderHistory.this);
                     bean_cart = db.get_order_history(appPrefs.getOrder_history_id());
-                    appPrefs.setOrder(""+bean_cart.size());
-                    appPrefs.setOrdercheck(""+bean_cart.size());
+                    appPrefs.setOrder("" + bean_cart.size());
+                    appPrefs.setOrdercheck("" + bean_cart.size());
                     Intent intent = new Intent(D_OrderHistory.this, Order_History_Details.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("order", array_remove_duplicate.get(position));
@@ -576,21 +576,21 @@ public class D_OrderHistory extends AppCompatActivity {
                 }
             });
 
-            TextView txt_orderID=(TextView) convertView.findViewById(R.id.txt_orderID);
-            TextView txt_orderDate=(TextView) convertView.findViewById(R.id.txt_orderDate);
-            TextView txt_orderStatus=(TextView) convertView.findViewById(R.id.txt_orderStatus);
-            TextView txt_orderAmount=(TextView) convertView.findViewById(R.id.txt_orderAmount);
-            ImageView img_options=(ImageView) convertView.findViewById(R.id.img_options);
+            TextView txt_orderID = (TextView) convertView.findViewById(R.id.txt_orderID);
+            TextView txt_orderDate = (TextView) convertView.findViewById(R.id.txt_orderDate);
+            TextView txt_orderStatus = (TextView) convertView.findViewById(R.id.txt_orderStatus);
+            TextView txt_orderAmount = (TextView) convertView.findViewById(R.id.txt_orderAmount);
+            ImageView img_options = (ImageView) convertView.findViewById(R.id.img_options);
 
             img_options.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PopupMenu menu=new PopupMenu(D_OrderHistory.this,v);
-                    menu.getMenuInflater().inflate(R.menu.menu_order_history_listoption,menu.getMenu());
+                    PopupMenu menu = new PopupMenu(D_OrderHistory.this, v);
+                    menu.getMenuInflater().inflate(R.menu.menu_order_history_listoption, menu.getMenu());
 
-                    if(bean_inv.get(position).getOrder_invoice().equalsIgnoreCase("0")){
+                    if (bean_inv.get(position).getOrder_invoice().equalsIgnoreCase("0")) {
                         menu.getMenu().findItem(R.id.menu_invoice).setVisible(false);
-                    }else{
+                    } else {
                         menu.getMenu().findItem(R.id.menu_pdf).setVisible(false);
                     }
 
@@ -598,17 +598,17 @@ public class D_OrderHistory extends AppCompatActivity {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
 
-                            switch (item.getItemId()){
+                            switch (item.getItemId()) {
                                 case R.id.menu_pdf:
-                                    Intent pdfIntent=new Intent(Intent.ACTION_VIEW);
+                                    Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
                                     pdfIntent.setType("application/pdf");
-                                    pdfIntent.setData(Uri.parse(Globals.server_link+array_remove_duplicate.get(position).getOrder_pdf()));
+                                    pdfIntent.setData(Uri.parse(Globals.server_link + array_remove_duplicate.get(position).getOrder_pdf()));
                                     startActivity(pdfIntent);
                                     break;
                                 case R.id.menu_invoice:
-                                    Intent invoiceActivity=new Intent(getApplicationContext(),OrderInvoiceActivity.class);
+                                    Intent invoiceActivity = new Intent(getApplicationContext(), OrderInvoiceActivity.class);
                                     invoiceActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    invoiceActivity.putExtra("orderID",array_remove_duplicate.get(position).getOrder_id());
+                                    invoiceActivity.putExtra("orderID", array_remove_duplicate.get(position).getOrder_id());
                                     startActivity(invoiceActivity);
                                     break;
                                 case R.id.menu_reorder:
@@ -627,7 +627,7 @@ public class D_OrderHistory extends AppCompatActivity {
             txt_orderID.setText(array_remove_duplicate.get(position).getOrder_id());
             txt_orderDate.setText(array_remove_duplicate.get(position).getOrder_date().split(" ")[0]);
             txt_orderStatus.setText(array_remove_duplicate.get(position).getOrder_status_is());
-            txt_orderAmount.setText(getResources().getString(R.string.ruppe_name)+" "+array_remove_duplicate.get(position).getTotal());
+            txt_orderAmount.setText(getResources().getString(R.string.ruppe_name) + " " + array_remove_duplicate.get(position).getTotal());
 
 
             TextView tv_total = (TextView) convertView.findViewById(R.id.tv_total);
@@ -636,23 +636,20 @@ public class D_OrderHistory extends AppCompatActivity {
             ImageView im_invoice = (ImageView) convertView.findViewById(R.id.im_invoice);
 
 
-            if(bean_inv.get(position).getOrder_invoice().toString().equalsIgnoreCase("0")){
+            if (bean_inv.get(position).getOrder_invoice().toString().equalsIgnoreCase("0")) {
                 im_invoice.setVisibility(View.INVISIBLE);
-            }else{
+            } else {
                 im_invoice.setVisibility(View.VISIBLE);
             }
 
             order_customer_name.setText(array_remove_duplicate.get(position).getShipping_name());
 
 
-            tv_total.setText("Total: "+getResources().getString(R.string.Rs)+array_remove_duplicate.get(position).getTotal());
-            tv_order_date.setText("Date: "+array_remove_duplicate.get(position).getOrder_date());
-            tv_total.setText("Total: "+array_remove_duplicate.get(position).getTotal());
-            tv_order_status.setText("Status: "+array_remove_duplicate.get(position).getOrder_status_is());
-            tv_order_id.setText("Order Id: #"+array_remove_duplicate.get(position).getOrder_id());
-
-
-
+            tv_total.setText("Total: " + getResources().getString(R.string.Rs) + array_remove_duplicate.get(position).getTotal());
+            tv_order_date.setText("Date: " + array_remove_duplicate.get(position).getOrder_date());
+            tv_total.setText("Total: " + array_remove_duplicate.get(position).getTotal());
+            tv_order_status.setText("Status: " + array_remove_duplicate.get(position).getOrder_status_is());
+            tv_order_id.setText("Order Id: #" + array_remove_duplicate.get(position).getOrder_id());
 
 
             im_details.setOnClickListener(new View.OnClickListener() {
@@ -662,11 +659,11 @@ public class D_OrderHistory extends AppCompatActivity {
                     appPrefs.setOrder_history_id(array_remove_duplicate.get(position).getOrder_id());
                     appPrefs.setComment(array_remove_duplicate.get(position).getComment());
                     appPrefs.setAttachment(array_remove_duplicate.get(position).getInvoice_prefix());
-                    Log.e("111111111111",""+array_remove_duplicate.get(position).getInvoice_prefix());
+                    Log.e("111111111111", "" + array_remove_duplicate.get(position).getInvoice_prefix());
                     db = new DatabaseHandler(D_OrderHistory.this);
                     bean_cart = db.get_order_history(appPrefs.getOrder_history_id());
-                    appPrefs.setOrder(""+bean_cart.size());
-                    appPrefs.setOrdercheck(""+bean_cart.size());
+                    appPrefs.setOrder("" + bean_cart.size());
+                    appPrefs.setOrdercheck("" + bean_cart.size());
                     Intent intent = new Intent(D_OrderHistory.this, D_OrderHistoryDetails.class);
                     intent.putExtra("order", array_remove_duplicate.get(position));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -674,7 +671,6 @@ public class D_OrderHistory extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
 
 
             im_pdfdownload.setOnClickListener(new View.OnClickListener() {
@@ -704,9 +700,8 @@ public class D_OrderHistory extends AppCompatActivity {
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-
-                    ImageView btn_cancel=(ImageView)dialog.findViewById(R.id.btn_cancel);
-                    l_tracking=(ListView)dialog.findViewById(R.id.lst_tracking);
+                    ImageView btn_cancel = (ImageView) dialog.findViewById(R.id.btn_cancel);
+                    l_tracking = (ListView) dialog.findViewById(R.id.lst_tracking);
 
                     btn_cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -730,12 +725,11 @@ public class D_OrderHistory extends AppCompatActivity {
             /**
              * Before starting background thread
              * Show Progress Bar Dialog
-             * */
+             */
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 //activity.showDialog(0);
-
 
 
                 pDialog = new ProgressDialog(D_OrderHistory.this);
@@ -751,7 +745,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
             /**
              * Downloading file in background thread
-             * */
+             */
             @Override
             protected String doInBackground(String... i) {
 
@@ -759,22 +753,19 @@ public class D_OrderHistory extends AppCompatActivity {
 
 
                     //pDialog.setMessage("Please Wait Downloading Image");
-                    File temp_dir = new File (myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf");
-                    if(temp_dir.exists())
-                    {
-                        filesToSend = myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf";
+                    File temp_dir = new File(myDir + "" + array_remove_duplicate.get(current_position).getOrder_date() + "_" + array_remove_duplicate.get(current_position).getOrder_id() + ".pdf");
+                    if (temp_dir.exists()) {
+                        filesToSend = myDir + "" + array_remove_duplicate.get(current_position).getOrder_date() + "_" + array_remove_duplicate.get(current_position).getOrder_id() + ".pdf";
 
 
-                    }
-                    else
-                    {
-                        File dir = new File (myDir + "");
-                        if(dir.exists()==false) {
+                    } else {
+                        File dir = new File(myDir + "");
+                        if (dir.exists() == false) {
                             dir.mkdirs();
                         }
 
 
-                        URL url = new URL(Globals.server_link+array_remove_duplicate.get(current_position).getOrder_pdf());
+                        URL url = new URL(Globals.server_link + array_remove_duplicate.get(current_position).getOrder_pdf());
 
                         URLConnection connection = url.openConnection();
                         connection.connect();
@@ -784,9 +775,9 @@ public class D_OrderHistory extends AppCompatActivity {
 
                         // download the file
                         InputStream input = new BufferedInputStream(url.openStream());
-                        OutputStream output = new FileOutputStream(new File(myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf"));
+                        OutputStream output = new FileOutputStream(new File(myDir + "" + array_remove_duplicate.get(current_position).getOrder_date() + "_" + array_remove_duplicate.get(current_position).getOrder_id() + ".pdf"));
 
-                        filesToSend = myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf";
+                        filesToSend = myDir + "" + array_remove_duplicate.get(current_position).getOrder_date() + "_" + array_remove_duplicate.get(current_position).getOrder_id() + ".pdf";
                         //Log.e("", "out put :- "+myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf");
                         byte data[] = new byte[1024];
                         long total = 0;
@@ -798,8 +789,8 @@ public class D_OrderHistory extends AppCompatActivity {
                         while ((count = input.read(data)) != -1) {
                             total += count;
                             //  publishProgress((int) ((total * 100)/fileLength));
-                            long total1 = (total * 100)/fileLength;
-                            publishProgress(total1+"");
+                            long total1 = (total * 100) / fileLength;
+                            publishProgress(total1 + "");
                             output.write(data, 0, count);
                         }
 
@@ -808,8 +799,7 @@ public class D_OrderHistory extends AppCompatActivity {
                         input.close();
                     }
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     //Log.e("Error: ", ""+e);
                 }
 
@@ -818,7 +808,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
             /**
              * Updating progress bar
-             * */
+             */
             protected void onProgressUpdate(String... progress) {
                 // setting progress percentage
                 pDialog.setProgress(Integer.parseInt(progress[0]));
@@ -827,14 +817,14 @@ public class D_OrderHistory extends AppCompatActivity {
             /**
              * After completing background task
              * Dismiss the progress dialog
-             * **/
+             **/
             @Override
             protected void onPostExecute(String file_url) {
                 // dismiss the dialog after the file was downloaded
                 //activity.dismissDialog(0);
                 pDialog.dismiss();
 
-                File file = new File(myDir+""+array_remove_duplicate.get(current_position).getOrder_date()+"_"+array_remove_duplicate.get(current_position).getOrder_id()+".pdf");
+                File file = new File(myDir + "" + array_remove_duplicate.get(current_position).getOrder_date() + "_" + array_remove_duplicate.get(current_position).getOrder_id() + ".pdf");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file), "application/pdf");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -844,8 +834,7 @@ public class D_OrderHistory extends AppCompatActivity {
         }
     }
 
-    public class get_order_history extends AsyncTask<Void,Void,String>
-    {
+    public class get_order_history extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
         private String result;
@@ -853,19 +842,19 @@ public class D_OrderHistory extends AppCompatActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            try {
-                loadingView = new Custom_ProgressDialog(D_OrderHistory.this, "");
+            if (scrollTimes == false) {
+                try {
+                    loadingView = new Custom_ProgressDialog(D_OrderHistory.this, "");
 
-                loadingView.setCancelable(false);
-                loadingView.show();
+                    loadingView.setCancelable(false);
+                    loadingView.show();
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 
+                }
             }
 
         }
-
-
         @Override
         protected String doInBackground(Void... params) {
 
@@ -889,38 +878,26 @@ public class D_OrderHistory extends AppCompatActivity {
                 Log.e("params", parameters.toString());
                 Log.e("IDs", user_id_main + " " + appPrefs.getUserId() + " " + appPrefs.getSubSalesId() + " " + appPrefs.getSalesPersonId());
 
-                if(appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase(""))
-                {
+                if (appPrefs.getOrder_history_filter_order_status().equalsIgnoreCase("")) {
 
-                }
-                else
-                {
+                } else {
                     parameters.add(new BasicNameValuePair("order_status", appPrefs.getOrder_history_filter_order_status()));
                 }
-                if(appPrefs.getOrder_history_filter_from_date().equalsIgnoreCase(""))
-                {
+                if (appPrefs.getOrder_history_filter_from_date().equalsIgnoreCase("")) {
 
-                }
-                else
-                {
+                } else {
                     parameters.add(new BasicNameValuePair("from_date", appPrefs.getOrder_history_filter_from_date()));
                 }
 
-                if(appPrefs.getOrder_history_filter_to_date().equalsIgnoreCase(""))
-                {
+                if (appPrefs.getOrder_history_filter_to_date().equalsIgnoreCase("")) {
 
-                }
-                else
-                {
+                } else {
                     parameters.add(new BasicNameValuePair("to_date", appPrefs.getOrder_history_filter_to_date()));
                 }
 
-                if(appPrefs.getOrder_history_filter_predefine().equalsIgnoreCase(""))
-                {
+                if (appPrefs.getOrder_history_filter_predefine().equalsIgnoreCase("")) {
 
-                }
-                else
-                {
+                } else {
                     parameters.add(new BasicNameValuePair("predefine", appPrefs.getOrder_history_filter_predefine()));
                 }
 
@@ -930,7 +907,7 @@ public class D_OrderHistory extends AppCompatActivity {
                 Log.e("4", "" + parameters);
 
                 //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"Order/App_Get_Order",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Get_Order", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 //System.out.println("array: " + json);
                 return json;
@@ -951,6 +928,7 @@ public class D_OrderHistory extends AppCompatActivity {
         protected void onPostExecute(String result_1) {
             super.onPostExecute(result_1);
             loadingView.dismiss();
+            scrollTimes=false;
             Log.e("JSON", "-->" + result_1);
             try {
 
@@ -977,8 +955,7 @@ public class D_OrderHistory extends AppCompatActivity {
                         JSONArray jsonobjcet_order_status = jObj.getJSONArray("order_status");
 
 
-                        for(int j = 0 ; j <jsonobjcet_order_status.length() ; j++)
-                        {
+                        for (int j = 0; j < jsonobjcet_order_status.length(); j++) {
                             JSONObject jobject_main = jsonobjcet_order_status.getJSONObject(j);
                             JSONObject jobject_status = jobject_main.getJSONObject("OrderStatus");
                             Bean_Filter_Status bean = new Bean_Filter_Status();
@@ -1014,24 +991,23 @@ public class D_OrderHistory extends AppCompatActivity {
                             db.Add_Filter_Status(array_status);
                         }
 
-                        for(int i = 0 ; i < jarray_data.length() ; i ++)
-                        {
+                        for (int i = 0; i < jarray_data.length(); i++) {
                             JSONObject jobject_main = jarray_data.getJSONObject(i);
 
                             JSONObject jobject_order = jobject_main.getJSONObject("Order");
 
                             String order_id = jobject_order.getString("id");
-                            String invoice_no  = jobject_order.getString("invoice_no");
-                            String invoice_prefix  = jobject_order.getString("invoice_prefix");
-                            String user_id  = jobject_order.getString("user_id");
-                            String role_id  = jobject_order.getString("role_id");
-                            String billing_address_id  = jobject_order.getString("billing_address_id");
-                            String shipping_address_id  = jobject_order.getString("shipping_address_id");
-                            String first_name  = jobject_order.getString("firstname");
-                            String last_name  = jobject_order.getString("lastname");
-                            String email  = jobject_order.getString("email");
-                            String mobile  = jobject_order.getString("mobile");
-                            String payment_name  = jobject_order.getString("payment_firstname")+" "+jobject_order.getString("payment_lastname");
+                            String invoice_no = jobject_order.getString("invoice_no");
+                            String invoice_prefix = jobject_order.getString("invoice_prefix");
+                            String user_id = jobject_order.getString("user_id");
+                            String role_id = jobject_order.getString("role_id");
+                            String billing_address_id = jobject_order.getString("billing_address_id");
+                            String shipping_address_id = jobject_order.getString("shipping_address_id");
+                            String first_name = jobject_order.getString("firstname");
+                            String last_name = jobject_order.getString("lastname");
+                            String email = jobject_order.getString("email");
+                            String mobile = jobject_order.getString("mobile");
+                            String payment_name = jobject_order.getString("payment_firstname") + " " + jobject_order.getString("payment_lastname");
 
 
                             Bean_inv bea = new Bean_inv();
@@ -1040,182 +1016,134 @@ public class D_OrderHistory extends AppCompatActivity {
                             bean_inv.add(bea);
 
                             String final_payment_address = "";
-                            if(jobject_order.getString("payment_address_1").equalsIgnoreCase("")||jobject_order.getString("payment_address_1").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_address_1").equalsIgnoreCase("") || jobject_order.getString("payment_address_1").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
+                            } else {
                                 final_payment_address = jobject_order.getString("payment_address_1");
                             }
 
 
+                            if (jobject_order.getString("payment_address_2").equalsIgnoreCase("") || jobject_order.getString("payment_address_2").equalsIgnoreCase("null")) {
 
-                            if(jobject_order.getString("payment_address_2").equalsIgnoreCase("")||jobject_order.getString("payment_address_2").equalsIgnoreCase("null"))
-                            {
-
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +", "+ jobject_order.getString("payment_address_2");
+                            } else {
+                                final_payment_address = final_payment_address + ", " + jobject_order.getString("payment_address_2");
                             }
 
-                            if(jobject_order.getString("payment_address_3").equalsIgnoreCase("")||jobject_order.getString("payment_address_3").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_address_3").equalsIgnoreCase("") || jobject_order.getString("payment_address_3").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +",\n"+ jobject_order.getString("payment_address_3");
+                            } else {
+                                final_payment_address = final_payment_address + ",\n" + jobject_order.getString("payment_address_3");
                             }
 
-                            if(jobject_order.getString("payment_city").equalsIgnoreCase("")||jobject_order.getString("payment_city").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_city").equalsIgnoreCase("") || jobject_order.getString("payment_city").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +", "+ jobject_order.getString("payment_city");
+                            } else {
+                                final_payment_address = final_payment_address + ", " + jobject_order.getString("payment_city");
                             }
 
-                            if(jobject_order.getString("payment_postcode").equalsIgnoreCase("")||jobject_order.getString("payment_postcode").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_postcode").equalsIgnoreCase("") || jobject_order.getString("payment_postcode").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +", "+ jobject_order.getString("payment_postcode");
+                            } else {
+                                final_payment_address = final_payment_address + ", " + jobject_order.getString("payment_postcode");
                             }
 
-                            if(jobject_order.getString("payment_state").equalsIgnoreCase("")||jobject_order.getString("payment_state").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_state").equalsIgnoreCase("") || jobject_order.getString("payment_state").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +", "+ jobject_order.getString("payment_state");
+                            } else {
+                                final_payment_address = final_payment_address + ", " + jobject_order.getString("payment_state");
                             }
 
-                            if(jobject_order.getString("payment_country").equalsIgnoreCase("")||jobject_order.getString("payment_country").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("payment_country").equalsIgnoreCase("") || jobject_order.getString("payment_country").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_payment_address = final_payment_address +", "+ jobject_order.getString("payment_country");
+                            } else {
+                                final_payment_address = final_payment_address + ", " + jobject_order.getString("payment_country");
                             }
 
 
-
-
-                            String payment_address  = final_payment_address;
-                            String payment_method  = jobject_order.getString("payment_method");
-                            String payment_code  = jobject_order.getString("payment_code");
-                            String shipping_name  = jobject_order.getString("shipping_firstname")+" "+jobject_order.getString("shipping_lastname");
+                            String payment_address = final_payment_address;
+                            String payment_method = jobject_order.getString("payment_method");
+                            String payment_code = jobject_order.getString("payment_code");
+                            String shipping_name = jobject_order.getString("shipping_firstname") + " " + jobject_order.getString("shipping_lastname");
 
                             String final_shipping_address = "";
-                            if(jobject_order.getString("shipping_address_1").equalsIgnoreCase("")||jobject_order.getString("shipping_address_1").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_address_1").equalsIgnoreCase("") || jobject_order.getString("shipping_address_1").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
+                            } else {
                                 final_shipping_address = jobject_order.getString("shipping_address_1");
                             }
 
-                            if(jobject_order.getString("shipping_address_2").equalsIgnoreCase("")||jobject_order.getString("shipping_address_2").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_address_2").equalsIgnoreCase("") || jobject_order.getString("shipping_address_2").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +", "+ jobject_order.getString("shipping_address_2");
+                            } else {
+                                final_shipping_address = final_shipping_address + ", " + jobject_order.getString("shipping_address_2");
                             }
 
-                            if(jobject_order.getString("shipping_address_3").equalsIgnoreCase("")||jobject_order.getString("shipping_address_3").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_address_3").equalsIgnoreCase("") || jobject_order.getString("shipping_address_3").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +", "+ jobject_order.getString("shipping_address_3");
+                            } else {
+                                final_shipping_address = final_shipping_address + ", " + jobject_order.getString("shipping_address_3");
                             }
 
-                            if(jobject_order.getString("shipping_city").equalsIgnoreCase("")||jobject_order.getString("shipping_city").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_city").equalsIgnoreCase("") || jobject_order.getString("shipping_city").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +",\n"+ jobject_order.getString("shipping_city");
+                            } else {
+                                final_shipping_address = final_shipping_address + ",\n" + jobject_order.getString("shipping_city");
                             }
 
-                            if(jobject_order.getString("shipping_postcode").equalsIgnoreCase("")||jobject_order.getString("shipping_postcode").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_postcode").equalsIgnoreCase("") || jobject_order.getString("shipping_postcode").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +", "+ jobject_order.getString("shipping_postcode");
+                            } else {
+                                final_shipping_address = final_shipping_address + ", " + jobject_order.getString("shipping_postcode");
                             }
 
-                            if(jobject_order.getString("shipping_state").equalsIgnoreCase("")||jobject_order.getString("shipping_state").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_state").equalsIgnoreCase("") || jobject_order.getString("shipping_state").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +", "+ jobject_order.getString("shipping_state");
+                            } else {
+                                final_shipping_address = final_shipping_address + ", " + jobject_order.getString("shipping_state");
                             }
 
-                            if(jobject_order.getString("shipping_country").equalsIgnoreCase("")||jobject_order.getString("shipping_country").equalsIgnoreCase("null"))
-                            {
+                            if (jobject_order.getString("shipping_country").equalsIgnoreCase("") || jobject_order.getString("shipping_country").equalsIgnoreCase("null")) {
 
-                            }
-                            else
-                            {
-                                final_shipping_address = final_shipping_address +", "+ jobject_order.getString("shipping_country");
+                            } else {
+                                final_shipping_address = final_shipping_address + ", " + jobject_order.getString("shipping_country");
                             }
 
 
-
-
-                            String shipping_address  = final_shipping_address;
-                            String shipping_cost  = jobject_order.getString("shipping_cost");
-                            String comment  = jobject_order.getString("comment");
-                            String attachment  = jobject_order.getString("attachment_1");
+                            String shipping_address = final_shipping_address;
+                            String shipping_cost = jobject_order.getString("shipping_cost");
+                            String comment = jobject_order.getString("comment");
+                            String attachment = jobject_order.getString("attachment_1");
 
                             /*appPrefs = new AppPrefs(D_OrderHistory.this);
                             appPrefs.setComment(jobject_order.getString("comment"));
                             appPrefs.setAttachment(jobject_order.getString("attachment_1"));*/
-                            String total  = jobject_order.getString("total");
-                            String order_status_is  = jobject_order.getString("order_status_id");
-                            String order_pdf  = jobject_order.getString("order_pdf");
+                            String total = jobject_order.getString("total");
+                            String order_status_is = jobject_order.getString("order_status_id");
+                            String order_pdf = jobject_order.getString("order_pdf");
                             String order_date = jobject_order.getString("created");
                             JSONArray jarray_OrderProduct = jobject_main.getJSONArray("OrderProduct");
-                            String discount=jobject_order.getString("discount_amount");
-                            String coupon_id="",coupon_name="",coupon_amount="";
-                            if(Integer.parseInt(discount)>0){
-                                JSONObject couponHistory=jobject_main.getJSONObject("CouponHistory");
-                                coupon_amount=couponHistory.getString("amount");
-                                coupon_name=couponHistory.getJSONObject("Coupon").getString("name");
+                            String discount = jobject_order.getString("discount_amount");
+                            String coupon_id = "", coupon_name = "", coupon_amount = "";
+                            if (Integer.parseInt(discount) > 0) {
+                                JSONObject couponHistory = jobject_main.getJSONObject("CouponHistory");
+                                coupon_amount = couponHistory.getString("amount");
+                                coupon_name = couponHistory.getJSONObject("Coupon").getString("name");
                             }
 
-                            List<Bean_Order_history> productList=new ArrayList<>();
+                            List<Bean_Order_history> productList = new ArrayList<>();
 
-                            for(int j = 0 ; j <jarray_OrderProduct.length() ; j ++)
-                            {
+                            for (int j = 0; j < jarray_OrderProduct.length(); j++) {
                                 JSONObject jobject_OrderProduct = jarray_OrderProduct.getJSONObject(j);
                                 Bean_Order_history bean = new Bean_Order_history();
-                                bean.setOdd(i%2!=0);
+                                bean.setOdd(i % 2 != 0);
 
-                                Bean_Order_history productItem=new Bean_Order_history();
+                                Bean_Order_history productItem = new Bean_Order_history();
                                 productItem.setOrder_id(jobject_OrderProduct.getString("order_id"));
                                 productItem.setProduct_id(jobject_OrderProduct.getString("product_id"));
                                 productItem.setCategoryID(jobject_OrderProduct.getString("category_id"));
                                 productItem.setProduct_qty(jobject_OrderProduct.getString("quantity"));
                                 productItem.setPro_Option_id(jobject_OrderProduct.getString("option_id"));
-                                productItem.setProduct_option_name(jobject_OrderProduct.getString("option_name").replace("Select","").trim());
+                                productItem.setProduct_option_name(jobject_OrderProduct.getString("option_name").replace("Select", "").trim());
                                 productItem.setPro_Option_value_id(jobject_OrderProduct.getString("option_value_id"));
                                 productItem.setProduct_value_name(jobject_OrderProduct.getString("option_value_name"));
                                 productItem.setScheme_type(jobject_OrderProduct.getString("scheme_type"));
@@ -1224,8 +1152,8 @@ public class D_OrderHistory extends AppCompatActivity {
                                 bean.setId(jobject_OrderProduct.getString("id"));
                                 bean.setProduct_id(jobject_OrderProduct.getString("product_id"));
                                 bean.setProduct_name(jobject_OrderProduct.getString("name"));
-                                String product_code = jobject_OrderProduct.getString("pro_code").replace("(","");
-                                product_code = product_code.replace(")","");
+                                String product_code = jobject_OrderProduct.getString("pro_code").replace("(", "");
+                                product_code = product_code.replace(")", "");
                                 bean.setProduct_code(product_code);
                                 bean.setProduct_qty(jobject_OrderProduct.getString("quantity"));
                                 bean.setProduct_selling_price(jobject_OrderProduct.getString("selling_price"));
@@ -1264,12 +1192,11 @@ public class D_OrderHistory extends AppCompatActivity {
                                 bean.setOrder_date(order_date);
                                 bean.setScheme_type(jobject_OrderProduct.getString("scheme_type"));
                                 //Log.e("schme",""+jobject_OrderProduct.getString("scheme_type"));
-                                if(Integer.parseInt(discount)>0){
+                                if (Integer.parseInt(discount) > 0) {
                                     bean.setHasCouponApplied(true);
                                     bean.setCoupon_name(coupon_name);
                                     bean.setDiscount_amount(coupon_amount);
-                                }
-                                else {
+                                } else {
                                     bean.setHasCouponApplied(false);
                                 }
 
@@ -1286,14 +1213,13 @@ public class D_OrderHistory extends AppCompatActivity {
                                         isFound = true;
                                 }
 
-                                if (!isFound){
+                                if (!isFound) {
                                     event.setProductList(productList);
                                     array_remove_duplicate.add(event);
                                 }
                             }
 
                             //Toast.makeText(Order_history.this, ""+array_remove_duplicate.size(), Toast.LENGTH_SHORT).show();
-
 
 
                         }
@@ -1305,7 +1231,8 @@ public class D_OrderHistory extends AppCompatActivity {
                         loadingView.dismiss();
 
                     }
-                }}catch(JSONException j){
+                }
+            } catch (JSONException j) {
                 j.printStackTrace();
                 Log.e("Exception", j.getMessage());
             }
@@ -1313,8 +1240,7 @@ public class D_OrderHistory extends AppCompatActivity {
         }
     }
 
-    public class set_order_tracking extends AsyncTask<Void,Void,String>
-    {
+    public class set_order_tracking extends AsyncTask<Void, Void, String> {
         public StringBuilder sb;
         boolean status;
         private String result;
@@ -1347,7 +1273,7 @@ public class D_OrderHistory extends AppCompatActivity {
                 //Log.e("4", "" + parameters);
 
                 //json = new ServiceHandler().makeServiceCall(Globals.server_link+"ProductEnquiry/App_AddProductEnquiry",ServiceHandler.POST,parameters);
-                json = new ServiceHandler().makeServiceCall(Globals.server_link+"Order/App_Get_Order_Tracking",ServiceHandler.POST,parameters);
+                json = new ServiceHandler().makeServiceCall(Globals.server_link + "Order/App_Get_Order_Tracking", ServiceHandler.POST, parameters);
                 //String json = new ServiceHandler.makeServiceCall(GlobalVariable.link+"App_Registration",ServiceHandler.POST,params);
                 ////System.out.println("array: " + json);
                 return json;
@@ -1398,8 +1324,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
                         //JSONArray jsonobjcet_order_status = jObj.getJSONArray("order_status");
 
-                        for(int j = 0 ; j <jarray_data.length() ; j++)
-                        {
+                        for (int j = 0; j < jarray_data.length(); j++) {
                             JSONObject jobject_main = jarray_data.getJSONObject(j);
 
                             Bean_invoice bean = new Bean_invoice();
@@ -1420,7 +1345,8 @@ public class D_OrderHistory extends AppCompatActivity {
                         loadingView.dismiss();
 
                     }
-                }}catch(JSONException j){
+                }
+            } catch (JSONException j) {
                 j.printStackTrace();
             }
 
@@ -1457,11 +1383,11 @@ public class D_OrderHistory extends AppCompatActivity {
             TextView txt_no = (TextView) convertView.findViewById(R.id.txt_no);
             TextView txt_date = (TextView) convertView.findViewById(R.id.txt_date);
             TextView txt_total = (TextView) convertView.findViewById(R.id.txt_total);
-            ImageView img_pdf=(ImageView)convertView.findViewById(R.id.im_pdf);
+            ImageView img_pdf = (ImageView) convertView.findViewById(R.id.im_pdf);
 
             txt_no.setText(bean_invoice.get(position).getIno().toString());
             txt_date.setText(bean_invoice.get(position).getIdate().toString());
-            txt_total.setText(getResources().getString(R.string.Rs)+""+bean_invoice.get(position).getItotal().toString());
+            txt_total.setText(getResources().getString(R.string.Rs) + "" + bean_invoice.get(position).getItotal().toString());
             img_pdf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1480,12 +1406,11 @@ public class D_OrderHistory extends AppCompatActivity {
         /**
          * Before starting background thread
          * Show Progress Bar Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             //activity.showDialog(0);
-
 
 
             pDialog = new ProgressDialog(D_OrderHistory.this);
@@ -1501,7 +1426,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
         /**
          * Downloading file in background thread
-         * */
+         */
         @Override
         protected String doInBackground(String... i) {
 
@@ -1509,22 +1434,19 @@ public class D_OrderHistory extends AppCompatActivity {
 
 
                 //pDialog.setMessage("Please Wait Downloading Image");
-                File temp_dir = new File (myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno()+".pdf");
-                if(temp_dir.exists())
-                {
-                    filesToSend = myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno()+".pdf";
+                File temp_dir = new File(myDir + "" + bean_invoice.get(current_position1).getIdate() + "_" + bean_invoice.get(current_position1).getIno() + ".pdf");
+                if (temp_dir.exists()) {
+                    filesToSend = myDir + "" + bean_invoice.get(current_position1).getIdate() + "_" + bean_invoice.get(current_position1).getIno() + ".pdf";
 
 
-                }
-                else
-                {
-                    File dir = new File (myDir + "");
-                    if(dir.exists()==false) {
+                } else {
+                    File dir = new File(myDir + "");
+                    if (dir.exists() == false) {
                         dir.mkdirs();
                     }
 
 
-                    URL url = new URL(Globals.server_link+bean_invoice.get(current_position1).getIpdf());
+                    URL url = new URL(Globals.server_link + bean_invoice.get(current_position1).getIpdf());
 
                     URLConnection connection = url.openConnection();
                     connection.connect();
@@ -1534,9 +1456,9 @@ public class D_OrderHistory extends AppCompatActivity {
 
                     // download the file
                     InputStream input = new BufferedInputStream(url.openStream());
-                    OutputStream output = new FileOutputStream(new File(myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno())+".pdf");
+                    OutputStream output = new FileOutputStream(new File(myDir + "" + bean_invoice.get(current_position1).getIdate() + "_" + bean_invoice.get(current_position1).getIno()) + ".pdf");
 
-                    filesToSend = myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno()+".pdf";
+                    filesToSend = myDir + "" + bean_invoice.get(current_position1).getIdate() + "_" + bean_invoice.get(current_position1).getIno() + ".pdf";
                     //Log.e("", "out put :- "+myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno()+".pdf");
                     byte data[] = new byte[1024];
                     long total = 0;
@@ -1548,8 +1470,8 @@ public class D_OrderHistory extends AppCompatActivity {
                     while ((count = input.read(data)) != -1) {
                         total += count;
                         //  publishProgress((int) ((total * 100)/fileLength));
-                        long total1 = (total * 100)/fileLength;
-                        publishProgress(total1+"");
+                        long total1 = (total * 100) / fileLength;
+                        publishProgress(total1 + "");
                         output.write(data, 0, count);
                     }
 
@@ -1558,8 +1480,7 @@ public class D_OrderHistory extends AppCompatActivity {
                     input.close();
                 }
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 //Log.e("Error: ", ""+e);
             }
 
@@ -1568,7 +1489,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
         /**
          * Updating progress bar
-         * */
+         */
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
             pDialog.setProgress(Integer.parseInt(progress[0]));
@@ -1577,42 +1498,40 @@ public class D_OrderHistory extends AppCompatActivity {
         /**
          * After completing background task
          * Dismiss the progress dialog
-         * **/
+         **/
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             //activity.dismissDialog(0);
             pDialog.dismiss();
 
-            File file = new File(myDir+""+bean_invoice.get(current_position1).getIdate()+"_"+bean_invoice.get(current_position1).getIno()+".pdf");
+            File file = new File(myDir + "" + bean_invoice.get(current_position1).getIdate() + "_" + bean_invoice.get(current_position1).getIno() + ".pdf");
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(file), "application/pdf");
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
 
 
-
         }
 
     }
 
-    public class GetCartByQty extends AsyncTask<Void, Void, String>{
+    public class GetCartByQty extends AsyncTask<Void, Void, String> {
 
-        List<NameValuePair> params=new ArrayList<>();
+        List<NameValuePair> params = new ArrayList<>();
 
-        public GetCartByQty(List<NameValuePair> params){
-            hasCartCallFinish=true;
-            this.params=params;
+        public GetCartByQty(List<NameValuePair> params) {
+            hasCartCallFinish = true;
+            this.params = params;
         }
 
         @Override
         protected String doInBackground(Void... param) {
 
 
+            Globals.generateNoteOnSD(getApplicationContext(), "CartData/App_GetCartQty" + "\n" + params.toString());
 
-            Globals.generateNoteOnSD(getApplicationContext(),"CartData/App_GetCartQty"+"\n"+params.toString());
-
-            String json=new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty",ServiceHandler.POST,params);
+            String json = new ServiceHandler().makeServiceCall(Globals.server_link + "CartData/App_GetCartQty", ServiceHandler.POST, params);
 
             return json;
         }
@@ -1621,14 +1540,14 @@ public class D_OrderHistory extends AppCompatActivity {
         protected void onPostExecute(String json) {
             super.onPostExecute(json);
 
-            cartJSON=json;
-            Globals.generateNoteOnSD(getApplicationContext(),cartJSON);
+            cartJSON = json;
+            Globals.generateNoteOnSD(getApplicationContext(), cartJSON);
             try {
 
 
                 //System.out.println(json);
 
-                if (json==null
+                if (json == null
                         || (json.equalsIgnoreCase(""))) {
 
                     Globals.CustomToast(D_OrderHistory.this, "SERVER ERRER", getLayoutInflater());
@@ -1652,7 +1571,7 @@ public class D_OrderHistory extends AppCompatActivity {
 
                         int qu = jObj.getInt("data");
                         appPrefs = new AppPrefs(D_OrderHistory.this);
-                        appPrefs.setCart_QTy(""+qu);
+                        appPrefs.setCart_QTy("" + qu);
 
 
                     }
@@ -1660,20 +1579,20 @@ public class D_OrderHistory extends AppCompatActivity {
                 }
 
 
-            }catch(Exception j){
+            } catch (Exception j) {
                 j.printStackTrace();
                 //Log.e("json exce",j.getMessage());
             }
 
             String qu1 = appPrefs.getCart_QTy();
-            if(qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")){
+            if (qu1.equalsIgnoreCase("0") || qu1.equalsIgnoreCase("")) {
                 txt.setVisibility(View.GONE);
                 txt.setText("");
-            }else{
-                if(Integer.parseInt(qu1) > 999){
+            } else {
+                if (Integer.parseInt(qu1) > 999) {
                     txt.setText("999+");
                     txt.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     txt.setText(qu1 + "");
                     txt.setVisibility(View.VISIBLE);
                 }

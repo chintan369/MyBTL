@@ -40,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ComboOfferActivity extends AppCompatActivity implements Callback<ComboOfferDetail>, ProductChangeListener {
-
+    TextView txt_quantity_count;
     ListView list_comboOffer;
     TextView txt_totalQty, txt_requiredQty;
     Button btn_addToCart;
@@ -159,22 +159,12 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
 
 
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ComboOfferActivity.this);
-        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View dialogView = inflater.inflate(R.layout.custom_promocode_dialog, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setTitle("Apply Coupon");
-
-        //edt_couponcode = (EditText) dialogView.findViewById(R.id.edt_couponcode);
-        final Button btn_cancel = (Button) dialogView.findViewById(R.id.btn_cancel);
-        Button btn_apply = (Button) dialogView.findViewById(R.id.btn_apply);
-
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
 
 
 
-        Globals.Toast2(getApplicationContext(), "Minimum Quantity:6");
+
+
+      //  Globals.Toast2(getApplicationContext(), "Minimum Quantity:6");
 
 
 
@@ -361,6 +351,26 @@ public class ComboOfferActivity extends AppCompatActivity implements Callback<Co
             extraDiscount = offerDetail.getComboData().getOfferItem().getDiscount_percentage();
             comboProductList.addAll(offerDetail.getComboData().getComboProductList());
             txt_requiredQty.setText(offerDetail.getComboData().getOfferItem().getMinQty());
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ComboOfferActivity.this);
+            LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View dialogView = inflater.inflate(R.layout.custom_quantity_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+
+            txt_quantity_count = (TextView) dialogView.findViewById(R.id.qty_count);
+            txt_quantity_count.setText(offerDetail.getComboData().getOfferItem().getMinQty());
+
+            Button btn_ok = (Button) dialogView.findViewById(R.id.btn_ok);
+            final AlertDialog b = dialogBuilder.create();
+            b.show();
+
+            btn_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    b.cancel();
+                }
+            });
 
         } else {
             Globals.Toast2(this, offerDetail.getMessage());

@@ -58,7 +58,7 @@ public class ComboOfferListAdapter extends BaseAdapter {
         if(convertView==null){
 
             holder=new ViewHolder();
-            convertView=inflater.inflate(R.layout.layout_combo_offer_list,null);
+            convertView=inflater.inflate(R.layout.layout_combooffer_list,parent,false);
 
             holder.img_offerThumb=(ImageView) convertView.findViewById(R.id.img_offerThumb);
             holder.txt_offerTitle=(TextView) convertView.findViewById(R.id.txt_offerTitle);

@@ -302,6 +302,8 @@ public class RegisteredUserSkipOrderActivity extends AppCompatActivity {
                 } else if (!isInEditMode && isFirstTime) {
                     int pos = 0;
                     for (int i = 0; i < countryList.size(); i++) {
+                        Log.e("countryid","-->"+countryList.get(i).getId());
+                        Log.e("subuserid","--->"+subUserData.getAddress().get(0).getCountry_id());
                         if (countryList.get(i).getId().equals(subUserData.getAddress().get(0).getCountry_id())) {
                             pos = i;
                             break;

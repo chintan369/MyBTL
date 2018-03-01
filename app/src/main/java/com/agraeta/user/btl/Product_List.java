@@ -77,6 +77,7 @@ public class Product_List extends AppCompatActivity {
     public static ArrayList<String> arrOptionTypeID = new ArrayList<String>();
     public static ArrayList<String> arrOptionTypeName = new ArrayList<String>();
     public static ArrayList<String> WishList = new ArrayList<String>();
+    String product_code="";
     int flag = 0;
     EditText search_edit;
     ImageView search, grid, list;
@@ -998,7 +999,7 @@ public class Product_List extends AppCompatActivity {
                     beans.setSchme_qty(bean_Schme_data.get(i).getSchme_qty());
                     beans.setSchme_buy_prod_id(bean_Schme_data.get(i).getSchme_buy_prod_id());
                     beans.setSchme_prod_id(bean_Schme_data.get(i).getSchme_prod_id());
-
+                    Log.e("data","--->"+bean_Schme_data.get(i).getSchme_prod_id()+bean_Schme_data.get(i).getSchme_buy_prod_id());
                     bean_S_data.add(beans);
                 }
             }
@@ -1213,7 +1214,9 @@ public class Product_List extends AppCompatActivity {
                                 //Log.e("44444444",""+jproduct.getString("id"));
 
                                 bean.setPro_cat_id(jproduct.getString("category_id"));
+                                Log.e("procode1","--->"+jproduct.getString("product_code"));
                                 bean.setPro_code(jproduct.getString("product_code"));
+                                product_code=jproduct.getString("product_code");
                                 bean.setPro_name(jproduct.getString("product_name"));
                                 // bean.setPro_label(jproduct.getString("label_id"));
                                 bean.setPro_qty(jproduct.getString("qty"));
@@ -1230,6 +1233,7 @@ public class Product_List extends AppCompatActivity {
 
                                 bean.setPro_label(jlabel.getString("name"));
                                 bean_product_schme.add(bean);
+
 
 
                                 JSONArray jProductOption = jproduct.getJSONArray("ProductOption");
@@ -1333,8 +1337,9 @@ public class Product_List extends AppCompatActivity {
                                     jobject.put("product_id", bean_product1.get(position).getPro_id());
                                     jobject.put("category_id", Catid);
                                     jobject.put("name", bean_product1.get(position).getPro_name());
-
-                                    jobject.put("pro_code", bean_product1.get(position).getPro_code());
+                                    Log.e("procode","-->"+bean_product1.get(position).getPro_code());
+                                  // jobject.put("pro_code", bean_product1.get(position).getPro_code());
+                                  jobject.put("pro_code",product_code);
                                     jobject.put("quantity", String.valueOf(fqu));
                                     jobject.put("mrp", bean_product1.get(position).getPro_mrp());
                                     jobject.put("selling_price", sell);

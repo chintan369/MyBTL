@@ -43,6 +43,7 @@ import com.agraeta.user.btl.model.AdminAPI;
 import com.agraeta.user.btl.model.GetCartItemQuantityResponse;
 import com.agraeta.user.btl.model.GetSchemeDetailResponse;
 import com.agraeta.user.btl.model.ServiceGenerator;
+import com.estimote.sdk.internal.utils.L;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -1006,6 +1007,7 @@ public class Search extends AppCompatActivity {
                     if (page_id < Integer.parseInt(page_limit)) {
                         page_id++;
                       //  List_search.addFooterView(footerLoading);
+                        Log.e("pageid","---->"+page_id);
                         new get_Product(false).execute();
                     }
                 }
@@ -4305,6 +4307,8 @@ public class Search extends AppCompatActivity {
             loadingView.dismiss();
 
             if (isFirstTime) {
+
+                Log.e("firstTime" , "--->" + isFirstTime);
                 bean_product1.clear();
                 bean_productTechSpecs.clear();
                 bean_productOprtions.clear();
@@ -4319,13 +4323,14 @@ public class Search extends AppCompatActivity {
             try {
 
                 //System.out.println(result_1);
-
+                Log.e("tryMode" , "--->");
                 if (result_1.equalsIgnoreCase("")
                         || (result_1.equalsIgnoreCase(""))) {
                     /*Toast.makeText(Business_Registration.this, "SERVER ERRER",
                             Toast.LENGTH_SHORT).show();*/
                     Globals.CustomToast(Search.this, "SERVER ERROR", getLayoutInflater());
 
+                    Log.e("tryMode1" , "--->");
 
                     /*if (!isFirstTime) {
                         List_search.removeFooterView(footerLoading);
@@ -4335,15 +4340,17 @@ public class Search extends AppCompatActivity {
 
 
                 } else {
-                    JSONObject jObj = new JSONObject(result_1);
 
+
+                    JSONObject jObj = new JSONObject(result_1);
+                    Log.e("tryMode2" , "--->" + result_1);
                     String date = jObj.getString("status");
 
-                    if (date.equalsIgnoreCase("false")) {
+                     if (date.equalsIgnoreCase("false")) {
                         String Message = jObj.getString("message");
 
                         Globals.CustomToast(Search.this, "" + Message, getLayoutInflater());
-
+                         Log.e("statusFalse" , "--->");
                         /*if (!isFirstTime) {
                             List_search.removeFooterView(footerLoading);
                         } else {
@@ -4351,7 +4358,7 @@ public class Search extends AppCompatActivity {
                         }*/
                     } else {
 
-
+                         Log.e("statusTrue" , "--->");
                         page_limit = jObj.getString("total_page_count");
                         //Log.e("page_limit",""+page_limit);
                         JSONArray jsonwish = jObj.optJSONArray("wish_list");
@@ -4391,7 +4398,8 @@ public class Search extends AppCompatActivity {
                                 Bean_Product bean = new Bean_Product();
 
 
-                                bean.setPro_id(jproduct.getString("id"));
+                                bean.setPro_id(
+                                        jproduct.getString("id"));
 
 
                                 bean.setPro_cat_id(jproduct.getString("category_id"));
@@ -5262,13 +5270,13 @@ public class Search extends AppCompatActivity {
 
                         }
 
-                        progressDialog.show();
+                       // progressDialog.show();
                         Call<GetCartItemQuantityResponse> itemQuantityResponseCall = adminAPI.getCartItemQuantity(bean_product1.get(position).getPro_id(), owner_id, user_id_main);
 
                         itemQuantityResponseCall.enqueue(new Callback<GetCartItemQuantityResponse>() {
                             @Override
                             public void onResponse(Call<GetCartItemQuantityResponse> call, Response<GetCartItemQuantityResponse> response) {
-                                progressDialog.dismiss();
+                               // progressDialog.dismiss();
 
                                 GetCartItemQuantityResponse itemQuantityResponse = response.body();
 
@@ -5287,7 +5295,7 @@ public class Search extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<GetCartItemQuantityResponse> call, Throwable t) {
-                                progressDialog.dismiss();
+                              //  progressDialog.dismiss();
                                 Globals.showError(t, getApplicationContext());
                                 showAddToCartProductDialog(position, 0, "1", selectedProductID);
                             }
