@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,8 @@ public class NotificationAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.custom_notification_item, null);
 
         LinearLayout layout_main = (LinearLayout) view.findViewById(R.id.layout_main);
+        LinearLayout notification_click= (LinearLayout) view.findViewById(R.id.notification_click);
+
 
         InboxResponse.InboxData notification=notificationList.get(position);
 
@@ -89,10 +92,12 @@ public class NotificationAdapter extends BaseAdapter {
         }
         message.setText(notification.getInbox().getMsg());
 
-        view.setOnClickListener(new View.OnClickListener() {
+        notification_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("hello","hello");
                 showFullNotificationDialog(position);
+
             }
         });
 
